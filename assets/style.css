@@ -19,7 +19,7 @@ a{color:inherit}.mono{font-family:'IBM Plex Mono',monospace;font-size:12px;lette
 .opening .en{font-family:'Instrument Serif',serif;font-style:italic;font-size:28px}
 .opening img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply}
 dl.meta{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;margin:0}dl.meta dt{opacity:.6}dl.meta dd{margin:0}
-article.body{max-width:34em;margin:0 auto;padding:72px 24px 120px}
+article.body{max-width:min(46em,88vw);margin:0 auto;padding:72px 32px 120px}
 article.body h2{font-size:28px;font-weight:900;margin:2.4em 0 .6em;border-top:1px solid var(--ink);padding-top:.6em}
 article.body blockquote{margin:1.6em 0;padding-left:1em;border-left:3px solid var(--ox);font-family:'Instrument Serif',serif;font-size:21px;line-height:1.5}
 .note{margin:2.4em -6vw 2.4em 0;padding:22px 26px;background:var(--ink);color:var(--paper);position:relative}

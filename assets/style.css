@@ -85,3 +85,9 @@ body.article .opening{background:var(--tint,var(--paper))}
 .card .by{display:block;font-size:11px;padding-top:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cat{padding:40px 6vw 16px}.cat-head{margin-bottom:22px}
 .card .by{margin-top:auto}
+/* card hit-area fix: box ends at visible bottom */
+.grid{align-items:start;grid-auto-rows:auto}
+.card{align-self:start;height:auto;min-height:0;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}
+.card:focus{outline:none}
+.card:focus-visible{outline:2px solid var(--ox);outline-offset:-2px;background:#DADADA}
+.cat{position:relative;isolation:isolate}

@@ -1,8 +1,19 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>读本 · 设计与 AI</title><link rel="stylesheet" href="assets/style.css"></head><body>
-<header class="mast"><h1>读本<i>.</i><br>设计 &amp; AI</h1><div class="mono">Zhu 的私人阅读室<br>每日一篇 · 中文导读</div></header>
-<main class="index" id="list"></main>
+<header class="mast"><h1>读本<i>.</i><br>设计 &amp; AI</h1><div class="mono">Zhu 的私人阅读室<br>每日一篇 · 深度精讲</div></header>
+<nav class="tabs" id="tabs"></nav>
+<main id="cats"></main>
 <footer class="mono">编者点评为个人观点 · 原文版权归原作者</footer>
 <script>
-fetch('articles.json').then(r=>r.json()).then(a=>{a.sort((x,y)=>y.added.localeCompare(x.added)||y.date.localeCompare(x.date));
-document.getElementById('list').innerHTML=a.map((e,i)=>`<a class="entry" href="articles/${e.slug}.html"><div class="num">${String(a.length-i).padStart(2,'0')}</div><div><div class="mono">${e.added} 收录 · ${e.tags.join(' / ')}</div><h2>${e.title_zh}</h2><div class="en">${e.title_en}</div><p>${e.dek}</p><div class="mono">${e.author}</div></div><img src="${e.cover}" alt=""></a>`).join('')})
+const CATS=[['独特审美','Distinctive Aesthetics'],['AI 设计工作流','AI Design Workflow'],['提示词与 Skill','Prompting & Skills']];
+const R=['I','II','III'];
+fetch('articles.json').then(r=>r.json()).then(a=>{
+a.sort((x,y)=>y.added.localeCompare(x.added)||String(y.date).localeCompare(String(x.date)));
+const card=e=>`<a class="card" href="articles/${e.slug}.html"><div class="img"><img src="${e.cover}" alt="" loading="lazy"></div><div class="mono">${e.tags.join(' / ')}</div><h3>${e.title_zh}</h3><div class="en">${e.title_en}</div><p class="hook">${e.dek}</p><div class="by mono"><span>${e.author}${e.author_role?' · '+e.author_role:''}</span><span>${e.date}</span></div></a>`;
+document.getElementById('cats').innerHTML=CATS.map(([c,en],i)=>{const l=a.filter(e=>e.category===c);
+return `<section class="cat" data-cat="${c}"><div class="cat-head"><span class="roman">${R[i]}</span><h2>${c}<i>${en}</i></h2><span class="mono">${l.length} 篇</span></div>${l.length?`<div class="grid">${l.map(card).join('')}</div>`:'<p class="soon">即将收录 · coming soon</p>'}</section>`}).join('');
+const t=document.getElementById('tabs');
+t.innerHTML=[['全部',a.length]].concat(CATS.map(([c])=>[c,a.filter(e=>e.category===c).length])).map(([c,n],i)=>`<button aria-pressed="${i==0}" data-c="${c}">${c}<sup>${n}</sup></button>`).join('');
+t.onclick=ev=>{const b=ev.target.closest('button');if(!b)return;t.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+document.querySelectorAll('.cat').forEach(s=>s.hidden=!(b.dataset.c==='全部'||s.dataset.cat===b.dataset.c))};
+});
 </script></body></html>

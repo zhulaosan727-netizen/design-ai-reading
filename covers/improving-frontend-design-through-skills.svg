@@ -1,1 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750"><rect width="1200" height="750" fill="#E6E6E6"/><g fill="none" stroke="#1B2B26" stroke-width="2" opacity=".35"><path d="M0 600 C300 600 400 380 600 380 S900 600 1200 600"/><path d="M0 640 C320 640 420 300 600 300 S880 640 1200 640"/><path d="M0 680 C340 680 440 220 600 220 S860 680 1200 680"/></g><circle cx="600" cy="220" r="14" fill="#7A1E2B"/><circle cx="930" cy="140" r="58" fill="none" stroke="#7A1E2B" stroke-width="3"/><circle cx="930" cy="140" r="6" fill="#7A1E2B"/><text x="60" y="110" font-family="Georgia,serif" font-size="30" fill="#1B2B26" letter-spacing="6">DISTRIBUTIONAL CONVERGENCE</text><text x="60" y="160" font-family="monospace" font-size="20" fill="#1B2B26" opacity=".7">the centre of the curve  ·  and the point outside it</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#B0452A">
+  <!-- 读本 cover system v1: paper / grid / mono label / line-art motif / one accent -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1">
+    <path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/>
+  </g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.01 · 独特审美</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">DISTRIBUTIONAL CONVERGENCE</text>
+  <!-- motif: many samples collapse to the centre; one line escapes -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75">
+    <path d="M60 620 C380 620 470 250 600 250 S820 620 1140 620"/>
+    <path d="M60 620 C390 620 480 230 600 230 S810 620 1140 620"/>
+    <path d="M60 620 C400 620 490 210 600 210 S800 620 1140 620"/>
+    <path d="M60 620 C410 620 500 190 600 190 S790 620 1140 620"/>
+    <path d="M60 620 C420 620 510 172 600 172 S780 620 1140 620"/>
+    <path d="M60 620 C430 620 520 156 600 156 S770 620 1140 620"/>
+  </g>
+  <g fill="#1B2B26"><circle cx="600" cy="156" r="5"/><circle cx="585" cy="162" r="3"/><circle cx="615" cy="161" r="3"/><circle cx="596" cy="170" r="3"/></g>
+  <path d="M600 156 C700 150 820 140 930 190" fill="none" stroke="#B0452A" stroke-width="3"/>
+  <circle cx="930" cy="190" r="16" fill="#B0452A"/>
+  <circle cx="930" cy="190" r="34" fill="none" stroke="#B0452A" stroke-width="1.5"/>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">Improving frontend design through Skills</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">ANTHROPIC</text>
+</svg>

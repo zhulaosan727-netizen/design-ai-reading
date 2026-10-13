@@ -1,20 +1,8 @@
 #!/usr/bin/env python3
-"""Build helper: fetch og:image covers, compute tint, patch article pages, render card PNGs.
+"""Build helper: read covers/<slug>.svg accent, compute tint, patch article pages, render card PNGs.
 Usage: python3 scripts/build.py [slug ...]   (no args = all articles)"""
-import json, re, sys, math, subprocess, urllib.request, pathlib, colorsys
-from urllib.parse import urlparse
-from PIL import Image
+import json, re, sys, math, subprocess, pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-UA = {"User-Agent": "Mozilla/5.0"}
-
-def get(url):
-    return urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=30).read()
-
-def og_image(page):
-    html = get(page).decode("utf-8", "ignore")
-    for p in ("og:image", "twitter:image"):
-        m = re.search(r'<meta[^>]+(?:property|name)="%s"[^>]+content="([^"]+)"' % p, html)
-        if m: return m.group(1)
 
 # --- OKLCH helpers ---
 def srgb_to_lin(c): c/=255; return c/12.92 if c<=0.04045 else ((c+0.055)/1.055)**2.4
@@ -37,21 +25,6 @@ def oklch_to_hex(L,C,H):
     g=-1.2684380046*l+2.6097574011*m-0.3413193965*s
     b=-0.0041960863*l-0.7034186147*m+1.7076147010*s
     return "#%02X%02X%02X"%tuple(lin_to_srgb(x) for x in (r,g,b))
-
-def dominant(path):
-    im=Image.open(path).convert("RGB"); im.thumbnail((200,200))
-    q=im.quantize(colors=8, method=Image.Quantize.MEDIANCUT); pal=q.getpalette()
-    best=None
-    for count,idx in sorted(q.getcolors(), reverse=True):
-        r,g,b=pal[idx*3:idx*3+3]; L,C,H=rgb_to_oklch(r,g,b)
-        score=count*(0.3+min(C,0.2)*5)   # prefer frequent AND chromatic
-        if best is None or score>best[0]: best=(score,(r,g,b),C,H)
-    return best[1],best[2],best[3]
-
-def tint_for(path):
-    rgb,C,H=dominant(path)
-    c=min(0.015, C*0.15) if C>0.02 else 0.004
-    return "#%02X%02X%02X"%rgb, oklch_to_hex(0.93,c,H)
 
 def render_card(e):
     html=ROOT/"scripts"/"_card.html"
@@ -86,20 +59,16 @@ def main():
     want=set(sys.argv[1:])
     for e in data:
         if want and e["slug"] not in want: continue
-        if not e.get("cover_source_url"):
-            try: e["cover_source_url"]=og_image(e["source"])
-            except Exception as x: print("og:image fetch failed", e["slug"], x)
-        if e.get("cover_source_url"):
-            dst=ROOT/"covers"/f'{e["slug"]}.png'
-            if not dst.exists():
-                raw=get(e["cover_source_url"]); im=Image.open(__import__("io").BytesIO(raw)).convert("RGB")
-                im.thumbnail((1600,1600)); im.save(dst,optimize=True)
-            e["cover"]=f'covers/{e["slug"]}.png'
-            e.setdefault("cover_credit", urlparse(e["source"]).netloc.replace("www.",""))
-            e["dominant"],e["tint"]=tint_for(dst)
-        else:
-            e["cover"]=f'covers/{e["slug"]}.svg'   # self-made fallback
+        svg=ROOT/"covers"/f'{e["slug"]}.svg'
+        if not svg.exists(): sys.exit(f"missing {svg}: draw it per the cover system in README")
+        m=re.search(r'data-accent="(#[0-9A-Fa-f]{6})"', svg.read_text())
+        if not m: sys.exit(f"{svg} needs data-accent=\"#RRGGBB\" on the root <svg>")
+        acc=m.group(1).upper()
+        _,C,H=rgb_to_oklch(*(int(acc[k:k+2],16) for k in (1,3,5)))
+        e["cover"]=f'covers/{e["slug"]}.svg'; e["accent"]=acc
+        e["tint"]=oklch_to_hex(0.93, min(0.014, C*0.15) if C>0.02 else 0.004, H)
+        for k in ("cover_source_url","cover_credit","dominant"): e.pop(k,None)
         patch_article(e); render_card(e)
-        print(e["slug"], e.get("dominant"), e.get("tint"))
+        print(e["slug"], acc, e["tint"])
     (ROOT/"articles.json").write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n")
 main()

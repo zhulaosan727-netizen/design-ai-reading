@@ -9,7 +9,7 @@
     "date": "2025",
     "date_note": "原文页面未标注具体日期",
     "added": "2026-10-13",
-    "cover": "covers/improving-frontend-design-through-skills.png",
+    "cover": "covers/improving-frontend-design-through-skills.svg",
     "tags": [
       "审美",
       "Skills",
@@ -17,9 +17,7 @@
     ],
     "dek": "AI 界面为何都长一个样？Anthropic 把原因叫作「分布收敛」，并给出一份约 400 token 的审美 skill。",
     "category": "独特审美",
-    "cover_source_url": "https://claude.com/resources/articles/improving-frontend-design-through-skills/opengraph-image/og",
-    "cover_credit": "Anthropic（claude.com）",
-    "dominant": "#BCD1CA",
-    "tint": "#E5E9E7"
+    "tint": "#F1E5E2",
+    "accent": "#B0452A"
   }
 ]

@@ -1,0 +1,16 @@
+[
+  {
+    "slug": "improving-frontend-design-through-skills",
+    "title_zh": "用 Skills 改进前端设计",
+    "title_en": "Improving frontend design through Skills",
+    "author": "Anthropic Applied AI 团队",
+    "author_role": "Prithvi Rajasekaran、Justin Wei、Alexander Bricken 等",
+    "source": "https://claude.com/blog/improving-frontend-design-through-skills",
+    "date": "2025",
+    "date_note": "原文页面未标注具体日期",
+    "added": "2026-10-13",
+    "cover": "covers/improving-frontend-design-through-skills.svg",
+    "tags": ["审美", "Skills", "提示词"],
+    "dek": "AI 界面为何都长一个样？Anthropic 把原因叫作「分布收敛」，并给出一份约 400 token 的审美 skill。"
+  }
+]

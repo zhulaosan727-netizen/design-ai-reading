@@ -1,0 +1,8 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>读本 · 设计与 AI</title><link rel="stylesheet" href="assets/style.css"></head><body>
+<header class="mast"><h1>读本<i>.</i><br>设计 &amp; AI</h1><div class="mono">Zhu 的私人阅读室<br>每日一篇 · 中文导读</div></header>
+<main class="index" id="list"></main>
+<footer class="mono">编者点评为个人观点 · 原文版权归原作者</footer>
+<script>
+fetch('articles.json').then(r=>r.json()).then(a=>{a.sort((x,y)=>y.added.localeCompare(x.added)||y.date.localeCompare(x.date));
+document.getElementById('list').innerHTML=a.map((e,i)=>`<a class="entry" href="articles/${e.slug}.html"><div class="num">${String(a.length-i).padStart(2,'0')}</div><div><div class="mono">${e.added} 收录 · ${e.tags.join(' / ')}</div><h2>${e.title_zh}</h2><div class="en">${e.title_en}</div><p>${e.dek}</p><div class="mono">${e.author}</div></div><img src="${e.cover}" alt=""></a>`).join('')})
+</script></body></html>

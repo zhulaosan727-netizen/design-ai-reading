@@ -1,0 +1,40 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>用 Skills 改进前端设计 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body>
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 01 · 审美 / Skills / 提示词</div><h1>用 Skills 改进前端设计</h1><div class="en">Improving frontend design through Skills</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Anthropic Applied AI 团队</dd><dt>署名</dt><dd>Prithvi Rajasekaran, Justin Wei, Alexander Bricken 等</dd><dt>日期</dt><dd>2025（原页未标具体日期）</dd><dt>原文</dt><dd><a href="https://claude.com/blog/improving-frontend-design-through-skills">claude.com/blog ↗</a></dd></dl></div>
+<img src="../covers/improving-frontend-design-through-skills.svg" alt="分布曲线封面"></section>
+<article class="body">
+<p class="notice">本页是中文导读：按原文结构逐节转述要点，只引用少量原句。完整内容请读<a href="https://claude.com/blog/improving-frontend-design-through-skills">英文原文</a>。</p>
+
+<h2>一、问题：分布收敛</h2>
+<p>原文开头就点出一个现象：不给指导时，让大模型做落地页，结果几乎都是 Inter 字体、白底紫色渐变、极少动效。作者把原因叫作<b>分布收敛（distributional convergence）</b>：采样时模型按训练数据的统计规律预测，而网络上占多数的是“谁都不得罪”的安全设计，于是模型总在高概率的中心取样。对做面向用户产品的团队来说，这种通用审美削弱品牌识别，也让 AI 生成的界面一眼就能认出来、然后被忽略。</p>
+<div class="note"><p>“AI 味”不是模型没品味，而是它在取平均数。设计师要做的不是说“好看一点”（这句话本身就落在平均值上），而是给出能让它离开中心的具体坐标。</p></div>
+
+<h2>二、可引导性带来的新难题</h2>
+<p>好消息是 Claude 很听指挥：说一句“避开 Inter 和 Roboto”或“用有氛围感的背景代替纯色”，效果立刻改善。难点在于任务越专，需要的上下文越多。前端审美涉及字体、色彩、动画、背景多个维度，既要说避开什么，也要说偏好什么。全塞进系统提示词，又会让调试代码、写邮件等无关任务也背着这些上下文。</p>
+
+<h2>三、Skills：按需加载上下文</h2>
+<p>Skill 是一份（通常是 Markdown）说明文档，放在 Claude 能读取的目录里，模型在任务需要时自己加载，比如做落地页或 React 组件时才读入前端设计 skill。作者强调上下文窗口里 token 太多会让表现下降，因此保持精简很关键。</p>
+<blockquote>skills are prompts and contextual resources that activate on demand</blockquote>
+
+<h2>四、怎样写出更好的前端提示词</h2>
+<p>核心洞见是：像前端工程师那样思考审美，把审美改进映射成能实现的代码。作者挑出四个易于落地的维度：字体、动画、背景效果、主题。提示词要处在“合适的高度”：既不要低到写死具体色值，也不要高到含糊、默认双方有共识。</p>
+<p><b>字体。</b>原文给了一段字体提示：禁用 Inter、Roboto、Open Sans、Lato 和系统字体；按代码感、编辑感、技术感、个性化等类别举例可选字体；强调高对比搭配（展示字体配等宽、衬线配几何无衬线），用极端字重（100/200 对 800/900）和三倍以上的字号跳跃；选一个有个性的字体并坚决使用。作者发现，仅仅要求字体更有趣，模型在其他方面的设计也跟着变好。</p>
+<div class="note"><p>“三倍字号跳跃、极端字重”是可以直接写进你自己设计系统 token 的规则。对 UX 设计师来说，最有价值的不是那张字体清单（很快会成为新的俗套），而是“对比要大、选择要坚决”这条原则。</p></div>
+<p><b>主题。</b>Claude 熟悉很多常见主题和美学，可以直接借用。原文示范了一段 RPG 风格提示：奇幻配色、华丽边框、羊皮纸质感、戏剧光照、中世纪衬线标题，生成的界面明显带上这种风格。</p>
+<p><b>通用提示词。</b>逐项指定太繁琐，于是作者把各维度合成一段约 400 token 的提示，覆盖字体、色彩与主题（用 CSS 变量；主色加锐利点缀胜过平均分布的胆怯配色；可从 IDE 主题和文化美学取材）、动效（优先纯 CSS；集中在高光时刻，一次编排好的错峰加载胜过零散微交互）、背景（叠加渐变、几何图案，营造氛围和纵深），并列出要避开的通用 AI 审美。结尾还提醒：即使禁了某些字体，模型仍会滑向别的常见选择（例如 Space Grotesk），所以要不断跳出框框。</p>
+<blockquote>Dominant colors with sharp accents outperform timid, evenly-distributed palettes.</blockquote>
+<div class="note"><p>注意这个细节：禁掉 Inter，模型就集体换成 Space Grotesk。这说明“黑名单”只会把平均值挪个位置。真正的解药是品牌和语境：给它你的产品故事、目标用户、参考物，审美才有来源。Anthropic 后来更新的 skill 也承认 AI 设计又集中到“米白配衬线”“黑底荧光”“报纸排版”三种新套路。</p></div>
+
+<h2>五、效果对比</h2>
+<p>原文用同一提示词对比了有无 skill 的三组输出：SaaS 落地页（从 Inter + 紫色渐变变为有个性的字体、统一配色、多层背景）、博客布局（从系统字体白底变为编辑感字体和更讲究的间距）、管理后台（从层级平淡的标准组件变为粗字体、统一暗色主题和有目的的动效）。</p>
+
+<h2>六、在 claude.ai 里用 Skills 提升 Artifact</h2>
+<p>除了审美，还有架构限制：在 claude.ai 里，Claude 默认把前端做成单个 HTML 文件。团队据此做了 web-artifacts-builder skill，让 Claude 用 React、Tailwind、shadcn/ui 多文件开发，再用 Parcel 打包成单文件。示例中的白板应用和任务管理应用都因此功能更完整。脚本处理样板工作，也节省了 token。</p>
+<div class="note"><p>有点讽刺：解决“AI 味”的文章，推荐的工具栈恰恰是 shadcn/ui，而未改造的 shadcn 正是社区眼里最典型的 AI 痕迹之一。组件库负责可用性，审美要靠你在 token 层重新定义。</p></div>
+
+<h2>七、结论</h2>
+<p>作者归纳出一个更普遍的原则：模型的能力往往大于它默认表现出来的水平。Skill 可以按需定制，比如写入公司设计系统、组件模式或行业惯例，变成能在团队里沉淀和复用的组织知识。方法很一致：找出收敛的默认值，给出具体替代，用合适的高度组织指导，再封装成 skill 复用。</p>
+<div class="note"><p>给 Zhu 的行动建议：把你过去一年最满意的三个界面拆解成规则（字体对比、色彩比例、动效节奏、留白逻辑），写成你自己的 SKILL.md。用它生成一次，再拿 Anthropic 的 frontend-design skill 生成一次，对比两版，看哪些差异来自你的个人判断，那部分就是你的“签名”。</p></div>
+</article>
+<footer class="mono">原文 © Anthropic · 本页为中文导读与编者点评</footer>
+</body></html>

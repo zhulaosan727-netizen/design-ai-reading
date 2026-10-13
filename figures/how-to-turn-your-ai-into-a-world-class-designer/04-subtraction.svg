@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" width="1200" height="560" font-family="IBM Plex Mono,Noto Sans SC,monospace"><rect width="1200" height="560" fill="#E6E6E6"/>
+<text x="40" y="44" font-size="15" letter-spacing="3" fill="#1B2B26">图 4 · 减法：逐项问“它服务什么”</text>
+<g font-size="14" fill="#1B2B26">
+<text x="80" y="110">页面元素</text><text x="560" y="110">服务的用户目标</text><text x="960" y="110">决定</text></g>
+<path d="M80 124 H1120" stroke="#1B2B26" stroke-width="2"/>
+<text x="80" y="170" font-size="16" fill="#1B2B26">核心内容（图片 / 数据）</text>
+<text x="560" y="170" font-size="14" fill="#1B2B26" fill-opacity=".75">理解当前状态</text>
+<text x="960" y="170" font-size="14" fill="#1B2B26">保留</text>
+<path d="M80 188 H1120" stroke="#1B2B26" stroke-opacity=".15"/>
+<text x="80" y="220" font-size="16" fill="#1B2B26">主操作按钮</text>
+<text x="560" y="220" font-size="14" fill="#1B2B26" fill-opacity=".75">完成任务</text>
+<text x="960" y="220" font-size="14" fill="#1B2B26">保留</text>
+<path d="M80 238 H1120" stroke="#1B2B26" stroke-opacity=".15"/>
+<text x="80" y="270" font-size="16" fill="#1B2B26" fill-opacity=".55">装饰性光晕</text>
+<path d="M80 264 H165" stroke="#2F6F8F" stroke-width="2"/>
+<text x="560" y="270" font-size="14" fill="#1B2B26" fill-opacity=".75">无</text>
+<text x="960" y="270" font-size="14" fill="#2F6F8F">删除</text>
+<path d="M80 288 H1120" stroke="#1B2B26" stroke-opacity=".15"/>
+<text x="80" y="320" font-size="16" fill="#1B2B26" fill-opacity=".55">随意的彩色高亮</text>
+<path d="M80 314 H199" stroke="#2F6F8F" stroke-width="2"/>
+<text x="560" y="320" font-size="14" fill="#1B2B26" fill-opacity=".75">无</text>
+<text x="960" y="320" font-size="14" fill="#2F6F8F">删除</text>
+<path d="M80 338 H1120" stroke="#1B2B26" stroke-opacity=".15"/>
+<text x="80" y="370" font-size="16" fill="#1B2B26" fill-opacity=".55">与图片重复的文字标签</text>
+<path d="M80 364 H250" stroke="#2F6F8F" stroke-width="2"/>
+<text x="560" y="370" font-size="14" fill="#1B2B26" fill-opacity=".75">重复说明</text>
+<text x="960" y="370" font-size="14" fill="#2F6F8F">删除</text>
+<path d="M80 388 H1120" stroke="#1B2B26" stroke-opacity=".15"/>
+<text x="80" y="420" font-size="16" fill="#1B2B26" fill-opacity=".55">多余的容器与卡片边框</text>
+<path d="M80 414 H250" stroke="#2F6F8F" stroke-width="2"/>
+<text x="560" y="420" font-size="14" fill="#1B2B26" fill-opacity=".75">无</text>
+<text x="960" y="420" font-size="14" fill="#2F6F8F">删除</text>
+<path d="M80 438 H1120" stroke="#1B2B26" stroke-opacity=".15"/>
+<text x="80" y="470" font-size="16" fill="#1B2B26" fill-opacity=".55">自定义输入框</text>
+<path d="M80 464 H182" stroke="#2F6F8F" stroke-width="2"/>
+<text x="560" y="470" font-size="14" fill="#1B2B26" fill-opacity=".75">可被原生组件替代</text>
+<text x="960" y="470" font-size="14" fill="#2F6F8F">换成原生</text>
+<path d="M80 488 H1120" stroke="#1B2B26" stroke-opacity=".15"/>
+<text x="1120" y="530" font-size="12" text-anchor="end" fill="#1B2B26" fill-opacity=".55">说不出用途的元素，默认删除</text></svg>

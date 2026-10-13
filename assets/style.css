@@ -107,3 +107,7 @@ body.article .opening{background:var(--tint,var(--paper))}
 .grid{gap:20px;border:0}
 .card{border:1px solid var(--rule);box-sizing:border-box}
 .card .img{position:relative;z-index:0}
+/* editor diagrams */
+figure.fig{margin:2.2em 0;border:1px solid var(--rule);background:#E6E6E6}
+figure.fig img{display:block;width:100%;height:auto}
+figure.fig figcaption{padding:10px 14px;border-top:1px solid var(--rule);font-size:11.5px}

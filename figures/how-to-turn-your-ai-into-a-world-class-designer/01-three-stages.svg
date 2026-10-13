@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" width="1200" height="560" font-family="IBM Plex Mono,Noto Sans SC,monospace"><rect width="1200" height="560" fill="#E6E6E6"/>
+<text x="40" y="44" font-size="15" letter-spacing="3" fill="#1B2B26">图 1 · 三阶段与人的位置</text>
+<g fill="none" stroke="#1B2B26" stroke-width="1.5" stroke-opacity=".8">
+<path d="M60 300 L230 160 L400 300 L230 440 Z"/><path d="M400 300 L570 160 L740 300 L570 440 Z"/><path d="M740 300 L1140 300"/>
+</g>
+<g font-size="20" fill="#1B2B26" text-anchor="middle"><text x="230" y="306">发现</text><text x="570" y="306">定义</text><text x="940" y="290">交付</text></g>
+<g font-size="13" fill="#1B2B26" fill-opacity=".7" text-anchor="middle">
+<text x="230" y="480">① 外部随机种子</text><text x="230" y="502">② 野心提示词</text>
+<text x="570" y="480">③ 评论家子代理</text><text x="570" y="502">④ 图像 ⑤ 视频</text>
+<text x="940" y="480">⑥ 做减法</text></g>
+<g stroke="#2F6F8F" stroke-width="3" fill="none"><path d="M60 120 H400"/><path d="M740 120 H1140"/></g>
+<g font-size="14" fill="#2F6F8F"><text x="60" y="108">人：注入方向与品味</text><text x="740" y="108">人：决定删掉什么</text></g>
+<text x="570" y="108" font-size="14" fill="#1B2B26" fill-opacity=".6" text-anchor="middle">模型：大量执行与迭代</text>
+<circle cx="1140" cy="300" r="9" fill="#2F6F8F"/>
+</svg>

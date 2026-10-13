@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" width="1200" height="560" font-family="IBM Plex Mono,Noto Sans SC,monospace"><rect width="1200" height="560" fill="#E6E6E6"/>
+<text x="40" y="44" font-size="15" letter-spacing="3" fill="#1B2B26">图 3 · 评论家循环</text>
+<defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1B2B26"/></marker></defs>
+<g fill="none" stroke="#1B2B26" stroke-width="1.5">
+<rect x="80" y="200" width="260" height="140"/><rect x="470" y="200" width="260" height="140"/><rect x="860" y="200" width="260" height="140" stroke="#2F6F8F" stroke-width="2.5"/>
+<path d="M340 270 H466" marker-end="url(#m)"/><path d="M730 270 H856" marker-end="url(#m)"/>
+<path d="M990 340 V430 H210 V344" marker-end="url(#m)" stroke-dasharray="6 6"/>
+</g>
+<g font-size="18" fill="#1B2B26" text-anchor="middle"><text x="210" y="262">干活的代理</text><text x="600" y="262">截图</text><text x="990" y="262" fill="#2F6F8F">评论家</text></g>
+<g font-size="12.5" fill="#1B2B26" fill-opacity=".7" text-anchor="middle"><text x="210" y="292">小而快的模型</text><text x="210" y="312">负责修改代码</text>
+<text x="600" y="292">只传图像</text><text x="600" y="312">不传代码与历史</text>
+<text x="990" y="292">大模型 · 全新上下文</text><text x="990" y="312">对照标杆图打分</text></g>
+<text x="600" y="456" font-size="13" fill="#1B2B26" text-anchor="middle">具体差距 + 10 分制分数 → 继续修改</text>
+<g font-size="13" fill="#2F6F8F"><text x="860" y="160">停止条件：≥ 9 分（只有代理知道）</text><text x="860" y="180">先跑 2 轮，看是否收敛</text></g>
+<text x="80" y="160" font-size="13" fill="#1B2B26" fill-opacity=".7">token 占比：评论家很小，干活的代理占大头</text>
+</svg>

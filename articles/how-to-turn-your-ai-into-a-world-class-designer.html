@@ -24,6 +24,7 @@
 <tr><td>定义 Define</td><td>给选中的方向一个独特的个性</td><td>③ 设计评论家子代理；④ 图像生成；⑤ 视频生成</td><td>设定评判标准和参考</td></tr>
 <tr><td>交付 Deliver</td><td>打磨，删掉不必要的东西</td><td>⑥ 删掉不增值的元素</td><td>最终取舍</td></tr></table>
 
+<figure class="fig"><img src="../figures/how-to-turn-your-ai-into-a-world-class-designer/01-three-stages.svg" alt="三阶段流程示意" loading="lazy"><figcaption class="mono">图 1 · 三阶段与人在其中的位置 · 示意图：编者绘制</figcaption></figure>
 <h2>04 发现 ①：从模型外部引入随机性</h2>
 <p>作者做了一个很有说服力的对照实验，编者把它概括成三轮：</p>
 <table><tr><th>轮次</th><th>提示方式</th><th>结果</th></tr>
@@ -31,6 +32,7 @@
 <tr><td>第二轮</td><td>加一句“要完全独特，每个设计决定都随机”</td><td>看起来不同了，但几次之间依然雷同，连用的比喻都一样（原文举的是反复出现的陶艺意象）</td></tr>
 <tr><td>第三轮</td><td>让模型先用脚本生成一串随机字符，再从中“读出”配色、版式、字体方向</td><td>每次结果明显不同，真正一次一个样</td></tr></table>
 <p class="mono">原文配图见原文：三轮各有四个并排截图，直观展示雷同与差异。</p>
+<figure class="fig"><img src="../figures/how-to-turn-your-ai-into-a-world-class-designer/02-seed-variety.svg" alt="随机性来源示意" loading="lazy"><figcaption class="mono">图 2 · 三种提示方式下设计方向的分布 · 示意图：编者绘制</figcaption></figure>
 <p>关键在于第二轮为什么失败：模型无法“真的随机”，它只会预测“听起来像随机”的词。随机性必须从模型外部来。作者引用的是 Sakana AI 发表的 String Seed of Thought 方法：用脚本生成的随机串当灵感种子，让模型从中找子模式、特殊数字之类的线索，再据此定创意方向，同时要求种子本身不出现在设计里。</p>
 <p><b>编者例子：</b>这其实很像设计师常用的“随机词卡”或“抽一张杂志页”练习。区别在于，人类设计师抽到卡片后会主动联想，而模型需要你明确命令它“从这串字符里推导方向”。你也可以把种子换成更有设计感的外部输入：一张随机博物馆藏品图、一个随机城市的街景色、当天的天气数据。</p>
 <div class="note"><p>这个技巧最适合发散阶段做“方向墙”：一次跑 6–8 个版本，像做情绪板一样挑出能打动你的两三个。但别指望种子能直接给出好设计，它只负责把模型推离中心，真正的选择还是你来做。</p></div>
@@ -56,6 +58,7 @@
 <tr><td>差</td><td>“判断我们的设计是否好看、是否不像 AI 做的”</td><td>太主观，每次结果差异很大</td></tr>
 <tr><td>可以</td><td>“先想象顶级工作室怎么做这个美学，再拿我们的设计对比”</td><td>仍偏模糊，但至少给了一致的框架和标准</td></tr>
 <tr><td>很好</td><td>给几张专业作品截图和一张我们的截图，让它按精致度和品味排序</td><td>具体、客观，有视觉基准</td></tr></table>
+<figure class="fig"><img src="../figures/how-to-turn-your-ai-into-a-world-class-designer/03-critic-loop.svg" alt="评论家循环示意" loading="lazy"><figcaption class="mono">图 3 · 干活的代理与评论家的分工循环 · 示意图：编者绘制</figcaption></figure>
 <p>其他要点：给评论家参考图时，说明是情绪板（moodboard），不是要照抄的目标；停止条件要谨慎，否则评论家永远不满意，代理会一直烧 token，建议先跑一两轮看是否收敛；评论家用更大的模型（参数多通常意味着更好的设计感和更宽的想法分布），干活的模型可以小一些，但不能小到执行不好。</p>
 <div class="note"><p>这就是把设计评审（design critique）流程化。资深设计师可以在这里发挥大作用：把你们团队真正的评审标准写进评论家提示词，比如“视觉焦点是否唯一”“信息层级是否三层以内”“是否出现无意义装饰”。再加上“与 4 张标杆截图排序”的方法，评论家就有了可靠的锚点。</p><p>一个提醒：评论家只看截图，所以它评不了交互、无障碍和真实内容下的表现。这些仍然要你自己看。</p></div>
 
@@ -75,6 +78,7 @@
 <h2>08 交付 ⑥：做减法</h2>
 <p>AI 很爱加东西，几乎不会主动删。过度解释、没有实际作用的元素，是 AI 设计最明显的标志之一；而克制的设计会立刻显得高级。作者说他打磨 AI 设计时，大部分精力都花在删东西上。</p>
 <p>他的例子是自己做的卡路里记录 App。即使明确要了“干净、极简”，初版还是有这些问题：背景和进度条上的粉色光晕；文字上随意的颜色和高亮；食物图片已经说明问题了，却还多了标签和空白；自定义按钮和输入框不如 iOS 原生组件好看。他让模型改成以图片为中心的网格，去掉渐变、光晕和多余容器，做出真正贴近 Apple 原生的极简风格。结果：用原生组件、去掉多余色彩、文字更小更紧凑，让视觉本身说话。原文配图见原文：改版前后的 App 截图。</p>
+<figure class="fig"><img src="../figures/how-to-turn-your-ai-into-a-world-class-designer/04-subtraction.svg" alt="减法清单示意" loading="lazy"><figcaption class="mono">图 4 · 逐项判断元素是否增值 · 示意图：编者绘制</figcaption></figure>
 <p>作者的观察是：删减设计、删代码对模型来说是“冒险”，而模型不爱冒险，所以这一步必须由人推动。</p>
 <blockquote>“AI loves to add more, but it rarely takes away.” — Anshu Chimala</blockquote>
 <div class="note"><p>这一节和 Anthropic frontend-design skill 里引用的 Chanel 那句“出门前照镜子，摘掉一件饰品”是同一个意思。对设计师来说，减法其实是最能体现资历的地方。可以把常见的 AI 多余元素做成一张固定的“删除清单”，每次交付前过一遍（见第 10 节）。</p></div>

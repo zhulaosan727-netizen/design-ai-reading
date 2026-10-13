@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" width="1200" height="560" font-family="IBM Plex Mono,Noto Sans SC,monospace"><rect width="1200" height="560" fill="#E6E6E6"/>
+<text x="40" y="44" font-size="15" letter-spacing="3" fill="#1B2B26">图 2 · 随机性从哪里来</text>
+<rect x="40" y="80" width="360" height="400" fill="none" stroke="#1B2B26" stroke-opacity=".25"/>
+<text x="60" y="112" font-size="16" fill="#1B2B26">不加要求</text>
+<text x="60" y="510" font-size="13" fill="#1B2B26" fill-opacity=".7">结果挤在同一处</text>
+<circle cx="216.4" cy="307.2" r="7" fill="#1B2B26" fill-opacity=".55"/>
+<circle cx="216.8" cy="295.6" r="7" fill="#1B2B26" fill-opacity=".55"/>
+<circle cx="207.0" cy="297.0" r="7" fill="#1B2B26" fill-opacity=".55"/>
+<circle cx="235.6" cy="305.9" r="7" fill="#1B2B26" fill-opacity=".55"/>
+<circle cx="234.5" cy="303.5" r="7" fill="#1B2B26" fill-opacity=".55"/>
+<circle cx="225.5" cy="302.6" r="7" fill="#1B2B26" fill-opacity=".55"/>
+<circle cx="196.7" cy="312.0" r="7" fill="#1B2B26" fill-opacity=".55"/>
+<circle cx="227.1" cy="307.0" r="7" fill="#1B2B26" fill-opacity=".55"/>
+<rect x="420" y="80" width="360" height="400" fill="none" stroke="#1B2B26" stroke-opacity=".25"/>
+<text x="440" y="112" font-size="16" fill="#1B2B26">提示词里写“请随机”</text>
+<text x="440" y="510" font-size="13" fill="#1B2B26" fill-opacity=".7">挪了位置，仍然扎堆</text>
+<circle cx="626.3" cy="235.6" r="7" fill="#1B2B26" fill-opacity=".55"/>
+<circle cx="637.5" cy="253.4" r="7" fill="#1B2B26" fill-opacity=".55"/>
+<circle cx="654.3" cy="259.4" r="7" fill="#1B2B26" fill-opacity=".55"/>
+<circle cx="657.3" cy="251.0" r="7" fill="#1B2B26" fill-opacity=".55"/>
+<circle cx="654.3" cy="265.5" r="7" fill="#1B2B26" fill-opacity=".55"/>
+<circle cx="640.7" cy="284.0" r="7" fill="#1B2B26" fill-opacity=".55"/>
+<circle cx="657.8" cy="276.8" r="7" fill="#1B2B26" fill-opacity=".55"/>
+<circle cx="641.3" cy="249.6" r="7" fill="#1B2B26" fill-opacity=".55"/>
+<rect x="800" y="80" width="360" height="400" fill="none" stroke="#1B2B26" stroke-opacity=".25"/>
+<text x="820" y="112" font-size="16" fill="#1B2B26">外部随机种子</text>
+<text x="820" y="510" font-size="13" fill="#1B2B26" fill-opacity=".7">真正散开</text>
+<circle cx="993.4" cy="158.8" r="7" fill="#2F6F8F" fill-opacity=".9"/>
+<circle cx="856.7" cy="201.8" r="7" fill="#2F6F8F" fill-opacity=".9"/>
+<circle cx="1030.5" cy="268.3" r="7" fill="#2F6F8F" fill-opacity=".9"/>
+<circle cx="928.0" cy="315.7" r="7" fill="#2F6F8F" fill-opacity=".9"/>
+<circle cx="966.9" cy="229.9" r="7" fill="#2F6F8F" fill-opacity=".9"/>
+<circle cx="1062.4" cy="349.7" r="7" fill="#2F6F8F" fill-opacity=".9"/>
+<circle cx="908.3" cy="312.3" r="7" fill="#2F6F8F" fill-opacity=".9"/>
+<circle cx="987.1" cy="402.5" r="7" fill="#2F6F8F" fill-opacity=".9"/>
+<text x="1160" y="540" font-size="12" text-anchor="end" fill="#1B2B26" fill-opacity=".55">每个点 = 一次生成的设计方向</text></svg>

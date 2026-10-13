@@ -111,3 +111,12 @@ body.article .opening{background:var(--tint,var(--paper))}
 figure.fig{margin:2.2em 0;border:1px solid var(--rule);background:#E6E6E6}
 figure.fig img{display:block;width:100%;height:auto}
 figure.fig figcaption{padding:10px 14px;border-top:1px solid var(--rule);font-size:11.5px}
+/* column alignment: every block in the article body shares the text column edges */
+article.body>*{max-width:100%}
+article.body figure,article.body figure.fig,article.body table,article.body pre,article.body img,article.body .note,article.body .notice,article.body blockquote,article.body .toc{
+  box-sizing:border-box;width:100%;margin-left:0;margin-right:0}
+article.body img{display:block;height:auto}
+article.body figure.fig img{width:100%}
+article.body pre{overflow-x:auto}
+article.body table{display:table;table-layout:auto}
+@media(max-width:800px){article.body table{display:block;overflow-x:auto}}

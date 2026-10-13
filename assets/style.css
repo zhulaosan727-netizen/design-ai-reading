@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Serif+SC:wght@400;600;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
-:root{--paper:#DCE3DC;--ink:#1B2B26;--ox:#7A1E2B;--rule:#1B2B2633}
+:root{--paper:#E6E6E6;--ink:#1B2B26;--ox:#7A1E2B;--rule:#1B2B2633}
 *{box-sizing:border-box}html{background:var(--paper);color:var(--ink)}
 body{margin:0;font-family:'Noto Serif SC',serif;line-height:1.9;font-size:18px}
 a{color:inherit}.mono{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
@@ -35,7 +35,7 @@ article.body table{width:100%;border-collapse:collapse;font-size:15.5px;line-hei
 article.body th{text-align:left;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;border-bottom:2px solid var(--ink);padding:8px 10px}
 article.body td{border-bottom:1px solid var(--rule);padding:10px;vertical-align:top}
 article.body td:first-child{font-weight:600;white-space:nowrap}
-article.body pre{background:#C9D3CA;padding:20px 22px;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:13.5px;line-height:1.7;white-space:pre-wrap}
+article.body pre{background:#CFCFCF;padding:20px 22px;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:13.5px;line-height:1.7;white-space:pre-wrap}
 article.body ol.check{list-style:none;padding:0;counter-reset:c}
 article.body ol.check li{counter-increment:c;padding:10px 0 10px 3em;border-bottom:1px solid var(--rule);position:relative}
 article.body ol.check li::before{content:counter(c,decimal-leading-zero);position:absolute;left:0;font-family:'Instrument Serif',serif;font-size:26px;color:var(--ox);line-height:1.3}
@@ -55,7 +55,7 @@ article.body ol.check li::before{content:counter(c,decimal-leading-zero);positio
 .cat-head h2 i{font-family:'Instrument Serif',serif;font-weight:400;font-size:.7em;margin-left:12px;opacity:.7}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:0;border-left:1px solid var(--rule)}
 .card{display:flex;flex-direction:column;text-decoration:none;padding:0 26px 28px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);transition:background .25s}
-.card:hover{background:#D2DBD3}
+.card:hover{background:#DADADA}
 .card .img{margin:0 -26px 20px;aspect-ratio:16/10;overflow:hidden;border-bottom:1px solid var(--ink)}
 .card img{width:100%;height:100%;object-fit:cover;display:block;mix-blend-mode:multiply;transition:transform .5s}
 .card:hover img{transform:scale(1.03)}

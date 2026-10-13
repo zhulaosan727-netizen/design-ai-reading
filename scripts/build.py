@@ -27,18 +27,20 @@ def oklch_to_hex(L,C,H):
     return "#%02X%02X%02X"%tuple(lin_to_srgb(x) for x in (r,g,b))
 
 def render_card(e):
+    """Compact chat card: 1000x420, cover left, Chinese title + author + one-line hook right."""
     html=ROOT/"scripts"/"_card.html"
     html.write_text(f'''<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="../assets/style.css">
-<style>html,body{{margin:0;background:#E6E6E6;width:1200px;height:630px;overflow:hidden}}
-.c{{display:grid;grid-template-columns:660px 1fr;height:630px}}.c img{{width:660px;height:412px;align-self:center;display:block}}
-.t{{padding:48px;display:flex;flex-direction:column;justify-content:space-between;border-left:3px double #1B2B26}}
-h1{{font-family:'Noto Serif SC',serif;font-weight:900;font-size:52px;line-height:1.2;margin:0}}
-.en{{font-family:'Instrument Serif',serif;font-style:italic;font-size:26px;opacity:.75}}</style>
-<div class="c"><img src="../{e["cover"]}"><div class="t"><div class="mono">读本 · {e["category"]}</div>
-<div><h1>{e["title_zh"]}</h1><div class="en">{e["title_en"]}</div></div><div class="mono">{e["author"]}</div></div></div>''')
+<style>html,body{{margin:0;background:#E6E6E6;width:1000px;height:420px;overflow:hidden}}
+.c{{display:grid;grid-template-columns:420px 1fr;height:420px}}
+.c .i{{overflow:hidden;border-right:3px double #1B2B26}}.c img{{width:672px;height:420px;margin-left:-126px;display:block}}
+.t{{padding:40px 44px;display:flex;flex-direction:column;justify-content:space-between}}
+h1{{font-family:'Noto Serif SC',serif;font-weight:900;font-size:40px;line-height:1.25;margin:0 0 14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}}
+.h{{font-family:'Noto Serif SC',serif;font-size:18px;line-height:1.6;opacity:.8;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}}</style>
+<div class="c"><div class="i"><img src="../{e["cover"]}"></div><div class="t"><div class="mono">读本 · {e["category"]}</div>
+<div><h1>{e["title_zh"]}</h1><div class="h">{e["dek"]}</div></div><div class="mono">{e["author"]}</div></div></div>''')
     out=ROOT/"cards"/f'{e["slug"]}.png'
     subprocess.run(["google-chrome","--headless=new","--no-sandbox","--hide-scrollbars","--allow-file-access-from-files",
-        "--window-size=1200,630","--virtual-time-budget=6000",f"--screenshot={out}",html.as_uri()],
+        "--window-size=1000,420","--virtual-time-budget=6000",f"--screenshot={out}",html.as_uri()],
         check=True,stderr=subprocess.DEVNULL,stdout=subprocess.DEVNULL)
     html.unlink()
 

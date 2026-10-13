@@ -8,7 +8,7 @@ const CATS=[['独特审美','Distinctive Aesthetics'],['AI 设计工作流','AI 
 const R=['I','II','III'];
 fetch('articles.json').then(r=>r.json()).then(a=>{
 a.sort((x,y)=>y.added.localeCompare(x.added)||String(y.date).localeCompare(String(x.date)));
-const card=e=>`<a class="card" href="articles/${e.slug}.html"><div class="img"><img src="${e.cover}" alt="" loading="lazy"></div><div class="mono">${e.tags.join(' / ')}</div><h3>${e.title_zh}</h3><div class="en">${e.title_en}</div><p class="hook">${e.dek}</p><div class="by mono"><span>${e.author}${e.author_role?' · '+e.author_role:''}</span><span>${e.date}</span></div></a>`;
+const card=e=>`<a class="card" href="articles/${e.slug}.html"><div class="img"><img src="${e.cover}" alt="" loading="lazy"></div><h3>${e.title_zh}</h3><p class="hook">${e.dek}</p><div class="by mono">${e.author} · ${e.date}</div></a>`;
 document.getElementById('cats').innerHTML=CATS.map(([c,en],i)=>{const l=a.filter(e=>e.category===c);
 return `<section class="cat" data-cat="${c}"><div class="cat-head"><span class="roman">${R[i]}</span><h2>${c}<i>${en}</i></h2><span class="mono">${l.length} 篇</span></div>${l.length?`<div class="grid">${l.map(card).join('')}</div>`:'<p class="soon">即将收录 · coming soon</p>'}</section>`}).join('');
 const t=document.getElementById('tabs');

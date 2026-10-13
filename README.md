@@ -21,9 +21,9 @@ Zhu 的私人中文阅读室（noindex，robots.txt 禁止抓取）。
 1. 复制现有文章页为 `articles/<slug>.html`，替换开篇信息和正文。正文统一采用「深度精讲」风格：不翻译、不逐句转述原文，用编者自己的结构和语言讲透原文的观点与技巧，加入自己的例子、对照表、可直接使用的模板或清单；设计术语保留英文括注；英文原句最多引用几句很短的，并注明出处；保留醒目的「阅读原文」按钮。编者点评写成 `<div class="note"><p>…</p></div>`。
 2. 按上面的封面系统画 `covers/<slug>.svg`（记得写 `data-accent`）。
 3. 在 `articles.json` 追加一项：slug、title_zh、title_en、author、author_role、source、date、added、tags、dek，以及必填的 category（`独特审美` / `AI 设计工作流` / `提示词与 Skill`）。
-4. 运行 `python3 scripts/build.py <slug>`（需要 google-chrome）。脚本读取 SVG 的强调色，写入 `cover`、`accent`，以及 `tint`（同色相，OKLCH L=0.93、C≤0.014 的极淡阅读底色）；给文章页加上 `--tint` 和开篇封面；渲染聊天卡片 `cards/<slug>.png`（1200×630）。
+4. 运行 `python3 scripts/build.py <slug>`（需要 google-chrome）。脚本读取 SVG 的强调色，写入 `cover`、`accent`，以及 `tint`（同色相，OKLCH L=0.93、C≤0.014 的极淡阅读底色）；给文章页加上 `--tint` 和开篇封面；渲染紧凑聊天卡片 `cards/<slug>.png`（1000×420：左侧封面居中裁切，右侧中文标题、一句 dek、作者）。
 5. 本地检查后提交并 push 到 main，GitHub Pages 会自动更新。
 
-首页保持中性灰 `#E6E6E6`，只有文章页使用 tint 底色。
+首页卡片为紧凑样式：2:1 封面、中文标题（最多两行）、`dek` 单行省略、一行「作者 · 日期」，所以 dek 尽量写成一句短钩子。首页保持中性灰 `#E6E6E6`，只有文章页使用 tint 底色。
 
 版权说明：正文为编者原创的深度精讲，只少量短引原文，除非获得原作者授权，否则不发布全文译本。

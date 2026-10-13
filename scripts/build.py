@@ -30,7 +30,7 @@ def render_card(e):
     html=ROOT/"scripts"/"_card.html"
     html.write_text(f'''<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="../assets/style.css">
 <style>html,body{{margin:0;background:#E6E6E6;width:1200px;height:630px;overflow:hidden}}
-.c{{display:grid;grid-template-columns:660px 1fr;height:630px}}.c img{{width:100%;height:100%;object-fit:contain;background:#E6E6E6}}
+.c{{display:grid;grid-template-columns:660px 1fr;height:630px}}.c img{{width:660px;height:412px;align-self:center;display:block}}
 .t{{padding:48px;display:flex;flex-direction:column;justify-content:space-between;border-left:3px double #1B2B26}}
 h1{{font-family:'Noto Serif SC',serif;font-weight:900;font-size:52px;line-height:1.2;margin:0}}
 .en{{font-family:'Instrument Serif',serif;font-style:italic;font-size:26px;opacity:.75}}</style>

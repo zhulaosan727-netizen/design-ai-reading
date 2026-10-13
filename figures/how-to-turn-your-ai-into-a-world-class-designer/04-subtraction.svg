@@ -12,27 +12,27 @@
 <text x="960" y="220" font-size="14" fill="#1B2B26">保留</text>
 <path d="M80 238 H1120" stroke="#1B2B26" stroke-opacity=".15"/>
 <text x="80" y="270" font-size="16" fill="#1B2B26" fill-opacity=".55">装饰性光晕</text>
-<path d="M80 264 H165" stroke="#2F6F8F" stroke-width="2"/>
+<path d="M78 264 H177" stroke="#2F6F8F" stroke-width="2"/>
 <text x="560" y="270" font-size="14" fill="#1B2B26" fill-opacity=".75">无</text>
 <text x="960" y="270" font-size="14" fill="#2F6F8F">删除</text>
 <path d="M80 288 H1120" stroke="#1B2B26" stroke-opacity=".15"/>
 <text x="80" y="320" font-size="16" fill="#1B2B26" fill-opacity=".55">随意的彩色高亮</text>
-<path d="M80 314 H199" stroke="#2F6F8F" stroke-width="2"/>
+<path d="M78 314 H215" stroke="#2F6F8F" stroke-width="2"/>
 <text x="560" y="320" font-size="14" fill="#1B2B26" fill-opacity=".75">无</text>
 <text x="960" y="320" font-size="14" fill="#2F6F8F">删除</text>
 <path d="M80 338 H1120" stroke="#1B2B26" stroke-opacity=".15"/>
 <text x="80" y="370" font-size="16" fill="#1B2B26" fill-opacity=".55">与图片重复的文字标签</text>
-<path d="M80 364 H250" stroke="#2F6F8F" stroke-width="2"/>
+<path d="M78 364 H272" stroke="#2F6F8F" stroke-width="2"/>
 <text x="560" y="370" font-size="14" fill="#1B2B26" fill-opacity=".75">重复说明</text>
 <text x="960" y="370" font-size="14" fill="#2F6F8F">删除</text>
 <path d="M80 388 H1120" stroke="#1B2B26" stroke-opacity=".15"/>
 <text x="80" y="420" font-size="16" fill="#1B2B26" fill-opacity=".55">多余的容器与卡片边框</text>
-<path d="M80 414 H250" stroke="#2F6F8F" stroke-width="2"/>
+<path d="M78 414 H272" stroke="#2F6F8F" stroke-width="2"/>
 <text x="560" y="420" font-size="14" fill="#1B2B26" fill-opacity=".75">无</text>
 <text x="960" y="420" font-size="14" fill="#2F6F8F">删除</text>
 <path d="M80 438 H1120" stroke="#1B2B26" stroke-opacity=".15"/>
 <text x="80" y="470" font-size="16" fill="#1B2B26" fill-opacity=".55">自定义输入框</text>
-<path d="M80 464 H182" stroke="#2F6F8F" stroke-width="2"/>
+<path d="M78 464 H196" stroke="#2F6F8F" stroke-width="2"/>
 <text x="560" y="470" font-size="14" fill="#1B2B26" fill-opacity=".75">可被原生组件替代</text>
 <text x="960" y="470" font-size="14" fill="#2F6F8F">换成原生</text>
 <path d="M80 488 H1120" stroke="#1B2B26" stroke-opacity=".15"/>

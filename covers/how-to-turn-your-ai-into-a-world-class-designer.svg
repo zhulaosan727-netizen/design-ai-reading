@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#2F6F8F">
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.02 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">DISCOVER · DEFINE · DELIVER</text>
+  <!-- motif: double diamond; scattered seeds diverge, a critic loop refines, subtraction lands on one point -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75">
+    <path d="M110 375 L360 170 L610 375 L360 580 Z"/>
+    <path d="M610 375 L860 170 L1090 375 L860 580 Z"/>
+    <circle cx="860" cy="375" r="70" stroke-dasharray="4 7"/>
+  </g>
+  <g fill="#1B2B26" fill-opacity=".7">
+    <circle cx="250" cy="300" r="4"/><circle cx="300" cy="420" r="3"/><circle cx="340" cy="250" r="5"/><circle cx="395" cy="470" r="3"/><circle cx="430" cy="330" r="4"/><circle cx="470" cy="410" r="3"/><circle cx="380" cy="360" r="3"/><circle cx="210" cy="380" r="3"/><circle cx="500" cy="300" r="2.5"/>
+  </g>
+  <g stroke="#1B2B26" stroke-opacity=".35" stroke-width="1"><path d="M430 330 L610 375 M470 410 L610 375 M340 250 L610 375"/></g>
+  <circle cx="610" cy="375" r="6" fill="#1B2B26"/>
+  <path d="M790 375 A70 70 0 0 1 930 375" fill="none" stroke="#2F6F8F" stroke-width="3"/>
+  <path d="M930 375 L1090 375" stroke="#2F6F8F" stroke-width="3"/>
+  <circle cx="1090" cy="375" r="14" fill="#2F6F8F"/>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">How to turn your AI into a world-class designer</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">LENNY'S NEWSLETTER</text>
+</svg>

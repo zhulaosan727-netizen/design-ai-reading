@@ -19,5 +19,26 @@
     "category": "独特审美",
     "tint": "#F1E5E2",
     "accent": "#B0452A"
+  },
+  {
+    "slug": "how-to-turn-your-ai-into-a-world-class-designer",
+    "title_zh": "把 AI 变成世界级设计师",
+    "title_en": "How to turn your AI into a world-class designer",
+    "author": "Anshu Chimala",
+    "author_role": "前 Apple 软件工程与设计团队负责人",
+    "source": "https://www.lennysnewsletter.com/p/how-to-turn-your-ai-into-a-world",
+    "date": "2026-09-01",
+    "added": "2026-10-13",
+    "tags": [
+      "工作流",
+      "评审",
+      "提示词"
+    ],
+    "dek": "前 Apple 设计负责人的三阶段流程：外部随机种子、独立评论家、最后做减法。",
+    "category": "AI 设计工作流",
+    "paywalled": true,
+    "cover": "covers/how-to-turn-your-ai-into-a-world-class-designer.svg",
+    "accent": "#2F6F8F",
+    "tint": "#E0E9EF"
   }
 ]

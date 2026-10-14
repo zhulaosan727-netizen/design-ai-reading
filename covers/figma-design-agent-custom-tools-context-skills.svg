@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#7A4E86">
+  <!-- 读本 cover system v1: paper / grid / mono label / line-art motif / one accent -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.04 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">TOOLS · CONTEXT · SKILLS</text>
+  <!-- motif: context streams into the agent; custom tool modules plug into the canvas; skills as slash marks; the accent is the one result that looks like you -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75">
+    <path d="M90 230 C220 230 260 360 400 372"/>
+    <path d="M90 310 C220 310 270 368 400 375"/>
+    <path d="M90 440 C220 440 270 382 400 378"/>
+    <path d="M90 520 C220 520 260 390 400 381"/>
+    <circle cx="430" cy="376" r="30"/>
+    <path d="M460 376 H560"/>
+    <path d="M560 160 H1080 V600 H560 Z"/>
+    <path d="M640 160 V140 M760 160 V140 M880 160 V140"/>
+    <path d="M620 110 H660 V140 H620 Z M740 110 H780 V140 H740 Z M860 110 H900 V140 H860 Z"/>
+    <path d="M600 200 H760 V260 H600 Z"/>
+    <path d="M600 300 H700 M600 325 H740 M600 350 H690 M600 375 H730"/>
+    <path d="M600 420 H760 V560 H600 Z"/>
+    <path d="M800 520 H1040 M800 545 H980"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="12" letter-spacing="2" fill="#1B2B26" fill-opacity=".55">
+    <text x="90" y="220">FILES</text><text x="90" y="300">FIGMA LINKS</text><text x="90" y="430">WEB</text><text x="90" y="510">MCP</text>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="34" fill="#1B2B26" fill-opacity=".75" text-anchor="middle">
+    <text x="395" y="470">/</text><text x="430" y="470">/</text><text x="465" y="470">/</text>
+  </g>
+  <g fill="none" stroke="#7A4E86" stroke-width="2">
+    <circle cx="920" cy="330" r="130"/><circle cx="920" cy="330" r="108"/><circle cx="920" cy="330" r="86"/><circle cx="920" cy="330" r="64"/><circle cx="920" cy="330" r="42"/>
+  </g>
+  <circle cx="920" cy="330" r="16" fill="#7A4E86"/>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">Figma's design agent, now with custom tools and greater context</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">FIGMA</text>
+</svg>

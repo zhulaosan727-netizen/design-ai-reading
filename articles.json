@@ -40,5 +40,47 @@
     "cover": "covers/how-to-turn-your-ai-into-a-world-class-designer.svg",
     "accent": "#2F6F8F",
     "tint": "#E0E9EF"
+  },
+  {
+    "slug": "how-agents-build-on-brand-pages-with-design-md",
+    "title_zh": "用 design.md 让 Agent 做出品牌感页面",
+    "title_en": "How our agents build on-brand pages with design.md",
+    "author": "John Phamous",
+    "author_role": "Design Engineer, Vercel（Kevin Corbett 参与）",
+    "source": "https://vercel.com/blog/how-our-agents-build-on-brand-pages-with-design-md",
+    "date": "2026-08-31",
+    "added": "2026-10-14",
+    "cover": "covers/how-agents-build-on-brand-pages-with-design-md.svg",
+    "tags": [
+      "design.md",
+      "Skills",
+      "评估",
+      "品牌"
+    ],
+    "dek": "仓库外也能守住品牌感：一份公开 design.md、一张样式表，加一个评估闭环。",
+    "category": "提示词与 Skill",
+    "accent": "#3A6B52",
+    "tint": "#E2EAE5"
+  },
+  {
+    "slug": "figma-design-agent-custom-tools-context-skills",
+    "title_zh": "Figma 设计 Agent：自定义工具、上下文与 Skills",
+    "title_en": "Figma's design agent, now with custom tools and greater context",
+    "author": "Georgia Rust、Rodrigo Davies",
+    "author_role": "Figma（Creation Engine / Agents 产品）",
+    "source": "https://www.figma.com/blog/agent-custom-tools-context-skills/",
+    "date": "2026-06-24",
+    "added": "2026-10-14",
+    "cover": "covers/figma-design-agent-custom-tools-context-skills.svg",
+    "tags": [
+      "Figma",
+      "Agent",
+      "Skills",
+      "上下文"
+    ],
+    "dek": "光会写提示词不够：自定义工具、真实上下文和可分享的 Skills，才让画布上的结果像你。",
+    "category": "AI 设计工作流",
+    "accent": "#7A4E86",
+    "tint": "#ECE5EE"
   }
 ]

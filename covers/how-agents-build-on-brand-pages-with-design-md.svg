@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#3A6B52">
+  <!-- 读本 cover system v1: paper / grid / mono label / line-art motif / one accent -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.03 · 提示词与 Skill</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">DESIGN.MD · STYLESHEET · EVALS</text>
+  <!-- motif: one public document feeds several agent paths; they converge on one shared brand page; the accent arc is the eval loop -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75">
+    <path d="M150 200 H320 L350 230 V540 H150 Z"/>
+    <path d="M320 200 V230 H350"/>
+    <path d="M180 270 H310 M180 300 H290 M180 330 H315 M180 360 H270 M180 390 H305 M180 420 H285 M180 450 H300 M180 480 H260"/>
+    <path d="M350 370 C440 370 470 210 600 210 S760 330 850 360"/>
+    <path d="M350 370 C440 370 480 300 600 300 S770 360 850 368"/>
+    <path d="M350 370 C440 370 480 440 600 440 S770 378 850 376"/>
+    <path d="M350 370 C440 370 470 530 600 530 S760 410 850 384"/>
+    <path d="M850 200 H1060 V540 H850 Z"/>
+    <path d="M880 230 H1030 M880 250 H980"/>
+    <path d="M880 285 H930 V325 H880 Z M945 285 H995 V325 H945 Z M1010 285 H1030 V325 H1010 Z"/>
+    <path d="M880 350 H1030 M880 380 H1030 M880 410 H1030 M880 440 H1030 M880 470 H1030 M960 350 V470"/>
+    <path d="M880 505 H1000"/>
+  </g>
+  <g fill="#1B2B26"><circle cx="600" cy="210" r="5"/><circle cx="600" cy="300" r="5"/><circle cx="600" cy="440" r="5"/><circle cx="600" cy="530" r="5"/></g>
+  <path d="M955 540 C955 625 250 625 250 548" fill="none" stroke="#3A6B52" stroke-width="3"/>
+  <path d="M238 562 L250 544 L262 562" fill="none" stroke="#3A6B52" stroke-width="3"/>
+  <circle cx="955" cy="540" r="7" fill="#3A6B52"/>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">How our agents build on-brand pages with design.md</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">VERCEL</text>
+</svg>

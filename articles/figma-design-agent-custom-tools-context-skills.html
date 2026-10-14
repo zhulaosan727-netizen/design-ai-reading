@@ -1,0 +1,154 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Figma 设计 Agent：自定义工具、上下文与 Skills · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#ECE5EE">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 04 · AI 设计工作流 / Figma / Agent / Skills</div><h1>Figma 设计 Agent：自定义工具、上下文与 Skills</h1><div class="en">Figma's design agent, now with custom tools and greater context</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Georgia Rust、Rodrigo Davies</dd><dt>身份</dt><dd>Figma 产品负责人（Creation Engine）· Figma 产品经理（Agents）</dd><dt>日期</dt><dd>2026-06-24</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/agent-custom-tools-context-skills/">figma.com/blog ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/agent-custom-tools-context-skills/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/figma-design-agent-custom-tools-context-skills.svg" alt="Figma's design agent, now with custom tools and greater context 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解，结构、例子、表格和模板都是编者自己的。原文是一篇产品发布文章，配有大量演示动图和 playground 文件；本篇把重点放在“作为资深 UX 设计师，该怎么把这些能力接进自己的工作流”。功能细节以原文和 Figma 帮助中心为准。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li><li>为什么“只会写提示词”不够</li><li>生成式插件：让 Agent 给你造工具</li><li>Shader：效果和填充也可以自己写</li><li>上下文：怎么给 Agent 打包</li><li>Skills：把个人审美变成团队命令</li><li>可用范围与成本</li><li>分工建议：Figma Agent 与代码 Agent</li><li>第一周上手清单</li></ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，提示词只是起点。</b>Figma 的判断是：一个“帮你干活更快”的 Agent 和一个“懂你怎么干活”的 Agent，差别在上下文。后者才能从“生成”走到“协作”。</p>
+<p><b>第二，这次更新给了三样东西。</b>自定义工具：让 Agent 帮你造生成式插件（generative plugins）和 shader；更多上下文：文件、Figma 文件链接、网页搜索、MCP 连接器；Skills：把常用提示词存成可分享的斜杠命令（slash commands）。</p>
+<p><b>第三，目的是让画布上的结果“像你”。</b>不是更快地产出平均水平的设计，而是让你的工具、你的资料、你的观点都进入 Agent 的工作方式。</p>
+<table><tr><th>能力</th><th>解决的问题</th><th>一句话理解</th></tr>
+<tr><td>生成式插件</td><td>设计工具一刀切，想要的功能没有</td><td>说出需求，Agent 帮你做一个原生质感的小工具</td></tr>
+<tr><td>Shader 效果 / 填充</td><td>纹理、效果只能用工具自带的那几种</td><td>自己定义像素怎么渲染，并留出可调参数</td></tr>
+<tr><td>更多上下文</td><td>Agent 不了解项目、品牌、真实数据</td><td>把资料、设计文件和外部工具接进对话</td></tr>
+<tr><td>Skills</td><td>好提示词只存在个人脑子里</td><td>把观点做成命令，团队一键复用</td></tr></table>
+
+<h2>02 为什么“只会写提示词”不够</h2>
+<p>原文开头有一个很实在的观察：设计工具往往是一刀切的，布局、纹理、效果都由工具原生支持什么来决定。每个人工作方式不同，但大家用的是同一套功能，结果自然趋同。</p>
+<p>把这个逻辑放到 AI 上也一样。只靠提示词，Agent 能用的只有它自己的通用知识和 Figma 的原生功能，产出的就是“平均的 Figma 设计”。要让结果像你，需要三个东西同时到位：</p>
+<ul><li><b>你的工具</b>：你常做的那些重复操作、你喜欢的那些质感，能不能变成画布上的工具；</li><li><b>你的资料</b>：用户访谈、文案、数据、已有设计文件，Agent 能不能直接读到；</li><li><b>你的观点</b>：你评审时总在说的那些话，能不能存下来，下次不用再说一遍。</li></ul>
+<div class="note"><p>这和上一篇 Vercel 的 design.md 讲的是同一件事的两面。Vercel 是在代码侧把判断、词汇和反馈闭环交给 Agent；Figma 是在画布侧把工具、上下文和观点交给 Agent。两边的共识很清楚：AI 产出的质量上限，取决于你给它的“环境”，而不是提示词写得多漂亮。</p></div>
+
+<h2>03 生成式插件：让 Agent 给你造工具</h2>
+<p>插件一直能扩展 Figma 的能力，但做插件需要技术能力和开发环境，大多数设计师没有。现在可以直接让设计 Agent 帮你做可复用的插件。它们基于 PropsKit 构建，所以外观和交互都像 Figma 原生功能；而且它们就在画布上，迭代时你有更直接的控制。原文提到一个例子：一个帮你整理素材的图片布局生成器。</p>
+<p>原文有一个明确的边界：<b>凡是要连接 Figma Design 以外的东西，比如 AI 服务或第三方 API，仍然用传统插件（classic plugins）。</b></p>
+<p>原文的客户案例是产品设计师 Edward Chechique，他做的生成式插件可以把 HTML 导入画布、生成仪表盘布局、做数据可视化。以前做这些要找开发帮忙，后来有了 AI 工具也要在多个工具之间来回切换；现在直接在 Figma 里说要什么就行。他的说法是：</p>
+<blockquote>“I’ve gone from zero possibilities to great possibilities.” — Edward Chechique</blockquote>
+<h3>什么时候做插件，什么时候手改？</h3>
+<p>这是编者整理的判断表。核心原则：<b>做第三次时，就该考虑做成工具。</b></p>
+<table><tr><th>情况</th><th>建议</th><th>理由</th></tr>
+<tr><td>一次性的调整，比如改一个页面的间距</td><td>手改</td><td>做工具的时间比改完还长</td></tr>
+<tr><td>同一操作每周都做，比如把素材排成固定网格</td><td>生成式插件</td><td>一次投入，长期复用，还能分享给团队</td></tr>
+<tr><td>需要真实数据批量填充，比如图表、表格</td><td>生成式插件</td><td>规则明确，最适合交给工具</td></tr>
+<tr><td>需要调用外部 AI 服务或 API</td><td>传统插件</td><td>原文明确：生成式插件只在 Figma Design 内部工作</td></tr>
+<tr><td>关键视觉的细节，比如主视觉构图</td><td>手改，或和 Agent 来回对话</td><td>审美判断最好留在自己手里</td></tr>
+<tr><td>结构探索，比如同一页面的多种布局</td><td>让 Agent 直接生成方案</td><td>Agent 擅长快速铺开可能性</td></tr></table>
+<div class="note"><p>对 Zhu 这样会一点代码、又用 AI 搭过网站的设计师来说，生成式插件是一个很划算的入口：你不需要会写插件，只需要把重复劳动描述清楚。建议先从“整理类”工具开始，比如素材排版、规范标注、文案批量替换，因为结果好坏一眼就能判断，风险最低。</p></div>
+
+<h2>04 Shader：效果和填充也可以自己写</h2>
+<p>Agent 还可以写 shader：一种基于 WebGPU、定义像素如何渲染的小程序，比如抖动（dither）、液态金属（liquid metal）、分形噪声（fractal noise）。它们分两类：</p>
+<table><tr><th>类型</th><th>类比</th><th>原文举例</th><th>特点</th></tr>
+<tr><td>Shader 效果（shader effects）</td><td>像 Figma 原生效果，但完全由你定义</td><td>粒子拉伸（particle stretch）、镜头畸变（lens distortion）、彩色描边（color outline）</td><td>可叠加，可调属性，可和原生效果组合</td></tr>
+<tr><td>Shader 填充（shader fills）</td><td>远超纯色和渐变的动态填充</td><td>水彩（watercolor）、摩尔纹（moiré）、图案网格（pattern grids）</td><td>动态、生成式</td></tr></table>
+<p>Shader 和生成式插件都放在新的 Tools 标签页里，和传统插件、Weave 工具、小组件（widgets）在一起。Figma 预置了 30 多个插件和 shader 作为起点，但原文说得很直接：最有用的是你自己做的那些。</p>
+<p>原文的另一个案例是创意技术专家（creative technologist）Anna Zhang。她做了一组自己的 shader，用拼贴、大理石纹（marbling）、漏光、金属压印、棱镜等效果重新加工自己的摄影作品。她的分工方式很值得学：自己专注于功能，界面交给 Agent；Agent 的输出会反过来影响她接下来要加哪些参数。她这样形容这个过程：</p>
+<blockquote>“It was like a negotiation.” — Anna Zhang</blockquote>
+<p>原文还有一句话点出了自己做工具的意义：</p>
+<blockquote>“every one carries a worldview about what should be possible.” — Figma 博客</blockquote>
+<h3>和 Agent “谈判”参数的做法（编者整理）</h3>
+<ol><li>先说清你要的效果和情绪，比如“像老报纸的网点，但网点会随亮度变大小”。</li><li>只要求最少的 2–3 个参数，比如网点大小、角度、对比度。</li><li>看结果，再决定下一个参数要什么，比如“我还需要控制网点颜色”。</li><li>把调好的数值存成预设，团队成员拿到就是同一种质感。</li></ol>
+<div class="note"><p>Shader 对“避免 AI 味”特别有价值。AI 生成界面趋同，很大一部分原因是质感趋同：同样的纯色、同样的渐变、同样的阴影。一个自己调出来的纹理或填充，就是品牌的“指纹”，而且很难被别人照抄成新的套路。读本封面的网格加线描，其实也是同一个思路，只是用 SVG 手写实现。</p></div>
+
+<h2>05 上下文：怎么给 Agent 打包</h2>
+<p>原文的观点是：好的上下文不只是告诉 Agent 信息，它会塑造 Agent 做出来的东西。Agent 越接近你的项目、品牌和工作方式，输出越准确。这次开放了四个渠道：</p>
+<table><tr><th>渠道</th><th>能做什么</th><th>编者建议放什么</th></tr>
+<tr><td>直接附加文件</td><td>把用户访谈、UX 文案文档、数据报告拖进对话，整段对话都会参考</td><td>访谈要点、真实文案、真实数据，而不是 lorem ipsum</td></tr>
+<tr><td>粘贴 Figma 文件链接</td><td>Agent 获得完整结构：组件、token、布局、样式；能理解并复现设计模式，而不是从一张扁平图片里近似</td><td>设计系统文件、你最满意的一两个页面</td></tr>
+<tr><td>网页搜索</td><td>不离开 Figma 就能拉取实时数据，比如真实的餐厅名和照片、竞品当前的 UX 模式</td><td>真实内容和竞品现状，让 mockup 不再“假”</td></tr>
+<tr><td>MCP 连接器</td><td>接入 GitHub、Atlassian、Slack 等工具的上下文，还能回写更新；比如从 Linear 拉需求单，从 Hex 引用数据</td><td>需求单、数据看板、讨论记录</td></tr></table>
+<h3>只给提示词 vs 带足上下文</h3>
+<table><tr><th>维度</th><th>只给提示词</th><th>带足上下文</th></tr>
+<tr><td>组件</td><td>Agent 自己画按钮和卡片</td><td>复用你的组件和 token</td></tr>
+<tr><td>内容</td><td>占位文字、编出来的数据</td><td>真实文案、真实数据</td></tr>
+<tr><td>信息层级</td><td>按通用模板排</td><td>按访谈里用户真正关心的排</td></tr>
+<tr><td>需求理解</td><td>只理解你这一句话</td><td>读到了需求单和讨论背景</td></tr>
+<tr><td>评审成本</td><td>先花时间把它拉回你的系统</td><td>直接讨论设计本身</td></tr></table>
+<h3>上下文打包模板（编者原创）</h3>
+<p>每次开一个新任务前，按这个顺序准备，贴进 Agent 对话的第一条消息：</p>
+<pre>【任务】为 [产品] 设计 [页面/流程]，目标是让 [用户] 能 [完成什么]。
+
+【设计系统】[粘贴设计系统 Figma 文件链接]
+- 只用这个文件里的组件和 token；缺组件时先告诉我，不要自己画。
+
+【参考】[粘贴 1–2 个你满意的页面链接]
+- 参考它们的：[信息密度 / 网格 / 文字层级]
+- 不要参考：[配色 / 插图风格]
+
+【资料】（附件）
+- 用户访谈要点.pdf：最重要的三个痛点在第 2 页
+- 文案.docx：标题和按钮文案以此为准
+- 数据.csv：图表使用真实数据
+
+【约束】
+- 桌面端优先，宽度 [1440]
+- 每页只有一个主操作
+- 先给 2 个结构不同的方案，再细化其中一个</pre>
+<div class="note"><p>粘贴 Figma 文件链接这一条最容易被低估。给 Agent 一张截图，它只能“看着像”；给它文件链接，它拿到的是组件、token 和布局结构，能“照着做”。如果你的设计系统文件还没整理好，这就是一个整理它的好理由：从现在起，它不只是给人看的，也是给 Agent 读的。</p></div>
+
+<h2>06 Skills：把个人审美变成团队命令</h2>
+<p>原文的说法是：好的提示词带着观点。Skills 让你把这种思考存下来、分享给团队，让你的创意方向在你自己的文件之外也能发挥作用。具体是三件事：</p>
+<ul><li><b>创建自定义 Skills</b>：把你反复使用的提示词变成可复用的斜杠命令，可以是套用某种审美、评审设计，或者自动化一件你已经摸索清楚的事；</li><li><b>发布给团队</b>：一种设计哲学、一种标志性审美、一个反馈视角，都可以变成任何队友能执行、学习和扩展的东西；</li><li><b>看到协作者的提示词</b>：迭代历史不只是日志，也能看出一个人怎么思考。Agent 对话默认对文件协作者可见，需要时可以设为私密。</li></ul>
+<h3>三种值得先做的 Skill</h3>
+<table><tr><th>类型</th><th>命令示例</th><th>内容要点</th></tr>
+<tr><td>审美类</td><td>/editorial-grid</td><td>你的网格、字体搭配、强调色用法、明确禁止的套路</td></tr>
+<tr><td>评审类</td><td>/ux-review</td><td>你评审时固定会问的问题，按严重程度输出</td></tr>
+<tr><td>流程类</td><td>/handoff-check</td><td>交付前的检查项：命名、自动布局、状态、无障碍</td></tr></table>
+<h3>一个审美 Skill 的写法（编者原创模板）</h3>
+<pre>/editorial-grid · 编辑式网格审美 · 作者：[你的名字] · v0.1
+
+适用：内容型页面、报告、作品集案例页。不适用：表单密集的产品界面。
+
+你要做的：
+1. 使用 12 栏网格，正文只占 7–8 栏，留出不对称的空白。
+2. 标题用衬线体，标签和数据用等宽体；标题与正文字号比 ≥ 3。
+3. 全页只用一个强调色，只给最关键的一个元素。
+4. 背景用中性浅灰，不加色相；不用渐变。
+
+不要出现：
+- 三张等宽的图标卡片
+- 居中大标题 + 渐变背景
+- 每个元素都有阴影和圆角
+
+完成后自查：
+遮住标题，这页还能看出是“编辑式”的吗？如果不能，说明哪一处不够，并修改。</pre>
+<div class="note"><p>“协作者默认能看到提示词”这一条，对团队文化影响很大。好处是新人能直接学到资深设计师怎么和 Agent 对话，过程变成团队资产；代价是半成品的思路也会被看到。建议团队早点约定：探索阶段可以设私密，定稿相关的对话保持公开。对 Zhu 来说，把自己的审美写成 Skill 发布给团队，是把个人品味变成团队标准最直接的一条路。</p></div>
+
+<h2>07 可用范围与成本</h2>
+<table><tr><th>项目</th><th>原文说明（发布时，2026-06-24）</th></tr>
+<tr><td>开放状态</td><td>公开测试版（open beta）</td></tr>
+<tr><td>可用对象</td><td>Professional、Organization、Enterprise 计划中的 Full 席位；Collab、Dev、View 席位可以在自己的草稿（drafts）里使用</td></tr>
+<tr><td>Agent 费用</td><td>测试期间免费</td></tr>
+<tr><td>使用插件和 shader</td><td>无论是自己做的、队友分享的还是社区找到的，所有计划都免费可用</td></tr>
+<tr><td>让 Agent 构建插件或 shader</td><td>需要设计 Agent 权限；正式发布后会消耗 AI 额度（AI credits）</td></tr></table>
+<p>原文还提供了 agent playground 文件，适合第一次上手时直接试。具体以 Figma 帮助中心的最新说明为准。</p>
+
+<h2>08 分工建议：Figma Agent 与代码 Agent</h2>
+<p>Zhu 平时既在 Figma 里做设计，也用 AI 写代码搭网站。两个 Agent 各有长处，编者建议这样分工：</p>
+<table><tr><th>环节</th><th>交给谁</th><th>原因</th></tr>
+<tr><td>结构探索、多方案铺开</td><td>Figma Agent</td><td>直接在画布上并排比较，修改成本最低</td></tr>
+<tr><td>质感、纹理、视觉效果</td><td>Figma Agent + Shader</td><td>参数可调，所见即所得</td></tr>
+<tr><td>真实内容的填充</td><td>Figma Agent + 文件 / 搜索</td><td>让评审在接近真实的稿子上进行</td></tr>
+<tr><td>交互、响应式、动效细节</td><td>代码 Agent</td><td>只有在浏览器里才能真正验证</td></tr>
+<tr><td>上线和长期维护</td><td>代码 Agent + design.md</td><td>规则和检查需要和代码放在一起</td></tr>
+<tr><td>审美规则本身</td><td>两边共用一份</td><td>Figma 里的 Skill 和代码侧的 design.md 讲同一套话，避免两边漂移</td></tr></table>
+<div class="note"><p>最后一行最关键。如果你在 Figma 里有一个 /editorial-grid Skill，在代码侧又有一份 design.md，两份文件很容易各自演化，最后画布和网页长得不一样。建议以一份为“源”，比如 design.md，Figma Skill 只引用和摘录它，每次修改都从源头改。</p></div>
+
+<h2>09 第一周上手清单</h2>
+<ol class="check">
+<li>第 1 天：打开原文提供的 agent playground 文件，把生成式插件、shader 和 Skills 各试一次，只看能力边界，不追求结果。</li>
+<li>第 2 天：挑一个手头真实的小任务，第一次只给提示词，第二次按上面的模板带足上下文（设计系统链接、参考页、附件），并排比较两版。</li>
+<li>第 3 天：列出这周做了 3 次以上的重复操作，挑一个让 Agent 做成生成式插件；先确认它不需要连接外部 API。</li>
+<li>第 4 天：和 Agent 一起做一个 shader 效果或填充，只要 2–3 个参数，按“谈判”的方式逐步加；把满意的数值存成预设。</li>
+<li>第 5 天：把你评审时最常说的 5 句话写成一个评审类 Skill，在两个旧稿上试跑，看它是否抓到了你会抓的问题。</li>
+<li>第 6 天：把你的审美写成一个审美类 Skill，写明“不要出现”的套路；同一需求用和不用各跑一次，对比差异。</li>
+<li>第 7 天：决定哪些 Skill 发布给团队，约定对话的公开或私密规则；检查 Figma Skill 和代码侧规则是否讲的是同一套话。</li>
+</ol>
+<div class="note"><p>给 Zhu 的提醒：第一周最容易掉进的坑，是被 shader 和插件的新鲜感带着走，做了很多好玩但用不上的东西。每天的判断标准只有一个：这个工具或 Skill，下周还会不会用？会，就留下并写清说明；不会，就当作学习，删掉也不可惜。</p></div>
+<p style="margin-top:3em"><a class="readorig" href="https://www.figma.com/blog/agent-custom-tools-context-skills/" target="_blank" rel="noopener">阅读原文 →</a></p>
+</article>
+<footer class="mono">原文 © Figma · 本页为编者原创的深度精讲与点评</footer>
+</body></html>

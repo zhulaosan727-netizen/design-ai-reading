@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#B8892A">
+  <!-- 读本 cover system v1: paper / grid / mono label / line-art motif / one accent -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.05 · 独特审美</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">DIVERGE · CRITIQUE · CHOOSE</text>
+  <!-- motif: four near-identical default cards; one path breaks out into a distinct structure -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75">
+    <!-- default cards: centered hero + two buttons -->
+    <path d="M100 180 H340 V420 H100 Z"/><path d="M140 220 H300"/><path d="M160 250 H280"/><path d="M155 290 H215 V320 H155 Z"/><path d="M230 290 H290 V320 H230 Z"/>
+    <path d="M380 180 H620 V420 H380 Z"/><path d="M420 220 H580"/><path d="M440 250 H560"/><path d="M435 290 H495 V320 H435 Z"/><path d="M510 290 H570 V320 H510 Z"/>
+    <path d="M660 180 H900 V420 H660 Z"/><path d="M700 220 H860"/><path d="M720 250 H840"/><path d="M715 290 H775 V320 H715 Z"/><path d="M790 290 H850 V320 H790 Z"/>
+    <!-- arrows of divergence from the fourth card slot -->
+    <path d="M940 220 C980 220 1000 260 1020 300"/>
+    <path d="M940 300 C990 300 1020 340 1040 390"/>
+    <path d="M940 380 C980 400 1000 460 1010 520"/>
+  </g>
+  <!-- accent: the chosen direction — a different layout (full-width evidence list, not centered hero) -->
+  <g fill="none" stroke="#B8892A" stroke-width="2.5">
+    <path d="M100 470 H520 V620 H100 Z"/>
+    <path d="M130 500 H250"/><path d="M280 495 H310 V525 H280 Z"/><path d="M320 505 H470"/>
+    <path d="M130 545 H250"/><path d="M280 540 H310 V570 H280 Z"/><path d="M320 550 H450"/>
+    <path d="M130 590 H250"/><path d="M280 585 H310 V615 H280 Z"/><path d="M320 595 H430"/>
+  </g>
+  <circle cx="1020" cy="300" r="6" fill="#B8892A"/>
+  <circle cx="1040" cy="390" r="6" fill="#B8892A"/>
+  <circle cx="1010" cy="520" r="6" fill="#B8892A"/>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">Avoid the AI Aesthetic</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">SALMAN.IO</text>
+</svg>

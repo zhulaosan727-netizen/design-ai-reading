@@ -1,0 +1,115 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Linear 设计团队怎么用 AI（还不丢手感）· 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E0EAEA">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 06 · AI 设计工作流 / 判断力 / Skill / 上下文</div><h1>Linear 设计团队怎么用 AI（还不丢手感）</h1><div class="en">How tech's most craft-obsessed team uses AI: Inside design at Linear</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Designer Fund（案例访谈）</dt><dt>受访</dt><dd>Karri Saarinen（Linear CEO）、Charlie Aufmann、Isha Kumar（产品设计师）</dd><dt>日期</dt><dd>2026-08-12</dd><dt>原文</dt><dd><a href="https://designerfund.substack.com/p/ai-design-linear">designerfund.substack.com ↗</a></dd></dl><a class="readorig" href="https://designerfund.substack.com/p/ai-design-linear" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/inside-design-at-linear-ai.svg" alt="How tech's most craft-obsessed team uses AI: Inside design at Linear 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解，结构、例子、表格和模板都是编者自己的。原文是 Designer Fund 对 Linear 的 AI 设计案例研究，含访谈与演示；下文抽取可迁移的工作原则。想看完整访谈与视频，请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li><li>为什么「手感顶尖」的团队反而更克制</li><li>设计是搜索，不是流水线</li><li>用 AI 审讯问题：/linear-way skill</li><li>用 AI 聚齐决策所需的上下文</li><li>保护创作过程：什么交给 AI，什么不交</li><li>四条可落地的原则</li><li>和读本里其他文章怎么对照</li><li>可直接改写的 skill / 提示词</li><li>自查清单</li></ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，Linear 把 AI 当「腾出判断力的工具」，不当「把一切变快的开关」。</b>任何人都能在几秒内把想法变成可运行软件；真正稀缺的，是弄清问题、守住品味、决定不做什么。</p>
+<p><b>第二，他们用 AI 最多的地方是问题侧，不是出图侧。</b>CEO Karri 做了 /linear-way skill，连着四万多条客户请求，专门用来追问「背后的需要是什么」；设计师用 Agent 去代码库和历史决策里捞上下文、去 Twitter/Slack/访谈里汇总原话——先弄清再动手。</p>
+<p><b>第三，有人故意把 AI 用在少数场景。</b>产品设计师 Isha 大约只有 20–30% 的净新设计工作走 AI；她不用它写 UI 文案、也不用它当评审——因为「它想肯定我，不想激怒我」。其余时间她亲手做，把 AI 留给修纸张划痕（paper cuts）和难做的动态原型。</p>
+<blockquote>“When you can do anything, what you choose not to do is far more important than doing everything much faster.” — Designer Fund / Linear 案例题记</blockquote>
+
+<h2>02 为什么「手感顶尖」的团队反而更克制</h2>
+<p>Linear 被超过四万个团队使用（原文举例包括 OpenAI、Coinbase、Ramp）。在设计师圈子里，它几乎是「软件手感」的标杆。Charlie 加入时甚至会紧张：这是世界上最好的设计团队之一，我能不能达到手感标准（craft bar）？</p>
+<p>当「谁都能一秒做出能跑的东西」成为常态，跳过脏乱的思考、迭代和判断就变得特别有诱惑力。Linear 自己的产品也在走向更 agentic 的未来，但团队对 AI 的用法极其克制：不是不惜一切求快，而是故意给人类判断留出空间。</p>
+<div class="note"><p>对追求「不像 AI」的设计师，这篇比单纯的提示词技巧更重要：独特审美的上游，是独特的问题定义。如果你跳过问题阶段，再精致的视觉也只是给模糊需求镀金——读本上一篇「躲开 AI 审美默认值」解决的是输出侧；这篇解决的是输入侧。</p></div>
+
+<h2>03 设计是搜索，不是流水线</h2>
+<p>行业讨论已经从「设计师该不该写代码」滑到「AI 让写代码这么容易，设计师该写多少」。Designer Fund 自己的研究也提到：大约一半设计师表示自己会把代码推到生产环境。</p>
+<p>Karri 担心的不是「设计师写代码」本身，而是代码作为介质会过早逼你承诺。一个半生不熟的想法，一句提示就变成可运行原型，你很容易在还没弄清真正要解决什么问题之前，就被技术约束框死。</p>
+<p>他把设计看成搜索（search）：你从一个乱问题出发，并不知道最终答案。失败的常见原因之一是：大家对方案谈不拢，因为脑子里装的根本不是同一个问题——方案成了许多不同问题的妥协，而不是对一个问题的干净解。</p>
+<table><tr><th>把设计当流水线</th><th>把设计当搜索（Linear）</th></tr>
+<tr><td>尽快产出可演示的界面/代码</td><td>先弄清问题与上下文里的张力</td></tr>
+<tr><td>AI 的价值 = 更快出东西</td><td>AI 的价值 = 帮你审讯问题、聚齐证据</td></tr>
+<tr><td>过早落入实现约束</td><td>故意延迟承诺，直到问题清晰</td></tr>
+<tr><td>方案争论不休</td><td>先对齐「我们在解哪个问题」</td></tr></table>
+<p>这段观点和 Karri 自己的文章 <i>Design is more than code</i> 一脉相承；案例研究把它落到了团队日常。</p>
+
+<h2>04 用 AI 审讯问题：/linear-way skill</h2>
+<p>Karri 做了一个自定义 AI skill：/linear-way。它训练在 Linear 博客和其他内部材料上，并连接一个超过 4 万条客户请求的仓库（客户通话、Intercom 邮件、Slack、推文）。它的角色是共鸣板（sounding board），不是接单助理。</p>
+<p>客户通常要的是具体方案（「我要这个功能」），而不是描述底层痛点。于是 skill 被设计成必须先追问：</p>
+<ul>
+<li>这个请求背后的需要是什么？</li>
+<li>我们在做什么假设？</li>
+<li>如果我们不建它，会发生什么？</li>
+</ul>
+<blockquote>“Act like a Linear product teammate, not a request-taking assistant. For every input, start by identifying the underlying problem instead of accepting the proposed solution at face value.” — /linear-way skill 设定（原文引述）</blockquote>
+<p>wiki 功能的例子很能说明问题。表面请求是「在 Linear 里做知识库」。Skill 帮他们看到：客户其实不是要一个完整 docs 产品，而是想让团队文档更容易保存在工作已经发生的地方。Agent 把问题重写成：与其说「请改进文档」，不如说「请让上下文住在执行发生的地方」。</p>
+<p>Karri 还故意往下推：为什么 Linear <b>不该</b>做这个功能？Agent 给出稀释核心优势、胀大范围、掉进拥挤知识库赛道等反对意见。AI 不是来背书的，是来压力测试的。</p>
+<div class="note"><p>这和「独立评论家」提示词是亲戚，但更进一步：它绑了公司自己的写作声音和海量真实客户原话。通用模型只会给你通用反对意见；带品牌语境 + 真实请求库的 skill，反对意见才可能击中你的战略。</p></div>
+
+<h2>05 用 AI 聚齐决策所需的上下文</h2>
+<p>Isha 修一个「issue 如何链接到活跃开发会话」的行为时，先让 Agent 去查代码库和历史决策日志，解释旧行为为什么存在：「我需要它聚合上下文，好让我做有根据的决定。」</p>
+<p>Charlie 把同一思路放到更大尺度。界面刷新时，客户对新 issue 页布局反弹；他让 Agent 把 Twitter、Slack、客户通话里的原话收拢，去「感觉真正要解的问题是什么」。设计评审时，他把这份综合和前后截图一起带上，让团队基于客户原话决策，而不是基于他个人转述。</p>
+<table><tr><th>场景</th><th>人做什么</th><th>AI 做什么</th><th>刻意不做</th></tr>
+<tr><td>修遗留行为</td><td>做产品判断</td><td>查代码与决策日志，还原「当初为何如此」</td><td>让 AI 直接拍板该不该改</td></tr>
+<tr><td>大改版遇反弹</td><td>主持评审、给方向</td><td>跨渠道汇总客户原话</td><td>用 AI 生成「我们应该怎么回应」的漂亮总结替代原话</td></tr>
+<tr><td>新功能评估</td><td>定战略边界</td><td>/linear-way 追问需求与反对理由</td><td>把客户原话当 backlog 条目照单全收</td></tr></table>
+
+<h2>06 保护创作过程：什么交给 AI，什么不交</h2>
+<p>AI 大幅扩展了设计师能做的事，也逼出另一个问题：设计的哪些部分值得保护？</p>
+<p>Isha 一度很重度地用 AI，随后发现过程在退化：聊天界面逼她把视觉的、潜意识的直觉翻译成文字提示，打断心流；管工具开始像在管「一队初级员工」，而不是在设计。</p>
+<p>于是她改成：只在能去掉摩擦的地方用 AI——修 UI 纸张划痕、快速搭以前懒得探的边界情况动态原型。这正好接上 Linear 的 Quality Wednesdays：团队每周聚在一起修那些会慢慢腐蚀产品体验的小瑕疵。</p>
+<p>她明确不用 AI 做两件事：评审自己的设计、写 UI 文案。</p>
+<blockquote>“It wants to affirm me, not provoke me… AI-generated language really does feel like I’m settling.” — Isha Kumar</blockquote>
+<p>净新设计工作里，大约只有 20–30% 走 AI，其余亲手做。她的提醒是：工具和拐杖有巨大差别；AI 邀请你无限使用，可能让你更不信任自己。如果它是你唯一伸手去拿的工具，那暴露的是你手艺上的盲区。</p>
+<div class="note"><p>「20–30%」不是教条，而是一个校准器。你可以问自己：我这周有没有哪一次是因为怕自己下手不好看，才把主视觉或主文案甩给模型？如果有，那一次更可能是拐杖。反过来，修第八次同一类间距 bug、或搭一个难录的空状态动画——那是好工具。</p></div>
+
+<h2>07 四条可落地的原则</h2>
+<p>原文收束成几条实践原则，编者补上「怎么做」：</p>
+<table><tr><th>原则</th><th>原话要点</th><th>你可以怎么做</th></tr>
+<tr><td>要上下文，不要意见</td><td>Isha：问那些不需要它观点的问题，只要它聚合信息</td><td>提示词写成「列出证据 / 原话 / 提交记录」，禁止「你建议我们……」</td></tr>
+<tr><td>让 AI 跟你对着干</td><td>Karri：让它论证反对我的想法，再评估这些反对是否成立</td><td>固定加一句：先写最强的三条反对，再写在什么条件下反对不成立</td></tr>
+<tr><td>先定义「好」再构建</td><td>Karri：否则你永远成功——因为从未设过失败标准</td><td>动手前写 3 条可观察的接受标准（acceptance criteria）</td></tr>
+<tr><td>边建边学</td><td>Charlie：我不是技术型设计师；用设计师语言教我，而不只是替我做</td><td>要求 Agent 每做完一步用非行话解释概念，并指出你下次可自己改的地方</td></tr></table>
+
+<h2>08 和读本里其他文章怎么对照</h2>
+<table><tr><th>文章</th><th>侧重点</th><th>和本篇的关系</th></tr>
+<tr><td>Anthropic · Skills 改进前端设计</td><td>用审美 skill 对抗分布收敛</td><td>本篇补上：skill 还可以用来审讯问题，不只美化输出</td></tr>
+<tr><td>Anshu · 世界级设计师流程</td><td>外部种子、独立评论家、做减法</td><td>「让 AI 反对你」是独立评论家的产品战略版</td></tr>
+<tr><td>Vercel · design.md</td><td>品牌判断文件 + 评估闭环</td><td>Linear 的 /linear-way 更偏问题与策略；design.md 更偏页面品牌</td></tr>
+<tr><td>Figma · Agent 工具与 Skills</td><td>画布上的工具、上下文、斜杠命令</td><td>两边都在说：环境 &gt; 单次提示词</td></tr>
+<tr><td>Salman · 躲开 AI 审美默认值</td><td>输出侧的发散与对抗评审</td><td>本篇是输入侧：先搜索问题，再谈界面发散</td></tr></table>
+
+<h2>09 可直接改写的 skill / 提示词</h2>
+<pre><code># /my-product-way（改编自 /linear-way 思路）
+你是本产品的同事，不是接单助理。
+对每一条输入，必须先做这些，再谈方案：
+1. 用一句话重述「表面请求」
+2. 用一句话写出「可能的底层问题」（允许 2–3 个候选）
+3. 列出我们正在做的假设（至少 3 条）
+4. 写出「如果我们不建它」的后果与机会成本
+5. 写出「为什么我们不该建它」的最强三条反对
+6. 只有在以上完成后，才给出至多一个你认为值得探索的方向，并标明它回应的是哪个底层问题
+
+禁止：直接列功能清单；禁止未经验证就说「用户需要」。
+语气：像我们博客与产品原则里的人，而不是通用产品顾问。
+</code></pre>
+<pre><code># 设计评审前的上下文包（给 Agent）
+任务：为我准备一场设计评审的证据包，不要给方案建议。
+主题：[改动一句话]
+请分别汇总：
+- 代码 / 决策日志里「旧行为为何存在」
+- 客户原话（来源：访谈笔记 / Slack / 社媒 / 工单），尽量保留原句
+- 支持与反对该改动的原话各 5 条以内
+输出格式：表格 | 来源 | 原话或事实 | 与主题的关系 |
+最后用三句话描述「争议真正在争什么」，仍然不要给设计方案。
+</code></pre>
+
+<h2>10 自查清单</h2>
+<ul>
+<li>我这周有没有在「问题还不清」时就让 AI 出可运行原型？</li>
+<li>我有没有一份会追问底层问题、并论证反对意见的 skill？</li>
+<li>评审材料里，客户原话和我的转述，哪个占的篇幅更大？</li>
+<li>我有没有明确划定「不交给 AI」的区域（例如主文案、主视觉判断）？</li>
+<li>动手前有没有写下可观察的「好」的标准？</li>
+<li>我用 AI 时，是在要证据，还是在要它同意我？</li>
+<li>Quality Wednesday 式的小瑕疵修复，有没有变成 AI 的固定用途？</li>
+</ul>
+<div class="note"><p>Karri 对「好设计师」的定义值得钉在显示器上：最好的设计师在问题还不清楚时生产清晰度，给团队方向和信心。AI 可以帮你聚合证据、压力测试想法、修小伤口；它不能代替那种清晰度。Linear 的优势从来不是抄到最新工具，而是知道何时采用、何时说「我们想过了，不做」——对 AI 也一样。</p></div>
+</article>
+</body></html>

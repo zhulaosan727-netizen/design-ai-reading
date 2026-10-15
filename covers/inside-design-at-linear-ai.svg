@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#2A7A78">
+  <!-- 读本 cover system v1: paper / grid / mono label / line-art motif / one accent -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.06 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">JUDGMENT · CONTEXT · CRAFT</text>
+  <!-- motif: messy problem forces on left; a sounding-board agent in center; clear judgment path on right; accent is the counter-argument arrow -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75">
+    <!-- tangled forces / context -->
+    <path d="M90 220 C160 180 200 280 150 340 C100 400 180 460 240 420"/>
+    <path d="M110 500 C180 540 220 440 280 400 C330 360 300 280 250 250"/>
+    <path d="M80 360 C140 320 170 400 210 450"/>
+    <circle cx="150" cy="280" r="4"/><circle cx="200" cy="400" r="4"/><circle cx="260" cy="320" r="4"/>
+    <!-- agent as sounding board -->
+    <circle cx="480" cy="375" r="70"/>
+    <path d="M455 360 H505 M455 385 H490 M455 410 H500"/>
+    <!-- clarity / search converging to a fit -->
+    <path d="M560 300 C680 260 780 240 900 240"/>
+    <path d="M560 375 C700 375 800 360 980 340"/>
+    <path d="M560 450 C680 480 780 500 900 500"/>
+    <path d="M900 240 V500"/>
+    <path d="M920 280 H1080 V460 H920 Z"/>
+    <path d="M945 320 H1055 M945 360 H1030 M945 400 H1055"/>
+  </g>
+  <!-- accent: the argue-against arrow — pressure-testing the idea -->
+  <path d="M480 445 C480 560 900 560 900 500" fill="none" stroke="#2A7A78" stroke-width="3"/>
+  <path d="M888 512 L900 492 L912 512" fill="none" stroke="#2A7A78" stroke-width="3"/>
+  <circle cx="480" cy="445" r="8" fill="#2A7A78"/>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="28" fill="#1B2B26">How tech's most craft-obsessed team uses AI</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">DESIGNER FUND · LINEAR</text>
+</svg>

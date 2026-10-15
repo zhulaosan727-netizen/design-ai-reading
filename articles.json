@@ -82,5 +82,47 @@
     "category": "AI 设计工作流",
     "accent": "#7A4E86",
     "tint": "#ECE5EE"
+  },
+  {
+    "slug": "avoid-the-ai-aesthetic",
+    "title_zh": "躲开 AI 审美默认值",
+    "title_en": "Avoid the AI Aesthetic",
+    "author": "Salman Ansari",
+    "author_role": "资深全栈工程师、作家与独立创作者（salman.io）",
+    "source": "https://salman.io/tech/avoid-the-ai-aesthetic/",
+    "date": "2026-10-06",
+    "added": "2026-10-15",
+    "tags": [
+      "审美",
+      "发散",
+      "对抗评审",
+      "默认值"
+    ],
+    "dek": "别禁紫色就完事：先发散出真不同的结构，再按任务标准收敛，最后用新上下文攻击自己的方向。",
+    "category": "独特审美",
+    "cover": "covers/avoid-the-ai-aesthetic.svg",
+    "accent": "#B8892A",
+    "tint": "#EDE7DE"
+  },
+  {
+    "slug": "inside-design-at-linear-ai",
+    "title_zh": "Linear 设计团队怎么用 AI（还不丢手感）",
+    "title_en": "How tech's most craft-obsessed team uses AI: Inside design at Linear",
+    "author": "Designer Fund",
+    "author_role": "案例访谈；受访 Karri Saarinen、Charlie Aufmann、Isha Kumar（Linear）",
+    "source": "https://designerfund.substack.com/p/ai-design-linear",
+    "date": "2026-08-12",
+    "added": "2026-10-15",
+    "tags": [
+      "Linear",
+      "判断力",
+      "Skill",
+      "上下文"
+    ],
+    "dek": "手感顶尖的团队反而更克制：用 AI 审讯问题和聚齐证据，主文案与主判断仍留在自己手里。",
+    "category": "AI 设计工作流",
+    "cover": "covers/inside-design-at-linear-ai.svg",
+    "accent": "#2A7A78",
+    "tint": "#E0EAEA"
   }
 ]

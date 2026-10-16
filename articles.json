@@ -124,5 +124,48 @@
     "cover": "covers/inside-design-at-linear-ai.svg",
     "accent": "#2A7A78",
     "tint": "#E0EAEA"
+  },
+  {
+    "slug": "agents-with-taste",
+    "title_zh": "把品味写成 Agent 能执行的规则",
+    "title_en": "Agents with Taste",
+    "author": "Emil Kowalski",
+    "author_role": "Design Engineer，Linear Web 团队；曾在 Vercel 设计团队；Sonner、Vaul 作者",
+    "source": "https://emilkowal.ski/ui/agents-with-taste",
+    "date": "2026",
+    "date_note": "原文页面未标注具体日期",
+    "added": "2026-10-16",
+    "tags": [
+      "品味",
+      "Skill",
+      "动效",
+      "排版"
+    ],
+    "dek": "把「感觉对」逼问成「为什么对」，再写成 Agent 不用猜的规则。",
+    "category": "提示词与 Skill",
+    "cover": "covers/agents-with-taste.svg",
+    "accent": "#A8436B",
+    "tint": "#F0E4E8"
+  },
+  {
+    "slug": "ai-in-five-enterprise-design-teams",
+    "title_zh": "五家大厂的 AI 设计实况",
+    "title_en": "What AI use looks like in five enterprise design teams",
+    "author": "Jordan Geizer",
+    "author_role": "Thinkmill 设计师（产品设计与工程、设计系统）",
+    "source": "https://www.thinkmill.com.au/blog/what-ai-use-looks-like-in-five-enterprise-design-teams",
+    "date": "2026-09-07",
+    "added": "2026-10-16",
+    "tags": [
+      "原型",
+      "上下文",
+      "设计系统",
+      "团队"
+    ],
+    "dek": "五家大厂路线各异，却都押注同三件事：原型落点、可信上下文、帮人用起来。",
+    "category": "AI 设计工作流",
+    "cover": "covers/ai-in-five-enterprise-design-teams.svg",
+    "accent": "#4A56A6",
+    "tint": "#E5E7F2"
   }
 ]

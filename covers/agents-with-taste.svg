@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#A8436B">
+  <!-- 读本 cover system v1: paper / grid / mono label / line-art motif / one accent -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.07 · 提示词与 Skill</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">FEEL → WHY → RULE</text>
+  <!-- motif: left = tacit feel (loose scribbled loops); middle = an easing graph where the articulated choice (ease-out) is the accent; right = the rule tree an agent can follow -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75">
+    <!-- tacit feel: loose, overlapping loops -->
+    <path d="M110 380 C110 250 260 230 290 320 C320 410 190 470 150 400 C110 330 230 270 270 360 C300 430 220 480 180 440"/>
+    <path d="M140 300 C200 250 300 270 310 350 C320 430 230 500 160 470"/>
+    <!-- balloon idea: element never starts from zero -->
+    <rect x="160" y="520" width="80" height="56" rx="10"/>
+    <rect x="164" y="523" width="72" height="50" rx="9" stroke-dasharray="3 5"/>
+    <path d="M330 375 H420"/><path d="M410 367 L422 375 L410 383"/>
+    <!-- easing graph -->
+    <path d="M470 520 V220 M470 520 H770"/>
+    <path d="M770 520 V220 H470" stroke-opacity=".3"/>
+    <path d="M470 520 L770 220" stroke-dasharray="4 6"/>
+    <path d="M470 520 C620 520 740 420 770 220" stroke-opacity=".45"/>
+    <text x="470" y="548" font-family="IBM Plex Mono,monospace" font-size="12" letter-spacing="2" fill="#1B2B26" fill-opacity=".6" stroke="none">t</text>
+    <text x="452" y="232" font-family="IBM Plex Mono,monospace" font-size="12" letter-spacing="2" fill="#1B2B26" fill-opacity=".6" stroke="none">x</text>
+    <!-- rule tree -->
+    <path d="M800 370 H850"/>
+    <circle cx="862" cy="370" r="12"/>
+    <path d="M874 370 C910 370 910 250 950 250"/>
+    <path d="M874 370 C910 370 910 330 950 330"/>
+    <path d="M874 370 C910 370 910 410 950 410"/>
+    <path d="M874 370 C910 370 910 490 950 490"/>
+    <path d="M950 236 H1090 V264 H950 Z"/>
+    <path d="M950 316 H1060 V344 H950 Z"/>
+    <path d="M950 396 H1075 V424 H950 Z"/>
+    <path d="M950 476 H1040 V504 H950 Z"/>
+    <path d="M964 250 H1030 M964 330 H1010 M964 410 H1040 M964 490 H1000" stroke-opacity=".5"/>
+  </g>
+  <!-- accent: the articulated choice — ease-out, chosen on purpose -->
+  <path d="M470 520 C530 300 640 225 770 220" fill="none" stroke="#A8436B" stroke-width="3"/>
+  <circle cx="470" cy="520" r="7" fill="#A8436B"/>
+  <circle cx="770" cy="220" r="7" fill="#A8436B"/>
+  <path d="M950 236 H1090 V264 H950 Z" fill="none" stroke="#A8436B" stroke-width="2.5"/>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">Agents with Taste</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">EMILKOWAL.SKI</text>
+</svg>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#4A56A6">
+  <!-- 读本 cover system v1: paper / grid / mono label / line-art motif / one accent -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.08 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">PROTOTYPE · CONTEXT · ADOPTION</text>
+  <!-- motif: five team paths start apart (diverging setups), all pass through one source of truth (the design system, accent), then land as shareable prototype frames -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75">
+    <!-- five starting points -->
+    <circle cx="110" cy="170" r="6"/><circle cx="110" cy="270" r="6"/><circle cx="110" cy="375" r="6"/><circle cx="110" cy="480" r="6"/><circle cx="110" cy="580" r="6"/>
+    <!-- paths converge into the source -->
+    <path d="M116 170 C300 170 380 330 520 355"/>
+    <path d="M116 270 C280 270 380 345 520 365"/>
+    <path d="M116 375 C260 375 380 375 520 375"/>
+    <path d="M116 480 C280 480 380 405 520 385"/>
+    <path d="M116 580 C300 580 380 420 520 395"/>
+    <!-- paths fan out to prototypes -->
+    <path d="M680 355 C780 330 800 200 880 190"/>
+    <path d="M680 365 C790 360 800 290 880 290"/>
+    <path d="M680 375 H880"/>
+    <path d="M680 385 C790 390 800 460 880 460"/>
+    <path d="M680 395 C780 420 800 550 880 560"/>
+    <!-- prototype frames: browser windows with a control-panel column -->
+    <g>
+      <path d="M880 160 H1090 V220 H880 Z M880 172 H1090 M1050 172 V220"/>
+      <path d="M880 260 H1090 V320 H880 Z M880 272 H1090 M1050 272 V320"/>
+      <path d="M880 345 H1090 V405 H880 Z M880 357 H1090 M1050 357 V405"/>
+      <path d="M880 430 H1090 V490 H880 Z M880 442 H1090 M1050 442 V490"/>
+      <path d="M880 530 H1090 V590 H880 Z M880 542 H1090 M1050 542 V590"/>
+      <path d="M1060 186 H1080 M1060 198 H1074 M1060 286 H1080 M1060 298 H1074 M1060 371 H1080 M1060 383 H1074 M1060 456 H1080 M1060 468 H1074 M1060 556 H1080 M1060 568 H1074" stroke-opacity=".5"/>
+    </g>
+    <!-- people / adoption: small speech loops under the flow -->
+    <path d="M300 620 C300 600 340 600 340 620 C340 636 316 636 306 640 L300 648 L302 636 C300 632 300 626 300 620Z" stroke-opacity=".5"/>
+    <path d="M760 620 C760 600 800 600 800 620 C800 636 776 636 766 640 L760 648 L762 636 C760 632 760 626 760 620Z" stroke-opacity=".5"/>
+  </g>
+  <!-- accent: the trusted source of truth every path must query first -->
+  <g fill="none" stroke="#4A56A6" stroke-width="3">
+    <rect x="520" y="295" width="160" height="160" rx="4"/>
+    <path d="M520 348 H680 M520 401 H680 M573 295 V455 M626 295 V455" stroke-width="1.8"/>
+  </g>
+  <rect x="573" y="348" width="53" height="53" fill="#4A56A6"/>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">What AI use looks like in five enterprise design teams</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">THINKMILL</text>
+</svg>

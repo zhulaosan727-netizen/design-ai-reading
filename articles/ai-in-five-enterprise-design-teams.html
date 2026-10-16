@@ -1,0 +1,149 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>五家大厂的 AI 设计实况 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E5E7F2">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 08 · AI 设计工作流 / 原型环境 / 上下文 / 团队采纳</div><h1>五家大厂的 AI 设计实况</h1><div class="en">What AI use looks like in five enterprise design teams</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Jordan Geizer</dd><dt>身份</dt><dd>Thinkmill 设计师（产品设计与工程、设计系统）</dd><dt>日期</dt><dd>2026-09-07</dd><dt>原文</dt><dd><a href="https://www.thinkmill.com.au/blog/what-ai-use-looks-like-in-five-enterprise-design-teams">thinkmill.com.au ↗</a></dd></dl><a class="readorig" href="https://www.thinkmill.com.au/blog/what-ai-use-looks-like-in-five-enterprise-design-teams" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/ai-in-five-enterprise-design-teams.svg" alt="What AI use looks like in five enterprise design teams 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解，结构、例子、表格和模板都是编者自己的。原文是 Thinkmill 设计师对 Stripe、Shopify、Ramp、Atlassian、Intercom 五个设计团队公开访谈与资料的梳理，配有功能对比图；下文把它整理成一套可以照着搭的方法，并补上个人设计师的缩小版做法。原图请点上方「阅读原文」查看。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li><li>这篇是怎么来的（以及它的局限）</li><li>五家团队快照</li><li>两条分歧：自建还是现成，沙盒还是接生产</li><li>四个趋同功能</li><li>上下文决定质量：设计系统、项目、用户</li><li>最容易被忽略的一环：帮人用起来</li><li>先做对什么</li><li>个人设计师的缩小版</li><li>模板：给原型 Agent 的规则文件</li><li>和读本里其他文章怎么对照</li><li>自查清单</li></ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，五家团队路线各异，但都投资了同样三件事：</b>一个做原型的地方（somewhere to prototype）、一套给 AI 喂对上下文的方式、以及帮人真正用起来的功夫。</p>
+<p><b>第二，决定 AI 产出质量的，不是工具，而是上下文。</b>其中最费力、也最见效的是设计系统上下文：不给可信的「事实来源」（source of truth），模型就会编造一整套并不存在的组件，而且看起来很像真的。</p>
+<p><b>第三，跑得最快的团队，在 AI 之前就已经有一套强设计系统。</b>设计系统本来就是为了让一个团队的决定清晰、可复用；AI Agent 只是这份清晰的又一个读者。</p>
+
+<h2>02 这篇是怎么来的（以及它的局限）</h2>
+<p>作者 Jordan Geizer 在澳大利亚的设计与工程咨询公司 Thinkmill 工作，日常帮设计系统团队落地 AI 辅助设计与开发。他发现关于 AI 的文章大多是炫目演示或宏大预测，于是去搜集了这五家公司设计师和工程师的公开访谈，看了好几个小时，整理每家「现在实际怎么工作」。</p>
+<p>这意味着两点。好处是：样本都是一线大厂的真实流程，不是厂商宣传稿。局限是：信息来自公开资料，作者也注明是「发表时」的状态；具体工具名、比例会很快过时，<b>真正值得带走的是结构</b>——下面的整理也按这个思路来。</p>
+<div class="note"><p>读这类「大厂怎么做」的文章，编者建议你盯住「为什么这样设计」而不是「用了哪个工具」。工具半年一换，但「先查设计系统再写代码」「早期稿故意做成灰阶」这种做法背后的道理，换什么工具都成立。</p></div>
+
+<h2>03 五家团队快照</h2>
+<table><tr><th>团队</th><th>原型环境</th><th>离生产多近</th><th>值得记住的做法</th></tr>
+<tr><td>Atlassian</td><td>现成工具：Figma Make、Replit，加上精调过的设计系统文档</td><td>独立于生产</td><td>只给模型 20–30 个精选组件；做了「从 Tailwind 翻译」对照表</td></tr>
+<tr><td>Intercom</td><td>直接在生产代码库里，用 Claude Code + Figma Code Connect + Figma MCP</td><td>就在生产代码里</td><td>AI 拿到真实的组件导入路径，不重造组件</td></tr>
+<tr><td>Stripe</td><td>自建 Protodash，独立环境运行</td><td>沙盒，但用真实设计系统</td><td>设计系统走 MCP，写代码前必须先查；查不到就诚实失败</td></tr>
+<tr><td>Shopify</td><td>内部工具包 Quick + 复刻后台界面的 playground</td><td>介于两者之间</td><td>CLI 一键发布；内部原型画廊 + 共享提示词库</td></tr>
+<tr><td>Ramp</td><td>自建平台 Inspect，用来处理 bug 修复和客户反馈</td><td>直接在生产分支上</td><td>从会话录像和研究记录出发，先理解用户再生成</td></tr></table>
+
+<h2>04 两条分歧：自建还是现成，沙盒还是接生产</h2>
+<p>原文指出五家的原型做法在两个维度上分道扬镳。</p>
+<p><b>自建 vs 现成（hand-rolled vs off-the-shelf）。</b>Stripe 和 Ramp 投资了内部平台；Atlassian 更依赖 Figma Make、Replit 这类产品；Intercom 和 Shopify 居中，有自己的工作流和集成。</p>
+<p><b>沙盒 vs 接生产（sandboxed vs wired to production）。</b>Stripe 看起来把 Protodash 隔离在沙盒里，但用真实设计系统搭建，所以设计师在评审里展示的，就是工程师可以接手的那份代码；Ramp 更进一步，直接在生产的分支上做原型。两种方式都让原型「真到足以让人信任」。</p>
+<p>编者把两条轴交叉成一张选择表，帮你判断自己的团队适合哪一格：</p>
+<table><tr><th></th><th>沙盒（安全、自由试错）</th><th>接生产（真实、可直接交付）</th></tr>
+<tr><td><b>现成工具</b></td><td>起步最快，适合设计系统还不成熟、想先培养习惯的团队（接近 Atlassian）</td><td>需要代码库本身整洁、组件有映射（接近 Intercom 的 Code Connect 路线）</td></tr>
+<tr><td><b>自建平台</b></td><td>前期投入大，但可以把设计系统、发布、评论都内建进去（接近 Stripe）</td><td>门槛最高，要求工程文化强、权限与评审流程清楚（接近 Ramp）</td></tr></table>
+<p>值得补一句：Notion 的设计师 Brian Lovin 公开分享过，他们的共享原型仓库之外，越来越多设计师开始直接在生产代码里用功能开关（feature flag）做原型——说明「沙盒 → 接生产」可能是随着模型变强而自然迁移的方向。</p>
+
+<h2>05 四个趋同功能</h2>
+<p>路线不同，功能却在趋同。原文列了几类，它们都在做同一件事：让设计讨论更容易、让大家更早对齐、让探索更快。</p>
+<table><tr><th>功能</th><th>原文里的做法</th><th>解决什么问题</th><th>编者的例子</th></tr>
+<tr><td>可分享的托管 URL + CLI 发布</td><td>五家都有安全的原型存放与分享处；Intercom、Shopify 给创作者 CLI 命令</td><td>任何人点开浏览器就能看，不用装环境</td><td>一条 <code>publish</code> 命令输出链接，贴进评审文档</td></tr>
+<tr><td>状态控制面板（control panel）</td><td>一个切换应用状态的 UI 面板</td><td>不重建原型就能测空状态、脏数据、多语言、小公司 vs 大企业</td><td>右下角浮层：空列表 / 1 条 / 1000 条 / 超长名字 / 德语</td></tr>
+<tr><td>保真度信号（fidelity control）</td><td>Stripe、Shopify 把早期概念做成灰阶，或故意用非品牌组件</td><td>评审者自然把它当早期稿，不去抠细节</td><td>「探索」模式全局灰阶 + 系统字体；「定稿」模式才加载品牌主题</td></tr>
+<tr><td>原型内评论 + AI 汇总</td><td>Stripe、Shopify 在原型里直接评论，AI 汇总后执行修改</td><td>反馈不散落在 Slack，修改闭环更短</td><td>评论按主题聚类，AI 先列「准备怎么改」，你确认后再动</td></tr></table>
+<div class="note"><p>「保真度信号」是这篇里最被低估的一招。AI 让高保真变得太便宜，结果早期讨论总被拉到文案和像素上——Google 设计师 Katie Jacquez 在另一篇文章里把这叫作「过早打磨」。用灰阶和非品牌组件主动「降级」，是在用视觉语言告诉评审者：现在讨论结构，不讨论表皮。</p></div>
+
+<h2>06 上下文决定质量：设计系统、项目、用户</h2>
+<p>如果原型环境是干活的地方，上下文就决定活的质量。这是五家里最强的共同模式，作者分成三层。</p>
+<h3>设计系统上下文：对抗「一本正经地编造」</h3>
+<blockquote>“[An LLM] will just imagine the entire design system without telling you when it’s not there.” — Owen Williams，Stripe（原文引述）</blockquote>
+<p>陷阱在于：产出看起来很完整，团队就在上面继续搭，直到有人要上线时才发现那个组件根本不存在，或者行为不一样。几个团队都撞上了同一个限制：<b>设计令牌（design tokens）迁移给 AI 相对容易，组合真实组件要难得多。</b>三家的解法各有侧重：</p>
+<table><tr><th>团队</th><th>做法</th><th>背后的原理</th></tr>
+<tr><td>Atlassian</td><td>从组件包自动生成指令文件，但只暴露 20–30 个精选组件，每个配清楚的示例；他们发现上下文越多结果往往越差。另做一张每个组件的「从 Tailwind 翻译」对照表</td><td>少而精胜过大而全；让模型先用它最熟悉的 Tailwind / React 思考，再映射回自家组件</td></tr>
+<tr><td>Intercom</td><td>整个组件库接 Figma Code Connect，AI 拿到生产代码的真实导入路径</td><td>不让模型「重画」组件，只让它「引用」组件</td></tr>
+<tr><td>Stripe</td><td>设计系统通过 MCP 服务器暴露，要求 AI 写代码前先查询；还规定了服务器不可用时该怎么办</td><td>让模型诚实失败，而不是自信地编造</td></tr></table>
+<p>三者的共同原则是：AI 能依赖可信的事实来源时，表现比让它自己填空好得多。</p>
+<h3>项目上下文：最简单，也最容易漏</h3>
+<p>就是需求简报、要求和背景。Stripe 的设计师把 Google Docs 里的 PRD 直接粘进原型；部分 Shopify 设计师在每个项目旁放几份 markdown 文件，让模型生成前先读到正确背景。</p>
+<h3>用户上下文：目前还主要靠人工</h3>
+<p>Ramp 的设计师从理解客户体验出发：在 LogRocket 里看会话录像，用内部工具汇总用户卡在哪，用 Notion AI 检索研究访谈记录，再让这些洞察同时塑造原型和生成原型的提示词。作者指出这部分大多仍是手工的，并预期它会像设计系统上下文一样被规范化。</p>
+<div class="note"><p>对追求独特审美的设计师，这一节有个反直觉的启示：Atlassian 发现「上下文越多越差」。你的风格指南、参考图、规则文件也一样——给 Agent 一份 30 页的品牌手册，不如给它 10 条最关键的判断和 3 个好坏对照例子。精选，本身就是品味。</p></div>
+
+<h2>07 最容易被忽略的一环：帮人用起来</h2>
+<p>作者认为这可能是最不显眼、却最重要的部分。设计团队里，有人从没打开过代码编辑器，有人熟悉 Git 和命令行；装工具、开权限、部署原型这种小坎，都可能让人在开始干活前就放弃。</p>
+<table><tr><th>团队</th><th>推动力</th><th>降低门槛的具体做法</th></tr>
+<tr><td>Shopify</td><td>CEO Tobi Lütke 明确表示，使用 AI 会成为工作方式和绩效评估的一部分</td><td>内部原型画廊 + 可复用的共享提示词库</td></tr>
+<tr><td>Intercom</td><td>CTO 和设计负责人推动</td><td>Prototyping Hub：浅白的「给设计师的 Code 101」指南、分步视频</td></tr>
+<tr><td>Atlassian</td><td>全公司「AI Builder Week」，据其说法数千名员工暂停日常工作一周学 AI 原型</td><td>发现拉人进 Slack 频道效果一般，发群组私信反应强得多，于是做了个小机器人</td></tr></table>
+<p>作者的总结是：工具投资和人的投资必须同步。再精巧的原型环境，如果只有少数人有信心使用，也没多大用处。</p>
+
+<h2>08 先做对什么</h2>
+<p>文章收尾只给了一个结论：进展最快的团队，在 AI 进入工作流之前就有强设计系统。令牌、组件、文档和指南，十多年来一直是为了让人一致地构建；现在只是多了一类读者。</p>
+<p>编者把全文压成一个优先级顺序，适合团队做路线图时参考：</p>
+<ol>
+<li><b>整理事实来源</b>：令牌、精选组件、每个组件的示例与「不要这样用」。</li>
+<li><b>定一个能分享的原型落点</b>：哪怕只是一个共享仓库 + 自动部署。</li>
+<li><b>约定项目上下文的格式</b>：每个原型旁放 brief.md、constraints.md。</li>
+<li><b>加上状态控制面板和保真度开关</b>。</li>
+<li><b>投资采纳</b>：入门指南、提示词库、画廊、有人答疑。</li>
+<li>最后才考虑自建平台和接生产。</li></ol>
+
+<h2>09 个人设计师的缩小版</h2>
+<p>五家都是大团队，但结构可以缩到一个人身上。如果你也用 AI 做自己的网站和作品，可以这样对应：</p>
+<table><tr><th>团队级做法</th><th>个人缩小版</th></tr>
+<tr><td>Protodash / Prototype Playground</td><td>一个 <code>playground</code> 仓库，每个想法一个目录，推送即自动部署到 GitHub Pages 或 Vercel</td></tr>
+<tr><td>设计系统 MCP / Code Connect</td><td>一份 <code>tokens.css</code> + 一个 <code>components/</code> 目录 + 一份规则文件，要求 Agent 只能用其中的东西</td></tr>
+<tr><td>Atlassian 的 20–30 个精选组件</td><td>只列你最常用的 10–15 个组件，每个附一段好的用法</td></tr>
+<tr><td>状态控制面板</td><td>让 Agent 在每个原型右下角加一个开发用浮层，切换空 / 少 / 多 / 极端数据</td></tr>
+<tr><td>灰阶早期稿</td><td>一个 <code>?mode=explore</code> 参数：去掉品牌色和字体，只看结构</td></tr>
+<tr><td>共享提示词库</td><td>一个 <code>prompts/</code> 文件夹，把好用的提示词存成可复用的 skill</td></tr></table>
+
+<h2>10 模板：给原型 Agent 的规则文件</h2>
+<p>下面这份规则文件把 Stripe 的「先查再写、查不到就诚实失败」、Atlassian 的「精选 + Tailwind 翻译」和保真度开关合在一起，可放进 AGENTS.md 或 CLAUDE.md：</p>
+<pre><code># 原型规则（AGENTS.md）
+
+## 事实来源（必须先读）
+- 设计令牌：/design/tokens.css
+- 可用组件：/design/components/README.md（只有这里列出的组件可以使用）
+- 写任何 UI 代码前，先列出你打算使用的组件，并确认每一个都在清单中。
+
+## 找不到时怎么办（诚实失败）
+- 需要的组件不在清单里：停下来，告诉我缺什么，提出「用现有组件组合」或「新建」两个选项，等我决定。
+- 禁止自行发明组件名、属性或令牌。
+- 无法读取上述文件时，直接报告，不要凭记忆继续。
+
+## Tailwind 翻译表（你可以先用 Tailwind 思考，但输出必须映射）
+| 你想写的 Tailwind | 实际使用 |
+| rounded-lg shadow p-4 | &lt;Card&gt; |
+| text-sm text-gray-500 | &lt;Text tone="muted" size="s"&gt; |
+| bg-blue-600 text-white px-4 py-2 | &lt;Button variant="primary"&gt; |
+
+## 项目上下文
+- 每个原型目录下必须有 brief.md；开始前先读，并用三句话复述目标。
+
+## 保真度
+- 默认「探索模式」：灰阶、系统字体、不加载品牌主题。
+- 只有我说「进入定稿」后，才切换到品牌主题。
+
+## 状态面板
+- 每个原型加一个开发浮层，可切换：空数据 / 1 条 / 50 条 / 极端长文本 / 加载中 / 出错。
+</code></pre>
+<pre><code># 评审汇总提示词（配合原型内评论使用）
+以下是这次原型评审收到的全部评论：[粘贴]
+1. 按主题聚类，每类注明提出者人数。
+2. 区分「结构问题」和「表层问题（文案、颜色、间距）」；当前处于探索阶段，表层问题只记录不修改。
+3. 对每个结构问题，列出你准备怎么改、会影响哪些文件。
+4. 等我确认后再动手。
+</code></pre>
+
+<h2>11 和读本里其他文章怎么对照</h2>
+<table><tr><th>文章</th><th>侧重点</th><th>和本篇的关系</th></tr>
+<tr><td>Vercel · design.md</td><td>一份公开的品牌判断文件</td><td>design.md 是「事实来源」在品牌层面的版本；本篇讲的是组件层面</td></tr>
+<tr><td>Figma · Agent 工具与 Skills</td><td>画布里的工具与上下文</td><td>同一结论：环境和上下文比单次提示词重要</td></tr>
+<tr><td>Linear · 设计团队怎么用 AI</td><td>AI 用来审讯问题、聚齐证据</td><td>Ramp 的用户上下文做法和 Linear 的「先弄清问题」同源</td></tr>
+<tr><td>Emil · 把品味写成规则</td><td>个人手感的规则化</td><td>Emil 编码的是个人品味，本篇编码的是团队的设计系统；两者都是「把判断写下来」</td></tr></table>
+
+<h2>12 自查清单</h2>
+<ul>
+<li>我有没有一个「点开链接就能看」的原型落点？</li>
+<li>Agent 可用的组件是不是一份精选清单，而不是整个组件库？</li>
+<li>规则里有没有写明「找不到组件时停下来问我」？</li>
+<li>每个原型旁边有没有 brief 之类的项目上下文文件？</li>
+<li>原型能不能一键切换空状态、极端数据、出错状态？</li>
+<li>早期稿是否用灰阶或非品牌样式，防止评审过早抠细节？</li>
+<li>评审反馈是集中在原型里，还是散落在聊天记录里？</li>
+<li>如果是团队：有没有入门指南、提示词库和能答疑的人？</li></ul>
+<div class="note"><p>这篇最后一句话值得反复读：AI Agent 只是设计系统的又一个读者。很多团队想「为 AI 做准备」，结果去研究最新工具；但五家大厂的经验说明，真正的准备工作十年前就该做——把决定写清楚、让它可复用。对个人设计师也一样：你越早把自己的令牌、组件和规则整理成文，AI 就越早开始像你的同事，而不是一个爱编故事的实习生。</p></div>
+</article>
+</body></html>

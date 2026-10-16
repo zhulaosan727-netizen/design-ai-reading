@@ -1,0 +1,160 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>把品味写成 Agent 能执行的规则 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#F0E4E8">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 07 · 提示词与 Skill / 品味 / 动效 / 规则化</div><h1>把品味写成 Agent 能执行的规则</h1><div class="en">Agents with Taste</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Emil Kowalski</dd><dt>身份</dt><dd>Design Engineer，Linear Web 团队；曾在 Vercel 设计团队；Sonner、Vaul 作者</dd><dt>日期</dt><dd>2026（原页未标具体日期）</dd><dt>原文</dt><dd><a href="https://emilkowal.ski/ui/agents-with-taste">emilkowal.ski ↗</a></dd></dl><a class="readorig" href="https://emilkowal.ski/ui/agents-with-taste" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/agents-with-taste.svg" alt="Agents with Taste 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解，结构、例子、表格和模板都是编者自己的。原文篇幅不长，核心是几段可交互的动效演示和几份 skill 片段；下文把它的方法拆成可迁移的步骤，并补上把「你自己的品味」写成 skill 的完整做法。动效演示请点上方「阅读原文」亲自看。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li><li>为什么 Agent「没有品味」</li><li>品味不是玄学：从「感觉对」到「为什么对」</li><li>四种让 Agent 不用猜的写法</li><li>精讲一：缓动曲线决策树与时长表</li><li>精讲二：七条排版守则背后的理由</li><li>用 skill 做评审，而不只是生成</li><li>把方法推广到布局、图标、色彩</li><li>和读本里其他文章怎么对照</li><li>模板：从你的作品里「审讯」出一份品味 skill</li><li>自查清单</li></ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，Agent 写代码很强，但不知道「好」摸起来是什么感觉。</b>尤其是动效（animation）这种视觉细节：它会给入场动画配 ease-in，会用实线边框代替半透明阴影——每个错都很小，叠在一起就是「差点意思」。</p>
+<p><b>第二，几乎每个「品味判断」都有可以说清的理由。</b>Emil 的方法是：先问自己「为什么这样更好」，把理由写成严格规则，每个界面维度一个 skill 文件，然后交给 Agent 执行。</p>
+<p><b>第三，规则要「严格到 Agent 不需要猜」。</b>他用了四种写法：场景→解法对照表、决策流程图、数值区间表、编号守则。写得越确定，Agent 越不会自作主张。</p>
+<blockquote>“If you know what great feels like, describe the rules, then give them to your agents so they can follow them.” — Emil Kowalski</blockquote>
+
+<h2>02 为什么 Agent「没有品味」</h2>
+<p>Emil 是 Linear Web 团队的设计工程师（design engineer），之前在 Vercel 设计团队，写过被大量项目使用的 toast 组件 Sonner 和抽屉组件 Vaul。他的观察很具体：工程师因为有一队 Agent，杠杆从没这么大过；可一到偏视觉的工作，Agent 就「不知道 great 是什么手感」。</p>
+<p>原因不神秘。模型在海量代码上学到的是「最常见的写法」，而不是「最讲究的写法」。常见写法往往是能跑、但没想过感受的写法——这和读本 No.01 讲的分布收敛（distributional convergence）是同一件事，只是这次发生在毫秒和像素层面，而不是字体和配色层面。</p>
+<table><tr><th>Agent 的常见默认</th><th>为什么「差点意思」</th><th>讲究的做法</th></tr>
+<tr><td>弹层从 <code>scale(0)</code> 放大出现</td><td>像凭空冒出来，现实中没有东西从零体积开始</td><td>从 <code>scale(0.95)</code> 左右开始，配合淡入</td></tr>
+<tr><td>入场动画用 ease-in</td><td>开头慢、结尾快，用户点下去的那一刻反而最迟钝</td><td>入场 / 出场用 ease-out，第一帧就有反馈</td></tr>
+<tr><td>卡片用实线 1px 边框</td><td>在不同底色上显得生硬、发灰</td><td>半透明阴影或半透明描边，随底色自然融合</td></tr>
+<tr><td>Popover 从中心缩放</td><td>和触发它的按钮没有空间关系</td><td><code>transform-origin</code> 设到触发位置</td></tr>
+<tr><td>所有动画 400–500ms</td><td>界面显得拖沓，像在等它表演</td><td>UI 动效控制在 300ms 以内</td></tr></table>
+<div class="note"><p>这张表本身就说明了 Emil 的论点：左列每一项都「不算错」，代码评审里没人会拦；只有对手感敏感的人才会皱眉。AI 时代最容易被抹平的，恰恰是这种「不算错但不够好」的差距——也正是做出差异化界面的地方。</p></div>
+
+<h2>03 品味不是玄学：从「感觉对」到「为什么对」</h2>
+<p>原文的核心演示是两个并排的弹出动画：左边从 <code>scale(0)</code> 开始，右边从更高的初始值开始。右边「感觉对」，因为它更温和、更自然、更优雅。Emil 接着给出了「为什么」：像一只气球，哪怕瘪了也有可见的形状，不会彻底消失；从一个可见尺寸开始放大，更像真实世界。</p>
+<p>他的结论是：几乎每个「品味」决定，只要看得够近，都有逻辑上的原因——而且这适用于任何学科。经验足够时，你不仅能分辨哪个更好，还能说出为什么；到这一步，你就具备了把品味「转移」给别人（包括 Agent）的能力。</p>
+<p>编者把这个过程拆成三级，方便你检查自己卡在哪一级：</p>
+<table><tr><th>层级</th><th>你能做到什么</th><th>能否交给 Agent</th><th>例子</th></tr>
+<tr><td>L1 感觉（feel）</td><td>看出「这个不对劲」</td><td>不能：Agent 无从下手</td><td>「这个弹窗有点生硬」</td></tr>
+<tr><td>L2 原因（why）</td><td>说出不对劲的物理 / 认知原因</td><td>勉强：Agent 需要自己推导做法</td><td>「它从零开始放大，像凭空出现」</td></tr>
+<tr><td>L3 规则（rule）</td><td>写成可执行、可检查的条件与数值</td><td>可以：Agent 照做、还能用来评审</td><td>「弹层初始 scale ≥ 0.95，配合 opacity 0→1」</td></tr></table>
+<p>当然，原文也说得很清楚：更有创造性的那部分工作仍然归你；但你能打包进 skill 的部分越多，从 Agent 身上拿到的杠杆就越大。</p>
+<div class="note"><p>对资深设计师来说，这篇最有价值的提醒是：你脑子里那句「感觉不对」，本身没法规模化。L1 停留在评审会上靠嘴说；L3 才能被复制到每一次生成里。把品味写下来，不是削弱直觉，而是让直觉第一次可以被「部署」。</p></div>
+
+<h2>04 四种让 Agent 不用猜的写法</h2>
+<p>原文里展示的几个 skill 片段，形式各不相同。编者归纳为四种格式，各有适用场景：</p>
+<table><tr><th>格式</th><th>原文例子</th><th>适合写什么</th><th>写法要点</th></tr>
+<tr><td>场景 → 解法对照表（lookup table）</td><td>Practical Tips：按钮按下、元素凭空出现、抖动、hover 闪烁……</td><td>零散但高频的「小毛病」</td><td>左列写症状（Agent 能识别），右列写具体代码级做法</td></tr>
+<tr><td>决策流程图（decision tree）</td><td>Easing Decision Flowchart</td><td>有分支条件的单一选择</td><td>每个分支只问一个是 / 否问题；必须有 Default</td></tr>
+<tr><td>数值区间表（range table）</td><td>Duration Guidelines</td><td>需要量化的参数</td><td>给区间而非单值；附上相对规则（大元素更慢、出场更快）</td></tr>
+<tr><td>编号守则（numbered rules）</td><td>Typography 七条</td><td>相互独立的原则</td><td>每条「做什么 + 为什么」，理由让 Agent 能举一反三</td></tr></table>
+<p>Practical Tips 表里的几条值得记住：按钮按下时 <code>scale(0.97)</code> 让它「有回应」；动画抖动时加 <code>will-change: transform</code>；hover 引起闪烁时改为动画子元素而不是父元素；连续出现的 tooltip，第一个之后跳过延迟和动画；小按钮用伪元素扩到 44px 的最小点击区域（hit area）；实在还觉得不对劲，加一点 20px 以内的模糊来遮掩。</p>
+<p>Emil 的态度很明确：要严格（be strict），让 Agent 不必猜、也不必自创规则，只要照着流程图选。</p>
+
+<h2>05 精讲一：缓动曲线决策树与时长表</h2>
+<p>Emil 把缓动（easing）称为动画里最重要的部分。他的流程图可以用中文这样读：</p>
+<ul>
+<li>元素在进入或离开视口吗？→ 是：<b>ease-out</b></li>
+<li>否则，它在屏幕上移动或变形吗？→ 是：<b>ease-in-out</b></li>
+<li>否则，是 hover 状态变化吗？→ 是：<b>ease</b></li>
+<li>否则，是持续运动吗？→ 是：<b>linear</b></li>
+<li>都不是 → 默认 <b>ease-out</b></li></ul>
+<p>时长（duration）表同样简单：微交互 100–150ms；常规 UI（tooltip、下拉菜单）150–250ms；模态框、抽屉 200–300ms。配套规则是：UI 动效不超过 300ms；大元素比小元素慢；出场可以比入场快约 20%；移动距离越长，时长越长。</p>
+<p>编者把它套到几个常见组件上，你可以直接对照自己的项目：</p>
+<table><tr><th>组件 / 场景</th><th>判断路径</th><th>缓动</th><th>建议时长</th></tr>
+<tr><td>下拉菜单展开</td><td>进入视口</td><td>ease-out</td><td>约 180ms（出场约 140ms）</td></tr>
+<tr><td>侧边抽屉滑入</td><td>进入视口，大元素、长距离</td><td>ease-out</td><td>约 260ms</td></tr>
+<tr><td>列表项拖拽后归位</td><td>屏幕内移动</td><td>ease-in-out</td><td>约 200ms</td></tr>
+<tr><td>按钮 hover 变色</td><td>hover 变化</td><td>ease</td><td>约 120ms</td></tr>
+<tr><td>加载转圈</td><td>持续运动</td><td>linear</td><td>按一圈周期设，不受 300ms 限制</td></tr>
+<tr><td>Toast 弹出 / 消失</td><td>进入 / 离开视口</td><td>ease-out</td><td>入场约 220ms，出场约 180ms</td></tr></table>
+<div class="note"><p>表里的具体毫秒数是编者按原文区间给的示例，不是原文原话。真正的重点是「判断路径」那一列：你给 Agent 的不是一个数，而是一套推出这个数的问题。这样遇到你没列过的新组件，它也能自己走一遍流程。</p></div>
+
+<h2>06 精讲二：七条排版守则背后的理由</h2>
+<p>Emil 强调这套方法不限于动效，布局、图标、色彩都可以这样打包。他贴出的排版（typography）片段有七条，每条都自带理由。编者按「做什么 / 为什么 / 中文界面怎么变通」重排：</p>
+<table><tr><th>守则</th><th>理由</th><th>中文界面的变通（编者补充）</th></tr>
+<tr><td>正文行宽约 65ch，不要撑满</td><td>行长舒适才好读</td><td>中文按字数算，常见在 35–46 字之间，视字号与场景而定</td></tr>
+<tr><td>价格列用 <code>tabular-nums</code></td><td>数字等宽对齐，整列更清楚</td><td>数据表、账单、仪表盘全部适用</td></tr>
+<tr><td>省略用「…」字符而不是三个点</td><td>截断跟随容器，而不是卡在固定字符数</td><td>中文用 CSS 截断时同理，避免手动拼「...」</td></tr>
+<tr><td>全大写标签加大字距</td><td>紧凑的大写读起来局促</td><td>中文没有大小写，但等宽英文小标签（像读本的 mono 标签）同样适用</td></tr>
+<tr><td>后备字体的 x 高度和字重要接近主字体</td><td>字体加载时不产生布局跳动（layout shift）</td><td>中文网页字体加载慢，更要选度量接近的系统后备</td></tr>
+<tr><td>下划线只留给链接</td><td>让下划线始终是可靠的可点击暗示（affordance）</td><td>非链接强调用字重或颜色</td></tr>
+<tr><td>界面强调用粗体，斜体留给引文和语气</td><td>斜体层级读起来像印刷编辑排版，不像 UI 层级</td><td>中文本来就不宜用斜体，这条更应严格执行</td></tr></table>
+<p>注意每条的结构：动作 + 理由。理由不是装饰——Agent 遇到守则没覆盖的情况时，靠理由推断该怎么做。</p>
+
+<h2>07 用 skill 做评审，而不只是生成</h2>
+<p>原文最后一个演示，是让 Claude Code 用他的动效 skill 去「改进一个对话框动画」。Agent 给出了一份基于规则的问题清单，以及一张前后对比表，列出改了什么。</p>
+<p>这一点常被忽略：同一份规则既能指导生成，也能当评审标准（rubric）。生成时它是约束，评审时它是检查表。Emil 公开的 skills 仓库也体现了这种拆分（以下据仓库 README）：</p>
+<table><tr><th>skill</th><th>用途</th><th>对应环节</th></tr>
+<tr><td>emil-design-eng</td><td>主 skill，以动效为主，兼有设计建议</td><td>生成</td></tr>
+<tr><td>animate</td><td>从零做动画，选对曲线、时长、属性</td><td>生成</td></tr>
+<tr><td>review-animations</td><td>按他的规则严格评审动效</td><td>评审</td></tr>
+<tr><td>improve-animations</td><td>审计整个代码库的动效，输出有优先级的执行计划</td><td>评审 → 修复</td></tr>
+<tr><td>find-animation-opportunities</td><td>找真正值得加动效的地方，也告诉你哪里不该动</td><td>决策</td></tr>
+<tr><td>animation-vocabulary</td><td>用准确的词告诉 AI 你要什么动效</td><td>沟通</td></tr>
+<tr><td>break-ui</td><td>用极端数据去「弄坏」界面：超长名字、空列表、巨大数字</td><td>压力测试</td></tr></table>
+<div class="note"><p>「find-animation-opportunities 也告诉你哪里不该动」这一点很妙。品味的一半是克制：Emil 的另一篇文章标题就叫 <i>You Don’t Need Animations</i>。写品味 skill 时，别只写「怎么做得更多」，也要写「什么时候不做」，否则 Agent 会把每个按钮都做成一场表演。</p></div>
+
+<h2>08 把方法推广到布局、图标、色彩</h2>
+<p>原文点到为止：任何品味决定都能这样打包。编者给三个维度各起了一个头（示例规则为编者自拟，需按你的风格改写）：</p>
+<table><tr><th>维度</th><th>格式建议</th><th>规则示例</th></tr>
+<tr><td>布局（layout）</td><td>编号守则</td><td>同一组内间距 ≤ 组间间距的一半；对齐线不超过 3 条；大标题不与图片在同一水平中线上</td></tr>
+<tr><td>图标（icon）</td><td>场景 → 解法表</td><td>「图标显得比文字重」→ 描边从 2px 降到 1.5px；「图标与文字不齐」→ 以文字 x 高度居中，而非行高居中</td></tr>
+<tr><td>色彩（color）</td><td>决策流程图</td><td>这是可交互元素吗？→ 用唯一强调色；是状态吗？→ 用语义色；都不是 → 只用中性色阶</td></tr>
+<tr><td>文案语气（voice）</td><td>对照表</td><td>「操作成功」→「已保存」；「出现错误」→ 说明发生了什么、下一步做什么</td></tr></table>
+<p>想做出「不像 AI」的独特视觉，这一节是关键：Anthropic 的审美 skill 告诉 Agent「别用默认值」；Emil 的方法告诉 Agent「用哪个值、为什么」。前者防止平庸，后者把你的个人风格固化下来。</p>
+
+<h2>09 和读本里其他文章怎么对照</h2>
+<table><tr><th>文章</th><th>侧重点</th><th>和本篇的关系</th></tr>
+<tr><td>Anthropic · Skills 改进前端设计</td><td>宏观审美方向：字体、配色、背景</td><td>本篇往下钻到毫秒和像素：动效、排版细节</td></tr>
+<tr><td>Anshu · 世界级设计师流程</td><td>外部种子、独立评论家、做减法</td><td>本篇的规则表可以直接当「评论家」的评分标准</td></tr>
+<tr><td>Vercel · design.md</td><td>品牌判断写成一份公开文件</td><td>同样是「写下来」，design.md 管品牌，本篇管手感</td></tr>
+<tr><td>Salman · 躲开 AI 审美默认值</td><td>发散、收敛、对抗评审</td><td>发散阶段别套太多规则；收敛和打磨阶段再加载本篇这类 skill</td></tr>
+<tr><td>Linear · 设计团队怎么用 AI</td><td>AI 用在问题侧，判断留在人手里</td><td>Emil 正是 Linear 的设计工程师：判断由人定，再编码成规则让 AI 执行</td></tr></table>
+
+<h2>10 模板：从你的作品里「审讯」出一份品味 skill</h2>
+<p>Emil 说他写 skill 时会借助 Anthropic 的 skill-creator。编者补一个前置步骤：先让 AI 反过来采访你，把 L1 的感觉逼成 L3 的规则。</p>
+<pre><code># 第一步：品味审讯（贴给任意对话模型）
+我是一名资深 UX 设计师。请你扮演严格的设计评审，帮我把「品味」写成规则。
+范围：[动效 / 排版 / 布局 / 色彩 中选一个]
+流程：
+1. 每次只问我一个问题。先让我描述一个「我觉得对」和一个「我觉得不对」的真实例子。
+2. 对每个例子追问「为什么」，直到我说出可观察的原因（物理比喻、认知负担、可读性等）。
+3. 把原因改写成规则：条件 + 具体数值或做法 + 一句理由。
+4. 发现我的规则互相矛盾时，指出来让我取舍。
+5. 收集到 10 条以上后，按四种格式整理：场景→解法表 / 决策流程图 / 数值区间表 / 编号守则。
+禁止：替我发明偏好；禁止使用「更现代」「更高级」这类无法检查的词。
+</code></pre>
+<pre><code># 第二步：SKILL.md 骨架（放进 .claude/skills/my-motion/SKILL.md 之类的位置）
+---
+name: my-motion
+description: 我的界面动效规则。做或改任何过渡、动画、hover、弹层时使用；评审动效时也使用。
+---
+## 原则（3 条以内，每条一句理由）
+- 动效服务于反馈和空间关系，不为装饰。
+- 克制优先：不确定要不要动，就不动。
+## 缓动决策流程
+（照抄你的决策树，每个分支一个是/否问题，最后写 Default）
+## 时长
+| 元素类型 | 时长 | 备注 |
+## 常见问题 → 解法
+| 症状 | 做法 |
+## 不该动的地方
+- 高频操作（每天点几十次的按钮）不加入场动画
+## 评审输出格式
+发现的问题按严重程度排序；最后给一张表：| 位置 | Before | After | Why |
+</code></pre>
+<pre><code># 第三步：用 skill 评审现有页面
+用 my-motion skill 审查 [组件 / 页面]。
+只依据 skill 里的规则判断，不要加入你自己的偏好。
+每个问题标注违反了哪一条规则；规则没覆盖的情况，单独列为「待我决定」，不要擅自修改。
+</code></pre>
+<div class="note"><p>第三步的最后一句很重要：让 Agent 把「规则没覆盖」的情况交还给你。这些就是你品味里还停留在 L1、L2 的部分——每次评审都能顺手补几条规则，skill 会越用越像你。</p></div>
+
+<h2>11 自查清单</h2>
+<ul>
+<li>我能不能说出自己最近三个「感觉不对」的判断背后的原因？</li>
+<li>这些原因有没有被写成带数值或具体做法的规则？</li>
+<li>每条规则是否都附了一句理由，方便 Agent 举一反三？</li>
+<li>有分支的选择（缓动、颜色用途）是否写成了带 Default 的流程图？</li>
+<li>有没有写「什么时候不做」，而不只是「怎么做」？</li>
+<li>同一份 skill 是否既用于生成，也用于评审？</li>
+<li>评审时，Agent 是否把规则外的情况交还给我，而不是自作主张？</li>
+<li>我是否按维度拆成多个 skill（动效、排版、布局……），而不是一个大杂烩？</li></ul>
+<div class="note"><p>Emil 在 skills 仓库里说：AI 不会替代专业功力，它放大你从专业功力里得到的东西。换个说法：没有品味的人用 Agent，得到的是更快的平庸；有品味又说得清的人用 Agent，得到的是被复制了一百次的自己。这篇文章教的，就是「说得清」这一步。</p></div>
+</article>
+</body></html>

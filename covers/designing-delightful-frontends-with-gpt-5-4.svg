@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#6F7F2A">
+  <!-- 读本 cover system v1: paper / grid / mono label / line-art motif / one accent -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.09 · 独特审美</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">A POSTER, NOT A DOCUMENT</text>
+  <!-- motif: left = the high-frequency default, a mosaic of equal cards, pills and stat strips; right = one composition: a full-bleed plane, one horizon, one anchor (accent), brand + one line + one action -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75">
+    <!-- card mosaic -->
+    <g stroke-opacity=".55">
+      <rect x="100" y="150" width="120" height="90" rx="12"/><rect x="236" y="150" width="120" height="90" rx="12"/><rect x="372" y="150" width="120" height="90" rx="12"/>
+      <rect x="100" y="256" width="188" height="110" rx="12"/><rect x="304" y="256" width="188" height="110" rx="12"/>
+      <rect x="100" y="382" width="120" height="90" rx="12"/><rect x="236" y="382" width="120" height="90" rx="12"/><rect x="372" y="382" width="120" height="90" rx="12"/>
+      <rect x="100" y="488" width="392" height="44" rx="12"/>
+      <path d="M120 175 H170 M120 195 H200 M256 175 H306 M256 195 H336 M392 175 H442 M392 195 H472"/>
+      <rect x="120" y="282" width="44" height="18" rx="9"/><rect x="172" y="282" width="44" height="18" rx="9"/><rect x="324" y="282" width="44" height="18" rx="9"/><rect x="376" y="282" width="44" height="18" rx="9"/>
+      <path d="M120 320 H250 M324 320 H454 M120 340 H210 M324 340 H414"/>
+      <circle cx="140" cy="420" r="12"/><circle cx="276" cy="420" r="12"/><circle cx="412" cy="420" r="12"/>
+      <path d="M130 510 H180 M210 510 H260 M290 510 H340 M370 510 H420"/>
+      <rect x="100" y="548" width="392" height="70" rx="12"/><path d="M120 572 H300 M120 594 H260"/>
+    </g>
+    <!-- the subtraction arrow -->
+    <path d="M530 384 H610"/><path d="M598 374 L612 384 L598 394"/>
+    <!-- one composition: full-bleed frame -->
+    <rect x="650" y="130" width="450" height="500"/>
+    <!-- horizon and landscape plane -->
+    <path d="M650 450 C760 430 850 455 940 440 C1010 430 1060 445 1100 438"/>
+    <path d="M650 500 C780 480 900 505 1100 488" stroke-opacity=".45"/>
+    <path d="M650 548 C800 530 940 556 1100 540" stroke-opacity=".3"/>
+    <!-- brand as the loudest text: three thick bars -->
+    <path d="M690 210 H930" stroke-width="10" stroke-linecap="square"/>
+    <path d="M690 250 H860" stroke-width="2"/>
+    <!-- one CTA -->
+    <rect x="690" y="282" width="110" height="34"/>
+  </g>
+  <!-- accent: the single dominant visual anchor -->
+  <circle cx="890" cy="362" r="66" fill="none" stroke="#6F7F2A" stroke-width="3"/>
+  <circle cx="890" cy="362" r="10" fill="#6F7F2A"/>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">Designing delightful frontends with GPT-5.4</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">OPENAI DEVELOPERS</text>
+</svg>

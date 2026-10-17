@@ -167,5 +167,47 @@
     "cover": "covers/ai-in-five-enterprise-design-teams.svg",
     "accent": "#4A56A6",
     "tint": "#E5E7F2"
+  },
+  {
+    "slug": "designing-delightful-frontends-with-gpt-5-4",
+    "title_zh": "首屏是海报：OpenAI 的前端审美规则",
+    "title_en": "Designing delightful frontends with GPT-5.4",
+    "author": "OpenAI（Brian Fioca 等）",
+    "author_role": "Brian Fioca、Alistair Gillespie、Kevin Leneway、Robert Tinn（OpenAI Developers 博客）",
+    "source": "https://developers.openai.com/blog/designing-delightful-frontends-with-gpt-5-4",
+    "date": "2026-03-20",
+    "added": "2026-10-17",
+    "tags": [
+      "审美",
+      "构图",
+      "Skill",
+      "克制"
+    ],
+    "dek": "没约束的模型会退回高频套路：先写视觉论点，默认不用卡片，首屏只做一件事。",
+    "category": "独特审美",
+    "cover": "covers/designing-delightful-frontends-with-gpt-5-4.svg",
+    "accent": "#6F7F2A",
+    "tint": "#E6E9DF"
+  },
+  {
+    "slug": "claude-design-explore-ideas-before-building",
+    "title_zh": "打造 Claude Design 的设计师怎么用它",
+    "title_en": "How the product designer who built Claude Design uses it to explore ideas before building them",
+    "author": "Nate Parrott",
+    "author_role": "Anthropic 产品设计师，Claude Design 的发起者",
+    "source": "https://claude.com/resources/articles/how-the-product-designer-who-built-claude-design-uses-it-to-explore-ideas-before-building-them",
+    "date": "2026-07-24",
+    "added": "2026-10-17",
+    "tags": [
+      "Claude Design",
+      "探索",
+      "原型",
+      "HTML"
+    ],
+    "dek": "先离开电脑想清楚，再要十个方案混搭，最后一公里亲手改。",
+    "category": "AI 设计工作流",
+    "cover": "covers/claude-design-explore-ideas-before-building.svg",
+    "accent": "#C46A28",
+    "tint": "#F0E6DF"
   }
 ]

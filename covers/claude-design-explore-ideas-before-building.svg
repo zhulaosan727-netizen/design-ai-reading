@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#C46A28">
+  <!-- 读本 cover system v1: paper / grid / mono label / line-art motif / one accent -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.10 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">TEN OPTIONS → REMIX</text>
+  <!-- motif: a written brief (left) fans out into ten quick wireframe options; two of them (B and D) are picked, their lines merge into one riff, the remixed frame (accent), which is "alive" (a looping path) -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75">
+    <!-- the brief: thinking before prompting -->
+    <path d="M100 250 H200 V470 H100 Z"/>
+    <path d="M116 280 H184 M116 304 H176 M116 328 H184 M116 352 H160 M116 376 H184 M116 400 H170 M116 424 H150" stroke-opacity=".5"/>
+    <path d="M200 360 H240"/>
+    <!-- ten options: 5 x 2 grid of small wireframes -->
+    <g transform="translate(-20 0)">
+      <rect x="250" y="210" width="76" height="56"/><rect x="342" y="210" width="76" height="56"/><rect x="434" y="210" width="76" height="56"/><rect x="526" y="210" width="76" height="56"/><rect x="618" y="210" width="76" height="56"/>
+      <rect x="250" y="454" width="76" height="56"/><rect x="342" y="454" width="76" height="56"/><rect x="434" y="454" width="76" height="56"/><rect x="526" y="454" width="76" height="56"/><rect x="618" y="454" width="76" height="56"/>
+      <g stroke-opacity=".5">
+        <path d="M260 224 H300 M260 236 H316 M260 248 H290"/><path d="M352 222 V256 M362 224 H408 M362 240 H396"/><path d="M444 224 H500 M444 238 H500 M444 252 H470"/><path d="M536 222 H592 V244 H536 Z"/><path d="M628 222 H660 M628 234 H684 M648 248 H684"/>
+        <path d="M260 468 H316 V482 H260 Z"/><path d="M352 466 H380 V498 H352 Z M388 470 H408"/><path d="M444 468 H500 M458 482 H486 M444 496 H500"/><path d="M536 466 V498 M546 470 H592 M546 486 H580"/><path d="M628 468 H684 M628 480 H660 M628 492 H684"/>
+      </g>
+    </g>
+    <!-- fan from brief to the options -->
+    <path d="M240 360 C244 300 240 280 268 266" stroke-opacity=".35"/>
+    <path d="M240 360 C244 420 240 440 268 454" stroke-opacity=".35"/>
+    <text x="360" y="300" font-family="IBM Plex Mono,monospace" font-size="13" letter-spacing="2" fill="#1B2B26" fill-opacity=".6" stroke="none">B</text>
+    <text x="544" y="300" font-family="IBM Plex Mono,monospace" font-size="13" letter-spacing="2" fill="#1B2B26" fill-opacity=".6" stroke="none">D</text>
+    <!-- merge lines: option B and D into one riff -->
+    <path d="M360 266 C380 340 560 330 670 360"/>
+    <path d="M544 266 C580 330 600 350 670 360"/>
+    <!-- five riffs, faint, stacked behind the chosen one -->
+    <rect x="716" y="196" width="280" height="300" stroke-opacity=".2"/>
+    <rect x="708" y="204" width="280" height="300" stroke-opacity=".3"/>
+    <!-- last mile: a hand-placed cursor nudge -->
+    <path d="M910 560 L910 600 L920 590 L928 606 L934 603 L926 588 L940 588 Z" stroke-opacity=".6"/>
+    <path d="M670 600 H880" stroke-dasharray="3 6" stroke-opacity=".5"/>
+  </g>
+  <!-- accent: the remixed option, alive (a looping motion path inside) -->
+  <g fill="none" stroke="#C46A28" stroke-width="3">
+    <rect x="700" y="212" width="280" height="300"/>
+    <path d="M700 262 H980" stroke-width="1.8"/>
+    <path d="M740 450 C770 330 840 330 870 400 C900 470 950 430 950 330" stroke-width="2.2"/>
+  </g>
+  <path d="M677 360 H700" fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75"/>
+  <circle cx="670" cy="360" r="7" fill="#C46A28"/>
+  <circle cx="950" cy="330" r="7" fill="#C46A28"/>
+  <text x="60" y="698" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">How the product designer who built Claude Design</text>
+  <text x="60" y="734" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">uses it to explore ideas before building them</text>
+  <text x="1140" y="734" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">ANTHROPIC · CLAUDE</text>
+</svg>

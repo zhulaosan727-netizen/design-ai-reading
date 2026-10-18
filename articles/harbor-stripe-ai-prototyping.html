@@ -1,0 +1,145 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Stripe 的 Harbor：原型成了公司的通用语言 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E1E9F1">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 12 · AI 设计工作流 / 原型 / 评审 / MCP</div><h1>Stripe 的 Harbor：原型成了公司的通用语言</h1><div class="en">Harbor: Stripe’s AI-assisted prototyping tool</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Cristian Rivera、Sai Samant</dd><dt>身份</dt><dd>Stripe Web Presence and Platform 团队 Staff Engineer（Harbor 创建者）· Stripe 技术写作者</dd><dt>日期</dt><dd>2026-09-14</dd><dt>原文</dt><dd><a href="https://stripe.dev/blog/harbor-stripes-ai-assisted-prototyping-tool">stripe.dev ↗</a></dd></dl><a class="readorig" href="https://stripe.dev/blog/harbor-stripes-ai-assisted-prototyping-tool" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/harbor-stripe-ai-prototyping.svg" alt="Harbor: Stripe’s AI-assisted prototyping tool 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解，结构、例子、表格和模板都是编者自己的。原文发在 Stripe 开发者博客上，讲的是 stripe.com 团队内部的 AI 原型工具 Harbor：它为什么诞生、怎么工作、评论如何跟得上不断被 AI 改写的页面，以及它怎样和公司里其他 AI 工具互通。原文配有两张很漂亮的动态示意图，建议点上方「阅读原文」查看。Harbor 是 Stripe 内部工具，外部无法使用；本篇的重点是它背后可以借鉴的工作流思路。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li><li>它要补的是哪一段空白</li><li>数字和扩散：原型取代了幻灯片</li><li>Harbor 怎么工作</li><li>精讲一：评论如何跟上被改写的页面</li><li>精讲二：一个渲染引擎，多个 Agent</li><li>Stripe 自己总结的经验</li><li>编者：设计师可以借走什么</li><li>和读本里其他文章怎么对照</li><li>模板：自己搭一个「小 Harbor」</li><li>自查清单</li></ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，设计和工程之间一直缺一个「便宜但真实」的中间态。</b>静态设计稿说服力不够，完整的工程原型又太贵。Harbor 让设计师在浏览器里用 AI 把静态设计变成可交互原型，直接用 Stripe 的设计系统 (design system) 和逼真的模拟数据 (mock data)，并且不需要懂代码。</p>
+<p><b>第二，一旦原型足够便宜，它就会变成全公司的沟通格式。</b>自 2026 年 5 月以来，3000 多名员工做了 12000 个原型，四分之一的员工至少做过一个。财务、风控、销售都在用它替代幻灯片和表格。</p>
+<p><b>第三，真正难的不是「生成」，而是「协作」和「流转」。</b>原文花了大半篇幅讲两件事：评论怎么锚定在一个不断被 Agent 重写的页面上；原型怎样在不同 AI 工具之间流转，而不用人手动搬运上下文。</p>
+
+<h2>02 它要补的是哪一段空白</h2>
+<p>原文开头先交代背景：Stripe 已经在很多工作流里用上了 AI，比如会写代码的 Minions、帮员工处理知识型工作的 Knowledge AI Platform。但原型这一块，AI 带来的改进一直不明显。stripe.com 团队改版时，常常需要更多信息来评估一个新设计想法是否可行，却又没法每次都投入人力做完整的工程原型。</p>
+<p>于是一位工程师用大约 40 天做出了 Harbor 的第一版，目标很明确：看看 AI 能不能帮设计师把静态设计变成动态的东西，而不需要他们懂代码。编者把三种产物放在一起比较，Harbor 的位置就很清楚了：</p>
+<table><tr><th>维度</th><th>静态设计稿</th><th>工程原型</th><th>Harbor 原型</th></tr>
+<tr><td>谁来做</td><td>设计师</td><td>工程师</td><td>设计师（以及任何员工）</td></tr>
+<tr><td>成本</td><td>低</td><td>高，需要排期</td><td>低，几轮对话</td></tr>
+<tr><td>动效与交互</td><td>只能描述或做演示动画</td><td>真实</td><td>真实，在浏览器里运行</td></tr>
+<tr><td>组件与数据</td><td>设计系统组件，数据靠手填</td><td>真实组件、真实接口</td><td>设计系统代码包 + 逼真的模拟数据</td></tr>
+<tr><td>评审方式</td><td>看图、想象</td><td>等它做出来</td><td>打开链接，自己点</td></tr>
+<tr><td>能否接近上线</td><td>需要重新实现</td><td>可以</td><td>原文案例中，动效几乎原样带进了上线版本</td></tr></table>
+<p>最后一行来自原文的第一个案例：一位设计师用 Harbor 做了一个新的产品页体验，包括带动画的首屏 (animated hero)。工程师、产品经理和管理层实时和它交互，很快迭代并达成共识；页面上线时，</p>
+<blockquote>“the animation carried over nearly one-for-one from the prototype.” — Stripe 原文</blockquote>
+<div class="note"><p>这句话对设计师的意义比数字更大。动效是最难「交接」的设计内容：在静态稿里它只能靠文字和参考视频描述，工程实现时几乎必然走样。当原型本身就是用生产环境的设计系统写出来的代码时，<b>交接 (handoff) 就从「翻译」变成了「搬运」</b>。</p></div>
+
+<h2>03 数字和扩散：原型取代了幻灯片</h2>
+<p>Harbor 本来只是 stripe.com 团队的工具，但很快被全公司「改造」去做别的事。原文列了几个例子，编者整理成「以前用什么 → 现在用什么」（「以前」一栏有些是编者按常理补的，原文没写的标注了出来）：</p>
+<table><tr><th>角色</th><th>以前的产物</th><th>现在在 Harbor 里做的</th></tr>
+<tr><td>设计师（stripe.com）</td><td>静态稿 + 动效说明</td><td>带动画首屏的可交互产品页</td></tr>
+<tr><td>财务团队</td><td>月度实际数 (monthly actuals) 与业务回顾的幻灯片</td><td>可点击的原型</td></tr>
+<tr><td>风控运营分析师</td><td>处理时长分析报告</td><td>全组都能自己查看的仪表盘</td></tr>
+<tr><td>客户经理 (account executives)</td><td>（原文未写）</td><td>针对具体客户的定价方案、竞品对比卡 (battlecards)、ROI 计算器</td></tr>
+<tr><td>负责 stripe.com 项目的制作人 (producer)</td><td>（原文未写）</td><td>先在 Kai 里做视口分析 (viewport analysis)，再用 Harbor 变成可点击原型</td></tr></table>
+<p>数字层面：自 2026 年 5 月起，3000 多名 Stripe 员工创建了 12000 个原型，25% 的员工至少做过一个。随之而来的需求也很典型：大家想在原型里协作，想让它和别的 AI 工具互通。原文后半部分讲的就是这两件事怎么做。</p>
+<div class="note"><p>值得注意的是，扩散的方向不是「让更多人做设计」，而是<b>让更多人用界面来表达</b>。财务做的不是 App，是一份能点的月报。这提示设计团队一个新角色：你们维护的设计系统，正在成为全公司表达工具的「字体和版式」。它的质量，直接决定了全公司做出来的东西长什么样。</p></div>
+
+<h2>04 Harbor 怎么工作</h2>
+<p>Harbor 的界面就是一个浏览器标签页：左边是正在运行的原型，右边是聊天面板。流程可以拆成五步：</p>
+<table><tr><th>步骤</th><th>发生了什么</th><th>对设计师的意义</th></tr>
+<tr><td>1 选设计系统</td><td>作者先为原型选一套设计系统，决定用哪些代码包和起始文件</td><td>从第一秒起就站在品牌规范上，而不是让 AI 自己发明按钮</td></tr>
+<tr><td>2 描述需求</td><td>用自然语言说想要什么，Agent 写出一个多文件的源码树</td><td>不需要懂代码，但结构是真实的工程结构</td></tr>
+<tr><td>3 浏览器内编译</td><td>页面在浏览器里编译和渲染，而不是在服务器上（渲染引擎叫 Drydock）</td><td>改动立刻可见，反馈回路短</td></tr>
+<tr><td>4 Agent 自查</td><td>Agent 能读取渲染后的页面，列出、检查元素，点击、输入、滚动，在手机、平板、桌面宽度之间切换，并截图</td><td>Agent 「看得见」自己做的东西，响应式问题能被它自己发现</td></tr>
+<tr><td>5 发布</td><td>发布到可分享的 URL；同一时间只有一个发布版本，每次被打开都会在观看者的浏览器里重新编译</td><td>链接永远指向「当前版本」，不会出现大家看的不是同一稿</td></tr></table>
+<p>发布之后，作者还可以授权别人对页面上的某个元素发表评论，或者把发布的原型「复刻」(remix) 成自己的一份再改。</p>
+<p>第 4 步是很多人用 AI 做原型时缺失的一环。读本之前几篇反复提到「截图—评审—修改」的视觉反馈回路，Harbor 把它直接做进了工具里：Agent 写完代码后，会在不同视口下操作和截图，再决定下一步改哪些文件。</p>
+
+<h2>05 精讲一：评论如何跟上被改写的页面</h2>
+<p>这是原文最有设计含量的一节，也是所有「AI 持续迭代的产物」都会遇到的问题：你在定价页的 Team 卡片上留了一条评论「价格 OK 吗？」，接着 Agent 重写了整个页面，卡片挪了位置、改了文字，甚至被删掉。这条评论该挂在哪里？</p>
+<p>Harbor 的做法是：给每条评论记录<b>多种锚定信号</b>，而不是只记一个坐标或一个元素 ID。原文列出的信号包括：</p>
+<ul>
+<li>语义标签（例如「定价卡片」）；</li>
+<li>稳定标识符（例如 <code>plan-team</code>）；</li>
+<li>文字证据（卡片上写着「Team」）；</li>
+<li>结构路径（它在页面结构中的位置）；</li>
+<li>列表键 (list key)；</li>
+<li>周边上下文：比如这个元素藏在某个对话框或折叠面板 (accordion) 里，要先打开它才能看到。</li></ul>
+<p>Harbor 还会记下每个信号在当时是否<b>唯一</b>。当 Agent 更新原型后，系统用这些信息重新解析，给每条评论一个明确的状态：</p>
+<table><tr><th>状态</th><th>含义</th><th>编者举例</th></tr>
+<tr><td>已附着 (attached)</td><td>找到了同一个元素，即使它移动了位置</td><td>Team 卡片从第二位挪到第三位，评论跟着走</td></tr>
+<tr><td>需要复核 (needs review)</td><td>找到了疑似元素，但有信号变了</td><td>卡片还在，但文字从「Team」改成了「Growth」</td></tr>
+<tr><td>已孤立 (orphaned)</td><td>原来的元素不存在了</td><td>Enterprise 卡片被这次改写删掉了</td></tr></table>
+<p>原文强调的设计原则是：系统会如实报告状态，</p>
+<blockquote>“rather than silently moving the comment to a plausible replacement.” — Stripe 原文</blockquote>
+<p>此外，评论绑定在它被发表时的原型版本上。作者发布新快照后，旧评论会被标记为过期 (stale)，评审者一眼就知道这条反馈针对的是哪一版。</p>
+<div class="note"><p>「不要悄悄把评论挪到一个看起来差不多的替代品上」——这条原则值得每个设计 AI 产品的人记住。AI 系统最危险的不是出错，而是<b>自信地、无声地出错</b>。把不确定性显性化（三种状态而不是一种），看起来不够「智能」，却是信任的基础。这和我们设计任何 AI 功能时该做的事一样：让用户知道系统什么时候不确定。</p></div>
+
+<h2>06 精讲二：一个渲染引擎，多个 Agent</h2>
+<p>Harbor 在浏览器里很好用，但习惯在别的 AI 工具里工作的员工也想用它。原文说，有两个架构选择让这件事成为可能：</p>
+<ol>
+<li><b>把 Harbor 的工具集挂到 Stripe 内部的 MCP（Model Context Protocol）服务器上。</b>其他 Agent 可以直接创建、读取、更新、发布原型，不需要有人把上下文手动复制到新对话里。在 Stripe 开发机 (devbox) 上工作的编码 Agent 也能用同一套工具：把原型的文件树拉进真实代码仓库，或者把别处的想法推进 Harbor 做可视化探索。</li>
+<li><b>把渲染引擎 Drydock 独立成服务。</b>它的「合约」(contract) 很小：输入一个多文件的 React + TypeScript 文件树，输出浏览器里运行的页面，外加一份包含编译与运行时错误的报告，供 Agent 检查和交互。因为这个合约不依赖 Harbor 的其他部分，公司里别的工具也能用，其中就包括知识工作 AI 平台 Kai。</li></ol>
+<p>编者把这种分工画成一张表，方便理解「专精 + 互通」是什么意思：</p>
+<table><tr><th>工具</th><th>专精于</th><th>从别处拿到什么</th><th>交给别处什么</th></tr>
+<tr><td>Kai</td><td>研究与知识工作</td><td>借用 Drydock，让分析结果可以变成可运行的页面</td><td>研究结论</td></tr>
+<tr><td>Harbor</td><td>可视化、可交互的原型</td><td>研究结论、别处推过来的想法</td><td>可点击原型、文件树</td></tr>
+<tr><td>编码 Agent</td><td>生产代码</td><td>Harbor 原型的文件树</td><td>按生产标准重建的实现</td></tr></table>
+<p>原文的另一个例子：工程师先在 Harbor 里做内部管理工具的样机，再把生成的原型交给编码 Agent 按生产要求重建。原文的说法是，这种交接保留了所有权和实现方面的决策，同时省去了工具之间的人工转录。</p>
+
+<h2>07 Stripe 自己总结的经验</h2>
+<ul>
+<li><b>从一个小问题开始。</b>Harbor 起步时只解决一个团队的问题，之后才超出原本的边界。推动它扩散的，是 Stripe 记录摩擦点的「摩擦日志」(friction logging) 文化、AI 优先的氛围，以及愿意试用早期版本、分享成果、把有用部分发展成共享基础设施的同事。</li>
+<li><b>让 Agent 保持专精，再把能力互相开放。</b>与其让每个工具解决工作流的所有环节，不如让研究、编码、浏览器原生工具各做各的，彼此调用。</li>
+<li><b>下一步是状态与实时数据。</b>他们希望原型能保存少量状态、连接实时数据，包括按原型划分的数据库，以及能自己刷新内部数据查询的嵌入式小组件，而不是每次数据变化都让 Agent 把数字抄进源码重写一遍。</li></ul>
+
+<h2>08 编者：设计师可以借走什么</h2>
+<p>Harbor 是内部工具，我们用不上；但它背后的几个判断，个人设计师和小团队都能直接用：</p>
+<table><tr><th>Harbor 的做法</th><th>背后的判断</th><th>你今天就能做的版本</th></tr>
+<tr><td>原型从「选设计系统」开始</td><td>品牌约束要前置，不要事后修</td><td>建一个原型仓库，预装你的 tokens、字体和几个核心组件</td></tr>
+<tr><td>逼真的模拟数据</td><td>假数据让评审失真</td><td>准备一份贴近真实的 JSON（真实长度的名字、极端数值、空状态）</td></tr>
+<tr><td>Agent 自己切视口、截图</td><td>Agent 要看得见结果</td><td>在 Claude Code / Cursor 里接上浏览器或 Playwright，要求每轮截图自查</td></tr>
+<tr><td>一个链接、一个当前版本</td><td>评审要对齐同一稿</td><td>用 GitHub Pages 或 Vercel 预览链接发布，旧版本打标签存档</td></tr>
+<tr><td>评论带状态：附着 / 复核 / 孤立</td><td>改版后旧反馈要重新确认</td><td>每轮改版后，把上一轮反馈逐条标成「已解决 / 需复核 / 已失效」</td></tr>
+<tr><td>原型文件树可以交给编码 Agent</td><td>原型是代码，不只是图</td><td>原型保持干净的组件结构，方便后续直接迁移</td></tr></table>
+<div class="note"><p>对已经用 AI 搭过网站的设计师来说，这篇最实用的启发是<b>「原型仓库」</b>这个概念：不要每次从零开始让 AI 生成，而是维护一个预装了设计系统和模拟数据的起点。Stripe 的经验说明，起点的质量决定了上千个原型的质量下限。读本这个网站本身就是一个例子：统一的封面系统和 style.css，让每天新增的页面自动保持一致。</p></div>
+
+<h2>09 和读本里其他文章怎么对照</h2>
+<table><tr><th>文章</th><th>侧重点</th><th>和本篇的关系</th></tr>
+<tr><td>No.04 Figma · 设计 Agent 的工具、上下文与 Skills</td><td>在画布侧给 Agent 工具和上下文</td><td>Figma 从画布出发，Harbor 从浏览器和代码出发；都在解决「让 AI 产出像你」</td></tr>
+<tr><td>No.10 Nate Parrott · Claude Design</td><td>用 HTML 原型先探索再动手</td><td>同样以可运行原型为中心；Harbor 多了评论锚定和工具互通</td></tr>
+<tr><td>No.08 Thinkmill · 五个企业设计团队</td><td>企业团队里 AI 的真实用法</td><td>Harbor 是一个规模化落地的具体样本</td></tr>
+<tr><td>No.03 Vercel · design.md</td><td>让 Agent 读懂品牌</td><td>Harbor 用「先选设计系统」达到同样目的</td></tr></table>
+
+<h2>10 模板：自己搭一个「小 Harbor」</h2>
+<p>下面是编者设计的个人版原型工作台：一个预装设计系统的仓库，加一份给 Agent 读的说明文件。放在仓库根目录的 <code>CLAUDE.md</code> 或 <code>AGENTS.md</code> 里：</p>
+<pre><code># 原型工作台说明（给 Agent）
+
+## 起点
+- 只使用 /design-system 下的 tokens.css 和 components/；缺组件时先列出来问我，不要自己发明
+- 数据只从 /mock 读取；需要新数据时按现有 JSON 的格式补充，包含：
+  真实长度的文案、极端数值、空状态、错误状态
+
+## 每次修改后的自查（必须执行）
+1. 在 390px / 768px / 1440px 三个宽度下截图
+2. 报告：编译或运行时错误（没有就写「无」）
+3. 列出本轮改动的文件，每个一句话说明
+
+## 发布
+- 每次发布前打一个版本标签，例如 v03-pricing-hero
+- 发布说明里列出：上一版的反馈逐条状态（已解决 / 需复核 / 已失效）
+
+## 禁止
+- 不要悄悄删除或移动我标注过的元素；如需改动，先说明影响了哪些反馈</code></pre>
+<pre><code># 单次原型提示词
+目标：把 [Figma 截图 / 草图] 做成可交互原型，用于 [和谁评审什么决定]。
+必须可交互的部分：[例如：首屏动画、定价切换、对比按钮]
+可以先放静态的部分：[例如：页脚、FAQ]
+数据：使用 /mock/[文件].json
+先告诉我你打算拆成哪些文件和组件，确认后再写代码。</code></pre>
+
+<h2>11 自查清单</h2>
+<ul>
+<li>我的原型是从设计系统起步的，还是让 AI 自己发明了组件？</li>
+<li>模拟数据里有没有真实长度的文案、极端值和空状态？</li>
+<li>Agent 是否在多个视口下截图自查过？</li>
+<li>评审者打开的是不是同一个当前版本？旧版本有没有存档？</li>
+<li>改版后，上一轮反馈是否逐条确认了状态，而不是默认都解决了？</li>
+<li>动效是在原型里真实跑起来给大家看的，还是只写在说明里？</li>
+<li>原型的代码结构是否干净到可以交给编码 Agent 继续？</li></ul>
+<div class="note"><p>一句话总结这篇：Harbor 的成功不在于「AI 能生成页面」，而在于它认真对待了生成之后的事——评审、反馈、版本和流转。当原型便宜到人人都能做，设计师的价值就转向维护那个让所有原型都「像 Stripe」的起点。</p></div>
+</article>
+</body></html>

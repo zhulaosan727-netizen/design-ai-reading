@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#C23B4E">
+  <!-- 读本 cover system v1: paper / grid / mono label / line-art motif / one accent -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.11 · 独特审美</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">KNOWING WHAT NOT TO BUILD</text>
+  <!-- motif: left = everything that is a prompt away (ghost additions, dashed, fading); center = one quiet context menu with one item that matters (accent); right = the time ledger: 200 openings a day, each 300ms -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75">
+    <!-- ghost additions: badges, sparkles, blobs, extra frames: dashed and fading -->
+    <g stroke-dasharray="4 6" stroke-opacity=".35">
+      <rect x="110" y="150" width="150" height="56" rx="28"/>
+      <circle cx="330" cy="190" r="38"/>
+      <path d="M140 270 l14 34 l36 4 l-28 22 l10 36 l-32 -20 l-32 20 l10 -36 l-28 -22 l36 -4z"/>
+      <path d="M260 300 C300 250 380 270 370 330 C362 380 290 390 270 350 C255 325 240 320 260 300z"/>
+      <rect x="110" y="430" width="120" height="80" rx="14"/><rect x="250" y="430" width="120" height="80" rx="14"/>
+      <path d="M120 560 C170 530 220 590 270 560 C320 530 360 580 390 560"/>
+    </g>
+    <g stroke-opacity=".18" stroke-dasharray="2 8"><path d="M420 380 H520"/></g>
+    <!-- the menu, and its removed entrance frames (offset outlines, very faint) -->
+    <g stroke-opacity=".14"><rect x="572" y="182" width="230" height="330" rx="10"/><rect x="566" y="176" width="230" height="330" rx="10"/></g>
+    <rect x="560" y="170" width="230" height="330" rx="10"/>
+    <path d="M590 215 H730 M590 265 H700 M590 365 H720 M590 415 H690 M590 465 H740"/>
+    <path d="M575 340 H775" stroke-opacity=".35"/>
+  </g>
+  <!-- time ledger: 20 rows x 10 ticks = 200 openings a day -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.4" stroke-opacity=".5"><path d="M880 165v12 M900 165v12 M920 165v12 M940 165v12 M960 165v12 M980 165v12 M1000 165v12 M1020 165v12 M1040 165v12 M1060 165v12 M880 186v12 M900 186v12 M920 186v12 M940 186v12 M960 186v12 M980 186v12 M1000 186v12 M1020 186v12 M1040 186v12 M1060 186v12 M880 207v12 M900 207v12 M920 207v12 M940 207v12 M960 207v12 M980 207v12 M1000 207v12 M1020 207v12 M1040 207v12 M1060 207v12 M880 228v12 M900 228v12 M920 228v12 M940 228v12 M960 228v12 M980 228v12 M1000 228v12 M1020 228v12 M1040 228v12 M1060 228v12 M880 249v12 M900 249v12 M920 249v12 M940 249v12 M960 249v12 M980 249v12 M1000 249v12 M1020 249v12 M1040 249v12 M1060 249v12 M880 270v12 M900 270v12 M920 270v12 M940 270v12 M960 270v12 M980 270v12 M1000 270v12 M1020 270v12 M1040 270v12 M1060 270v12 M880 291v12 M900 291v12 M920 291v12 M940 291v12 M960 291v12 M980 291v12 M1000 291v12 M1020 291v12 M1040 291v12 M1060 291v12 M880 312v12 M900 312v12 M920 312v12 M940 312v12 M960 312v12 M980 312v12 M1000 312v12 M1020 312v12 M1040 312v12 M1060 312v12 M880 333v12 M900 333v12 M920 333v12 M940 333v12 M960 333v12 M980 333v12 M1000 333v12 M1020 333v12 M1040 333v12 M1060 333v12 M880 354v12 M900 354v12 M920 354v12 M940 354v12 M960 354v12 M980 354v12 M1000 354v12 M1020 354v12 M1040 354v12 M1060 354v12 M880 375v12 M900 375v12 M920 375v12 M940 375v12 M960 375v12 M980 375v12 M1000 375v12 M1020 375v12 M1040 375v12 M1060 375v12 M880 396v12 M900 396v12 M920 396v12 M940 396v12 M960 396v12 M980 396v12 M1000 396v12 M1020 396v12 M1040 396v12 M1060 396v12 M880 417v12 M900 417v12 M920 417v12 M940 417v12 M960 417v12 M980 417v12 M1000 417v12 M1020 417v12 M1040 417v12 M1060 417v12 M880 438v12 M900 438v12 M920 438v12 M940 438v12 M960 438v12 M980 438v12 M1000 438v12 M1020 438v12 M1040 438v12 M1060 438v12 M880 459v12 M900 459v12 M920 459v12 M940 459v12 M960 459v12 M980 459v12 M1000 459v12 M1020 459v12 M1040 459v12 M1060 459v12 M880 480v12 M900 480v12 M920 480v12 M940 480v12 M960 480v12 M980 480v12 M1000 480v12 M1020 480v12 M1040 480v12 M1060 480v12 M880 501v12 M900 501v12 M920 501v12 M940 501v12 M960 501v12 M980 501v12 M1000 501v12 M1020 501v12 M1040 501v12 M1060 501v12 M880 522v12 M900 522v12 M920 522v12 M940 522v12 M960 522v12 M980 522v12 M1000 522v12 M1020 522v12 M1040 522v12 M1060 522v12 M880 543v12 M900 543v12 M920 543v12 M940 543v12 M960 543v12 M980 543v12 M1000 543v12 M1020 543v12 M1040 543v12 M1060 543v12 M880 564v12 M900 564v12 M920 564v12 M940 564v12 M960 564v12 M980 564v12 M1000 564v12 M1020 564v12 M1040 564v12 M1060 564v12"/></g>
+  <path d="M870 600 H1080" fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75"/>
+  <text x="1080" y="628" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="13" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">200 × 300MS / DAY</text>
+  <!-- accent: the one item that is actually needed -->
+  <rect x="572" y="292" width="206" height="40" rx="6" fill="none" stroke="#C23B4E" stroke-width="3"/>
+  <path d="M590 312 H710" stroke="#C23B4E" stroke-width="3"/>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">Less is more, more or less</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">JAKUB.KR</text>
+</svg>

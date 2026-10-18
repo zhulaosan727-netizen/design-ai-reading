@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#2A78B5">
+  <!-- 读本 cover system v1: paper / grid / mono label / line-art motif / one accent -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.12 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">A COMMENT THAT FOLLOWS THE PAGE</text>
+  <!-- motif: a prototype before and after the agent rewrites it. Cards move, one changes, one is removed. The reviewer's pin re-resolves: attached (accent thread follows the moved card), orphaned (dashed). -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75">
+    <rect x="110" y="130" width="390" height="490"/><path d="M110 165 H500"/><circle cx="130" cy="148" r="5"/><circle cx="148" cy="148" r="5"/><circle cx="166" cy="148" r="5"/><rect x="700" y="130" width="390" height="490"/><path d="M700 165 H1090"/><circle cx="720" cy="148" r="5"/><circle cx="738" cy="148" r="5"/><circle cx="756" cy="148" r="5"/><g><rect x="140" y="185" width="330" height="90"/><path d="M164 217 H274" stroke-width="5"/><path d="M164 245 H234"/></g><g><rect x="140" y="290" width="330" height="90"/><path d="M164 322 H244" stroke-width="5"/><path d="M164 350 H234"/></g><g><rect x="140" y="395" width="330" height="90"/><path d="M164 427 H314" stroke-width="5"/><path d="M164 455 H234"/></g><g><rect x="730" y="185" width="330" height="90"/><path d="M754 217 H864" stroke-width="5"/><path d="M754 245 H824"/></g><g><rect x="730" y="290" width="330" height="90"/><path d="M754 322 H854" stroke-width="5"/><path d="M754 350 H864"/></g><g><rect x="730" y="395" width="330" height="90"/><path d="M754 427 H834" stroke-width="5"/><path d="M754 455 H824"/></g><g stroke-dasharray="5 6" stroke-opacity=".4"><rect x="730" y="500" width="330" height="90"/><path d="M754 532 H904" stroke-width="5"/><path d="M754 560 H824"/></g><circle cx="470" cy="395" r="11"/><circle cx="1060" cy="500" r="11" stroke-dasharray="3 4" stroke-opacity=".5"/><path d="M545 160 H655"/><path d="M643 150 L657 160 L643 170"/>
+  </g>
+  <text x="600" y="150" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="12" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">REWRITE</text>
+  <text x="1090" y="645" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="12" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">ATTACHED · REVIEW · ORPHANED</text>
+  <!-- accent: the anchor that survives the rewrite -->
+  <g fill="none" stroke="#2A78B5" stroke-width="3">
+    <circle cx="470" cy="290" r="11"/>
+    <path d="M481 290 C 610 290, 600 387, 700 387 H1050" stroke-width="2"/>
+    <circle cx="1060" cy="395" r="11"/>
+  </g>
+  <circle cx="470" cy="290" r="4" fill="#2A78B5"/><circle cx="1060" cy="395" r="4" fill="#2A78B5"/>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">Harbor: Stripe’s AI-assisted prototyping tool</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">STRIPE.DEV</text>
+</svg>

@@ -209,5 +209,47 @@
     "cover": "covers/claude-design-explore-ideas-before-building.svg",
     "accent": "#C46A28",
     "tint": "#F0E6DF"
+  },
+  {
+    "slug": "less-is-more-more-or-less",
+    "title_zh": "AI 让加法免费，克制才是审美",
+    "title_en": "Less is more, more or less",
+    "author": "Jakub Krehel",
+    "author_role": "Interfere 创始设计工程师（Founding Design Engineer），设计工程杂志《Interfaces》作者",
+    "source": "https://jakub.kr/writing/less-is-more",
+    "date": "2026-06-23",
+    "added": "2026-10-18",
+    "tags": [
+      "克制",
+      "动效",
+      "判断力",
+      "Skill"
+    ],
+    "dek": "加一个动画只要一句提示词，删掉它却需要真正理解用户。",
+    "category": "独特审美",
+    "cover": "covers/less-is-more-more-or-less.svg",
+    "accent": "#C23B4E",
+    "tint": "#F1E4E4"
+  },
+  {
+    "slug": "harbor-stripe-ai-prototyping",
+    "title_zh": "Stripe 的 Harbor：原型成了公司的通用语言",
+    "title_en": "Harbor: Stripe’s AI-assisted prototyping tool",
+    "author": "Cristian Rivera、Sai Samant（Stripe）",
+    "author_role": "Stripe Web Presence and Platform 团队 Staff Engineer（Harbor 创建者）· Stripe 技术写作者",
+    "source": "https://stripe.dev/blog/harbor-stripes-ai-assisted-prototyping-tool",
+    "date": "2026-09-14",
+    "added": "2026-10-18",
+    "tags": [
+      "原型",
+      "设计系统",
+      "评审",
+      "MCP"
+    ],
+    "dek": "3000 多人做了 12000 个原型：可点的链接，正在取代设计稿和幻灯片。",
+    "category": "AI 设计工作流",
+    "cover": "covers/harbor-stripe-ai-prototyping.svg",
+    "accent": "#2A78B5",
+    "tint": "#E1E9F1"
   }
 ]

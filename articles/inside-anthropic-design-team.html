@@ -1,0 +1,133 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>代码不再是瓶颈后，Anthropic 的设计怎么做 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E8E6F1">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 14 · AI 设计工作流 / 设计团队 / 代码原型 / 评审节奏</div><h1>代码不再是瓶颈后，Anthropic 的设计怎么做</h1><div class="en">When code is no longer the constraint: Inside Anthropic’s design team</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Designer Fund</dd><dt>身份</dt><dd>案例访谈；受访 Joel Lewenstein（Anthropic 产品设计负责人）及 Nate Parrott、Meaghan Choi、Kyle Turman（设计师）、Matt Gallivan（UX 研究员）</dd><dt>日期</dt><dd>2026-10-06</dd><dt>原文</dt><dd><a href="https://designerfund.com/blog/ai-design-anthropic">designerfund.com ↗</a></dd></dl><a class="readorig" href="https://designerfund.com/blog/ai-design-anthropic" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/inside-anthropic-design-team.svg" alt="When code is no longer the constraint: Inside Anthropic’s design team 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解，结构、例子、表格和模板大多是编者自己的。原文是 Designer Fund「Inside design」系列的最新一篇（读本 No.06 收录过同系列的 Linear 篇），采访了 Anthropic 产品设计负责人 Joel Lewenstein 和他的团队成员。原文附有视频访谈和完整案例研究，建议点上方「阅读原文」查看。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li><li>时间尺度压缩：工程跑得比设计快</li><li>精讲一：在交付的媒介里工作</li><li>精讲二：围绕自己的瓶颈造工具</li><li>精讲三：新的协作节奏</li><li>Anthropic 看重什么样的设计师</li><li>值不值得做：回到那条「波浪线」</li><li>编者：一个人工作的设计师能借走什么</li><li>和读本里其他文章怎么对照</li><li>模板：/prototype 风格的 Skill 与「值不值得做」卡</li><li>自查清单</li></ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，瓶颈换了位置。</b>截至 2026 年 5 月，Anthropic 合并的代码中超过 80% 由 Claude 编写。工程速度大约提升了 10 倍，设计只提升了 3–5 倍，于是「怎么做出来」不再是难题，「该不该做」成了难题。</p>
+<p><b>第二，设计师要站到交付的媒介里。</b>每位设计师入职第一周都要提交一个 pull request；大家用 Skill 把反复出现的技术步骤自动化，并且给自己造工具。</p>
+<p><b>第三，速度越快，越要刻意保护协作和独处。</b>评审变得更小、更频繁，「用演示代替备忘录」；同时团队负责人坚持，创造中有一部分无法被加速，需要留出散步和睡觉的时间。</p>
+
+<h2>02 时间尺度压缩：工程跑得比设计快</h2>
+<p>原文开篇回顾了软件行业几十年的隐含规则：工程带宽是终极瓶颈，想法永远比能实现它们的人多。AI 正在把这个等式翻过来。Joel Lewenstein 把这种变化称为<b>时间尺度压缩 (timescale compression)</b>：以前要几周工程时间的功能，现在几天、有时几个小时就能上线。</p>
+<table><tr><th>维度</th><th>过去的默认</th><th>Anthropic 现在的情况</th></tr>
+<tr><td>最稀缺的资源</td><td>工程带宽</td><td>决定方向、达成共识的时间</td></tr>
+<tr><td>速度提升</td><td>—</td><td>工程约 10 倍，设计约 3–5 倍</td></tr>
+<tr><td>原型出现的时间点</td><td>想法被认可之后</td><td>有时在大家还没同意它是个好主意之前，可运行的原型就已经有了</td></tr>
+<tr><td>设计探索的「正当性」</td><td>一周探索很正常</td><td>工程 48 小时能做完整个功能时，一周探索变得难以解释</td></tr>
+<tr><td>核心问题</td><td>我们怎么把它做出来？</td><td>我们到底该不该做它？</td></tr></table>
+<p>Joel 的原话是，时间在当下是一个「在社交上很有意思、也很有挑战」的维度。原文认为，弥合这个落差需要重新思考三件事：设计师怎么分配时间、怎么和代码打交道、哪些例行工作可以交给 AI，好让人专注于判断。</p>
+<div class="note"><p>「工程 10 倍、设计 3–5 倍」这组数字值得每个设计团队拿来对照自己。它说明的不是设计师变慢了，而是<b>设计里有一部分工作本来就不随算力线性加速</b>：对齐、取舍、说服。如果你的团队也出现了「原型比共识先到」的情况，问题往往不在设计效率，而在决策机制没有跟上。</p></div>
+
+<h2>03 精讲一：在交付的媒介里工作</h2>
+<p>Anthropic 的设计师入职第一周都会提交一个 pull request。有人大部分时间都在代码里，有人只用代码做原型或最后的打磨 (polish)。Joel 对具体工作流并不挑剔，只要求设计师离产品足够近，能影响最终交付。</p>
+<blockquote>“Code has always been the clay for software.” — Joel Lewenstein</blockquote>
+<p>在「黏土」里直接设计，会逼出诚实：静态设计稿可以掩盖一个别扭的过渡，可运行的原型不行——点击某个元素需要一个新状态，这个状态就必须真的存在。Joel 的说法更直白：</p>
+<blockquote>“You can’t bullshit in a prototype.” — Joel Lewenstein</blockquote>
+<p>为了离生产环境更近，又不被技术细节打断，负责 Claude Code 和 Cowork 设计的 Meaghan Choi 把自己反复做的事都写成了可复用的 Skill。编者把原文提到的几个整理成表，并补上「你可以怎么借用」：</p>
+<table><tr><th>Skill</th><th>做什么</th><th>编者：个人版怎么借用</th></tr>
+<tr><td>/fresh</td><td>同步最新代码，开一个干净的新分支</td><td>每天开工前一条命令：拉取、建分支、命名规则自动套用</td></tr>
+<tr><td>/preview</td><td>在本地启动前端，立即看到并测试改动</td><td>启动本地预览并自动在浏览器打开当前页面</td></tr>
+<tr><td>/prototype</td><td>把一个功能想法生成为可交互的 HTML 预览；她通常要五个变体，让 Claude 推荐最强的一个并说明理由，再由她拍板</td><td>见第 10 节模板：多方案 + AI 推荐 + 人做决定</td></tr></table>
+<p>她还有一个习惯：遇到不懂的 Git 或部署步骤，就让 Claude 解决；同样的问题第二次出现，就把解法变成 Skill。她的看法是，编码真正的超能力不在「游乐场里做原型」，而在推到生产环境，因为那才是用户真正看到的东西。</p>
+<div class="note"><p>注意 /prototype 的分工：<b>AI 负责发散和初筛，人负责最后的判断</b>。让 AI「推荐一个并给理由」不是为了听它的，而是为了逼出一个可以反驳的论点。如果你不同意它的推荐，你通常会更清楚自己真正想要什么。这个小技巧不需要任何特殊工具，今天就能用。</p></div>
+
+<h2>04 精讲二：围绕自己的瓶颈造工具</h2>
+<p>Anthropic 的安全与隐私要求限制了员工能使用的第三方软件，结果反而形成了一种强烈的「自己造」文化。设计师随手做小应用、内部部署、互相分享，原文形容为一座「繁茂的工具花园」。几个具体例子：</p>
+<table><tr><th>谁</th><th>造了什么</th><th>结果</th></tr>
+<tr><td>Kyle Turman（公司第一位全职产品设计师）</td><td>估计员工至少为自己造了 30 个定制 IDE</td><td>典型的分享方式是：「我做了个工具，你可以直接用、fork，或者拿代码去做你自己的版本」</td></tr>
+<tr><td>Matt Gallivan（UX 研究员）</td><td>用 Claude 做了一套每周问卷系统和仪表盘，用来持续了解用户在各产品中的感受</td><td>大约一周上线；他估计以前需要两三位研究员花几个月</td></tr>
+<tr><td>Nate Parrott（产品设计师）</td><td>2025 年秋，把公司完整的设计系统（字体、颜色、组件、内容规范、UI 模式）喂进一个 HTML 生成环境</td><td>从在 Figma 里手画三个方案，变成并排生成十几个可交互变体；后来被组建团队发展成 Claude Design</td></tr></table>
+<p>原文还提到，Claude Code 本身最早也是 Boris Cherny 在 2024 年的一个副业项目。内部小工具演变成核心产品，在这里并不罕见。Matt 对自己角色变化的描述很有代表性：从 2026 年初开始，他「一部分是研究员，一部分是产品设计师、产品经理、工程师」。</p>
+<div class="note"><p>读本 No.10 讲过 Nate Parrott 怎样用 Claude Design 先探索再动手，这里补上了它的「前传」：Claude Design 不是规划出来的，而是一位设计师为了解决自己的瓶颈搭的环境，同事们拿去做会议演示，才被正式立项。这对个人设计师是个鼓励：<b>你为自己造的那个小工具，就是你方法论最真实的形态</b>。</p></div>
+
+<h2>05 精讲三：新的协作节奏</h2>
+<p>速度带来的风险是每个人都消失在自己的「单人循环」里：更多时间在提示和终端里，更少时间和队友实时讨论。Anthropic 为此改了几项团队仪式 (rituals)：</p>
+<table><tr><th>仪式</th><th>以前</th><th>现在</th><th>为什么</th></tr>
+<tr><td>设计评审 (crit)</td><td>每周两次大组评审</td><td>每周最多四次，小组 (pods) 进行</td><td>Joel：以为一周开一次会、工作期间保持不变，在现在的节奏下「很可笑」</td></tr>
+<tr><td>需求沟通</td><td>长篇规格文档</td><td>「用演示代替备忘录」(demos over memos)：带着可运行的代码原型来讨论</td><td>能点的东西比文字更快引出真问题</td></tr>
+<tr><td>站会（Kyle 团队）</td><td>30 分钟</td><td>90 分钟，充分讨论需求和架构，下午再和 Claude 一起实现</td><td>执行变便宜了，讨论就值得多花时间</td></tr>
+<tr><td>保存上下文</td><td>画布工具天然保留视觉演变过程</td><td>一位设计师做了 go/krit：记录项目状态、管理评审、汇总跨团队反复出现的 UX 主题</td><td>代码历史缺少视觉上的来龙去脉</td></tr></table>
+<p>原文点出这里的反转：AI 让独立执行几乎没有摩擦，但省下来的时间反而可以用于高带宽的协作。Kyle 认为，有更多空间和队友把问题聊透，是这种工作方式最有回报的地方之一。</p>
+<p>但开更多会也不是答案。Joel 强调，设计里有些部分仍然需要不被打扰的独处时间。AI 能在几秒内调出过去的研究、生成几十个初始布局，可创造中有一个「说不清的部分」抗拒加速：他需要一天去散步、放松、睡一觉，让神经元自己连接起来，这段时间必须被保护。</p>
+<div class="note"><p>「代码历史缺少视觉谱系」是一个被低估的问题。在 Figma 里，你可以翻页面看到方案怎么一步步演变；在代码里，只有一串提交记录。如果你主要在代码里做设计，<b>每轮评审前截一张图、写一行「为什么改」</b>，存进同一个文件夹，就是最低成本的 go/krit。</p></div>
+
+<h2>06 Anthropic 看重什么样的设计师</h2>
+<p>Joel 不要求每位设计师整天写生产代码，但希望大家对 GitHub、分支、pull request 这类开发者工作流有基本的熟悉，不让代码成为障碍。在此之上，他看重三点。编者给每一点配了一个自测问题：</p>
+<table><tr><th>特质</th><th>原文的意思</th><th>编者自测</th></tr>
+<tr><td>持续改变工作方式</td><td>几乎每隔几个月就要重新思考流程；Joel 称之为「蜕皮」(molting)：试新工具，放下不再合理的流程，随模型进化重建自己的方法</td><td>过去三个月，我放弃过哪个旧流程？</td></tr>
+<tr><td>对软件走向有观点</td><td>认真想过未来几个月界面和交互模型会怎么变，而不是等一份完全定义好的需求</td><td>我能说出一个「半年后会过时」的界面模式吗？</td></tr>
+<tr><td>动手者心态 (maker mentality)</td><td>有时定大方向，有时下沉到细节亲手做下一版；最强的设计师能在两者间自如切换</td><td>上一次我亲手把一个想法做到可运行，是什么时候？</td></tr></table>
+
+<h2>07 值不值得做：回到那条「波浪线」</h2>
+<p>Joel 经常提到 Damien Newman 的「设计波浪线」(The Squiggle)：设计过程从左边的混乱与不确定，逐渐收敛到右边的一个焦点。AI 让波浪线的左半段跑得飞快——更多想法、更多原型、更多方向。但它没有取消收敛这一步；可能性越多，收敛到一个点反而越难。</p>
+<p>原文最后引用 Joel 的一段话：我们可以做出世界上所有的软件，但手机里只装得下 16 个 App，一天只有 18 个清醒的小时。问题不只是「能不能做」，而是「这值得做吗」。</p>
+<div class="note"><p>编者认为这是整篇最重要的一句。当生成变得几乎免费，设计师最稀缺的能力就是<b>说「不」</b>：砍掉方向、合并功能、拒绝一个看起来很酷的原型。对个人项目同样适用——Zhu 用 AI 搭网站时，最该警惕的不是做不出来，而是什么都做得出来，于是页面上什么都有。</p></div>
+
+<h2>08 编者：一个人工作的设计师能借走什么</h2>
+<p>Anthropic 有几百人的组织和内部基础设施，但它的很多做法在一个人或小团队里一样成立：</p>
+<table><tr><th>Anthropic 的做法</th><th>背后的判断</th><th>个人版</th></tr>
+<tr><td>入职第一周提交 PR</td><td>代码不能成为设计的障碍</td><td>给自己定一个「一周内亲手上线一个改动」的小目标</td></tr>
+<tr><td>把重复步骤写成 Skill</td><td>第二次遇到就该自动化</td><td>建一个「重复两次清单」，满两次就写成 Skill</td></tr>
+<tr><td>/prototype 五个变体 + AI 推荐</td><td>发散交给 AI，判断留给人</td><td>每个关键页面至少看三个方向再决定</td></tr>
+<tr><td>自己造工具</td><td>工具就是方法论</td><td>把你最常用的提示词和检查流程做成一个小网页或脚本</td></tr>
+<tr><td>小而频繁的评审</td><td>节奏变快，反馈也要变快</td><td>每次大改后找一个人看 10 分钟，或者让 AI 按固定清单评审</td></tr>
+<tr><td>演示代替备忘录</td><td>能点的东西更诚实</td><td>给客户或同事发链接，而不是发截图和长文</td></tr>
+<tr><td>保护独处时间</td><td>收敛无法被加速</td><td>做完多方案后，隔一晚再选</td></tr></table>
+
+<h2>09 和读本里其他文章怎么对照</h2>
+<table><tr><th>文章</th><th>侧重点</th><th>和本篇的关系</th></tr>
+<tr><td>No.06 Designer Fund · Linear 设计团队</td><td>工艺至上的团队怎样有选择地用 AI</td><td>同一系列的两端：Linear 谨慎，避免过早进入代码；Anthropic 全面拥抱代码</td></tr>
+<tr><td>No.10 Nate Parrott · Claude Design</td><td>用 HTML 原型先探索</td><td>本篇讲了 Claude Design 是怎么从一个设计师的自用环境长出来的</td></tr>
+<tr><td>No.12 Stripe · Harbor</td><td>原型成为全公司的沟通格式</td><td>都在「用演示代替文档」；Stripe 做成了平台，Anthropic 更像一群人各自造工具</td></tr>
+<tr><td>No.08 Thinkmill · 五个企业设计团队</td><td>大型企业里 AI 的真实用法</td><td>对照可见：Anthropic 是速度最极端的样本，并非所有团队的常态</td></tr></table>
+
+<h2>10 模板：/prototype 风格的 Skill 与「值不值得做」卡</h2>
+<p>原文没有公开 Meaghan 的 Skill 内容，以下是编者按原文描述的工作方式写的个人版本，放进 <code>.claude/skills/prototype/SKILL.md</code> 或同类位置即可：</p>
+<pre><code>---
+name: prototype
+description: 当我给出一个功能或页面想法并说「出原型」时使用。生成多个可交互 HTML 变体，并给出推荐。
+---
+# 输入
+- 想法：一句话描述
+- 必须遵守：读取 references/design-system.md（字体、颜色、组件、文案规范）
+
+# 流程
+1. 先列出 5 个方向，每个一行：核心思路 + 与其他方向的最大差异
+   （方向之间要真的不同：信息架构、交互方式或视觉语言至少有一项不同）
+2. 每个方向生成一个独立的 HTML 文件，放在 prototypes/[日期]-[想法]/ 下
+3. 在 390px 和 1440px 两个宽度下截图自查，修掉明显错误
+4. 推荐其中一个，给出 3 条理由和 1 条它最大的风险
+5. 停下，等我决定。不要合并方向，不要自行继续深化
+
+# 禁止
+- 不使用设计系统以外的颜色和字体
+- 不用 Lorem ipsum，使用贴近真实长度的文案</code></pre>
+<p>第二个模板对应第 07 节的「值不值得做」。在开始做原型之前，先让 AI 和你一起过一遍这张卡；它的作用是把收敛提前，而不是事后补理由：</p>
+<pre><code>在动手做原型之前，请就下面这个想法反问我，并在最后给出「做 / 先不做 / 合并到现有功能」的建议：
+想法：[一句话]
+
+1. 它替用户解决的是哪一个具体时刻的问题？没有它，用户现在怎么办？
+2. 它会让现有界面多出什么？能不能通过删掉或合并某个东西来实现？
+3. 如果只能保留它最核心的 20%，那是什么？
+4. 做出来之后，我要用什么信号判断它是对的？
+5. 一周后我还会想要它吗？（如果不确定，先睡一晚）</code></pre>
+
+<h2>11 自查清单</h2>
+<ol class="check">
+<li>我的团队（或我自己）里，是原型先到还是共识先到？决策机制跟上速度了吗？</li>
+<li>我能不能独立把一个小改动从想法推到线上？</li>
+<li>哪些步骤我已经重复做了两次以上，却还没写成 Skill？</li>
+<li>做原型时，我是只要一个方案，还是看过多个方向再决定？</li>
+<li>AI 给出推荐时，我是直接采纳，还是把它当成一个可以反驳的论点？</li>
+<li>代码里的设计演变有没有被记录下来（截图 + 一句理由）？</li>
+<li>评审是不是比以前更小、更频繁？</li>
+<li>我有没有为「收敛」留出不被打扰的时间？</li>
+<li>这周做的东西里，有哪一个其实不值得做？</li></ol>
+<div class="note"><p>一句话总结：Anthropic 的故事看起来是关于速度的，读完会发现它其实关于<b>判断</b>。代码越便宜，设计师越要靠近代码，也越要远离「什么都做一点」的诱惑。对 Zhu 来说，最容易落地的两件事是：把重复两次的步骤写成 Skill，以及每次出原型都要求多个方向，再隔一晚做决定。</p></div>
+</article>
+</body></html>

@@ -251,5 +251,47 @@
     "cover": "covers/harbor-stripe-ai-prototyping.svg",
     "accent": "#2A78B5",
     "tint": "#E1E9F1"
+  },
+  {
+    "slug": "cooking-with-constraints-ai-prompts",
+    "title_zh": "像备菜一样写提示词：Figma 的 TC-EBC 框架",
+    "title_en": "Cooking with constraints: A designer’s framework for better AI prompts",
+    "author": "Greg Huntoon（Figma）",
+    "author_role": "Figma Designer Advocates 经理（Manager, Designer Advocates），负责北美 Advocacy；25 年以上 UX、产品与品牌经验",
+    "source": "https://www.figma.com/blog/designer-framework-for-better-ai-prompts/",
+    "date": "2026-01-05",
+    "added": "2026-10-19",
+    "tags": [
+      "提示词结构",
+      "TC-EBC",
+      "上下文工程",
+      "模型选择"
+    ],
+    "dek": "删掉“请”和“也许”，用五个字段把模糊需求压成结构。",
+    "category": "提示词与 Skill",
+    "cover": "covers/cooking-with-constraints-ai-prompts.svg",
+    "accent": "#4A8A3A",
+    "tint": "#E3EAE1"
+  },
+  {
+    "slug": "inside-anthropic-design-team",
+    "title_zh": "代码不再是瓶颈后，Anthropic 的设计怎么做",
+    "title_en": "When code is no longer the constraint: Inside Anthropic’s design team",
+    "author": "Designer Fund",
+    "author_role": "案例访谈；受访 Joel Lewenstein（Anthropic 产品设计负责人）、Nate Parrott、Meaghan Choi、Kyle Turman、Matt Gallivan（Anthropic）",
+    "source": "https://designerfund.com/blog/ai-design-anthropic",
+    "date": "2026-10-06",
+    "added": "2026-10-19",
+    "tags": [
+      "设计团队",
+      "代码原型",
+      "Skills",
+      "评审节奏"
+    ],
+    "dek": "代码便宜之后，设计师的难题变成“值不值得做”。",
+    "category": "AI 设计工作流",
+    "cover": "covers/inside-anthropic-design-team.svg",
+    "accent": "#7660B0",
+    "tint": "#E8E6F1"
   }
 ]

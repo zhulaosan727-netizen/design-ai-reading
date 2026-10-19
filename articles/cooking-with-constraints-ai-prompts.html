@@ -1,0 +1,137 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>像备菜一样写提示词：Figma 的 TC-EBC 框架 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E3EAE1">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 13 · 提示词与 Skill / 提示词结构 / 上下文工程 / 模型选择</div><h1>像备菜一样写提示词：Figma 的 TC-EBC 框架</h1><div class="en">Cooking with constraints: A designer’s framework for better AI prompts</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Greg Huntoon</dd><dt>身份</dt><dd>Figma Designer Advocates 经理（Manager, Designer Advocates），负责北美 Advocacy；25 年以上 UX、产品与品牌经验</dd><dt>日期</dt><dd>2026-01-05</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/designer-framework-for-better-ai-prompts/">figma.com/blog ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/designer-framework-for-better-ai-prompts/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/cooking-with-constraints-ai-prompts.svg" alt="Cooking with constraints: A designer’s framework for better AI prompts 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解，结构、例子、表格和模板大多是编者自己的。原文发在 Figma 官方博客，作者是 Figma 设计师布道团队的负责人 Greg Huntoon。他用「下厨」做比喻，提出一个五段式提示词结构 TC-EBC，并讲了修订提示词和选择模型的方法。原文写于 2026 年 1 月，文中点名的模型版本如今已不是最新，但方法本身不过时。第 07 节起是编者在原文之上的延伸，会明确标出。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li><li>为什么「礼貌」是噪音</li><li>TC-EBC 五个字段逐个拆</li><li>精讲一：同一个需求，写两遍</li><li>精讲二：修订提示词怎么写</li><li>精讲三：选刀——模型也是设计决策</li><li>编者补充：TC-EBC 少了「审美」这一格</li><li>模板：可直接复制的三段提示词</li><li>从提示词到 Skill</li><li>自查清单</li></ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，提示词要的是清晰，不是客气。</b>作者说他从不对菜刀说谢谢；模型也一样，「请」「也许」「就」这类词不会让结果更好，只会增加歧义。</p>
+<p><b>第二，把需求拆成五个固定字段：任务 (Task)、背景 (Context)、元素 (Elements)、行为 (Behavior)、约束 (Constraints)，简称 TC-EBC。</b>它的作用和设计系统 (design system) 一样：用结构收窄不确定性，让每次输出都更可预期。</p>
+<p><b>第三，提示词是一个会迭代的系统，而不是一句咒语。</b>首轮之后要分层补充上下文，在约束里写清「不许改什么」，并根据任务选对模型。作者把这件事称为「把提示词变成一个设计决策」。</p>
+
+<h2>02 为什么「礼貌」是噪音</h2>
+<p>原文的出发点很有意思：设计和大模型其实是两种相反的材料。大模型是概率性的 (probabilistic)，同一句话每次给出的结果都不同；设计则要求精确、可重复、有意图。作者用了一个术语：随机性 (stochastic)，指系统里的不确定成分。他认为设计恰好处在两者之间——代码有结构，AI 有随机性，设计要做的是让意图「可读」(legible)。</p>
+<blockquote>“Tools don’t require empathy. They require clarity.” — Greg Huntoon</blockquote>
+<p>所以写提示词的关键，不是语言表达能力，而是<b>系统思维 (systems thinking)</b>：用结构把含混的愿望压缩成明确的输入。作者还举了两个外部旁证：一份在 Reddit 上流传很广、作者自称有一千多小时提示词经验的清单，以及微软 Semantic Kernel 文档里的提示词设计模式，两者都把「明确任务、约束、模块化顺序」放在前面。</p>
+<div class="note"><p>这一点对设计师特别友好。我们本来就擅长把模糊的需求整理成信息架构、组件清单和交互状态，只是以前产出物是线框图，现在是一段结构化文字。<b>写好提示词，本质上是在给模型写一份迷你设计说明 (design brief)</b>，而不是在和它聊天。</p></div>
+
+<h2>03 TC-EBC 五个字段逐个拆</h2>
+<p>原文对五个字段的解释比较简短，编者把每个字段要回答的问题、缺了它会发生什么、以及一个自己的例子整理成表。例子统一用一个场景：<b>给一家独立咖啡馆做会员积分小程序的首页</b>。</p>
+<table><tr><th>字段</th><th>回答什么问题</th><th>缺了会怎样</th><th>编者示例</th></tr>
+<tr><td>Task 任务</td><td>要做出的是什么东西</td><td>模型自己决定做落地页、App 还是一段文案</td><td>做会员小程序首页的可交互原型</td></tr>
+<tr><td>Context 背景</td><td>为谁做、为什么做</td><td>输出「漂移」(drift)，变成通用 SaaS 风格</td><td>街区咖啡馆，常客多为附近上班族，想提高回购</td></tr>
+<tr><td>Elements 元素</td><td>界面上必须出现哪些组件</td><td>漏掉关键模块，或塞进一堆无关卡片</td><td>积分进度、本周新品、一键再来一杯、门店营业状态</td></tr>
+<tr><td>Behavior 行为</td><td>用户怎么操作、系统怎么响应</td><td>静态好看，一点就露馅，缺状态</td><td>积分满 10 杯时进度条变为「可兑换」，点再来一杯直接进入上次订单</td></tr>
+<tr><td>Constraints 约束</td><td>不能越过的边界</td><td>平台、无障碍、品牌规则全靠运气</td><td>微信小程序尺寸，正文不小于 15px，只用品牌的两种颜色，不用渐变</td></tr></table>
+<p>原文强调其中三个字段各有分工：任务定义「做什么」，背景定义「为什么、为谁」并防止漂移，约束设定护栏 (guardrails)，让系统保持受控和一致。元素和行为则把「长什么样」和「怎么动」拆开写，这一点很像我们做交互说明时把视觉稿和状态流程分开。</p>
+<div class="note"><p>编者最欣赏的是把<b>行为 (Behavior)</b> 单独列出来。AI 生成的界面最常见的问题不是不好看，而是「只有一个状态」：没有空状态、没有加载、没有成功之后的反馈。单独写一栏行为，等于强迫自己在动手前把交互流程想一遍。</p></div>
+
+<h2>04 精讲一：同一个需求，写两遍</h2>
+<p>原文用 Figma Make 做了一个演示：一个通过拍冰箱、储物柜照片来推荐菜谱的 App。第一版是自然语言写法，大意是「请帮我做一个 App，让家里做饭的人拍一下储物柜或冰箱就能推荐菜谱，记得过敏和偏好，谢谢！」作者对结果的评价是：有基本功能，但整体乏味，只比线框图好一点。</p>
+<p>第二版改成 TC-EBC：任务是基于照片输入的 AI 菜谱推荐 App；背景是为有饮食限制的家庭服务的做饭助手；元素是相机输入、库存扫描、饮食设置表单、推荐列表、菜谱卡；行为是上传照片、识别库存、按偏好过滤、推荐菜谱；约束是移动优先、iOS 与 Android、无障碍、支持多个家庭成员档案。原文说，这一版的首次生成在视觉上更丰富，也为后续迭代搭好了更好的骨架 (scaffolding)。</p>
+<p>原文第二个例子更贴近设计师的日常：给一个新功能写介绍文案。编者把它和自己的一个例子放在一起，做成对照表：</p>
+<table><tr><th>模糊写法里的信号</th><th>问题出在哪</th><th>TC-EBC 改写成</th></tr>
+<tr><td>「简单但又要让人兴奋」</td><td>两个方向互相拉扯，模型只能取平均</td><td>Behavior：正文要传达速度、简单和可信</td></tr>
+<tr><td>「也许像 Apple 那样？」</td><td>参照物太大，「像 Apple」可以指一百种东西</td><td>Constraints：语气对齐 Duolingo 或 Notion，不用术语</td></tr>
+<tr><td>没有说长度和结构</td><td>模型自己决定写一段还是三段</td><td>Elements：标题最多 7 个词、副标题、一句正文；总长 200 字符以内</td></tr>
+<tr><td>（编者例）「首页弄得高级一点」</td><td>「高级」是结果评价，不是输入</td><td>Context + Constraints：目标是让价格敏感的常客也愿意停留；最多两种字重，留白优先于装饰</td></tr>
+<tr><td>（编者例）「顺便优化一下其他地方」</td><td>授权范围无限大，改动不可控</td><td>Constraints：只改积分模块，其余区域保持原样</td></tr></table>
+<blockquote>“Elegance in AI, like elegance in design, is a process of subtraction.” — Greg Huntoon</blockquote>
+<p>这就是原文的「减法」原则：先问模型要成功需要哪些上下文，然后把其余的都删掉。多余的铺垫会拖慢过程、让模型困惑，至少也会让它花更多计算去猜你的意思。作者顺便提到，精确的提示词也意味着消耗更少的 token，所以「精确」本身就是一个节能的设计选择。</p>
+
+<h2>05 精讲二：修订提示词怎么写</h2>
+<p>首轮结果出来之后，原文用「尝味、调整」来形容接下来的工作。修订提示词 (revision prompts) 的目标不是一次完美，而是校准 (calibration)：每一轮都会暴露模型理解上的空白或越界。编者把原文的建议归纳为四条：</p>
+<ol class="check">
+<li><b>修订时继续用 TC-EBC，并在约束里写清不许动什么。</b>作者说他每次修订都会在 Constraints 里明确写出「工具不应该调整的部分」。这一条最容易被忽略，也最能避免「改一处、坏三处」。</li>
+<li><b>能给 Figma 画框 (frame) 就别只给截图。</b>截图需要模型去推测和解读；画框里是结构化的设计数据，模型「读得懂」，翻译成本更低。截图当然也有用武之地，但结构化输入优先。</li>
+<li><b>把需求文档直接接进来。</b>通过 MCP 连接器 (MCP connectors) 接入 Notion、Asana、GitHub、Linear 等，与其重新描述改动，不如直接附上你在 Notion 里写好的 PRD 或已经定义好的任务。还可以指定要用的库，比如 three.js 或 D3。</li>
+<li><b>找一个「提示词搭档」。</b>把 TC-EBC 框架教给 ChatGPT、Claude 或 Gemini，附上截图和期望结果，让它帮你把修订意见整理成结构化提示词。作者自己做了一个 Make Prompt Assistant GPT，文中那版结构化菜谱提示词就是用它从「礼貌版」改写出来的。</li></ol>
+<p>原文还引用了 Anthropic 的说法「上下文工程」(context engineering)：策划模型看到什么、记住什么、看重什么。作者的比喻是：如果说备料 (mise en place) 是准备，那么上下文就是纪律。</p>
+<blockquote>“The more direct the language, the more efficient the exchange.” — Jake Albaugh（Figma 开发者布道师），原文引用</blockquote>
+<div class="note"><p>第 2 条对 Zhu 这样从设计稿出发、再用 AI 搭网页的工作流很关键：同样一张首页，导出 PNG 丢给模型，和通过 Figma MCP 给它画框数据，结果的精确度差别很大。前者模型要「看图猜 CSS」，后者它能直接读到间距、字号和组件名。<b>输入越结构化，提示词就越可以写短。</b></p></div>
+
+<h2>06 精讲三：选刀——模型也是设计决策</h2>
+<p>原文最后一部分把不同模型比作不同的刀。以下是作者在 2026 年 1 月的观察，编者整理成表；具体模型版本此后已有更新，读的时候请把它当作「如何比较模型」的方法，而不是现在的排名：</p>
+<table><tr><th>模型（原文所指）</th><th>擅长</th><th>什么时候最好用</th><th>原文比喻</th></tr>
+<tr><td>Claude（当时 Figma Make 默认的 Sonnet 4.5）</td><td>总结、遵循层次化结构、语气友好</td><td>指令清晰、逻辑直接写在提示词里，TC-EBC 最适合它</td><td>训练有素的副厨：指令清楚就做得漂亮；指令含糊，它会过度努力讨好你</td></tr>
+<tr><td>Gemini（当时新加入的 Gemini 3）</td><td>快速、结构化、短提示词下更锋利</td><td>窄任务：重命名图层、换图标、调整布局措辞</td><td>锋利的多用途刀：对含糊输入没有耐心</td></tr>
+<tr><td>GPT（作者的提示词助手使用的 GPT-4 / GPT-5）</td><td>通用推理、丰富示例、长结构</td><td>你给出示范或范式，让它模仿</td><td>人人信任的主厨刀：能干、热心，偶尔太想帮忙</td></tr></table>
+<p>作者的结论是：提示词的流畅不只关乎结构，也关乎模型选择。Figma Make 允许显式切换模型，于是「用哪个模型」本身成了一个设计决策，而不只是一次交互。</p>
+<div class="note"><p>编者的建议是把这张表换成你自己的版本。做法很简单：挑三个你常做的任务（比如「从截图还原一个卡片组件」「为空状态写三种文案」「把首页改成更有个性的排版」），用同一段 TC-EBC 提示词分别跑两三个模型，截图并排比较。一个下午就能得到一张比任何博客都准的「刀具表」，而且每次模型升级都可以重跑。</p></div>
+
+<h2>07 编者补充：TC-EBC 少了「审美」这一格</h2>
+<p>以下是编者的延伸，不是原文内容。TC-EBC 很擅长解决「做对」的问题：功能不漏、状态齐全、平台约束不越界。但它对「做得有个性」帮助有限。原文的约束栏里写的是「无障碍」「移动优先」这类工程约束；如果只写这些，模型在视觉上依然会回到它最熟悉的平均值，也就是读本前几篇反复讨论的「AI 味」。</p>
+<p>结合读本已收录的几篇（No.01 Anthropic 的前端设计 Skill、No.05 Salman Ansari 的「避开 AI 审美」、No.09 OpenAI 的 GPT-5.4 前端指南），编者建议给 TC-EBC 加一个可选的第六格：<b>D，审美方向 (Direction)</b>。它包含三件事：</p>
+<table><tr><th>D 里写什么</th><th>为什么有效</th><th>示例</th></tr>
+<tr><td>一个具体的参照系</td><td>具体的物件或流派比形容词更有信息量</td><td>「像一本 1960 年代瑞士平面设计年鉴」而不是「高级、简约」</td></tr>
+<tr><td>明确禁用的默认值 (anti-defaults)</td><td>直接点名模型的惯性选择，才能把它推离中心</td><td>不用 Inter、不用紫色渐变、不做居中三卡片首屏</td></tr>
+<tr><td>唯一的强调手段</td><td>「一个强调色只用在一处」比「配色好看」更可执行</td><td>只有积分进度条用橙色，其余全部黑白灰</td></tr></table>
+<p>这样，TC-EBC 负责「对」，D 负责「像你」。注意 D 依然遵守原文的减法原则：每一条都应该是可执行的指令，而不是「要有质感」这种评价词。</p>
+
+<h2>08 模板：可直接复制的三段提示词</h2>
+<p>第一段是首轮提示词，用 TC-EBC 加编者补充的 D：</p>
+<pre><code>Task: [要做的东西，一句话。例：会员积分小程序首页的可交互原型]
+Context: [为谁、为什么。例：街区咖啡馆的常客，目标是提高回购]
+Elements: [必须出现的组件，逗号分隔]
+Behavior: [关键交互和状态变化，包括空状态、加载、成功反馈]
+Constraints: [平台、尺寸、无障碍、品牌规则；只写硬约束]
+Direction（可选）:
+- 参照：[一个具体的物件、出版物或流派]
+- 禁用：[字体 / 配色 / 版式的默认套路]
+- 强调：[唯一的强调色及它只出现的位置]
+
+先用 5 行以内复述你理解的方案和将使用的字体、颜色，确认后再生成。</code></pre>
+<p>第二段是修订提示词，重点是「只改哪里」和「不许改哪里」：</p>
+<pre><code>Task: 修改 [具体区域或组件名]
+Context: 上一版的问题是 [一句话说清，例：积分进度不够醒目]
+Elements: [只列出这次要动的元素]
+Behavior: [新的交互或状态]
+Constraints:
+- 不要改动：[区域 A]、[区域 B]、所有文案
+- 保持现有的间距与字号体系
+- 改完后列出你修改了哪些文件 / 图层</code></pre>
+<p>第三段是「提示词搭档」的设定，对应原文作者自己做的提示词助手思路，可以放进任意对话模型的自定义指令里：</p>
+<pre><code>你是我的提示词搭档。我会给你一段随口写的设计需求，可能附带截图。
+请把它改写为 TC-EBC 格式（Task / Context / Elements / Behavior / Constraints），
+要求：
+1. 删除所有客套话和不确定的词（请、也许、就、尽量）
+2. 互相矛盾的要求，列出来问我选哪一个，不要自行折中
+3. 如果缺少 Behavior 里的状态（空 / 加载 / 错误 / 成功），提醒我补上
+4. 修订类需求，必须在 Constraints 中写出「不要改动」的范围
+5. 最后用一句话告诉我：这段提示词最可能被误解的地方是什么</code></pre>
+
+<h2>09 从提示词到 Skill</h2>
+<p>原文结尾说，一次好的 AI 辅助设计工作，你得到的不只是输出，而是「为未来设计了一个可重复的系统」。把这句话落地，最直接的方式就是把你反复使用的 TC-EBC 片段沉淀为 Skill。读本 No.04 讲过 Figma 设计 Agent 的 Skills，No.07 Emil Kowalski 讲过如何把品味写进 Skill；TC-EBC 正好可以当作一个 Skill 的输入规范：</p>
+<pre><code>---
+name: tc-ebc-brief
+description: 当我提出任何界面、原型或 UI 文案需求时使用。先把需求整理成 TC-EBC，再动手。
+---
+# 工作流程
+1. 读取需求，按 Task / Context / Elements / Behavior / Constraints 整理
+2. 若缺少 Behavior 中的任一状态，先向我提问
+3. 读取 references/direction.md（我的审美方向与禁用清单），补充 Direction
+4. 复述方案（不超过 5 行），等我确认
+5. 生成后，对照 Constraints 逐条自查，并列出未满足的项
+
+# 禁止
+- 不在未确认时生成完整页面
+- 不擅自修改 Constraints 中「不要改动」的范围</code></pre>
+<div class="note"><p>为什么值得做成 Skill：TC-EBC 最大的成本是「每次都要记得写全」。人很难每次都自律地填满五格，但 Skill 可以在你随口说一句「帮我做个首页」时，替你把五格问一遍。<b>框架的价值，在它变成默认流程的那一刻才真正兑现。</b></p></div>
+
+<h2>10 自查清单</h2>
+<ol class="check">
+<li>我的提示词里还有没有「请」「也许」「尽量」「简单但又…」这类词？</li>
+<li>五个字段都填了吗？尤其是 Behavior 里的空状态、加载和错误状态。</li>
+<li>Constraints 写的是可检查的硬约束（尺寸、字号、颜色数），还是评价词？</li>
+<li>修订时有没有写出「不要改动」的范围？</li>
+<li>能用 Figma 画框或设计 tokens 的地方，我是不是只给了截图？</li>
+<li>需求文档、任务单是否直接接入，而不是重新口述一遍？</li>
+<li>这个任务我用的是最合适的模型吗？我有没有自己的「刀具表」？</li>
+<li>如果目标是有个性的视觉，我有没有补上 Direction：参照、禁用、唯一强调？</li>
+<li>我是否已经第三次写同一段提示词了？如果是，把它做成 Skill。</li></ol>
+<div class="note"><p>一句话总结：这篇的价值不在 TC-EBC 这五个字母，而在作者的态度——把提示词当成设计产物来对待，有结构、有约束、可迭代、可复用。对 Zhu 来说，下一步最值得做的，是把第 08 节的模板按自己的审美方向改一版，存成 Skill，让每次开工都从同一个高起点出发。</p></div>
+</article>
+</body></html>

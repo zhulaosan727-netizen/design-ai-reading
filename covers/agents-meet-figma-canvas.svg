@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#9B4F6C">
+  <!-- 读本 cover system v1: paper / grid / mono label / line-art motif / one accent -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.15 · 提示词与 Skill</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">CODE AND CANVAS</text>
+  <!-- motif: coding agent (left terminal) writes through MCP into Figma canvas frames (right); skills as slash marks teach sequencing; accent = the component linked to the real design system -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- terminal / agent -->
+    <rect x="100" y="160" width="320" height="440"/>
+    <path d="M100 200 H420"/>
+    <circle cx="122" cy="180" r="5"/><circle cx="140" cy="180" r="5"/><circle cx="158" cy="180" r="5"/>
+    <path d="M130 240 H280"/><path d="M130 275 H250"/><path d="M130 310 H300"/><path d="M130 345 H220"/>
+    <path d="M130 400 H360"/><path d="M130 435 H300"/><path d="M130 470 H340"/><path d="M130 505 H260"/>
+    <!-- MCP bridge -->
+    <path d="M420 375 H520"/>
+    <path d="M508 365 L522 375 L508 385"/>
+    <!-- Figma canvas -->
+    <rect x="560" y="140" width="520" height="480"/>
+    <path d="M560 180 H1080"/>
+    <!-- artboard frames -->
+    <rect x="600" y="220" width="200" height="140"/>
+    <rect x="840" y="220" width="200" height="140"/>
+    <rect x="600" y="400" width="200" height="160"/>
+    <!-- design-system component slots (ink) -->
+    <path d="M630 255 H770"/><path d="M630 285 H720"/><path d="M630 315 H750"/>
+    <path d="M870 255 H1010"/><path d="M870 285 H960"/><path d="M870 315 H990"/>
+    <path d="M630 445 H770"/><path d="M630 480 H720"/>
+  </g>
+  <!-- skills slash marks feeding the agent -->
+  <g font-family="IBM Plex Mono,monospace" font-size="28" fill="#1B2B26" fill-opacity=".55" text-anchor="middle">
+    <text x="160" y="560">/</text><text x="200" y="560">/</text><text x="240" y="560">/</text>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="1" fill="#1B2B26" fill-opacity=".5">
+    <text x="100" y="640">use_figma · /figma-use</text>
+    <text x="560" y="640">CANVAS + DESIGN SYSTEM</text>
+  </g>
+  <!-- accent: the one frame written with real DS components (bottom-right artboard button) -->
+  <g fill="none" stroke="#9B4F6C" stroke-width="2.5">
+    <rect x="840" y="400" width="200" height="160"/>
+    <rect x="880" y="480" width="120" height="40" rx="4"/>
+  </g>
+  <rect x="900" y="492" width="80" height="16" fill="#9B4F6C"/>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">Agents, meet the Figma canvas</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">FIGMA.COM</text>
+</svg>

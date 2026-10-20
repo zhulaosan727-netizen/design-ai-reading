@@ -1,0 +1,105 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>让 Agent 直接在 Figma 画布上设计 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#F0E4E8">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 15 · 提示词与 Skill / Figma / MCP / Skills / 画布</div><h1>让 Agent 直接在 Figma 画布上设计</h1><div class="en">Agents, meet the Figma canvas</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Matt Colyer</dd><dt>身份</dt><dd>Product Director, Figma（曾任 Shopify、Adobe、GitHub、Abstract 产品负责人）</dd><dt>日期</dt><dd>2026-03-24</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/the-figma-canvas-is-now-open-to-agents/">figma.com/blog ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/the-figma-canvas-is-now-open-to-agents/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/agents-meet-figma-canvas.svg" alt="Agents, meet the Figma canvas 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解，结构、例子、表格和模板大多是编者自己的。原文是 Figma 官方博客 2026 年 3 月 24 日的产品公告：通过 MCP，外部 AI Agent（Claude Code、Codex、Cursor 等）可以<strong>直接写入</strong> Figma 画布，并用 Skills（markdown 指令）教它们如何按你的设计系统开工。这和读本 No.04（Figma 产品内的设计 Agent：自定义工具、上下文与 Skills）是两条不同的路——No.04 是 Agent 住在 Figma 里；本篇是外部 Agent 通过 MCP <em>写向</em> 画布。文中模型与功能会继续迭代，方法本身更耐读。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li><li>为什么 AI 设计总是「陌生又通用」</li><li>两把工具：generate_figma_design 与 use_figma</li><li>Skills：教 Agent「怎么」在画布上工作</li><li>精讲一：社区九个 Skill 代表什么分工</li><li>精讲二：自愈回路——截图之后对着真组件改</li><li>和 No.04 怎么对照：住在 Figma 里 vs 写向画布</li><li>模板：一份可落地的 /figma-use 团队 Skill</li><li>自查清单</li></ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，画布对 Agent 开了写权限。</b>从 2026 年 3 月 24 日起，Claude Code、Codex、Cursor、Copilot CLI、Warp 等 MCP 客户端，可以通过 Figma MCP 的 <code>use_figma</code> 工具，在真文件里创建、修改与设计系统 (design system) 挂钩的资产。目前 beta 免费，日后会按用量付费。</p>
+<p><b>第二，只开写权限不够，还要 Skills。</b>Skills 是一组 markdown 指令：步骤、顺序、约定、以及「什么叫好」。它们把团队沉淀的判断，从静态文档变成 Agent 执行时必须遵守的规则。</p>
+<p><b>第三，这是「代码 ↔ 画布」双向工作流的下一格。</b>已有的 <code>generate_figma_design</code> 把线上 HTML/UI 拉成可编辑图层；新的 <code>use_figma</code> 让 Agent 在画布上按你的组件与变量继续改。产品可以从编码 Agent 起步，也可以从 Figma 起步，最终都汇合到同一份有上下文的文件里。</p>
+
+<h2>02 为什么 AI 设计总是「陌生又通用」</h2>
+<p>Matt Colyer 开篇的诊断很直接：设计决策——配色、按钮内边距、字体、交互——一直在定义产品长什么样。这些决策累加起来，才让体验从「别家也有」变成「就是你们」。过去 Agent 拿不到这些上下文，所以产出往往<strong>陌生又通用</strong>：能用，但不像你。</p>
+<p>Figma MCP 解决的是「把文件打开给 Agent」；Skills 解决的是「打开之后该怎么干」。OpenAI 的 Codex Design Lead Ed Bayes 的说法是：团队本来就在 Figma 里迭代、打磨、做决策；现在 Codex 能找到并使用这些设计上下文，把质量与效率一起抬高。</p>
+<blockquote>“Codex can find and use all the important design context in Figma to help us build higher quality products more efficiently.” — Ed Bayes, Codex Design Lead, OpenAI</blockquote>
+<div class="note"><p>读本里反复出现同一根线：No.01 的「分布收敛」、No.05 的「避开 AI 审美」、No.03 的 design.md——根因都是<strong>模型缺你的标准</strong>。本篇的新意在于：标准不再只写在仓库或提示词里，而是挂在<strong>真画布、真组件、真变量</strong>上。Agent 改的是你们已经维护多年的那套系统，而不是重新发明一套「差不多」的按钮。</p></div>
+
+<h2>03 两把工具：generate_figma_design 与 use_figma</h2>
+<p>原文把两把互补的 MCP 工具讲得很清楚。编者整理成对照表：</p>
+<table><tr><th>工具</th><th>做什么</th><th>典型时机</th><th>输出形态</th></tr>
+<tr><td><code>generate_figma_design</code>（已有）</td><td>把线上 App / 网站的 HTML UI 转成可编辑的 Figma 图层</td><td>代码超前于设计稿、需要把现状拉回画布再迭代</td><td>可编辑图层（从活页面「拍」进来）</td></tr>
+<tr><td><code>use_figma</code>（新）</td><td>让 Agent 在画布上操作：创建 / 修改与设计系统挂钩的资产</td><td>从零搭一屏、改组件、对齐变量与 Auto Layout</td><td>连着组件、变量、结构的真文件改动</td></tr></table>
+<p>互补关系是：当设计和代码脱节时，先用 <code>generate_figma_design</code> 把最新 UI 拉进 Figma；再用 <code>use_figma</code> 在那些图层上继续编辑，或按设计系统新建资产。Matt 的表述是：无论产品工作从编码 Agent、从 Figma、还是从命令行开始，<strong>Figma 都是把一切对焦的地方</strong>。</p>
+<div class="note"><p>对「设计稿在 Figma、实现在 Cursor / Claude Code」的人来说，这两把工具合起来等于补上了长期断裂的一环：以前是人截图、口述、再让模型猜间距；现在 Agent 可以<strong>读结构、写结构</strong>。输入越结构化，提示词就可以越短——这和读本 No.13 TC-EBC 里「能给画框就别只给截图」是同一条原则。</p></div>
+
+<h2>04 Skills：教 Agent「怎么」在画布上工作</h2>
+<p>开放画布，等于开放了设计系统和文件；Skills 定义 Agent <strong>如何使用</strong>这份访问权。原文列了 Skills 要写清的东西：工作流怎么执行、走哪几步、顺序是什么、遵守哪些约定。再往上，Skills 要补上「专业判断」：怎样产出经得起时间的、对齐品牌的设计，以及<strong>什么叫好</strong>。</p>
+<p>写 Skill 不需要做插件、也不需要写代码——就是 markdown。根基是官方的 <code>/figma-use</code>：给所有其他 Skill 一个共同底座，讲清 Figma 的结构与核心原则；团队再在上面定制。</p>
+<blockquote>“Skills teach Claude Code how to work directly in the design canvas, so you can build in a way that stays true to your team’s intent and judgment.” — Cat Wu, Head of Product for Claude Code, Anthropic</blockquote>
+<p>Cat Wu 的另一句也很关键：最好的产品来自在意细节的团队；很多设计团队在 Figma 里塑形，再用 Claude Code 落地。Skills 就是把「团队意图」教给写代码的 Agent，让它在画布上也守住同一套判断。</p>
+
+<h2>05 精讲一：社区九个 Skill 代表什么分工</h2>
+<p>原文列出九个可探索的示例 Skill。编者按「从代码到画布 / 在画布内 / 跨工具编排」重排，方便对照自己的缺口：</p>
+<table><tr><th>Skill</th><th>做什么</th><th>作者 / 来源</th><th>你缺这类能力时的信号</th></tr>
+<tr><td><code>/figma-use</code></td><td>基础：Agent 如何理解并操作 Figma</td><td>Figma（官方底座）</td><td>没有它，其他 Skill 容易各说各话</td></tr>
+<tr><td><code>/figma-generate-library</code></td><td>从代码库在 Figma 里生成新组件</td><td>社区示例</td><td>实现先于设计系统文档</td></tr>
+<tr><td><code>/figma-generate-design</code></td><td>用已有组件与变量在 Figma 里生成新设计</td><td>社区示例</td><td>想从 PRD / 提示词直接铺一屏</td></tr>
+<tr><td><code>/create-voice</code></td><td>从 UI 规格生成读屏规格（VoiceOver、TalkBack、ARIA）</td><td>Ian Guisard, Uber</td><td>无障碍说明总是事后补</td></tr>
+<tr><td><code>/cc-figma-component</code></td><td>从结构化 JSON 契约生成 Figma 组件</td><td>Nick Villapiano, One North</td><td>组件有「合约」，不想靠嘴描述</td></tr>
+<tr><td><code>/apply-design-system</code></td><td>把已有设计接到系统组件上</td><td>Chris Goebel, Edenspiekermann</td><td>游离图层很多，没接到 tokens</td></tr>
+<tr><td><code>/rad-spacing</code></td><td>用变量与回退规则做层级化间距</td><td>Nolan Perkins, Rad Collab</td><td>间距全靠感觉，无法审计</td></tr>
+<tr><td><code>/edit-figma-design</code></td><td>用 Warp 与 Oz 编排 Figma 设计工作流</td><td>Warp</td><td>多步修改需要 Agent 编排</td></tr>
+<tr><td><code>/sync-figma-token</code></td><td>在代码与 Figma 变量间同步 token，并检测漂移</td><td>Firebender</td><td>设计 token 与代码 token 经常对不上</td></tr>
+<tr><td><code>/multi-agent</code></td><td>并行工作流，在 Augment 里落地设计</td><td>Augment Code</td><td>单 Agent 串行太慢，想拆任务</td></tr></table>
+<div class="note"><p>不必一次全上。个人或小团队最划算的起步顺序通常是：先吃透 <code>/figma-use</code> → 写一个「只许用我们组件库」的本地 Skill → 再按痛点加 <code>/apply-design-system</code> 或 <code>/sync-figma-token</code>。Skill 的价值不在清单长度，而在<strong>把你们已经吵清楚的约定写成 Agent 默认会跑的步骤</strong>。</p></div>
+
+<h2>06 精讲二：自愈回路——截图之后对着真组件改</h2>
+<p>Skills 不只定义「建什么」，也定义「怎么改」。原文描述的自愈回路 (self-healing loops) 是：Agent 生成一屏后截图，对照不匹配处迭代。关键差别在于：它改的是<strong>真实结构</strong>——组件、变量、Auto Layout——而不是只动像素外观。调整会进入系统本身。</p>
+<p>模型天生非确定性，同一提示词结果会漂。Skills 用明确步骤、指南和要遵循的代码，把行为压得更可预期。团队约定不再是「写在 Notion 里等人看」，而是<strong>Agent 工作时强制执行的规则</strong>，通过组件、变量和已有结构落地。</p>
+<table><tr><th>回路环节</th><th>Agent 做什么</th><th>为什么比「再生成一版」强</th></tr>
+<tr><td>生成</td><td>按 Skill 步骤用组件 / 变量铺结构</td><td>起点已在系统内，不是随机 UI</td></tr>
+<tr><td>看见</td><td>截图，对照期望</td><td>和 Harbor / Claude Code 浏览器自查同一思路</td></tr>
+<tr><td>修改</td><td>改 Auto Layout、换组件实例、调变量</td><td>改的是可维护结构，不是位图补丁</td></tr>
+<tr><td>约束</td><td>Skill 写明禁用项与「什么叫好」</td><td>降低非确定性带来的漂移</td></tr></table>
+
+<h2>07 和 No.04 怎么对照：住在 Figma 里 vs 写向画布</h2>
+<p>读本 No.04 讲的是 Figma <strong>产品内</strong>设计 Agent：自定义工具、更大上下文、Skills。本篇是<strong>外部</strong> MCP Agent 通过 <code>use_figma</code> 写向画布。两者都谈 Skills，但主体不同：</p>
+<table><tr><th>维度</th><th>No.04 · Figma 设计 Agent</th><th>No.15 · MCP + use_figma（本篇）</th></tr>
+<tr><td>Agent 住在哪</td><td>Figma 产品内</td><td>Claude Code / Codex / Cursor / Warp 等</td></tr>
+<tr><td>核心动作</td><td>在 Agent 对话里用工具与上下文做设计</td><td>从编码环境直接改 Figma 文件</td></tr>
+<tr><td>Skills 教谁</td><td>Figma 内的设计 Agent</td><td>外部编码 / 通用 Agent</td></tr>
+<tr><td>和代码的关系</td><td>偏设计侧闭环</td><td>原生「代码 ↔ 画布」双向</td></tr>
+<tr><td>何时优先看这篇</td><td>主要工作面在 Figma UI</td><td>主要工作面在终端 / IDE，但要守住画布标准</td></tr></table>
+<p>原文还提到：能力原生挂在 Figma MCP 上，享受 Figma 的安全与可靠性，并可通过 Plugin API 触达 Code Connect、Figma Draw、FigJam 等表面。路线图包括向 Plugin API 能力看齐（先做图片支持与自定义字体），以及让 Skills 更易使用与分享。当前兼容的 MCP 客户端包括 Augment、Claude Code、Codex、Copilot CLI、VS Code 里的 Copilot、Cursor、Factory、Firebender、Warp 等。</p>
+
+<h2>08 模板：一份可落地的 /figma-use 团队 Skill</h2>
+<p>下面是编者按原文精神写的团队 Skill 骨架，可放在仓库的 <code>.claude/skills/</code> 或对应 Agent 的 skills 目录。它故意短，只钉住「必须守住的」：</p>
+<pre><code>---
+name: figma-use-team
+description: 当我要求在 Figma 画布上创建或修改界面时使用。必须通过 MCP 的 use_figma，并只使用我们的设计系统。
+---
+# 原则
+1. 先读 /figma-use 与本仓库 design-system 说明，再动手
+2. 只用现有组件、变量与 Auto Layout；缺组件时先列清单问我，禁止发明「看起来像」的私有组件
+3. 改动必须可追溯：列出文件、画板、组件实例与用到的变量名
+
+# 工作流
+1. 确认目标画板与是否已有 generate_figma_design 拉入的图层
+2. 用 5 行以内复述方案（结构、组件、变量），等我确认
+3. 调用 use_figma 创建 / 修改
+4. 截图自查：对照组件名、间距变量、Auto Layout 方向
+5. 若不匹配：对着结构改，不要只「再生成一版」
+
+# 禁止
+- 不把截图当唯一真相；结构优先
+- 不在未确认时大范围重排他人画板
+- 不引入设计系统外的字体、色值、圆角</code></pre>
+<div class="note"><p>若你已经在用读本 No.13 的 TC-EBC，可以把 Constraints 里「只许用某某组件库」直接嵌进这个 Skill。提示词负责单次任务的清晰度，Skill 负责<strong>跨任务不变的团队规矩</strong>——两者叠在一起，才是 Cat Wu 说的「守住团队意图」。</p></div>
+
+<h2>09 自查清单</h2>
+<ol class="check">
+<li>我分得清 No.04（Figma 内 Agent）和本篇（外部 Agent 写画布）吗？我实际工作流更靠近哪一边？</li>
+<li>团队是否已启用 Figma MCP，并确认 <code>use_figma</code> / <code>generate_figma_design</code> 都能调用？</li>
+<li>有没有一份基于 <code>/figma-use</code> 的团队 Skill？里面写清了步骤、顺序、禁用项？</li>
+<li>Skill 里有没有「缺组件先问、禁止发明」这条？还是默许 Agent 画「差不多」的按钮？</li>
+<li>迭代时 Agent 是否截图，并<strong>对着组件 / 变量 / Auto Layout</strong>修改，而不是只重生一版？</li>
+<li>代码与 Figma 变量是否有同步或漂移检测（哪怕人工清单也行）？</li>
+<li>我是否把「什么叫好」写成了可执行规则（参照、禁用、唯一强调），而不只是形容词？</li>
+<li>beta 免费期结束前，团队有没有评估用量与付费边界？</li></ol>
+<div class="note"><p>一句话总结：这篇公告的真正产品不是「Agent 能画 Figma」，而是<strong>把设计系统从文档变成 Agent 的运行时约束</strong>。对 Zhu 这种用 AI 搭站点、又在意非通用审美的人，最值得立刻做的是：装好 MCP → 写一份「只许用我的组件与禁用默认套路」的短 Skill → 要求每轮截图自查。画布开了写权限之后，约束写得越清楚，输出才越像你。</p></div>
+</article>
+</body></html>

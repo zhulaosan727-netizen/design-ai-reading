@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#C45A2E">
+  <!-- 读本 cover system v1: paper / grid / mono label / line-art motif / one accent -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.16 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">DEMOS, NOT MEMOS</text>
+  <!-- motif: left = blurple slop (tangled, wrong fonts, weird nav); right = Sail-constrained dashboard; arrow through MCP+rules; accent on the clean Sail card -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- left: messy prototype -->
+    <rect x="100" y="150" width="380" height="460"/>
+    <path d="M100 190 H480"/>
+    <!-- weird nav blobs -->
+    <path d="M140 230 C180 200 220 260 260 230 C300 200 340 270 380 240 C420 210 440 280 440 300"/>
+    <path d="M150 340 C190 310 230 380 280 350 C330 320 360 400 420 370" stroke-opacity=".5"/>
+    <path d="M160 450 C210 420 250 500 310 470 C370 440 400 520 440 490" stroke-opacity=".45"/>
+    <!-- wrong-font bars of uneven weight -->
+    <path d="M150 280 H300" stroke-width="8" stroke-opacity=".35"/>
+    <path d="M150 310 H250" stroke-width="3" stroke-opacity=".35"/>
+    <path d="M180 520 H400" stroke-width="12" stroke-opacity=".25"/>
+    <!-- right: Sail dashboard shell -->
+    <rect x="680" y="150" width="420" height="460"/>
+    <path d="M680 190 H1100"/>
+    <!-- chrome: search + account + nav -->
+    <rect x="710" y="215" width="180" height="28"/>
+    <rect x="910" y="215" width="100" height="28"/>
+    <path d="M710 270 H1070"/>
+    <!-- metric cards -->
+    <rect x="710" y="300" width="170" height="100"/>
+    <rect x="900" y="300" width="170" height="100"/>
+    <path d="M730 340 H850"/><path d="M730 365 H800"/>
+    <path d="M920 340 H1040"/><path d="M920 365 H990"/>
+    <!-- table rows -->
+    <path d="M710 440 H1070"/><path d="M710 480 H1070"/><path d="M710 520 H1070"/>
+    <path d="M730 455 H900"/><path d="M730 495 H860"/><path d="M730 535 H920"/>
+    <!-- bridge -->
+    <path d="M480 380 H620"/>
+    <path d="M608 370 L622 380 L608 390"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="1" fill="#1B2B26" fill-opacity=".5">
+    <text x="100" y="640">BLURPLE SLOP</text>
+    <text x="520" y="360" text-anchor="middle">SAIL + MCP</text>
+    <text x="680" y="640">PROTODASH · SAIL BAKED IN</text>
+  </g>
+  <!-- accent: the Sail card that survives the quality bar -->
+  <g fill="none" stroke="#C45A2E" stroke-width="2.5">
+    <rect x="710" y="300" width="170" height="100"/>
+  </g>
+  <path d="M730 330 H850" stroke="#C45A2E" stroke-width="4" stroke-linecap="round"/>
+  <rect x="730" y="355" width="60" height="14" fill="#C45A2E"/>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="28" fill="#1B2B26">Protodash: Giving teams leverage with AI</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">OWENWILLIA.MS</text>
+</svg>

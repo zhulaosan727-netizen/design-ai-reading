@@ -293,5 +293,48 @@
     "cover": "covers/inside-anthropic-design-team.svg",
     "accent": "#7660B0",
     "tint": "#E8E6F1"
+  },
+  {
+    "slug": "agents-meet-figma-canvas",
+    "title_zh": "让 Agent 直接在 Figma 画布上设计",
+    "title_en": "Agents, meet the Figma canvas",
+    "author": "Matt Colyer",
+    "author_role": "Product Director, Figma（曾任 Shopify、Adobe、GitHub、Abstract 产品负责人）",
+    "source": "https://www.figma.com/blog/the-figma-canvas-is-now-open-to-agents/",
+    "date": "2026-03-24",
+    "added": "2026-10-20",
+    "tags": [
+      "Figma",
+      "MCP",
+      "Skills",
+      "画布"
+    ],
+    "dek": "用 Skills 教 Agent 在真画布上守住设计系统。",
+    "category": "提示词与 Skill",
+    "cover": "covers/agents-meet-figma-canvas.svg",
+    "accent": "#9B4F6C",
+    "tint": "#F0E4E8"
+  },
+  {
+    "slug": "protodash-stripe-owen-williams",
+    "title_zh": "Stripe 的 Protodash：用设计系统杀死「模糊紫泥」",
+    "title_en": "Protodash: Giving teams leverage with AI",
+    "author": "Owen Williams",
+    "author_role": "Design Manager, Stripe（Protodash 创建者；工程背景转设计管理）",
+    "source": "https://owenwillia.ms/work/protodash/",
+    "date": "2026",
+    "date_note": "案例页未标具体日期；Lenny / How I AI 等相关公开讨论约 2026-05",
+    "added": "2026-10-20",
+    "tags": [
+      "Stripe",
+      "原型",
+      "设计系统",
+      "评审"
+    ],
+    "dek": "把 Sail 烤进工具，告别 blurple slop。",
+    "category": "AI 设计工作流",
+    "cover": "covers/protodash-stripe-owen-williams.svg",
+    "accent": "#C45A2E",
+    "tint": "#F1E5E1"
   }
 ]

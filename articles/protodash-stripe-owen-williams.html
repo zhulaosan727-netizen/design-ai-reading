@@ -1,0 +1,122 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Stripe 的 Protodash：用设计系统杀死「模糊紫泥」 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#F1E5E1">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 16 · AI 设计工作流 / Stripe / 原型 / 设计系统 / 评审</div><h1>Stripe 的 Protodash：用设计系统杀死「模糊紫泥」</h1><div class="en">Protodash: Giving teams leverage with AI</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Owen Williams</dd><dt>身份</dt><dd>Design Manager, Stripe（Protodash 创建者；工程背景转设计管理）</dd><dt>日期</dt><dd>2026<span class="date-note">（案例页未标具体日；Lenny / How I AI 等相关公开讨论约 2026-05）</span></dd><dt>原文</dt><dd><a href="https://owenwillia.ms/work/protodash/">owenwillia.ms ↗</a></dd></dl><a class="readorig" href="https://owenwillia.ms/work/protodash/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/protodash-stripe-owen-williams.svg" alt="Protodash: Giving teams leverage with AI 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解，结构、例子、表格和模板大多是编者自己的。原文是 Stripe Design Manager Owen Williams 的案例页，讲述他如何把业余兴趣做成公司里最常用的内部 AI 原型系统之一——Protodash：React 壳 + Sail 设计系统 + MCP + 强约束规则，逼 AI 咨询真组件，禁止在 MCP 不可用时瞎编。Designer Fund《AI in Design Report 2026》称它为 Stripe 使用最广的内部 AI 工具之一。这和读本 No.12 Harbor（stripe.com Web Presence 的 Drydock / 评论锚定）是<strong>两条不同的 Stripe 故事</strong>：Harbor 偏官网与评论协作；Protodash 偏 Sail 仪表盘 playground、「blurple slop」质量条、以及激情项目如何长成组织基础设施。文末会对照 Harbor。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li><li>问题：通用 AI 原型为什么总是「模糊紫泥」</li><li>解法：React + Sail + MCP + 固执的规则</li><li>精讲一：从一条命令到 Protodash Studio</li><li>精讲二：谁在用、评审怎么发生</li><li>案例：欺诈 / Radar 仪表盘一次成形</li><li>文化：demos, not memos</li><li>三条原则，以及和 Harbor / 读本其他篇的对照</li><li>模板：自己烤一份「设计系统进 Agent」规则</li><li>自查清单</li></ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，AI 领导力不是下令「大家都用 AI」，而是创造让人敢用、且用出来仍过公司质量线的条件。</b>Owen 把 Protodash 当 side project 做出来，它自己长开；报告后来写它是 Stripe「使用最广的内部 AI 工具」之一。</p>
+<p><b>第二，杀死「blurple slop」（模糊紫泥）的办法，不是更好的提示词形容词，而是把真设计系统烤进工具。</b>React 壳、Sail、MCP、以及「MCP 挂了也不许发明组件」的规则，一起把输出钉在品牌上。</p>
+<p><b>第三，省下来的时间要花在探索与品味上，而不是降低工艺标准。</b>设计师很快到 80–90%，再手工打磨；PM、工程师也成了重度用户；评审发生在可点击原型里，视觉改动再摘要回灌给 AI。</p>
+
+<h2>02 问题：通用 AI 原型为什么总是「模糊紫泥」</h2>
+<p>Owen 动手的触发点很具体：评审里看到设计师用现成 AI 原型工具——很快，但结果卡在诡异的 uncanny valley：字体不对、导航怪异，团队开始管这叫 <b>blurple slop</b>（模糊紫泥：那种发紫、发糊、谁家都像的 AI 默认皮）。</p>
+<p>Stripe 已经有高质量、可预期的设计系统，所以「AI 应该用真组件来搭，而不是想象一版我们的产品」这件事，在他看来几乎是显而易见的。</p>
+<table><tr><th>维度</th><th>现成 AI 原型工具</th><th>Protodash 想达到的</th></tr>
+<tr><td>字体 / 导航</td><td>经常错、怪</td><td>Sail 的真实 chrome（搜索、账户选择、导航）</td></tr>
+<tr><td>组件来源</td><td>模型 invent</td><td>强制咨询 Sail；MCP 不可用时禁止瞎编</td></tr>
+<tr><td>谁能用</td><td>会写提示词的人</td><td>目标：设计师只需会跑一条命令；后来连代码编辑器都不用</td></tr>
+<tr><td>评审媒介</td><td>静态感强，或不可信的「假 Stripe」</td><td>可点击、可分享、像真产品</td></tr></table>
+<div class="note"><p>「blurple slop」值得收进团队黑话。它比「有点 AI 味」更可执行：一看到错误字体、怪异导航、发紫渐变默认皮，就可以点名。读本 No.05、No.01 谈的是审美分布收敛；本篇谈的是<strong>组织级解药</strong>——把质量系统接进 AI 运行时，而不是事后用评审语言抱怨。</p></div>
+
+<h2>03 解法：React + Sail + MCP + 固执的规则</h2>
+<p>Owen 有工程背景，大量用 AI 写 Protodash，但架构和品质线由他定。第一版四件套：</p>
+<ol>
+<li><b>React shell</b>——原型跑在真代码里，不是幻灯片；</li>
+<li><b>Sail 设计系统</b>——组件与文档是唯一合法建材；</li>
+<li><b>MCP 集成</b>——让模型能查、能用系统，而不是靠记忆瞎猜；</li>
+<li><b>意见强烈的规则包</b>——教 AI 怎么用这个项目，并在它「够不着」时拦住幻觉。</li></ol>
+<p>目标很极端：把门槛降到设计师<strong>只需会跑一条命令</strong>。然后接到 Stripe 的开发机 (dev box) 基础设施，大约两分钟就能起一套可分享环境。再往后是 <b>Protodash Studio</b>：浏览器层，任何人创建、remix、评审、迭代原型，<strong>完全不用打开代码编辑器</strong>。</p>
+<blockquote>“Our team built ProtoDash, an AI-powered product playground with Stripe’s design system baked in. Now anyone can build a realistic prototype in minutes.” — Katie Dill, Head of Design at Stripe</blockquote>
+
+<h2>04 精讲一：从一条命令到 Protodash Studio</h2>
+<p>编者把演进拆成三阶段，方便对照自己团队该停在哪一层：</p>
+<table><tr><th>阶段</th><th>形态</th><th>谁用得起来</th><th>杠杆来自哪</th></tr>
+<tr><td>1 · CLI / 仓库</td><td>预装 Sail 的 React 项目 + 规则 + MCP</td><td>敢开终端的设计师 / 工程师</td><td>起点质量：不从零 invent UI</td></tr>
+<tr><td>2 · Dev box</td><td>~2 分钟可分享环境</td><td>需要把链接扔进评审的人</td><td>分发成本趋近于零</td></tr>
+<tr><td>3 · Studio</td><td>浏览器里提示词或贴 Figma 链接</td><td>PM、不愿碰编辑器的设计师</td><td>组织扩散：工具迁就人，而不是人迁就工具</td></tr></table>
+<p>Studio 界面（原文描述）是：工作区里所有原型一览，AI 面板打开，可以提示词或丢 Figma 链接。视觉编辑器允许拖卡片、改布局，再把这次编辑摘要回传给 AI，作为下一轮输入——人改结构，模型接上下文，而不是「口头描述我刚拖了什么」。</p>
+<div class="note"><p>「把编辑摘要回灌给 AI」是一个很小但很关键的产品细节。很多原型工具要么全聊天、要么全手工；中间态是：人在画布上做一次精确操作，系统自动翻译成模型能懂的变更说明。这和 Harbor 里「评论要锚定在被改写的页面上」是同一类问题：<b>协作痕迹如何跟着活文档走</b>。</p></div>
+
+<h2>05 精讲二：谁在用、评审怎么发生</h2>
+<p>杠杆来自把能力交给整支团队，而不只是设计：</p>
+<ul>
+<li><b>设计师</b>：快速到 80–90% 逼真体验，再把时间花在品味与工艺上；</li>
+<li><b>PM</b>：成了最活跃用户之一——自己探索想法、更早测用户、和设计师沟通更清楚；</li>
+<li><b>工程师</b>：同样上手；任何人都能给 Protodash 提 PR，设计师也在往工具本身扔 pull request，按自己想要的工作方式演进它；</li>
+<li><b>代码原型的额外能力</b>：真实数据、空状态、国际化 (i18n)、不同商业模式、完整多步流程——不必手搓每一个状态。</li></ul>
+<p>评审发生在可点击原型内部：选中元素、拖走、改布局，编辑被总结后送回 AI。Ryan Spencer 的评价是：把它放到用户面前，体验远比静态屏丰富，因为对方能真正感觉到不同组件；团队用它互相同步概念，也在真用户测试里用——在正式开发之前。</p>
+
+<h2>06 案例：欺诈 / Radar 仪表盘一次成形</h2>
+<p>欺诈与风控团队用得特别重。Designer Fund 视频里，Ryan Spencer 与 Sadhika Billa 打开 Protodash Studio，选好仪表盘框架——搜索、账户选择器、导航，所有让原型「像 Stripe」的 chrome——然后要：「一个监控我支付的实时欺诈仪表盘」。</p>
+<p>第一轮回应就是可工作的仪表盘：欺诈率、被拦支付、受保护收入、按时间与类别的趋势、带风险等级的标记交易——全部由 Sail 组件搭建，且可交互。</p>
+<p>更深的一层：在一个 Radar 项目上，高保真 Protodash 原型成了工程的<strong>source of truth</strong>。Owen 说这是他设计管理生涯里第一次看到这种情况。</p>
+<table><tr><th>环节</th><th>发生了什么</th><th>对设计师的启示</th></tr>
+<tr><td>选框架</td><td>先有 Stripe chrome，再填内容</td><td>品牌壳前置，比事后「调得像一点」便宜</td></tr>
+<tr><td>一句话需求</td><td>「live fraud dashboard…」</td><td>系统上下文够强时，提示词可以短</td></tr>
+<tr><td>AI 自检</td><td>读 Sail 文档、改代码、在浏览器里检查</td><td>自愈回路要接真文档与真预览</td></tr>
+<tr><td>角色翻转</td><td>原型一度成为工程真相源</td><td>当保真度够高，「交接」变成「沿用」</td></tr></table>
+
+<h2>07 文化：demos, not memos</h2>
+<p>Protodash 成了推动文化走向 <b>「demos, not memos」（演示，不要备忘录）</b> 的实用手段。更重要的是，它展示了设计负责人可以给团队造<strong>精确、固执的工具</strong>：不必等现成产品，也不必等编制齐全的内部工具组。</p>
+<p>它从未被强制推行。扩散是因为解决了人们已有的痛，也因为 Stripe 设计文化——Katie Dill 说的 <b>「setting the table to enable the party」（把桌子摆好，好让派对发生）</b>——留出空间让人（用 Ryan 的话说）在白天或夜里挤时间 mock 出可能对别人有用的工具。</p>
+<blockquote>“It was built as a passion project from Owen… it wasn't a mandated thing. He just decided to build this to make it a lot easier for not just designers, but also engineers and product managers.” — Sadhika Billa, Staff Product Designer at Stripe</blockquote>
+<p>报告给设计领导者的建议是 <b>walk the talk</b>：自己先用 AI 做出点什么。Protodash 就是 Owen 版本的身体力行。</p>
+
+<h2>08 三条原则，以及和 Harbor / 读本其他篇的对照</h2>
+<p>Owen 提炼的三条，几乎可以直接贴在任何设计团队的 AI 章程上：</p>
+<ol>
+<li><b>从真实摩擦出发</b>，而不是从「必须用 AI」的指令出发；</li>
+<li><b>把 AI 接到定义质量的真实系统与标准上</b>（Sail、文档、MCP）；</li>
+<li><b>省下的时间用来增加探索与批评</b>，而不是降低工艺门槛。</li></ol>
+<p>他收束道：AI 可以维持动量，但品味、问责、以及「哪个问题值得做」，仍然属于人。</p>
+<table><tr><th>文章</th><th>侧重点</th><th>和本篇的关系</th></tr>
+<tr><td><a href="harbor-stripe-ai-prototyping.html">No.12 Harbor</a></td><td>stripe.com Web Presence；Drydock 浏览器编译；评论锚定 attached / review / orphaned；多 Agent 互通</td><td>同属 Stripe AI 原型基建，但 Harbor 讲官网与协作评论；Protodash 讲 Sail 仪表盘 playground、blurple-slop 质量条、激情项目组织故事。两条线可并存：官网用 Harbor 思路，产品控制台用 Protodash 思路</td></tr>
+<tr><td>No.04 Figma 设计 Agent</td><td>画布侧工具 / 上下文 / Skills</td><td>Protodash 把「上下文」做成代码里的设计系统 + 规则，而不是画布插件</td></tr>
+<tr><td>No.15 Agents × Figma 画布</td><td>外部 Agent 经 MCP 写向 Figma</td><td>方向相反而互补：一边把设计写入画布，一边把设计系统写入代码原型</td></tr>
+<tr><td>No.14 Anthropic 设计团队</td><td>代码不再是瓶颈；demos 文化</td><td>同一句「demos not memos」在两边出现；Protodash 是 Stripe 侧的工具化样本</td></tr>
+<tr><td>No.10 Claude Design</td><td>先用 HTML 探索再构建</td><td>都强调可运行媒介；Protodash 多了组织级 Sail 强制与 Studio</td></tr></table>
+<div class="note"><p>若你只能记一句和 Harbor 的差别：<b>Harbor 回答「评论如何跟着被 Agent 改写的页面走」；Protodash 回答「如何让全公司的 AI 原型默认长得像 Stripe，而不是 blurple」</b>。前者是协作基础设施，后者是质量基础设施。</p></div>
+
+<h2>09 模板：自己烤一份「设计系统进 Agent」规则</h2>
+<p>下面是编者给个人 / 小团队的「迷你 Protodash」规则文件，可放在原型仓库根目录的 <code>AGENTS.md</code> 或 Skill 里：</p>
+<pre><code># 设计系统强制（给 Agent）
+
+## 建材
+- 只使用 /design-system 下的组件与 tokens；需要新组件时先列出缺口问我
+- MCP（或本地文档索引）可用时：先查阅组件 API，再写代码
+- MCP 不可用时：停止生成新 UI，只允许改文案 / 数据；禁止发明按钮、输入框、导航
+
+## 壳 (chrome)
+- 每个仪表盘 / 设置页必须包含：顶栏搜索或上下文切换、主导航、账户或环境指示
+- 禁止「空白页 + 居中大卡片」的默认落地结构
+
+## 数据与状态
+- 必须覆盖：真实长度文案、极端数值、空状态、加载、错误、权限不足
+- i18n：至少准备一个「长德语 / 长中文」字符串压力样本
+
+## 每轮自查
+1. 浏览器打开预览并截图
+2. 对照：是否全部使用设计系统组件名（列出用到的）
+3. 列出本轮文件变更；若引入了系统外色值 / 字号，回滚并解释
+
+## 文化
+- 交付物是可点击链接，不是备忘录截图
+- 省下的时间用来多做一版对立方案，而不是提前收工</code></pre>
+
+<h2>10 自查清单</h2>
+<ol class="check">
+<li>我团队的 AI 原型，是「模糊紫泥」还是「一眼像我们」？差在提示词，还是差在有没有烤进设计系统？</li>
+<li>规则里有没有写清：MCP / 文档不可用时<strong>禁止发明组件</strong>？</li>
+<li>设计师到 80–90% 之后，多余时间是用来打磨品味，还是被更多低质量产出淹没？</li>
+<li>PM / 工程师能不能在不打开 IDE 的情况下跑一轮？（若不能，卡点在权限、环境，还是文档？）</li>
+<li>评审是否发生在可点击原型里？视觉拖拽能否回灌给下一轮 AI？</li>
+<li>我有没有把「demos, not memos」落成默认交付格式？</li>
+<li>和 Harbor（No.12）比：我缺的是评论锚定，还是质量壳（Sail 那一类）？两者是否要分开建？</li>
+<li>我有没有像 Owen 那样，从一个真实摩擦点做 side project，而不是等平台组排期？</li></ol>
+<div class="note"><p>一句话总结：Protodash 的核心不是又一个聊天式原型器，而是<strong>把公司的质量系统做成 AI 的默认运行时</strong>，再用产品化（Studio）把它交给不会写代码的人。对 Zhu 而言，可立刻借走的是第 09 节那份规则：先让自己的原型仓库「Sail 化」（换你自己的 tokens 与组件），再谈更炫的 Agent。模糊紫泥不会因为模型升级自动消失——它只会在约束缺席时换一种渐变色回来。</p></div>
+</article>
+</body></html>

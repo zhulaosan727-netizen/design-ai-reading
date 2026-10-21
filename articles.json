@@ -336,5 +336,26 @@
     "cover": "covers/protodash-stripe-owen-williams.svg",
     "accent": "#C45A2E",
     "tint": "#F1E5E1"
+  },
+  {
+    "slug": "picture-is-worth-a-thousand-tokens",
+    "title_zh": "一张图胜过千个 token：把 AI 拉出默认审美",
+    "title_en": "A Picture Is Worth a Thousand Tokens",
+    "author": "Ben Shumaker",
+    "author_role": "Repaint 联合创始人兼 CEO（YC 孵化的 AI 建站工具）",
+    "source": "https://repaint.com/blog/picture-is-worth-a-thousand-tokens",
+    "date": "2026-04-09",
+    "added": "2026-10-21",
+    "tags": [
+      "参考图",
+      "默认风格",
+      "提示词",
+      "AI 建站"
+    ],
+    "dek": "文字拉不动模型，截图才能。",
+    "category": "独特审美",
+    "cover": "covers/picture-is-worth-a-thousand-tokens.svg",
+    "accent": "#1F8C9A",
+    "tint": "#DEEBED"
   }
 ]

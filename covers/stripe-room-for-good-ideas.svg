@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#8A5A2E">
+  <!-- 读本 cover system v1: paper / grid / mono label / line-art motif / one accent -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.19 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">SET THE TABLE</text>
+  <!-- motif: long table being set (plates as empty squares); roof-shot arcs rising; one moonshot crossed out; accent on successful small arcs into shared shelf -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- table top -->
+    <path d="M100 480 H1100"/>
+    <path d="M140 480 L120 560"/><path d="M1060 480 L1080 560"/>
+    <!-- place settings: empty squares as plates -->
+    <rect x="160" y="430" width="56" height="40"/>
+    <rect x="280" y="430" width="56" height="40"/>
+    <rect x="400" y="430" width="56" height="40"/>
+    <rect x="520" y="430" width="56" height="40"/>
+    <rect x="640" y="430" width="56" height="40"/>
+    <rect x="760" y="430" width="56" height="40"/>
+    <rect x="880" y="430" width="56" height="40"/>
+    <rect x="1000" y="430" width="56" height="40"/>
+    <!-- utensils hints -->
+    <path d="M230 440 V465" stroke-opacity=".45"/><path d="M350 440 V465" stroke-opacity=".45"/>
+    <path d="M470 440 V465" stroke-opacity=".45"/><path d="M590 440 V465" stroke-opacity=".45"/>
+    <!-- moonshot: tall faded arc crossed out -->
+    <path d="M300 430 Q600 80 900 430" stroke-opacity=".28" stroke-dasharray="8 6"/>
+    <path d="M520 160 L680 280" stroke-opacity=".4" stroke-width="2"/>
+    <path d="M680 160 L520 280" stroke-opacity=".4" stroke-width="2"/>
+  </g>
+  <!-- accent: successful roof-shot arcs connecting into shared shelf/directory -->
+  <g fill="none" stroke="#8A5A2E" stroke-width="2.4" stroke-linecap="round">
+    <path d="M188 430 Q280 300 380 430" stroke-dasharray="6 5"/>
+    <path d="M428 430 Q520 280 620 430" stroke-dasharray="6 5"/>
+    <path d="M668 430 Q760 310 860 430" stroke-dasharray="6 5"/>
+    <!-- arcs land / connect upward to shelf -->
+    <path d="M280 340 V220"/><path d="M520 300 V220"/><path d="M760 340 V220"/>
+    <path d="M270 220 H770"/>
+  </g>
+  <!-- shared shelf / directory at top of successful arcs -->
+  <g fill="none" stroke="#8A5A2E" stroke-width="2.2">
+    <rect x="250" y="150" width="540" height="70" rx="4"/>
+    <path d="M280 175 H420"/><path d="M280 195 H380"/>
+    <path d="M460 175 H600"/><path d="M460 195 H560"/>
+    <path d="M640 175 H760"/><path d="M640 195 H720"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="1" fill="#1B2B26" fill-opacity=".5">
+    <text x="100" y="600">TIME · ACCESS · VISIBILITY</text>
+    <text x="560" y="130" text-anchor="middle">INTERNAL DIRECTORY · ROOF SHOTS</text>
+    <text x="620" y="120" text-anchor="middle" fill-opacity=".35" font-size="10">MOONSHOT ✕</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="28" fill="#1B2B26">How Stripe creates room for good ideas to spread</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">DESIGNER FUND</text>
+</svg>

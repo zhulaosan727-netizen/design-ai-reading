@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#4A6FA5">
+  <!-- 读本 cover system v1: paper / grid / mono label / line-art motif / one accent -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.18 · 提示词与 Skill</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">BUILD ONCE · SLASH EVERYWHERE</text>
+  <!-- motif: left = tacit knowledge bubbles in a head; arrow into /skill box; right = box branching to multiple canvases -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- head silhouette (profile) -->
+    <path d="M160 280 C160 220 210 180 270 180 C320 180 360 220 360 270 C360 300 350 320 340 340 L350 420 L250 420 L240 360 C200 350 160 320 160 280 Z"/>
+    <!-- messy thought bubbles (tacit knowledge) -->
+    <ellipse cx="200" cy="230" rx="28" ry="20"/>
+    <ellipse cx="250" cy="210" rx="36" ry="24"/>
+    <ellipse cx="300" cy="240" rx="22" ry="16"/>
+    <path d="M210 250 Q220 265 215 280" stroke-opacity=".45"/>
+    <path d="M255 234 Q270 250 265 270" stroke-opacity=".45"/>
+    <path d="M190 225 L205 218 M195 235 L212 228" stroke-opacity=".4" stroke-width="1.2"/>
+    <path d="M240 205 L255 198 M245 215 L262 208" stroke-opacity=".4" stroke-width="1.2"/>
+    <path d="M290 235 L302 230 M292 245 L308 240" stroke-opacity=".4" stroke-width="1.2"/>
+    <!-- arrow from head to slash box -->
+    <path d="M370 320 H480"/>
+    <path d="M468 310 L482 320 L468 330"/>
+  </g>
+  <!-- accent: slash-command box + branching paths to canvases -->
+  <g fill="none" stroke="#4A6FA5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="490" y="270" width="200" height="100" rx="6"/>
+    <!-- branch paths -->
+    <path d="M690 300 C760 300 780 200 850 200"/>
+    <path d="M690 320 C760 320 780 320 850 320"/>
+    <path d="M690 340 C760 340 780 460 850 460"/>
+  </g>
+  <text x="590" y="332" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="28" letter-spacing="2" fill="#4A6FA5">/skill</text>
+  <!-- right: three canvas frames (ink) -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="860" y="140" width="220" height="140"/>
+    <path d="M860 170 H1080"/>
+    <path d="M890 200 H1050"/><path d="M890 230 H1000"/>
+    <rect x="860" y="300" width="220" height="140"/>
+    <path d="M860 330 H1080"/>
+    <path d="M890 360 H1050"/><path d="M890 390 H1000"/>
+    <rect x="860" y="460" width="220" height="140"/>
+    <path d="M860 490 H1080"/>
+    <path d="M890 520 H1050"/><path d="M890 550 H1000"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="1" fill="#1B2B26" fill-opacity=".5">
+    <text x="160" y="450">TACIT · IN HEAD</text>
+    <text x="490" y="400">PUBLISH ONCE</text>
+    <text x="860" y="630">TEAM FILES · REUSE</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="#1B2B26">Got skills? Make the Figma agent a better collaborator</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">FIGMA BLOG</text>
+</svg>

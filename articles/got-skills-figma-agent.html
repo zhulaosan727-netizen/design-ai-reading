@@ -1,0 +1,161 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>把团队工作方式写成 Skill：Figma Agent 的实践 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E2E8F1">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 18 · 提示词与 Skill / Skills / 评审 / MCP</div><h1>把团队工作方式写成 Skill：Figma Agent 的实践</h1><div class="en">Got skills? Make the Figma agent a better collaborator</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Sachi Shah、Sean Lee</dd><dt>身份</dt><dd>Product Manager, Figma（Sean Lee 负责 Figma Make）</dd><dt>日期</dt><dd>2026-07-01</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/got-skills-make-the-figma-agent-a-better-collaborator/">figma.com/blog ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/got-skills-make-the-figma-agent-a-better-collaborator/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/got-skills-figma-agent.svg" alt="Got skills? Make the Figma agent a better collaborator 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解。原文是 Figma 产品经理写的 Skills 实践指南，配有内部示例；下文把它拆成「Skill 与设计系统怎么分工」「三类视角 Skill」「仪式 Skill」「MCP 进出」「共享对话」和一份可粘贴的骨架模板。功能边界以原文与 Figma 帮助中心为准。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>三句话结论</li>
+<li>Skill 和设计系统各管什么</li>
+<li>Figma 内部三类「视角 Skill」</li>
+<li>把团队仪式写成 Skill</li>
+<li>接上 MCP：上下文从哪来、结果往哪去</li>
+<li>默认共享对话：提示词变成可学资产</li>
+<li>对照表：什么时候写 Skill、什么时候写设计系统文档</li>
+<li>模板：一份可粘贴的 Skill 骨架</li>
+<li>自查清单</li>
+<li>和读本其他篇的对照 + 编者点评</li>
+</ol></nav>
+
+<h2>01 三句话结论</h2>
+<p><b>第一，Skill 是「用自然语言写好的、可斜杠触发的工作方式」。</b>在任意 Agent 对话里打 <code>/</code>，就能调出团队已经写好的指令集；可以发布到团队或组织，让别人不用再从零复述同一套流程。</p>
+<p><b>第二，它不替代设计系统（design system），而是叠在上面。</b>设计系统给组件与模式；Skill 给品牌语气、合规检查、评审镜头、仪式清单，并在更大工作流里<strong>调用</strong>设计系统。</p>
+<p><b>第三，真正拉开差距的，是把藏在脑子里的默会知识（tacit knowledge）写成命令。</b>Figma 自己先做了「模拟利益相关方反馈」「UX 文案初检」「首次用户视角」，以及 <code>/catch-me-up</code>、评审准备与复盘这类仪式 Skill——这些才是个人提示词变团队资产的路径。</p>
+<blockquote>“Skills are reusable plain-English instruction sets for the Figma agent.” — Sachi Shah &amp; Sean Lee, Figma Blog</blockquote>
+
+<h2>02 Skill 和设计系统各管什么</h2>
+<p>很多人一听到「把规范交给 AI」，立刻想到再写一份设计系统文档。原文的划分更清楚：两者互补，职责不同。</p>
+<table>
+<tr><th>层</th><th>管什么</th><th>典型内容</th><th>谁来维护</th></tr>
+<tr><td>设计系统</td><td>可见的组件与模式</td><td>按钮、间距、色板、布局模板、可访问性基线</td><td>设计系统 / 平台团队</td></tr>
+<tr><td>Skill</td><td>怎么用这些东西干活</td><td>品牌声音、合规镜头、评审流程、批判清单、调用 DS 的步骤</td><td>任何愿意把流程写清楚的人 / 小队</td></tr>
+</table>
+<p>换句话说：设计系统回答「画布上该出现什么」；Skill 回答「Agent 在对话里该按什么顺序想、查、评、改」。一篇把两者糊成一份超长提示词的做法，往往既维护不动，又让 Agent 在组件细节和工作流之间来回迷路。</p>
+<div class="note"><p>读本 No.04 已经讲过 Figma Agent 的自定义工具、上下文与 Skills 产品面；No.15 讲 Agent 如何直接在画布上守住设计系统。本篇往下钻一层：一旦 Skills 成为团队默认入口，你该写<strong>哪一类</strong>指令，才不会和 DS 抢地盘。</p></div>
+
+<h2>03 Figma 内部三类「视角 Skill」</h2>
+<p>原文举了 Figma 自己在用的三类「换一双眼睛」的 Skill。它们共同特点是：不生成一整页新 UI，而是<strong>用固定镜头压测现有方案</strong>。</p>
+<table>
+<tr><th>Skill 类型</th><th>做什么</th><th>解决什么痛</th><th>什么时候触发</th></tr>
+<tr><td>利益相关方模拟</td><td>按某位高管 / 干系人的评论风格给反馈（原文举例：模拟 CEO Dylan 的语气）</td><td>评审前没人敢「唱反调」，正式会上一堆意外</td><td>投评审页之前；关键决策前夜</td></tr>
+<tr><td>UX writing 风格指南</td><td>先过一遍大小写、标点、语气一致性</td><td>文案细节占用真人评审时间</td><td>文案冻结前的第一遍机器初检</td></tr>
+<tr><td>首次用户视角</td><td>假装第一次打开产品的人，标出专家看不见的摩擦</td><td>熟手设计师对空状态、术语、入口视而不见</td><td>新功能可用性走查；onboarding 改版</td></tr>
+</table>
+<p>这三类都符合「视角（lens）」隐喻：同一张画布，换一副眼镜，输出的是<strong>问题清单</strong>，不是另一套视觉稿。和 No.07 Emil 的「用 skill 做评审」是同一家族——生成是杠杆，评审才是品味真正落地的地方。</p>
+<div class="note"><p>做「模拟某人」时，务必写清：只模仿<strong>评论维度与严格程度</strong>，不要伪造真人原话对外传播。Skill 里应写明「输出为内部压力测试，不得当作该干系人的正式意见」。</p></div>
+
+<h2>04 把团队仪式写成 Skill</h2>
+<p>比视角 Skill 更「组织化」的，是把团队本来就在做、但每次都靠人肉串场的仪式，固化成斜杠命令。</p>
+<p><b><code>/catch-me-up</code></b>：总结文件里最近发生了什么。适合请假回来、跨时区接手、或评审前快速建立上下文。好的 catch-up Skill 会要求：按时间 / 决策 / 未决问题三段输出，并标明「仍不确定、需要问人」的条目，而不是假装读懂了一切。</p>
+<p><b>评审准备（crit prep）</b>：先访谈你要评什么——persona、范围、受众——再按 NNGroup 一类讨论提示，在画布上生成一张 crit 页。关键是「先问清楚再摆页」：很多失败的评审，不是反馈差，是评审页上堆了不该讨论的东西。</p>
+<p><b>评审复盘（crit recap）</b>：把反馈收成主题，再拆成决定（decided）/ 行动（action）/ 延后（deferred）；可以落成画布卡片，或经 MCP 推到 Slack。复盘 Skill 的价值在于<strong>强迫分类</strong>——没分类的反馈会在下一周消失。</p>
+<table>
+<tr><th>仪式</th><th>输入</th><th>输出</th><th>失败时常见症状</th></tr>
+<tr><td>catch-me-up</td><td>文件近期编辑 / 评论</td><td>时间线 + 决策 + 未决</td><td>只罗列图层改动，不谈意图</td></tr>
+<tr><td>crit prep</td><td>persona / 范围 / 受众问答</td><td>带讨论提示的 crit 页</td><td>跳过问答，直接贴一堆帧</td></tr>
+<tr><td>crit recap</td><td>评审评论与笔记</td><td>主题化：决定 / 行动 / 延后</td><td>原样粘贴聊天记录，无人认领</td></tr>
+</table>
+
+<h2>05 接上 MCP：上下文从哪来、结果往哪去</h2>
+<p>Skills 本身是指令；MCP 连接器（connectors）决定 Agent 能读什么、写回哪里。原文提到 Slack、Notion、Asana 等：可以把反馈记成任务、拉研究材料、用数据支撑方向。</p>
+<table>
+<tr><th>方向</th><th>例子</th><th>Skill 里该写清的约束</th></tr>
+<tr><td>进（context in）</td><td>从 Notion 拉研究摘要；从 Slack 拉上周讨论</td><td>只引用已授权空间；标注来源链接；过期资料要提示</td></tr>
+<tr><td>出（result out）</td><td>把 deferred 项建成 Asana 任务；把 recap 发到频道</td><td>默认草稿 / 需人确认再发送；字段映射表写死</td></tr>
+<tr><td>双向</td><td>Crit 页上的 action 与任务系统同步状态</td><td>以哪边为 source of truth；冲突时怎么提示人</td></tr>
+</table>
+<p>原文还强调：Skills 同时适用于 Figma agent 与 Figma Make；并且很快会通过 MCP 在 Figma 之外也可用。对团队来说，这意味着「写一次斜杠命令」的投资，可能跨画布与原型工具摊销——前提是你把步骤写成<strong>工具无关的意图 + 工具相关的落点</strong>两段，而不是锁死在某一菜单路径上。</p>
+<div class="note"><p>MCP 一接上外部系统，Skill 就从「提示词玩具」变成「半自动工作流」。安全与权限要写进 Skill 正文：哪些操作只读、哪些必须人工确认、哪些频道禁止机器人发言。没有这三行，发布到 org 级是不负责任的。</p></div>
+
+<h2>06 默认共享对话：提示词变成可学资产</h2>
+<p>协作文件里，Agent 对话默认共享。这听起来像隐私问题，原文却把它当成学习机制：你可以看见同事怎么提示、怎么改、怎么追问，从而学会更好的 prompting。敏感工作可以切到私人模式。</p>
+<p>对设计负责人，这改变了「培训 Agent 用法」的成本结构：</p>
+<ul>
+<li>以前：开分享会演示自己的神级提示词，会后无人复用；</li>
+<li>现在：好的对话轨迹留在文件里，新人打开就能对照；</li>
+<li>配套动作：把反复出现的好对话，提炼成正式 Skill 发布——共享聊天是原料，Skill 才是产品。</li>
+</ul>
+<table>
+<tr><th>模式</th><th>适合</th><th>风险</th><th>建议</th></tr>
+<tr><td>默认共享</td><td>日常探索、评审准备、设计系统问答</td><td>半成品思路被误读为结论</td><td>在对话开头标注「探索中 / 已定稿」</td></tr>
+<tr><td>私人</td><td>人事、未公开路线图、客户敏感数据</td><td>好提示词无法沉淀</td><td>事后把脱敏版步骤写成 Skill</td></tr>
+</table>
+
+<h2>07 对照表：什么时候写 Skill、什么时候写设计系统文档</h2>
+<table>
+<tr><th>信号</th><th>更适合 Skill</th><th>更适合设计系统 / 文档</th></tr>
+<tr><td>内容形态</td><td>步骤、问题清单、输出格式、语气</td><td>组件 API、token、布局网格</td></tr>
+<tr><td>变化频率</td><td>随项目仪式迭代（周 / 月）</td><td>需版本治理（季度 / 半年）</td></tr>
+<tr><td>触发方式</td><td>对话里 <code>/</code> 即时调用</td><td>画布里拖组件 / 查站点</td></tr>
+<tr><td>成功标准</td><td>输出可执行、可评审、可复盘</td><td>界面一致、可访问、可实现</td></tr>
+<tr><td>反例</td><td>把色值表塞进 Skill（难维护）</td><td>把「如何开评审」写进 DS 站点（没人打开）</td></tr>
+</table>
+<p>一条实用启发式：如果你发现自己在三个不同文件里粘贴同一段「请你扮演…」——那就是 Skill 候选。如果你发现三个文件里按钮圆角不一致——那是设计系统问题，不是再写一条提示词能修好的。</p>
+
+<h2>08 模板：一份可粘贴的 Skill 骨架</h2>
+<p>下面骨架同时适用于 Figma Skills 与常见 Agent skill 文件；YAML 头可按平台删减。把方括号换成你们的内容即可。</p>
+<pre><code>---
+name: crit-recap
+description: 把设计评审反馈收成决定 / 行动 / 延后；可在画布生成卡片或经 MCP 发到 Slack。在评审结束后、需要主题化反馈时使用。
+trigger: /crit-recap
+audience: 设计与产品；发布范围 = 本团队
+---
+
+## 目标（Goal）
+把零散评论变成可追踪的三类条目，并标明负责人与截止时间（若未知则标 TBD）。
+
+## 何时用 / 何时不用
+- 用：评审会刚结束；画布或 Slack 里已有原始反馈。
+- 不用：还在发散探索、没有「需要决定」的压力时。
+
+## 输入
+1. 询问：评审对象链接 / 帧名、参与者、是否已有笔记。
+2. 若接 MCP：只读取指定频道或页面；列出将访问的来源请用户确认。
+
+## 步骤
+1. 聚类：按主题合并重复意见（最多 7 个主题）。
+2. 分类：每个主题下拆成 Decided / Action / Deferred。
+3. 质检：Action 必须有动词 + 对象；禁止「再想想」这类空动作。
+4. 输出：先给摘要表，再生成画布卡片；发送外部系统前暂停等人确认。
+
+## 输出格式
+| 主题 | 类型 | 内容 | Owner | Due |
+| ... | Decided/Action/Deferred | ... | ... | ... |
+
+## 边界
+- 不伪造未出现的干系人意见。
+- 不自动关闭或重开任务，除非用户明确授权。
+- 规则未覆盖的情况列为「待你决定」，不要擅自发明流程。
+</code></pre>
+<pre><code># 视角 Skill 追加段（可嵌进上述骨架）
+## 镜头（Lens）
+你正在用「首次使用本产品的人」视角。
+假设：不了解内部术语；只愿意花 90 秒完成首要任务。
+禁止：用专家口吻辩护现状；禁止建议大改信息架构除非摩擦致命。
+每条问题标注：位置（帧/文案）· 摩擦类型 · 建议的最小改动。
+</code></pre>
+
+<h2>09 自查清单</h2>
+<ul>
+<li>这条 Skill 解决的是「怎么干」，还是在重复设计系统已经规定的「用什么」？</li>
+<li>触发词（slash name）是否短、可念、不会和别的命令撞车？</li>
+<li>有没有写清「何时不用」，避免 Agent 过度热情？</li>
+<li>输出是否强制结构化（表 / 三类分类 / 严重级别），方便人扫一眼？</li>
+<li>涉及 MCP 写出时，是否默认「草稿 + 人工确认」？</li>
+<li>发布到团队前，有没有在一个真实文件里跑通至少两次？</li>
+<li>共享对话里出现的好提示，有没有人负责提炼进 Skill 库？</li>
+<li>敏感场景是否约定了何时切私人模式？</li>
+</ul>
+
+<h2>10 和读本其他篇的对照 + 编者点评</h2>
+<table>
+<tr><th>读本篇目</th><th>侧重点</th><th>和本篇的关系</th></tr>
+<tr><td>No.04 Figma 设计 Agent：工具、上下文与 Skills</td><td>产品能力全景</td><td>本篇专讲 Skills 落地与组织复用</td></tr>
+<tr><td>No.07 Agents with Taste</td><td>把品味写成可执行规则</td><td>视角 / 评审 Skill 的「严格规则」写法可直接借用</td></tr>
+<tr><td>No.13 Cooking with constraints（TC-EBC）</td><td>把模糊需求收成结构</td><td>写 Skill 步骤前，用 TC-EBC 先压 ambiguity</td></tr>
+<tr><td>No.15 Agents meet Figma canvas</td><td>Agent 在真画布上守 DS</td><td>本篇的 Skill 调用 DS；画布侧靠 No.15 的约束</td></tr>
+<tr><td>No.03 design.md / No.01 审美 Skills</td><td>品牌与前端审美编码</td><td>同属「写下来才能规模化」；渠道分别是代码 Agent 与 Figma Agent</td></tr>
+</table>
+<div class="note"><p><b>编者点评：</b>Figma 这篇最有价值的不是又一个「快来用 Skills」的发布口径，而是他们自己先把<strong>默会流程</strong>产品化了——模拟老板、文案初检、新人视角、catch-me-up、crit 准备与复盘。很多团队停在「个人提示词收藏夹」；真正的飞轮是：共享对话里长出好做法 → 提炼成 Skill → 斜杠命令成为默认入口 → 新人不再从零学 prompting。设计系统让界面不像野花；Skill 让协作方式不像黑盒。两者都写清楚，Agent 才谈得上「更好的协作者」。</p></div>
+</article>
+</body></html>

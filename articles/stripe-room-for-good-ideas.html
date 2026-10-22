@@ -1,0 +1,118 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Stripe 如何让好点子自己长出来 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#EFE6DF">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 19 · AI 设计工作流 / Stripe / 实验文化 / 判断力</div><h1>Stripe 如何让好点子自己长出来</h1><div class="en">How Stripe creates room for good ideas to spread</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Designer Fund</dd><dt>身份</dt><dd>案例访谈；受访 Katie Dill（Stripe Head of Design）、Ryan Spencer、Sadhika Billa、Chris Greer、Pablo Delcan（Stripe）</dd><dt>日期</dt><dd>2026-09-15</dd><dt>原文</dt><dd><a href="https://designerfund.com/blog/ai-design-stripe">designerfund.com ↗</a></dd></dl><a class="readorig" href="https://designerfund.com/blog/ai-design-stripe" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/stripe-room-for-good-ideas.svg" alt="How Stripe creates room for good ideas to spread 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解。原文是 Designer Fund 对 Stripe 设计与 AI 的组织文化案例；读本已有 No.12 Harbor、No.16 Protodash 两篇偏「工具怎么建」的 Stripe 文章。本篇刻意站在 Katie Dill 的组织视角：时间、工具准入、可见实验、roof shots、以及「快 ≠ 完成」。ProtoDash / Dante 只作「重复摩擦 → 共享基建」的同构对照，不重讲实现细节。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>三句话结论</li>
+<li>口号为什么推不动：热情 ≠ 实验</li>
+<li>摆桌子的三件事：时间 / 准入 / 可见性</li>
+<li>重复摩擦 → 共享基建（ProtoDash 与 Dante）</li>
+<li>Roof shots：小而可逆，再谈标准</li>
+<li>Fast is not finished：微波 burrito 与两周自豪测试</li>
+<li>领导要重新学当新人</li>
+<li>个人 / 小团队可抄的落地清单</li>
+<li>和读本其他篇对照</li>
+<li>编者点评</li>
+</ol></nav>
+
+<h2>01 三句话结论</h2>
+<p><b>第一，光喊「去试试 AI 工具」几乎不会改变行为。</b>设计师太忙，也搞不清哪些工具安全、谁付钱、算不算正事。热情（enthusiasm）不等于实验（experimentation）。</p>
+<p><b>第二，组织要先「摆好桌子」再开派对。</b>Katie Dill 的原话精神是：We set the table to enable the party——清掉拦路石：专属时间、无摩擦准入、让实验可见。</p>
+<p><b>第三，好点子靠「屋顶高度的小实验（roof shots）」长出来，再沉淀成共享基建；快交付不等于完成。</b>胡萝卜多于大棒，目录与排行榜代替口号，细节上的骄傲感仍然是人类标准。</p>
+
+<h2>02 口号为什么推不动：热情 ≠ 实验</h2>
+<p>Katie 起初的做法很常见：公开鼓励大家去试工具。结果几乎没变化。拆开看，拦路的不是意愿，而是三类隐性成本：</p>
+<table>
+<tr><th>隐性成本</th><th>设计师脑子里的问题</th><th>只喊口号时发生什么</th></tr>
+<tr><td>时间</td><td>「这算 KPI 吗？会不会耽误交付？」</td><td>实验挤在夜晚，不可持续</td></tr>
+<tr><td>准入 / 安全 / 报销</td><td>「这个能用公司账号吗？谁审批？谁付钱？」</td><td>卡在采购与安全评审门口</td></tr>
+<tr><td>社会可见性</td><td>「试砸了会不会很蠢？有没有人在看？」</td><td>私下玩玩，从不演示，无法传染</td></tr>
+</table>
+<p>这和「发一张 AI 工具清单」是两回事。清单解决信息不对称；摆桌子解决的是<strong>许可结构（permission structure）</strong>——你是否被允许把工作日的一部分花在不确定回报的探索上。</p>
+<div class="note"><p>若你所在团队也有「AI 周报转发很多、原型却很少」的症状，先别急着再办一场分享会。先问：上周有没有人被明确允许停掉一天常规需求？预批准的工具列表是否贴在找得到的地方？失败的 demos 有没有人鼓掌？</p></div>
+
+<h2>03 摆桌子的三件事：时间 / 准入 / 可见性</h2>
+<p>Stripe 清掉的三块石头，可以当成组织设计的最小完备集：</p>
+<table>
+<tr><th>桌子腿</th><th>Stripe 做法</th><th>解决的摩擦</th><th>可抄的缩小版</th></tr>
+<tr><td>Dedicated time</td><td>季度「AI-cation」日</td><td>实验没有合法日历格子</td><td>双月半天；写进团队节奏，不靠自愿加班</td></tr>
+<tr><td>Frictionless access</td><td>工具预批准；安全与报销前置</td><td>每次试用都像开新供应商</td><td>维护一页「绿灯工具」；采购路径写死</td></tr>
+<tr><td>Visible experiments</td><td>demos、brown-bags、创始人 fireside；内部目录与排行榜</td><td>好点子困在个人笔记本</td><td>双周 15 分钟 demo；共享文件夹 + 简单点赞</td></tr>
+</table>
+<p>原文强调「更多靠胡萝卜而不是大棒（more through carrots than sticks）」。排行榜、目录、公开演示，是把探索变成<strong>可被看见的贡献</strong>，而不是绩效考核里的扣分项。没有可见性，AI-cation 日结束后一切归零。</p>
+<blockquote>精神摘要：先摆桌子，派对才会自己发生。—— 据 Katie Dill / Designer Fund 访谈</blockquote>
+
+<h2>04 重复摩擦 → 共享基建（ProtoDash 与 Dante）</h2>
+<p>摆好桌子之后，真正长出来的往往不是「人人自建一套」，而是有人把反复出现的摩擦做成共享工具。读本 No.16 的 ProtoDash（Owen Williams）与原文中的 Dante（Chris Greer）是两条平行路径：</p>
+<table>
+<tr><th></th><th>ProtoDash</th><th>Dante</th></tr>
+<tr><td>领域</td><td>原型 / 界面</td><td>文案 / 内容标准</td></tr>
+<tr><td>摩擦</td><td>AI 原型陷入 blurple slop</td><td>每天 2–3k 新文案字符串要过规范</td></tr>
+<tr><td>编码进去的标准</td><td>Sail 设计系统 + 严格规则</td><td>Title case、牛津逗号、连字符 vs en dash 等</td></tr>
+<tr><td>形态演进</td><td>工具 → ProtoDash Studio（浏览器）</td><td>截图 → 审查 → 应用修复 + PR</td></tr>
+<tr><td>谁在重度使用</td><td>含大量 PM</td><td>内容规模化场景</td></tr>
+<tr><td>组织隐喻</td><td>质量门槛烤进工具</td><td>「成功之坑（pit of success）」：默认就做对</td></tr>
+</table>
+<p>同构逻辑是：个人在 AI-cation 里撞上同一堵墙 → 把标准写进工具 → 工具进入内部目录 → 别人站在更高的地板上开始下一轮实验。Radar 等项目甚至把 ProtoDash 产出当作工程 source of truth——这是「可见实验」长成「默认路径」的标志。细节见 No.16；本篇只借它说明<strong>文化如何喂养基建</strong>。</p>
+<div class="note"><p>不要把 ProtoDash / Dante 理解成「必须先做大平台」。它们是屋顶射击打中之后的结晶。顺序错了——先立项做统一 AI 平台、再允许实验——通常会做出没人爱用的中间层。</p></div>
+
+<h2>05 Roof shots：小而可逆，再谈标准</h2>
+<p>原文明确偏好 roof shots 而非 moonshots：先做小而可逆的实验，再考虑统一。举例方向包括：Radar 的对话式欺诈规则、文档的自然语言搜索、Dashboard / Sigma 上的探索——都是能关掉、能回滚、能在局部验证价值的切口。</p>
+<table>
+<tr><th></th><th>Roof shot</th><th>Moonshot</th></tr>
+<tr><td>范围</td><td>一个工作流 / 一个表面</td><td>「重做整个设计流程」</td></tr>
+<tr><td>失败成本</td><td>可逆；声誉损失小</td><td>沉没成本与政治成本高</td></tr>
+<tr><td>学习速度</td><td>周级反馈</td><td>季度级才知道错在哪</td></tr>
+<tr><td>标准化时机</td><td>多个 roof shot 证明同构后再抽平台</td><td>一开始就抽平台</td></tr>
+<tr><td>适合谁喊</td><td>个人与小队在 AI-cation 里开干</td><td>有真实用户证据后再由负责人赞助</td></tr>
+</table>
+<p>封面母题里那条被划掉的高弧线，指的就是过早的 moonshot：弧很高，但落不回桌上的共享目录。能连上「内部货架」的，往往是一条条屋顶高度的虚线弧。</p>
+
+<h2>06 Fast is not finished：微波 burrito 与两周自豪测试</h2>
+<p>Katie 用微波 burrito 作喻：热得快，不等于一顿好好吃过的饭。Pablo Delcan（Stripe Press）的观察更细：AI 压缩的是中间探索段；概念与终稿仍然需要人。他的测试很锋利——「如果这件事花了两周，我还会为它骄傲吗？（would I be proud if it took two weeks）」——用来对抗「生成即完工」的幻觉。</p>
+<p>对 AI 图像尤其如此：原文提到对细节近乎恼人的注意力（maddening attention to detail）。快，只改变了你到达「可评审草稿」的时间；完成，仍取决于你是否还愿意做过去两周才会做的打磨。</p>
+<table>
+<tr><th>阶段</th><th>AI 擅长</th><th>仍应人类守门</th><th>错误信号</th></tr>
+<tr><td>探索中段</td><td>快速变体、布局草稿、文案候选</td><td>选题与概念方向</td><td>把第一版当方向锁定</td></tr>
+<tr><td>收敛</td><td>按规则批量改（见 Dante）</td><td>品牌与叙事判断</td><td>规则外的「差不多」混进终稿</td></tr>
+<tr><td>终稿</td><td>检查清单、差异对比</td><td>骄傲感测试；像素级细节</td><td>用「反正很快」原谅瑕疵</td></tr>
+</table>
+<div class="note"><p>把「两周自豪测试」写进团队评审问题单，比再买一个模型更便宜。它逼你区分：速度红利花在了哪里——是多试了十条路，还是提前宣布完工。</p></div>
+
+<h2>07 领导要重新学当新人</h2>
+<p>原文有一句刺耳的提醒：有时「别只听领导的」。管理者需要亲自参加 AI-cation、做自己的 pet projects，才能重新获得判断力。否则他们会用过时的成本模型审批工具，或用错误的完成标准评判产出。</p>
+<ul>
+<li>领导不亲手做 → 只能评价演示幻灯片 → 奖励叙事而非可运行原型；</li>
+<li>领导亲手做 → 理解工具边界 → 更敢清准入、更敢保护实验时间；</li>
+<li>「别只听领导」不是反管理，而是承认：在范式切换期，一线试用者暂时握有更新的现实。</li>
+</ul>
+
+<h2>08 个人 / 小团队可抄的落地清单</h2>
+<ul>
+<li><b>日历：</b>下一个月就标出半天 AI-cation；主题预告，结束后强制 10 分钟 demo。</li>
+<li><b>绿灯页：</b>一页列出已批准工具、账号归属、费用科目；新工具走一次安全预审后追加。</li>
+<li><b>可见货架：</b>共享目录（agents / plugins / prompts）；每人至少挂一个「能跑的」而不是 PPT。</li>
+<li><b>胡萝卜：</b>demo 日鼓掌；月度「最可复用实验」小奖；不把失败实验当负面绩效。</li>
+<li><b>Roof 优先：</b>立项模板加一栏「如何在两周内可逆关闭」。</li>
+<li><b>完成标准：</b>评审必问两周自豪测试；AI 图必过细节 checklist。</li>
+<li><b>领导作业：</b>每个 manager 自己交一个 pet project，与团队同一舞台演示。</li>
+<li><b>摩擦升级：</b>同一痛点出现三次 → 允许有人把它做成共享小工具（ProtoDash / Dante 路径），而不是再写一篇最佳实践文档。</li>
+</ul>
+
+<h2>09 和读本其他篇对照</h2>
+<table>
+<tr><th>读本篇目</th><th>侧重点</th><th>和本篇的关系</th></tr>
+<tr><td>No.12 Harbor（Stripe）</td><td>原型成为公司通用语言</td><td>本篇解释 Harbor 类实践背后的「桌子」从何而来</td></tr>
+<tr><td>No.16 Protodash（Owen）</td><td>Sail 烤进工具、杀 blurple slop</td><td>本篇把它放回文化叙事：重复摩擦 → 目录里的基建</td></tr>
+<tr><td>No.14 Anthropic 设计团队</td><td>代码便宜后「值不值得做」</td><td>同一时代问题；Stripe 用 roof shots 回答「先做小的」</td></tr>
+<tr><td>No.06 Linear × AI</td><td>判断留在人手里</td><td>与「快 ≠ 完成」、两周自豪测试同族</td></tr>
+<tr><td>No.08 五家大厂 AI 设计实况</td><td>横向扫描</td><td>本篇是 Stripe 深挖的组织样本</td></tr>
+<tr><td>No.18 Got Skills（Figma）</td><td>把仪式写成斜杠命令</td><td>互补：Figma 写工作方式；Stripe 写实验许可与可见性</td></tr>
+</table>
+
+<h2>10 编者点评</h2>
+<div class="note"><p><b>编者点评：</b>Designer Fund 这篇最适合钉在设计负责人墙上的，不是 ProtoDash 又一次功能介绍，而是 Katie 那句「摆桌子」。太多团队把 AI 转型理解成采购与培训；Stripe 的经验更朴素——给时间、给准入、给舞台，然后用胡萝卜让小实验可见，让重复的墙变成共享工具。Roof shots 保护学习速度；两周自豪测试保护品味。领导若不肯重新当新人，桌子永远只会摆给别人看。读完 No.12 / No.16 再读这篇，三件套才完整：语言（Harbor）、工具（ProtoDash）、许可结构（本篇）。</p></div>
+</article>
+</body></html>

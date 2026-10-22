@@ -357,5 +357,47 @@
     "cover": "covers/picture-is-worth-a-thousand-tokens.svg",
     "accent": "#1F8C9A",
     "tint": "#DEEBED"
+  },
+  {
+    "slug": "got-skills-figma-agent",
+    "title_zh": "把团队工作方式写成 Skill：Figma Agent 的实践",
+    "title_en": "Got skills? Make the Figma agent a better collaborator",
+    "author": "Sachi Shah、Sean Lee",
+    "author_role": "Product Manager, Figma（Sean Lee 负责 Figma Make）",
+    "source": "https://www.figma.com/blog/got-skills-make-the-figma-agent-a-better-collaborator/",
+    "date": "2026-07-01",
+    "added": "2026-10-22",
+    "tags": [
+      "Skills",
+      "Figma",
+      "评审",
+      "MCP"
+    ],
+    "dek": "把藏在脑子里的流程写成斜杠命令，团队才真能复用。",
+    "category": "提示词与 Skill",
+    "cover": "covers/got-skills-figma-agent.svg",
+    "accent": "#4A6FA5",
+    "tint": "#E2E8F1"
+  },
+  {
+    "slug": "stripe-room-for-good-ideas",
+    "title_zh": "Stripe 如何让好点子自己长出来",
+    "title_en": "How Stripe creates room for good ideas to spread",
+    "author": "Designer Fund",
+    "author_role": "案例访谈；受访 Katie Dill（Stripe Head of Design）、Ryan Spencer、Sadhika Billa、Chris Greer、Pablo Delcan（Stripe）",
+    "source": "https://designerfund.com/blog/ai-design-stripe",
+    "date": "2026-09-15",
+    "added": "2026-10-22",
+    "tags": [
+      "Stripe",
+      "实验文化",
+      "原型",
+      "判断力"
+    ],
+    "dek": "先摆好桌子再开派对：时间、工具准入、可见实验，比口号管用。",
+    "category": "AI 设计工作流",
+    "cover": "covers/stripe-room-for-good-ideas.svg",
+    "accent": "#8A5A2E",
+    "tint": "#EFE6DF"
   }
 ]

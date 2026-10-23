@@ -1,0 +1,177 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>先抄这 10 个 Skill：Figma Agent 的可复用观点 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#F0E5E0">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 21 · 提示词与 Skill / Skills / 动效 / 评审</div><h1>先抄这 10 个 Skill：Figma Agent 的可复用观点</h1><div class="en">Try these 10 skills—and show off your own</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Miggi Cardona</dd><dt>身份</dt><dd>Designer Advocate, Figma</dd><dt>日期</dt><dd>2026-08-13</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/try-these-10-skills-and-show-off-your-own/">figma.com/blog ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/try-these-10-skills-and-show-off-your-own/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/figma-try-these-10-skills.svg" alt="Try these 10 skills—and show off your own 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解。原文是 Figma Designer Advocate Miggi Cardona 的社区 Skills 导览（2026-08-13）；读本 No.18「Got Skills」讲的是 Skill 与设计系统如何分工、仪式如何写成斜杠命令。本篇往下钻一层：先建立「Skill = 把观点写成可触发指令」的心智，再把十个社区 Skill 做成对照表，最后给你一份「如何发明自己的」模板。功能边界以原文与 Figma 帮助中心为准；与 No.02 Agents with Taste、No.07 / No.11（Emil / Jakub）互为补充，不重复产品面介绍。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>三句话结论</li>
+<li>Skill 是什么：纯文本里的设计师观点</li>
+<li>Miggi 的顿悟：<code>/ease-like-miggi</code></li>
+<li>怎么写：从画板或步骤生成，再迭代</li>
+<li>十个社区 Skill 对照表</li>
+<li>按工作流归类：何时调用哪一类</li>
+<li>Skill vs 设计系统：再钉一次钉子</li>
+<li>模板：发明你自己的 Skill</li>
+<li>自查清单 + 和读本其他篇对照</li>
+<li>编者点评</li>
+</ol></nav>
+
+<h2>01 三句话结论</h2>
+<p><b>第一，Skill 是按顺序写好的纯文本（markdown）指令，用来捕获设计师的观点与判断。</b>不是工程师专属；你在 Figma 里用 Agent 就能写，许多 Skill 还能经 Figma MCP 在第三方 Agent 里跑，GitHub 上也有 MCP skills 仓库。</p>
+<p><b>第二，真正可传播的是「你的品味被别人斜杠调用」。</b>Miggi 的 <code>/ease-like-miggi</code> 让团队动效开始按他的缓动曲线走——这才是 Skill 相对普通提示词的跃迁：观点从个人习惯变成可触发资产。</p>
+<p><b>第三，先抄十个社区 Skill，再发明你的。</b>对照表覆盖影像、动效机会、镜头、手艺规则、交付文档、色 token、组件审计、状态展开、启发式评审、可用性讨论纲——几乎覆盖设计日常的关键镜头；抄的目的是学会「观点如何被切成斜杠命令」。</p>
+
+<h2>02 Skill 是什么：纯文本里的设计师观点</h2>
+<p>Miggi 把 Skill 说得很朴素：ordered instructions in plain-text markdown。关键不在文件格式，而在它捕获的是什么——设计师对「该怎么动、该怎么评、该怎么展开状态」的意见（opinion / judgment），而不是又一份组件 API。</p>
+<table>
+<tr><th>层</th><th>载体</th><th>捕获什么</th><th>触发方式</th></tr>
+<tr><td>设计系统</td><td>组件 / token / 文档站</td><td>用什么（what）</td><td>拖拽 / 查阅</td></tr>
+<tr><td>Skill</td><td>Markdown 指令集</td><td>怎么想、怎么评、怎么动（how）</td><td>对话里 <code>/</code></td></tr>
+<tr><td>一次性提示词</td><td>聊天框临时文字</td><td>当场意图</td><td>不可复用</td></tr>
+</table>
+<p>原文还强调：你可以在 Figma 里直接让 Agent 帮你写 Skill；许多 Skill 通过 Figma MCP 在第三方 Agent 里同样可用。对团队这意味着——写一次观点，摊销到画布内与画布外。</p>
+<div class="note"><p>若你读过 No.18，把本篇当成「案例货架」：No.18 给骨架与分工，本篇给十个已验证的斜杠命令标本，以及 Miggi 自己的「观点被调用」故事。</p></div>
+
+<h2>03 Miggi 的顿悟：<code>/ease-like-miggi</code></h2>
+<p>Miggi 的 aha moment 很具体：他写了一个关于 easing curves 的 Skill，命名为 <code>/ease-like-miggi</code>。效果是——团队里的 motion 开始像他的手感。这不是「分享了一篇动效文章」，而是<strong>别人不用理解他的全部理论，只要斜杠一下，就能借用他的判断</strong>。</p>
+<p>他还自己做了例如：</p>
+<ul>
+<li><code>/image-audit</code>——图像质量 / 问题审计；</li>
+<li><code>/shader-starter</code>——着色器起步脚手架；</li>
+<li><code>/make-a-type-scale</code>——生成字阶。</li>
+</ul>
+<p>共同点：名字短、可念、指向一个清晰观点；输出是可执行结果，不是又一篇博客。</p>
+<blockquote>精神摘要：Skill 不是工程师专属——把你的观点写成斜杠命令，别人也能「ease like you」。—— 据 Miggi Cardona / Figma Blog</blockquote>
+
+<h2>04 怎么写：从画板或步骤生成，再迭代</h2>
+<p>原文给出的创作路径很轻：</p>
+<ol>
+<li>让 Agent 从某个 frame 或你描述的步骤生成 Skill；</li>
+<li>预览（preview）它实际会怎么跑；</li>
+<li>不满意就改——可以直接进 markdown 编辑器打磨措辞与边界；</li>
+<li>发布到需要的范围（个人 / 团队）。</li>
+</ol>
+<table>
+<tr><th>步骤</th><th>你该盯什么</th><th>常见翻车</th></tr>
+<tr><td>从 frame / 步骤生成</td><td>是否抓住了「观点」而不只是操作录像</td><td>生成一长串菜单点击路径，换版本即失效</td></tr>
+<tr><td>预览</td><td>输出结构是否稳定、可扫读</td><td>每次跑出来格式都不同</td></tr>
+<tr><td>Markdown 迭代</td><td>何时用 / 何时不用、边界、输出表头</td><td>没有「不用」段，Agent 过度热情</td></tr>
+<tr><td>发布</td><td>名字是否可念、会不会撞车</td><td><code>/helper</code>、<code>/fix</code> 这类无法检索的名字</td></tr>
+</table>
+<div class="note"><p>写 Skill 时把「工具相关落点」和「工具无关意图」拆开：意图段写「按我的缓动哲学选曲线」；落点段写「在 Figma 里改哪些属性」。MCP 换到别的 Agent 时，你只换落点段。</p></div>
+
+<h2>05 十个社区 Skill 对照表</h2>
+<p>下面按原文介绍的十个社区 Skill 整理。抄之前先看「观点是什么」那一列——那才是你要偷师的，不是斜杠名字本身。</p>
+<table>
+<tr><th>#</th><th>作者</th><th>命令</th><th>观点 / 做什么</th><th>适合何时</th></tr>
+<tr><td>1</td><td>Adele Ix</td><td><code>/xray-scan</code></td><td>放射影像拼贴感（radiograph collage）</td><td>概念探索、视觉实验、需要非常规材质时</td></tr>
+<tr><td>2</td><td>Emil Kowalski（Linear）</td><td><code>/find-animation-opportunities</code></td><td>标出该动 / 不该动的地方；需 persona 上下文；避免 over-animating</td><td>动效评审前；信息架构已定、开始加 motion 时</td></tr>
+<tr><td>3</td><td>Mallory Dean（Figma）</td><td><code>/camera-pan-and-zoom</code></td><td>镜头机位（camera rig），不直接改 frames</td><td>演示叙事、走查录屏、需要「镜头语言」时</td></tr>
+<tr><td>4</td><td>Jakub Krehel（Interfere）</td><td><code>/better-interface</code></td><td>手艺规则书：字体 / 布局 / a11y / motion / copy</td><td>综合打磨；与 No.11「Less is more」同族品味</td></tr>
+<tr><td>5</td><td>Mauro Berteri</td><td><code>/component-handoff</code></td><td>自动文档：页眉、预览、变体、dos/donts、状态、解剖</td><td>组件交付前夜；减少手写 DS 文档</td></tr>
+<tr><td>6</td><td>Ian Guisard（Uber）</td><td><code>/create-color</code></td><td>把填充 / 描边 / 阴影映射到 tokens；含渐变叠加</td><td>从探索色收到 token；设计系统接入期</td></tr>
+<tr><td>7</td><td>Amy Ha（Walmart）</td><td><code>/analyze-components</code></td><td>孤儿 / 重复 / 命名问题；可 clone &amp; swap；产出审计文档</td><td>设计系统减肥；大文件治理</td></tr>
+<tr><td>8</td><td>Linda Ojo（Paystack）</td><td><code>/ui-state-expander</code></td><td>loading / empty / error / disabled / partial / edge；含触发与注释</td><td>主路径做完、补状态时；评审前自查</td></tr>
+<tr><td>9</td><td>Joey Primiani</td><td><code>/superfuture-design-review</code></td><td>启发式评审；按影响标红 / 黄 / 绿</td><td>正式评审前的机器初检；分诊严重级别</td></tr>
+<tr><td>10</td><td>Neha Kodi（Figma）</td><td><code>/usability-test-guide</code></td><td>在画布上生成讨论纲；开放式追问（probes）</td><td>可用性测试前；避免只会问「你喜欢吗」</td></tr>
+</table>
+<div class="note"><p>Emil 那条特别值得钉住：Skill 需要 persona 上下文，并且明确「哪里不该动」。没有「禁止项」的动效 Skill，往往会变成 over-animation 发生器——和 No.07 Agents with Taste 的提醒一致：生成是杠杆，克制才是品味。</p></div>
+
+<h2>06 按工作流归类：何时调用哪一类</h2>
+<table>
+<tr><th>工作流阶段</th><th>优先 Skill</th><th>你要的输出</th></tr>
+<tr><td>视觉探索</td><td><code>/xray-scan</code>、<code>/shader-starter</code>（Miggi）</td><td>非常规材质与起点，不是终稿</td></tr>
+<tr><td>收进系统</td><td><code>/create-color</code>、<code>/analyze-components</code>、<code>/make-a-type-scale</code></td><td>token / 审计 / 字阶，可维护</td></tr>
+<tr><td>补全状态</td><td><code>/ui-state-expander</code></td><td>状态矩阵 + 触发说明</td></tr>
+<tr><td>动效与演示</td><td><code>/find-animation-opportunities</code>、<code>/camera-pan-and-zoom</code>、<code>/ease-like-miggi</code></td><td>该动何处、镜头怎么走、曲线像谁</td></tr>
+<tr><td>交付与文档</td><td><code>/component-handoff</code></td><td>变体 / dos-donts / 解剖页</td></tr>
+<tr><td>评审与研究</td><td><code>/better-interface</code>、<code>/superfuture-design-review</code>、<code>/usability-test-guide</code></td><td>问题清单、影响分级、讨论纲</td></tr>
+</table>
+<p>实操建议：不要在一个对话里串十个 Skill。选一个阶段、一个镜头，跑完再决定要不要换镜头——否则输出会互相覆盖，你也不知道是谁的观点在说话。</p>
+
+<h2>07 Skill vs 设计系统：再钉一次钉子</h2>
+<p>和 No.18 同一根钉子，本篇用社区例子钉死：</p>
+<table>
+<tr><th>信号</th><th>更像 Skill</th><th>更像设计系统</th></tr>
+<tr><td><code>/better-interface</code> 的规则书</td><td>如何检查字体层级与文案语气</td><td>具体的 type style 与组件 API</td></tr>
+<tr><td><code>/create-color</code></td><td>如何把现有色映射到 token 的步骤</td><td>色板本身与语义命名表</td></tr>
+<tr><td><code>/component-handoff</code></td><td>文档页该有哪些区块、什么顺序</td><td>组件源文件与代码绑定</td></tr>
+<tr><td><code>/ui-state-expander</code></td><td>要覆盖哪些状态与注释格式</td><td>各状态的官方视觉规范</td></tr>
+</table>
+<p>一句话：<strong>系统 = 组件；Skill = 你如何思考、评审、做动效、补状态。</strong>两者叠用，不要互相替代。
+
+</p>
+
+<h2>08 模板：发明你自己的 Skill</h2>
+<p>把方括号换成你的观点。名字要像 <code>/ease-like-miggi</code> 一样可念、可归属。</p>
+<pre><code>---
+name: ease-like-[yourname]
+description: 按 [你的名字] 的动效哲学为选中界面建议缓动曲线与时长；在动效评审或加 micro-interaction 时使用。
+trigger: /ease-like-[yourname]
+audience: 设计与前端；发布范围 = 本团队
+---
+
+## 观点（Point of view）
+用 3–5 条写下「我相信什么」：
+- 例：功能反馈用短 snappy；空间转场用稍长的 ease-out；装饰动效默认不加。
+- 例：同一层级的元素共享曲线家族，不各自炫技。
+
+## 何时用 / 何时不用
+- 用：主路径已定，开始加 motion；或评审里争论「这个该不该动」。
+- 不用：信息架构未定；或正在做无感 / 无障碍优先的静态稿。
+
+## 输入
+1. 询问 persona 与场景（谁在什么设备上完成什么任务）。
+2. 请用户框选要评估的 frames / 组件。
+3. 若上下文不足，先问 3 个问题再继续，禁止瞎猜。
+
+## 步骤
+1. 列出候选「可动点」，每个标注：触发、属性、建议时长、曲线。
+2. 明确列出「不该动」的点及理由（防 over-animation）。
+3. 按你的观点过滤：删掉违反观点的建议。
+4. 输出表；若在 Figma，只改用户确认过的属性。
+
+## 输出格式
+| 元素 | 动？ | 属性 | 时长 | 曲线 | 理由 |
+| ... | Y/N | ... | ... | ... | ... |
+
+## 边界
+- 不发明品牌里不存在的弹性夸张曲线，除非用户明确要求「好玩向」。
+- 不把装饰动效标成高优先级。
+- 规则盖不住时列为「待你决定」。
+</code></pre>
+<pre><code># 换一个镜头：状态展开版（可另存为 /states-like-[team]）
+## 观点
+我们默认主路径之外至少覆盖：loading / empty / error / disabled / partial / edge。
+每条状态必须写：如何触发、用户第一眼看到什么、恢复路径。
+
+## 步骤
+1. 识别主路径帧。
+2. 为每个关键组件展开上列状态；缺数据时用诚实占位，不编造业务文案。
+3. 输出画布上的状态矩阵 + 注释。
+</code></pre>
+
+<h2>09 自查清单 + 和读本其他篇对照</h2>
+<ul>
+<li>斜杠名是否包含观点归属（like-miggi / like-team），而不是空洞的 <code>/helper</code>？</li>
+<li>有没有「何时不用」与「不该动 / 不做」段？</li>
+<li>输出是否强制表格或分级（红黄绿），方便人 10 秒扫完？</li>
+<li>是否需要 persona / 场景上下文？缺了是否会先问？</li>
+<li>和设计系统是否抢地盘——色值表有没有误塞进 Skill？</li>
+<li>是否在真实文件里跑通两次再发布到团队？</li>
+<li>经 MCP 外发时，是否默认草稿 + 人工确认？</li>
+</ul>
+<table>
+<tr><th>读本篇目</th><th>侧重点</th><th>和本篇的关系</th></tr>
+<tr><td>No.18 Got Skills</td><td>Skill 与 DS 分工、仪式 Skill、骨架模板</td><td>本篇是社区标本货架 + Miggi 观点故事</td></tr>
+<tr><td>No.02 / No.07 Agents with Taste</td><td>品味、评审、克制</td><td>与 Emil「哪里不该动」、启发式评审同族</td></tr>
+<tr><td>No.11 Less is more（Jakub）</td><td>手艺与克制</td><td><code>/better-interface</code> 可视为可调用的 Jakub 镜头</td></tr>
+<tr><td>No.04 / No.15 Figma Agent 产品面</td><td>工具、上下文、画布守门</td><td>本篇假设你已会用 Agent，专注「写哪类观点」</td></tr>
+<tr><td>No.20 Sierra 系统杠杆</td><td>共享地基 vs 手工手感</td><td>互补：Sierra 建组件地基；本篇把判断写成 Skill</td></tr>
+</table>
+
+<h2>10 编者点评</h2>
+<div class="note"><p><b>编者点评：</b>Miggi 这篇最好的贡献不是「又推荐了十个插件」，而是把 Skill 从工程师话术里拽回设计桌：你的缓动、你的评审苛刻度、你的状态覆盖强迫症——都可以变成别人能 <code>/</code> 出来的东西。先抄表里的十个，不是为了堆斜杠，而是为了看见「观点如何被切成命令」。抄完之后，真正的作业只有一道：写出一个带你名字的 <code>/…-like-you</code>，让下周入职的人不用读你的长文，也能借用你的判断。和 No.18 一起读：一篇给理论与骨架，一篇给货架与勇气。</p></div>
+</article>
+</body></html>

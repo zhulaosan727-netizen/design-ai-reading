@@ -399,5 +399,47 @@
     "cover": "covers/stripe-room-for-good-ideas.svg",
     "accent": "#8A5A2E",
     "tint": "#EFE6DF"
+  },
+  {
+    "slug": "sierra-design-team-leverage",
+    "title_zh": "Sierra：设计团队如何撬动 20 倍工程规模",
+    "title_en": "How Sierra's design team keeps up with an engineering org 20x its size",
+    "author": "Designer Fund",
+    "author_role": "案例访谈；受访 Wayne Fan、Nick Hiotis（Sierra 产品设计师）",
+    "source": "https://designerfund.com/blog/ai-design-sierra",
+    "date": "2026-07-20",
+    "added": "2026-10-23",
+    "tags": [
+      "Sierra",
+      "系统杠杆",
+      "原型",
+      "手感"
+    ],
+    "dek": "别当第 51 个工程师：建共享地基，把像素级快乐留给值得手做的细节。",
+    "category": "AI 设计工作流",
+    "cover": "covers/sierra-design-team-leverage.svg",
+    "accent": "#5C3D8F",
+    "tint": "#E9E6F0"
+  },
+  {
+    "slug": "figma-try-these-10-skills",
+    "title_zh": "先抄这 10 个 Skill：Figma Agent 的可复用观点",
+    "title_en": "Try these 10 skills—and show off your own",
+    "author": "Miggi Cardona",
+    "author_role": "Designer Advocate, Figma",
+    "source": "https://www.figma.com/blog/try-these-10-skills-and-show-off-your-own/",
+    "date": "2026-08-13",
+    "added": "2026-10-23",
+    "tags": [
+      "Skills",
+      "Figma",
+      "动效",
+      "评审"
+    ],
+    "dek": "Skill 不是工程师专属：把你的观点写成斜杠命令，别人也能「ease like you」。",
+    "category": "提示词与 Skill",
+    "cover": "covers/figma-try-these-10-skills.svg",
+    "accent": "#B85A1A",
+    "tint": "#F0E5E0"
   }
 ]

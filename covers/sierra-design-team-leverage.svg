@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#5C3D8F">
+  <!-- 读本 cover system v1: paper / grid / mono label / line-art motif / one accent -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.20 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">SYSTEMS NOT SCREENS</text>
+  <!-- motif: left many identical screen frames → center shared foundation → right handmade ghost detail (accent) -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- left: grid of identical screen frames (engineers shipping) -->
+    <rect x="90" y="160" width="70" height="50"/><rect x="175" y="160" width="70" height="50"/><rect x="260" y="160" width="70" height="50"/>
+    <rect x="90" y="230" width="70" height="50"/><rect x="175" y="230" width="70" height="50"/><rect x="260" y="230" width="70" height="50"/>
+    <rect x="90" y="300" width="70" height="50"/><rect x="175" y="300" width="70" height="50"/><rect x="260" y="300" width="70" height="50"/>
+    <rect x="90" y="370" width="70" height="50"/><rect x="175" y="370" width="70" height="50"/><rect x="260" y="370" width="70" height="50"/>
+    <rect x="90" y="440" width="70" height="50"/><rect x="175" y="440" width="70" height="50"/><rect x="260" y="440" width="70" height="50"/>
+    <!-- mini chrome bars inside a few frames -->
+    <path d="M100 172 H150" stroke-opacity=".4"/><path d="M185 172 H235" stroke-opacity=".4"/><path d="M270 172 H320" stroke-opacity=".4"/>
+    <path d="M100 242 H150" stroke-opacity=".4"/><path d="M185 242 H235" stroke-opacity=".4"/><path d="M270 242 H320" stroke-opacity=".4"/>
+    <!-- arrow into shared foundation -->
+    <path d="M350 360 H430"/>
+    <path d="M418 350 L434 360 L418 370"/>
+    <!-- center: shared foundation / baseplate -->
+    <rect x="450" y="280" width="220" height="160" rx="2"/>
+    <path d="M470 310 H650"/><path d="M470 340 H620"/><path d="M470 370 H640"/><path d="M470 400 H600"/>
+    <!-- foundation feet -->
+    <path d="M470 440 V480 H650 V440"/>
+    <path d="M490 480 V500"/><path d="M630 480 V500"/>
+    <path d="M460 500 H680"/>
+    <!-- arrow to handmade craft -->
+    <path d="M690 360 H770"/>
+    <path d="M758 350 L774 360 L758 370"/>
+  </g>
+  <!-- accent: hand-drawn ghost mascot (Ghostwriter) — the craft that stays human -->
+  <g fill="none" stroke="#5C3D8F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- ghost body -->
+    <path d="M820 280 C820 240 860 210 900 210 C940 210 980 240 980 280 L980 420 C980 420 960 400 940 420 C920 400 900 420 880 400 C860 420 840 400 820 420 Z"/>
+    <!-- eyes (drift) -->
+    <ellipse cx="875" cy="290" rx="10" ry="14"/>
+    <ellipse cx="925" cy="290" rx="10" ry="14"/>
+    <circle cx="878" cy="294" r="3" fill="#5C3D8F" stroke="none"/>
+    <circle cx="928" cy="294" r="3" fill="#5C3D8F" stroke="none"/>
+    <!-- soft smile squiggle -->
+    <path d="M870 340 Q900 360 930 340"/>
+    <!-- 16x16 craft grid hint behind ghost -->
+    <path d="M800 250 H1000" stroke-opacity=".35" stroke-width="1"/>
+    <path d="M800 450 H1000" stroke-opacity=".35" stroke-width="1"/>
+    <path d="M800 250 V450" stroke-opacity=".35" stroke-width="1"/>
+    <path d="M1000 250 V450" stroke-opacity=".35" stroke-width="1"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="1" fill="#1B2B26" fill-opacity=".5">
+    <text x="90" y="530">ENGINEERS</text>
+    <text x="470" y="540">SHARED FOUNDATION</text>
+    <text x="820" y="500" fill="#5C3D8F" fill-opacity=".85">HANDMADE JOY</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="#1B2B26">How Sierra's design team keeps up with an engineering org 20x its size</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">DESIGNER FUND</text>
+</svg>

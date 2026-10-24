@@ -1,0 +1,119 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>设计师怎么用 Claude Code：从画框到真代码 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#F0E5E0">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 23 · AI 设计工作流 / Claude Code / MCP / 原型 / 设计系统 / 交接</div><h1>设计师怎么用 Claude Code：从画框到真代码</h1><div class="en">How Designers Can Use Claude Code</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Figma（资源库）</dt><dt>身份</dt><dd>Figma Resource Library（配合 2026 AI Report）</dt><dt>日期</dt><dd>2026</dt><dt>原文</dt><dd><a href="https://www.figma.com/resource-library/claude-code-for-designers/">figma.com/resource-library ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/resource-library/claude-code-for-designers/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/claude-code-for-designers.svg" alt="How Designers Can Use Claude Code 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解。原文是 Figma Resource Library 的《How Designers Can Use Claude Code》资源页（页面未标具体日；文中引用 2026 AI report）。读本 No.04 / No.15 讲 Figma Agent 与画布；No.10 讲 Claude Design 探索；No.12 Harbor 讲真代码原型；No.22 讲仓库级产品判断 Skill。本篇补的是<strong>设计师如何用 Claude Code + Figma MCP，把真组件与 token 喂进代码、再把改动推回可编辑画布</strong>。安装命令与产品边界以原文及官方帮助为准，下文只保留高阶路径，避免脆弱逐步照抄。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>三句话结论</li>
+<li>痛点：hover 感觉在交接里漂走了</li>
+<li>对设计师来说，Claude Code 是什么</li>
+<li>四类用得上的活</li>
+<li>高阶接入：插件 → 授权 → 帧链接 → 具体提示</li>
+<li>往回推：改动变回可编辑 Figma 层</li>
+<li>第一批任务清单（别一上来改架构）</li>
+<li>FAQ：要不要会写代码 / 替不替工程师 / 会不会弄坏生产</li>
+<li>和读本其他篇对照</li>
+<li>编者点评</li>
+</ol></nav>
+
+<h2>01 三句话结论</h2>
+<p><b>第一，票单等工程师不如自己改小漂移。</b>你清楚 dropdown 该怎么开、hover 该什么手感，但等到工程做完，常常已经「差一点」。Claude Code 让你用自然语言描述改动，拿回可运行代码——前提是它读到的是你们的真组件与 token，而不是截图猜色。</p>
+<p><b>第二，Figma MCP 是桥，不是又一个导出插件。</b>它让 Agent 直接读帧、组件、变量；也能把代码侧改动推回画布成原生可编辑层。设计文件与代码库开始双向同步，而不是单向「标注交接」。</p>
+<p><b>第三，从低风险小任务练手。</b>修一个组件的 padding、对齐一个按钮到正确 token、修 hover、清 empty / error 文案——不要一上来碰新架构或全应用改动。本地副本上试；什么都不进生产，直到你决定。</p>
+
+<h2>02 痛点：hover 感觉在交接里漂走了</h2>
+<p>原文开场几乎每个设计师都经历过：交互感觉在脑中很清楚，ticket 写了，等排期、等实现，上线一看——开合时机、反馈强度、空态文案，全漂了一点点。传统解法是再开一轮 ticket；新解法是：在本地代码里自己改到满意，再交给工程审。</p>
+<p>Figma 2026 AI report 给出组织背景：参与开发的设计师比例从 21% 升到 41%（近乎翻倍）；做设计工作的开发者从 44% 升到 60%。85% 受访者认为 AI 让自己更高效，63% 觉得因此更擅长本职，70% 认为产出质量上升。约 41% 的产品构建者说 AI 改变了整队协作方式——更少交接、更多重叠——是两年前的约六倍。</p>
+<table>
+<tr><th>信号（据 2026 AI report）</th><th>数字</th><th>对设计师的含义</th></tr>
+<tr><td>设计师参与开发</td><td>21% → 41%</td><td>「只画不碰代码」不再是默认职业路径</td></tr>
+<tr><td>开发者做设计工作</td><td>44% → 60%</td><td>边界双向模糊；交接语言要共享</td></tr>
+<tr><td>AI 改变整队协作</td><td>~41%（约 2 年前的 6×）</td><td>更少 handoff、更多重叠工作区</td></tr>
+<tr><td>效率 / 胜任 / 质量自评</td><td>85% / 63% / 70%</td><td>工具在放量；质量判断仍须人做</td></tr>
+</table>
+<div class="note"><p>原文钉得很清楚：Claude Code 能写代码，但交互是否说得通、是否可上线，仍由人决定。AI 改的是「活怎么干」，不是「质量谁说了算」——和读本 No.06 Linear、No.22 决策权威顺序同族。</p></div>
+
+<h2>03 对设计师来说，Claude Code 是什么</h2>
+<p>把它想成<strong>坐在代码库里的 Agent</strong>：你描述想要什么，它打开文件、写代码、跑起来——你不必亲手碰终端细节。它在你打字前就开始收上下文。</p>
+<table>
+<tr><th>能力</th><th>对设计师意味着什么</th><th>容易误解成什么</th></tr>
+<tr><td>读团队规则文件（类似 Skill）</td><td>知道你们怎么组织代码、命名、约定</td><td>以为「会魔法」，其实靠仓库里的短规则文件</td></tr>
+<tr><td>跨会话记住纠正与偏好</td><td>上次骂过的间距错误，下次少犯</td><td>以为永久全知；仍须你持续纠正</td></tr>
+<tr><td>经 Figma MCP 读真组件与 token</td><td>生成对齐设计系统，而非截图猜色距</td><td>以为贴一张 PNG 就够——不够</td></tr>
+<tr><td>只改本地副本</td><td>大胆试、随时撤，不进生产直到你点头</td><td>以为一保存就上线——不会</td></tr>
+</table>
+<p>一句话：它不是「设计师版 IDE 教程」，而是<strong>带着你们设计系统说话的结对程序员</strong>——前提是 MCP 已接通、提示里明确要求复用现有组件与 token。</p>
+
+<h2>04 四类用得上的活</h2>
+<table>
+<tr><th>场景</th><th>典型问题</th><th>Claude Code 能帮什么</th><th>你仍须盯什么</th></tr>
+<tr><td>设计系统同步</td><td>代码里三周前改了 token 名，Figma 变量没跟上</td><td>从代码库拉现状，同步回 Figma，使文件对齐正在上线的东西</td><td>语义是否仍正确；有无破坏性重命名</td></tr>
+<tr><td>Design-to-code</td><td>新功能已 mock，想在排期会前看到真活</td><td>拿帧链接，用真组件搭可运行原型</td><td>范围是否最小；有没有顺手发明新组件</td></tr>
+<tr><td>带真实交互的原型</td><td>干系人问：「数据空了怎么办？」Figma 原型答不上</td><td>做出含 empty / error / loading 的可点版本</td><td>状态是否产品真可达（呼应 No.22）</td></tr>
+<tr><td>文档与 a11y 审计</td><td>继承来的组件库零文档；按钮为什么不一致没人记得</td><td>写文档、标出无障碍问题，赶在 QA 前暴露</td><td>文档是否写「为何」而不只是 API 列表</td></tr>
+</table>
+<div class="note"><p>原文也提到 Figma Make：若你只想「提示出可运行原型、连终端都不开」，那是另一条轻路径。本篇焦点是<strong>已有代码库 + 真设计系统</strong>时，设计师如何进入开发环，而不是从零生成玩具 demo。</p></div>
+
+<h2>05 高阶接入：插件 → 授权 → 帧链接 → 具体提示</h2>
+<p>Figma MCP server 像翻译器：让 Claude Code 直接碰到真帧与 token。路径按原文四步压缩为高阶清单（具体命令以官方页为准，组织策略可能禁止装插件——需找账号管理员）：</p>
+<ol>
+<li><b>安装 Figma 插件到 Claude Code</b>（已安装 Claude Code 的前提下）；装完若会话已开着，重启一次。</li>
+<li><b>授权 Figma 账号</b>：在插件列表里选 Figma，浏览器 Allow，回到会话确认已 connected。</li>
+<li><b>在 Figma 里右键目标帧 → Copy link</b>——链接告诉 Agent 读哪一块，而不是整个文件瞎扫。</li>
+<li><b>把链接贴进提示，并写死复用约束。</b>例：「用 React 实现这个 checkout 表单。复用我们现有组件；间距与颜色从设计 token 拉，不要硬编码。」</li>
+</ol>
+<table>
+<tr><th>步骤</th><th>成功信号</th><th>常见翻车</th></tr>
+<tr><td>装插件</td><td>插件列表能见到 Figma</td><td>企业策略禁装；装完未重启会话</td></tr>
+<tr><td>授权</td><td>显示 connected</td><td>授权了个人号却读团队文件权限不足</td></tr>
+<tr><td>复制帧链接</td><td>Agent 能指名该帧</td><td>复制了页面链接或整文件链接，上下文过噪</td></tr>
+<tr><td>提示</td><td>输出使用已有组件 / token 名</td><td>没写「reuse existing」→ 它发明一套平行 UI</td></tr>
+</table>
+<p>提示里最值钱的不是文采，而是<strong>禁止发明第二套系统</strong>：点名复用、点名 token、点名不要新造色值。</p>
+
+<h2>06 往回推：改动变回可编辑 Figma 层</h2>
+<p>出来怎么走，回去就怎么走——还是经 Figma MCP。你提示 Claude Code 把当前文件状态推回画布，工具会在 Figma 里创建或更新为<strong>原生可编辑图层</strong>。</p>
+<p>这意味着：不必等工程「再导出一版」才能在 Figma 里看见代码侧的修正。你可以自己拉回来、微调、再递回去。封面母题里那条穿过 MCP 桥的强调色路径，指的就是这趟 round-trip。</p>
+<table>
+<tr><th>方向</th><th>你给什么</th><th>你得什么</th></tr>
+<tr><td>Figma → Code</td><td>帧链接 +「复用组件 / token」约束</td><td>本地可运行、对齐系统的实现</td></tr>
+<tr><td>Code → Figma</td><td>「把当前实现推回画布」类提示</td><td>可编辑原生层，而非扁图像</td></tr>
+</table>
+
+<h2>07 第一批任务清单（别一上来改架构）</h2>
+<p>原文建议从「小而具体」开始。编成可勾选清单：</p>
+<ul>
+<li>□ 修<strong>单个组件</strong>上已偏离规范的 padding</li>
+<li>□ 把某按钮的间距或颜色<strong>对齐到正确设计 token</strong></li>
+<li>□ 修一个与文件不符的 <strong>hover 态</strong></li>
+<li>□ 清理 empty / error 上的<strong>套话文案</strong>（改成你们产品语气）</li>
+<li>□ <b>不要</b>：新架构、跨全应用的重构、一次改十条用户路径</li>
+</ul>
+<p>大改需要更多上下文与评审；第一次试就碰它们，出错时更难纠偏。把第一次成功定义成：「我在本地看到 hover 终于对了，并且能解释它用了哪个 token」——而不是「我重写了设置页」。</p>
+<div class="note"><p>和 No.22 联用的姿势：小漂移用 Claude Code 改；一旦发现「同类决策第三次出现」，别继续私人 hotfix——把它写进 Decision / Skill / lint。工具负责手感闭环，仓库负责判断沉淀。</p></div>
+
+<h2>08 FAQ：要不要会写代码 / 替不替工程师 / 会不会弄坏生产</h2>
+<table>
+<tr><th>问题</th><th>原文答案</th><th>编者补充</th></tr>
+<tr><td>设计师要会写代码吗？</td><td>不必。自然语言即可；但懂 padding、components 等基础词，指示更准、一次更近。</td><td>把「会一点术语」当成设计系统词汇表，不是转行前端</td></tr>
+<tr><td>会取代开发者吗？</td><td>不会。能写可运行代码 ≠ 能在更大产品与生产约束下做技术判断。</td><td>你的产出应默认进 code review，而不是绕过工程</td></tr>
+<tr><td>改错会弄坏生产吗？</td><td>不会。工作在本地副本；不对就撤或重来，不动已上线。</td><td>仍要遵守团队分支与 PR 规范——本地安全 ≠ 可以偷偷 push main</td></tr>
+</table>
+
+<h2>09 和读本其他篇对照</h2>
+<table>
+<tr><th>读本篇目</th><th>侧重点</th><th>和本篇的关系</th></tr>
+<tr><td>No.04 / No.15 Figma Agent 与画布</td><td>画布内 Agent、上下文与守门</td><td>本篇走到画布外：真代码库 + MCP 桥</td></tr>
+<tr><td>No.10 Claude Design 探索</td><td>用 Claude 探索想法</td><td>探索层；本篇是「帧 → 可运行、可推回」的实现层</td></tr>
+<tr><td>No.12 Harbor（Stripe）</td><td>AI 原型成为协作语言</td><td>同族动机；本篇给出设计师侧的 MCP 操作面</td></tr>
+<tr><td>No.22 product-design Skill</td><td>仓库内产品判断 OS</td><td>代码一旦存在，判断层靠 No.22；本篇解决「设计师如何进入代码环」</td></tr>
+<tr><td>No.16 / No.20 ProtoDash · Sierra</td><td>质量门槛与真数据原型</td><td>用 Claude Code 做真状态原型时，记得挂真数据与可达状态</td></tr>
+<tr><td>No.18 / No.21 Skills</td><td>观点写成可触发指令</td><td>团队规则文件 / Skill 正是 Claude Code「开干前先读」的那层</td></tr>
+</table>
+
+<h2>10 编者点评</h2>
+<div class="note"><p><b>编者点评：</b>Figma 这篇资源页最好的一点，是把「设计师学写代码」从励志口号落成一张小任务菜单：padding、token、hover、空态文案。MCP 桥的价值也不在炫技，而在<strong>禁止截图猜色</strong>——Agent 读真组件与变量，才能少发明第二套 UI。配合 21%→41% 的参与开发数据，职业现实已经变了；但 FAQ 三条（不必会写码、不取代工程、只动本地）把焦虑按回去：你要练的是「说清约束 + 验收手感」，不是去抢 SRE 的活。建议阅读顺序：先 No.04/15 熟悉画布 Agent → 本篇接通代码环 → 用 No.22 把第三次重复的判断写进仓库。这样，从帧到真代码的路径上，既有手感闭环，也有判断沉淀——而不是永远靠下一次 ticket 把 hover「修回来」。</p></div>
+<p class="mono" style="opacity:.65;margin-top:2em">日期说明：原文资源页未标注具体日期；文中引用 2026 AI report。收录日 2026-10-24。</p>
+</article>
+</body></html>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#2C6B8A">
+  <!-- 读本 cover system v1 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.22 · 提示词与 Skill</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">PRODUCT JUDGMENT IN-REPO</text>
+  <!-- motif: skill folder tree; accent path from SKILL.md to references -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- root folder -->
+    <path d="M220 180 h70 l18 22 h170 v48 H220 Z"/>
+    <text x="240" y="215" font-family="IBM Plex Mono,monospace" font-size="14" fill="#1B2B26" fill-opacity=".7" stroke="none">.agents/skills/</text>
+    <!-- product-design folder -->
+    <rect x="250" y="250" width="220" height="56" rx="4"/>
+    <text x="268" y="285" font-family="IBM Plex Mono,monospace" font-size="15" fill="#1B2B26" fill-opacity=".75" stroke="none">product-design/</text>
+    <!-- SKILL.md node -->
+    <rect x="280" y="340" width="160" height="48" rx="4"/>
+    <text x="298" y="370" font-family="IBM Plex Mono,monospace" font-size="15" fill="#1B2B26" fill-opacity=".8" stroke="none">SKILL.md</text>
+    <!-- tree connectors (ink) -->
+    <path d="M360 306 V340"/>
+    <path d="M360 388 V420"/>
+    <!-- references folder -->
+    <rect x="250" y="420" width="220" height="48" rx="4"/>
+    <text x="268" y="450" font-family="IBM Plex Mono,monospace" font-size="14" fill="#1B2B26" fill-opacity=".7" stroke="none">references/</text>
+    <!-- leaf files (ink) -->
+    <path d="M360 468 V490 H420"/>
+    <rect x="420" y="475" width="200" height="36" rx="3"/>
+    <text x="432" y="498" font-family="IBM Plex Mono,monospace" font-size="12" fill="#1B2B26" fill-opacity=".6" stroke="none">interface-quality.md</text>
+    <path d="M360 468 V530 H420"/>
+    <rect x="420" y="515" width="160" height="36" rx="3"/>
+    <text x="432" y="538" font-family="IBM Plex Mono,monospace" font-size="12" fill="#1B2B26" fill-opacity=".6" stroke="none">resilience.md</text>
+    <path d="M360 468 V570 H420"/>
+    <rect x="420" y="555" width="120" height="36" rx="3"/>
+    <text x="432" y="578" font-family="IBM Plex Mono,monospace" font-size="12" fill="#1B2B26" fill-opacity=".6" stroke="none">copy.md</text>
+    <!-- balance / lint side (right, ink) -->
+    <rect x="760" y="220" width="200" height="160" rx="6"/>
+    <text x="790" y="260" font-family="IBM Plex Mono,monospace" font-size="13" fill="#1B2B26" fill-opacity=".55" stroke="none">LINT · DETERMINISTIC</text>
+    <path d="M800 300 l18 18 l36 -36"/>
+    <text x="790" y="350" font-family="IBM Plex Mono,monospace" font-size="12" fill="#1B2B26" fill-opacity=".55" stroke="none">2–3 options → Radio</text>
+  </g>
+  <!-- accent path: SKILL.md → product-judgment.md -->
+  <g fill="none" stroke="#2C6B8A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M440 364 H620 V490 H700"/>
+    <path d="M688 478 l12 12 l-12 12"/>
+  </g>
+  <g fill="none" stroke="#2C6B8A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="700" y="472" width="220" height="40" rx="4"/>
+  </g>
+  <text x="714" y="498" font-family="IBM Plex Mono,monospace" font-size="13" fill="#2C6B8A" stroke="none">product-judgment.md</text>
+  <text x="620" y="340" font-family="IBM Plex Mono,monospace" font-size="12" letter-spacing="1" fill="#2C6B8A" fill-opacity=".9">ROUTING · JUDGMENT</text>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="#1B2B26">Teaching agents product design at Vercel</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">VERCEL BLOG</text>
+</svg>

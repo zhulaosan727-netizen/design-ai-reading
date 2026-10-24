@@ -1,0 +1,193 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>把产品设计判断教给 Agent：Vercel 的 product-design Skill · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E0E9EF">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 22 · 提示词与 Skill / Skill / 产品判断 / Lint / Eval / 治理</div><h1>把产品设计判断教给 Agent：Vercel 的 product-design Skill</h1><div class="en">Teaching agents product design at Vercel</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>John Phamous</dd><dt>身份</dt><dd>Design Engineer, Vercel（此前写过 design.md 篇）</dt><dt>日期</dt><dd>2026-06-25</dt><dt>原文</dt><dd><a href="https://vercel.com/blog/teaching-agents-product-design-at-vercel">vercel.com/blog ↗</a></dd></dl><a class="readorig" href="https://vercel.com/blog/teaching-agents-product-design-at-vercel" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/teaching-agents-product-design-vercel.svg" alt="Teaching agents product design at Vercel 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解。原文是 Vercel Design Engineer John Phamous（读本 No.03 design.md 同作者）2026-06-25 的仓库级实践：如何把「产品判断」从评审与 Slack 搬进 Agent 能读到的 Skill。读本 No.07 Agents with Taste、No.18 Got Skills、No.16 ProtoDash 分别讲品味、斜杠命令、质量门槛烤进工具；本篇补的是<strong>仓库内、可路由、可评测、可持续更新</strong>的产品设计操作系统。功能与路径以原文为准。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>三句话结论</li>
+<li>问题：代码只告诉「长什么样」，不告诉「为什么」</li>
+<li>三件套：Skill · Lint · 证据回收环</li>
+<li>Skill 长什么样：目录与路由</li>
+<li>Operating Contract：开工前的十条契约</li>
+<li>决策权威顺序 + 请求模式表</li>
+<li>Lint vs Skill：什么交给机器、什么留给判断</li>
+<li>Evals：测规则正确，不测「像不像已上线」</li>
+<li>每周证据摄入：Collector → Judge → 人</li>
+<li>怎么开始：一张 Decision 模板 + AGENTS.md 触发</li>
+<li>和读本其他篇对照</li>
+<li>编者点评</li>
+</ol></nav>
+
+<h2>01 三句话结论</h2>
+<p><b>第一，Agent 能抄风格与组件，却学不到「为什么这样」——那部分住在评审、Slack 和当事人脑子里，不在代码里。</b>Vercel 的做法是：把已接受的产品决策当代码对待——进仓库、可审查、对所有 Agent 可见。</p>
+<p><b>第二，系统不是一份超长提示词，而是三件套：</b>product-design Skill（需要判断时读）、Linters（确定性规则立刻拦）、证据回收环（Slack / Figma / GitHub → 人审 → 更新指南）。</p>
+<p><b>第三，起步别从形容词下手。</b>「清晰 / 精致 / 直觉」对 Agent 几乎无执行；「破坏性操作 CTA 用 Verb + Noun」才是可观察决策。先选一个反复被 review 的表面（destructive、empty、settings…），写进仓库，再扩。</p>
+
+<h2>02 问题：代码只告诉「长什么样」，不告诉「为什么」</h2>
+<p>编码 Agent 已经能很快吐出可运行 UI：对齐你们的样式、模仿现有模式、尽量遵守约定。难点在另一层——<strong>它不知道这些模式为什么存在</strong>。代码证明「什么被上线了」，不证明「为什么选这个组件、这句话、这种交互成为标准」。推理过程散落在 design review、PR 评论、Slack 线程，以及当时在场的人。</p>
+<p>对 Agent 而言：不在代码库里的上下文，等于不存在。Vercel 自称 agent-native team：把已接受的产品决策像代码一样放进仓库，变更对照它们审查，并让每个在此工作的 Agent 都能加载。</p>
+<table>
+<tr><th>信息类型</th><th>通常住在哪</th><th>Agent 默认看得到吗</th><th>若不搬进仓库会怎样</th></tr>
+<tr><td>组件 API / token</td><td>设计系统与代码</td><td>是</td><td>—</td></tr>
+<tr><td>已上线界面长什么样</td><td>源码与截图</td><td>是（可抄）</td><td>把历史瑕疵当先例</td></tr>
+<tr><td>为何选 Radio 而非 Select</td><td>评审 / Slack</td><td>否</td><td>每次重新「品味争论」</td></tr>
+<tr><td>破坏性文案规范</td><td>人的习惯 + 零散评论</td><td>否</td><td>Confirm / OK / 光杆动词回流</td></tr>
+<tr><td>尚未有标准的缺口</td><td>没人写下来</td><td>否</td><td>Agent 自信地发明规则</td></tr>
+</table>
+<div class="note"><p>No.03 的 design.md 解决的是「品牌页怎么生成还像你们」；本篇解决的是「产品界面怎么改、怎么评，还符合你们反复确认过的产品判断」。一个偏生成边界，一个偏决策操作系统。</p></div>
+
+<h2>03 三件套：Skill · Lint · 证据回收环</h2>
+<p>原文把 <code>product-design</code> 拆成三部分，任何团队都能按自己的标准搭同构结构：</p>
+<table>
+<tr><th>部件</th><th>做什么</th><th>不做什么</th></tr>
+<tr><td>Agent Skill</td><td>在需要产品 / 代码库判断时，给 Agent 决策上下文与工作流</td><td>不替代确定性检查；不把后端无关活硬塞进来</td></tr>
+<tr><td>Linters</td><td>对「代码能可靠识别」的规则自动强制，边写边反馈</td><td>不处理需要产品语境才能判的命名与后果</td></tr>
+<tr><td>Review / 证据环</td><td>从 Slack、Figma、GitHub 收证据，打成指南更新 packet 给人审</td><td>自动化到 packet 为止；是否成规则由人定</td></tr>
+</table>
+<p>三者的分工很硬：能 lint 的别塞进散文；需要判断的别假装成 lint；新标准必须有证据与人类接受，不能靠一张截图升格为宇宙法则。</p>
+
+<h2>04 Skill 长什么样：目录与路由</h2>
+<p>Skill 与它治理的代码同仓。简化结构大致是：</p>
+<pre><code>repository/
+├── AGENTS.md                          ← 仓库级：何时加载 skill
+├── .agents/skills/product-design/
+│   ├── AGENTS.md                      ← 加载顺序、校验、治理
+│   ├── SKILL.md                       ← 运行时工作流与模式路由
+│   ├── references/
+│   │   ├── product-judgment.md
+│   │   ├── interface-quality.md
+│   │   ├── resilience.md
+│   │   ├── surfaces.md / surfaces-{surface}.md
+│   │   ├── copy.md · rules.md · glossary.md · patterns.md
+│   │   └── coverage-gaps.md           ← 还没有标准的地方，显式列出
+│   └── exemplars/
+│       └── pr-{name}.md               ← 值得重复的决策 + 要避免的错
+└── tooling/.../evals/                 ← fixtures · before/after · holdouts
+</code></pre>
+<p><code>SKILL.md</code> 先解析请求模式（Shape / Implement / Review / Copy / Harden），避免审计变成乱改、文案 pass 膨胀成重设计。它跳过纯后端、遥测、控制台错误、生成文件、无 UI 影响的测试。</p>
+<p>路由按任务与表面细分：实质变更先读 product-judgment + interface-quality；文案、组件、布局、交互、无障碍、韧性各走聚焦参考。例如 modal 会加载破坏性操作模式与规范动词；settings 表单加载标签、校验、渐进披露与 accessible name 指引。组件 API、设计系统规则、a11y 标准仍归各自所有者——Skill 路由过去，而不是复制一份。</p>
+
+<h2>05 Operating Contract：开工前的十条契约</h2>
+<p>原文把「怎么工作」写成 Operating Contract。下面用编者语言钉成可检查条款：</p>
+<ol>
+<li><b>从 job 开始，不是从像素。</b>谁在行动、想完成什么、涉及哪个产品对象、系统会改什么。</li>
+<li><b>先定结果再定产出。</b>当前问题、期望行为、成功信号、非目标——再选表面或组件。</li>
+<li><b>用证据，不用品味。</b>追溯到产品行为、仓库规范、已接受设计决策，或已核实的相邻模式。</li>
+<li><b>事实与决策分开。</b>假设与未决产品选择显式标出，不埋进实现细节。</li>
+<li><b>已上线代码是证据，不是自动先例。</b>证明存在，不证明正确；对照当前组件、产品行为与显式指南。</li>
+<li><b>选最小且连贯的干预。</b>先想更好的默认、行为或复用，再加 UI；别用无关设置「解决」一个 job。</li>
+<li><b>先决策，后装饰。</b>信息架构、组件语义、交互与状态，先于样式与文案重写。</li>
+<li><b>设计每一个可达状态。</b>只覆盖产品真能进入的状态，但绝不停在「填满数据的成功态」。</li>
+<li><b>验证真实表面。</b>源码检查建立行为；渲染界面建立视觉与交互质量。禁止只看代码就宣称视觉已验。</li>
+<li><b>单一用户面入口。</b>调用 <code>product-design</code>，内部再路由到规范源。</li>
+</ol>
+<div class="note"><p>把这十条贴进你们的 SKILL.md 顶部，比再写一篇「设计原则」有用：Agent 每次加载都能看见「先 job 后像素」；评审时人也可以用同一清单问「你引用了哪条证据」。</p></div>
+
+<h2>06 决策权威顺序 + 请求模式表</h2>
+<p>冲突时按此顺序裁决（Decision Authority）：</p>
+<ol>
+<li>用户明确目标与约束</li>
+<li>已核实的用户 / 产品证据与系统真相</li>
+<li>仓库规范：AGENTS.md、组件 API、STYLE_GUIDE、已路由 Skills</li>
+<li>带稳定证据的已接受产品 / 设计决策与 exemplars</li>
+<li>同产品区已核实的相邻已上线模式</li>
+<li>一般界面启发式</li>
+</ol>
+<p>请求模式（Request Modes）决定「能不能改代码」：</p>
+<table>
+<tr><th>模式</th><th>典型请求</th><th>必须行为</th></tr>
+<tr><td>Shape</td><td>「设计这个流」「该怎么工作？」、尚未定 UI 的 brief</td><td>框问题与证据、比较实质方案、定义流 / 状态 / 验收 / 风险 / 未决；除非要求，不编辑</td></tr>
+<tr><td>Implement</td><td>Build / Fix / improve / compliant / 全面跑 product-design</td><td>先解决实质产品决策，再做范围内最小端到端改动；不吞无关 review 发现</td></tr>
+<tr><td>Review</td><td>Audit / critique / 哪里不对 / code review</td><td>检源码与渲染证据，按优先级报告；除非要求，不编辑</td></tr>
+<tr><td>Copy</td><td>修文案 / 重写错误提示</td><td>只改用户可见语言、accessible name、直接必要的 JSX；结构阻塞要报，不默默扩 scope</td></tr>
+<tr><td>Harden</td><td>Polish / production-ready / 边缘情况</td><td>保持已定产品方向，修状态、韧性、响应式、a11y、收尾缺陷</td></tr>
+</table>
+<p>意图模糊时，用动词支持的最窄模式。URL / 截图 / 路由 / 组件只界定范围，本身不授权编辑。原文还区分「实质决策」（改任务、默认、范围、后果、导航、交互面、可达状态）与通常非实质的（文案机械替换、token 替换、既定组件替换）。</p>
+
+<h2>07 Lint vs Skill：什么交给机器、什么留给判断</h2>
+<p>能确定性检查的，优先 lint——快、便宜、边写边反馈，把 code review 留给真正需要判断的事。</p>
+<table>
+<tr><th>例子</th><th>为何适合 Lint</th><th>为何需要 Skill</th></tr>
+<tr><td>Select 仅 2–3 个静态 option → 建议 Radio</td><td>代码能数清 option、能识别是否动态生成</td><td>—</td></tr>
+<tr><td>禁止嵌套 Modal</td><td>AST 可检测嵌套；破坏焦点 / 键盘 / 层叠是已知事实</td><td>—</td></tr>
+<tr><td>图标按钮缺 accessible name；自定义 focus ring 绕过共享 token</td><td>属性与 token 可机械比对</td><td>—</td></tr>
+<tr><td><code>className</code> 覆盖设计系统组件的 color / radius / shadow</td><td>可白名单 layout 类、黑名单视觉覆盖</td><td>—</td></tr>
+<tr><td>破坏性 CTA 用 Verb + Noun，且对象 / 后果正确</td><td>无法仅凭语法判断「对象对不对」</td><td>需要产品语境：删的是什么、可否恢复、权限</td></tr>
+<tr><td>是否该弹 Modal 还是 inline disclosure</td><td>无稳定 AST 信号</td><td>重要性、上下文、可达状态——判断题</td></tr>
+</table>
+<p>决策树（原文精神，编者压缩）：代码不渲染也能识别失败吗？→ 否：走 Agent 指南。能避免大量误报吗？→ 否：走指南。有具体修复吗？→ 是：写 lint；否：警告或指南。需要产品 / 代码库语境：指南。确立新标准或产品政策：必须人定。任一路径都加 exemplar 或 eval 防回归。</p>
+<div class="note"><p>一条规则若要靠一长串例外才能稳住，就把它退回 Agent 指南。Lint 的价值是「少而硬」；Skill 的价值是「窄而可追溯」——规则带稳定 ID，指向 canonical source，例如 <code>rule/destructive-names-action</code> → copy.md / verbs.md。</p></div>
+
+<h2>08 Evals：测规则正确，不测「像不像已上线」</h2>
+<p>Lint 是确定性的；Agent 行为会漂。Vercel 用未见过的界面测 Skill：Agent 改 before 状态，再由 judge 按 rubric 打分。Evals 来自 Skill 里文档化的已上线例子；holdouts 藏起期望改动，测泛化；也跑「无 Skill」对照，量行为是否真被改变。</p>
+<p>关键评分原则：<strong>规则正确性与「像不像已上线结果」分开打分。</strong>已上线代码可能自带瑕疵——Agent 应该改进它，而不是复制它。这和「把截图当黄金标准」的 eval 文化正好相反。</p>
+
+<h2>09 每周证据摄入：Collector → Judge → 人</h2>
+<p>标准会随组件、命名、工作流、失败态变化；每次更新要有证据与人审。Vercel 的周节奏：</p>
+<ol>
+<li><b>Collector：</b>只收 Slack 消息、链接、邻近上下文；写原始产物；不打分、不提议规则。</li>
+<li><b>Judge：</b>分组、核实来源、记录未决问题；每个候选保持 pending；不直接改指南。</li>
+<li><b>人：</b>在 review packet 上选择——写成规则 / reference / exemplar / lint / eval / coverage gap / 或不变。</li>
+</ol>
+<p>自动化止于 packet。资深评审人的评论可以提高优先级，但每个候选仍需证据。接受后写入<strong>最窄相关文件</strong>，跑相关检查再合入。</p>
+<pre><code># Collector（精神摘要）
+只收集消息、链接、文件与邻近上下文。只写原始产物。
+不要打分，不要提议规则。
+
+# Judge（精神摘要）
+先验证覆盖，再分组相关证据。
+分开：已核实事实 / 推断 / 未决问题。
+候选一律 pending。不要编辑指南。
+
+# Human review
+选择：rule | reference | exemplar | lint | eval | coverage-gap | no-change
+要求：稳定证据、显式 scope 与例外、明确 approver。
+</code></pre>
+
+<h2>10 怎么开始：一张 Decision 模板 + AGENTS.md 触发</h2>
+<p><b>1. 从重复决策开始。</b>选一个反复出现同款 review 评论的表面：破坏性操作、错误态、设置表单、空状态、导航……从已上线代码与真实评审收集例子，写下决策、为何重要、例外、来源。避开 <code>clear / polished / intuitive</code> 这类形容词。</p>
+<pre><code># Decision: {name}
+Status: proposed | accepted | rejected
+Scope:
+Decision:
+Rationale:
+Evidence:
+Exceptions:
+Bad example:
+Good example:
+Assumptions:
+Open decisions:
+</code></pre>
+<p><b>2. 显式触发 + 硬边界。</b>在持久的仓库说明里告诉 Agent 何时加载；定义覆盖与跳过范围。原文引用：在另一组 Next.js evals 里，Agent 有 56% 的情况<strong>没有调用</strong>已可用的 Skill。触发失败与规则失败是两类问题——分开测。</p>
+<pre><code>When shaping, editing, or reviewing user-facing UI,
+load .agents/skills/product-design/SKILL.md.
+
+Applies to:
+- user-facing pages and components
+- copy, interaction, accessibility, responsive behavior, and states
+
+Skip:
+- backend-only work with no user-visible effect
+- telemetry, generated files, documentation, and marketing
+</code></pre>
+<p><b>3. 分离路由、规则、证据。</b>短入口识别表面并加载聚焦参考；规则带稳定 ID；exemplars 同时记好决策与已知瑕疵；缺口写进 <code>coverage-gaps.md</code>。</p>
+<p><b>4. 清晰规则走代码；判断走指南；新标准走人。</b></p>
+<p><b>5. 指定所有权与更新环。</b>定期审证据，改指南前必须人批；决策日志记改了什么、为何、哪条来源；把新规则当产品变更——审、测、淘汰不再管用的。</p>
+<div class="note"><p>起步作业（今晚就能做）：从最近 10 条 UI review 评论里，挑出现过 ≥3 次的同一决策；填一张 Decision 模板；在 AGENTS.md 加 6 行触发；让 Agent 报告「加载了哪些 surface / reference」，并核对 findings 是否引用了那些源。</p></div>
+
+<h2>11 和读本其他篇对照</h2>
+<table>
+<tr><th>读本篇目</th><th>侧重点</th><th>和本篇的关系</th></tr>
+<tr><td>No.03 design.md（同作者）</td><td>品牌页生成边界与仓库说明</td><td>同属「把判断放进仓库」；No.03 偏品牌生成，本篇偏产品决策 OS</td></tr>
+<tr><td>No.07 Agents with Taste</td><td>品味、克制、评审</td><td>互补：品味是态度；本篇是可路由、可评测的制度</td></tr>
+<tr><td>No.18 Got Skills</td><td>Skill 与 DS 分工、斜杠仪式</td><td>本篇是仓库级、多模式、带 lint/eval/治理的「重型」Skill 标本</td></tr>
+<tr><td>No.16 ProtoDash</td><td>质量门槛烤进工具</td><td>同构：标准不在 PDF，而在 Agent 运行时必经之路</td></tr>
+<tr><td>No.21 十个社区 Skill</td><td>观点写成斜杠命令</td><td>社区货架 vs 本篇的企业治理闭环</td></tr>
+<tr><td>No.01 Frontend Skills（Anthropic）</td><td>前端手艺 Skills</td><td>手艺层；本篇是产品判断层——两者应路由协作，不互相吞并</td></tr>
+</table>
+
+<h2>12 编者点评</h2>
+<div class="note"><p><b>编者点评：</b>John 这篇最硬的贡献，不是又一份「给 Agent 的设计原则」，而是承认：<strong>代码库天然缺「为什么」</strong>——而 Agent 只会吃仓库里有的东西。于是 Vercel 把评审里反复出现的产品判断，做成可路由的 Skill、可机械的 Lint、可周更的证据 packet，并用 Decision Authority 与 Request Modes 防止「审计变乱改」。对中文团队最可抄的三步是：选一个被 review 磨破的表面 → 写可观察 Decision（禁止形容词）→ AGENTS.md 显式触发并单独测「有没有加载」。56% 未调用的数字值得钉在墙上：你以为写了 Skill，Agent 可能根本没打开。和 No.03、No.18、No.16 叠读：品牌边界、斜杠观点、工具门槛、本篇的产品判断 OS——四层一起，Agent 才不像「会抄作业的实习生」，而像「读过你们决策日志的同事」。</p></div>
+</article>
+</body></html>

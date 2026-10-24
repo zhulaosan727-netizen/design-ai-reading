@@ -441,5 +441,50 @@
     "cover": "covers/figma-try-these-10-skills.svg",
     "accent": "#B85A1A",
     "tint": "#F0E5E0"
+  },
+  {
+    "slug": "teaching-agents-product-design-vercel",
+    "title_zh": "把产品设计判断教给 Agent：Vercel 的 product-design Skill",
+    "title_en": "Teaching agents product design at Vercel",
+    "author": "John Phamous",
+    "author_role": "Design Engineer, Vercel（此前写过 design.md 篇）",
+    "source": "https://vercel.com/blog/teaching-agents-product-design-at-vercel",
+    "date": "2026-06-25",
+    "added": "2026-10-24",
+    "tags": [
+      "Skill",
+      "产品判断",
+      "Lint",
+      "Eval",
+      "治理"
+    ],
+    "dek": "代码只告诉 Agent「长什么样」，不告诉「为什么这样」——Vercel 把评审里的产品判断写进仓库级 Skill。",
+    "category": "提示词与 Skill",
+    "cover": "covers/teaching-agents-product-design-vercel.svg",
+    "accent": "#2C6B8A",
+    "tint": "#E0E9EF"
+  },
+  {
+    "slug": "claude-code-for-designers",
+    "title_zh": "设计师怎么用 Claude Code：从画框到真代码",
+    "title_en": "How Designers Can Use Claude Code",
+    "author": "Figma（资源库）",
+    "author_role": "Figma Resource Library（配合 2026 AI Report）",
+    "source": "https://www.figma.com/resource-library/claude-code-for-designers/",
+    "date": "2026",
+    "date_note": "原文资源页未标注具体日期；文中引用 2026 AI report",
+    "added": "2026-10-24",
+    "tags": [
+      "Claude Code",
+      "MCP",
+      "原型",
+      "设计系统",
+      "交接"
+    ],
+    "dek": "票单等工程师不如自己改：用 Figma MCP 把真组件与 token 喂给 Claude Code，再把改动推回可编辑画布。",
+    "category": "AI 设计工作流",
+    "cover": "covers/claude-code-for-designers.svg",
+    "accent": "#A65C2E",
+    "tint": "#F0E5E0"
   }
 ]

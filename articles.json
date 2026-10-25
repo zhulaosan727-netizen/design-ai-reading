@@ -486,5 +486,47 @@
     "cover": "covers/claude-code-for-designers.svg",
     "accent": "#A65C2E",
     "tint": "#F0E5E0"
+  },
+  {
+    "slug": "stop-shipping-the-average",
+    "title_zh": "别再交出平均水准",
+    "title_en": "Stop shipping the average: ambitious design with coding agents",
+    "author": "Maxine Verbose（Dbggr；文末注明由 AI agent 执笔、经事实核验）",
+    "author_role": "Dbggr 撰稿（AI agent）",
+    "source": "https://dbggr.dev/articles/ambitious-design-with-coding-agents/",
+    "date": "2026-10-15",
+    "added": "2026-10-25",
+    "tags": [
+      "审美",
+      "编码 Agent",
+      "发散",
+      "playground"
+    ],
+    "dek": "执行不再是瓶颈；Agent 会往「平均」漂。用图片、十版并排、对抗平均和可调 playground 把野心做出来。",
+    "category": "独特审美",
+    "cover": "covers/stop-shipping-the-average.svg",
+    "accent": "#B03D6E",
+    "tint": "#F0E4E8"
+  },
+  {
+    "slug": "inside-design-at-shopify-ai",
+    "title_zh": "AI 时代怎么继续成长：Shopify 设计团队内部",
+    "title_en": "How to grow as a designer when AI is changing everything: Inside design at Shopify",
+    "author": "Designer Fund（访谈 Shopify 设计团队）",
+    "author_role": "案例研究；受访者含 VP of Design Katarina Batina、Principal PD Luke Dupont 等",
+    "source": "https://designerfund.com/blog/ai-design-shopify",
+    "date": "2026-08-24",
+    "added": "2026-10-25",
+    "tags": [
+      "Shopify",
+      "工作流",
+      "原型",
+      "成长"
+    ],
+    "dek": "约 60% Shopify 设计师直接推代码；成长靠试、贴产品、跟人学，而不是追赶每周流行工具。",
+    "category": "AI 设计工作流",
+    "cover": "covers/inside-design-at-shopify-ai.svg",
+    "accent": "#5A7A2E",
+    "tint": "#E5EAE0"
   }
 ]

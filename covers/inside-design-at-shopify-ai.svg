@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#5A7A2E">
+  <!-- 读本 cover system v1: paper / grid / mono label / line-art motif / one accent -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.25 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">GROW · BUILD · LEARN</text>
+  <!-- motif: static Figma-like frame on left transforming into live prototype/link path on right -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Figma-like artboard with selection handles -->
+    <rect x="120" y="180" width="320" height="400" rx="2"/>
+    <path d="M120 180 h320"/><!-- top bar -->
+    <circle cx="120" cy="180" r="5"/><circle cx="440" cy="180" r="5"/>
+    <circle cx="120" cy="580" r="5"/><circle cx="440" cy="580" r="5"/>
+    <circle cx="280" cy="180" r="5"/><circle cx="280" cy="580" r="5"/>
+    <circle cx="120" cy="380" r="5"/><circle cx="440" cy="380" r="5"/>
+    <!-- static UI inside frame -->
+    <path d="M160 230 H400"/><path d="M160 270 H340"/>
+    <rect x="160" y="310" width="240" height="90" rx="4"/>
+    <path d="M180 340 H300 M180 365 H260"/>
+    <rect x="160" y="430" width="100" height="36" rx="4"/>
+    <rect x="280" y="430" width="100" height="36" rx="4"/>
+    <text x="150" y="620" font-family="IBM Plex Mono,monospace" font-size="12" fill="#1B2B26" fill-opacity=".55" stroke="none">STATIC · FIGMA FRAME</text>
+  </g>
+  <!-- accent: live path from frame to prototype / code / ship -->
+  <g fill="none" stroke="#5A7A2E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M440 380 C520 360 560 300 640 280"/>
+    <path d="M628 268 l12 12 l-12 12"/>
+    <!-- live browser / prototype window -->
+    <rect x="660" y="200" width="400" height="280" rx="8"/>
+    <path d="M660 240 H1060"/>
+    <circle cx="690" cy="220" r="5" fill="#5A7A2E" stroke="none"/>
+    <circle cx="710" cy="220" r="5"/>
+    <circle cx="730" cy="220" r="5"/>
+    <!-- live content suggesting real data -->
+    <path d="M700 290 H980"/><path d="M700 330 H920"/>
+    <rect x="700" y="370" width="160" height="50" rx="4"/>
+    <path d="M740 395 H820"/>
+    <!-- ship / push arrow down -->
+    <path d="M860 480 V560"/>
+    <path d="M848 548 l12 12 l12 -12"/>
+  </g>
+  <g fill="none" stroke="#5A7A2E" stroke-width="2" stroke-linecap="round">
+    <rect x="720" y="570" width="280" height="50" rx="6"/>
+  </g>
+  <text x="760" y="602" font-family="IBM Plex Mono,monospace" font-size="14" fill="#5A7A2E" stroke="none">LIVE · PUSH TO PROD</text>
+  <text x="660" y="170" font-family="IBM Plex Mono,monospace" font-size="12" letter-spacing="2" fill="#5A7A2E">QUICK · ARTIFACT · PURL</text>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="24" fill="#1B2B26">Inside design at Shopify</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">DESIGNER FUND</text>
+</svg>

@@ -1,0 +1,130 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>别再交出平均水准 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#F0E4E8">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 24 · 独特审美 / 编码 Agent / 发散 / playground</div><h1>别再交出平均水准</h1><div class="en">Stop shipping the average: ambitious design with coding agents</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Maxine Verbose（Dbggr；文末注明由 AI agent 执笔、经事实核验）</dd><dt>身份</dt><dd>Dbggr 撰稿（AI agent）</dd><dt>日期</dt><dd>2026-10-15</dd><dt>原文</dt><dd><a href="https://dbggr.dev/articles/ambitious-design-with-coding-agents/">dbggr.dev ↗</a></dd></dl><a class="readorig" href="https://dbggr.dev/articles/ambitious-design-with-coding-agents/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/stop-shipping-the-average.svg" alt="Stop shipping the average: ambitious design with coding agents 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解，结构、例子、表格和模板都是编者自己的。原文论证「编码 Agent 让执行不再是瓶颈，真正稀缺的是野心与品味」，并给出一套对抗「平均」的实操模式。文末作者诚实说明自己是 AI agent、基于一手材料写成；下文保留这一事实。想看原始论述与演示，请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li><li>保真度阶梯塌了：在成品介质里探索</li><li>为什么大家都会交出「平均」</li><li>你是艺术总监，Agent 是制作班底</li><li>七条对抗平均的工作模式</li><li>「别要改动，要控件」：playground 思维</li><li>每轮之后说清楚「为什么失败」</li><li>收尾像工程师：烘焙设置、砍掉冗余</li><li>可直接粘贴的提示词 / playground 请求模板</li><li>自查清单</li></ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，执行不再是瓶颈。</b>编码 Agent（coding agents）能在几分钟里交出可交互的真东西——不是线框，不是静帧。保真度阶梯（fidelity ladder：草图 → 线框 → 高保真 → 实现）被压扁了；探索应该直接发生在「成品介质」里。</p>
+<p><b>第二，默认交付物是「平均」。</b>同一批模板、同一套渐变、同一类 hero。机会不在更快出更多同质页面，而在野心（ambition）加品味（taste）。</p>
+<p><b>第三，你的新角色是艺术总监。</b>Agent 负责生产，你负责方向、选择、拒绝与命名。工具越强，你越要主动对抗它往训练分布中心滑的惯性。</p>
+<table><tr><th>旧默认</th><th>原文主张</th><th>结果差异</th></tr>
+<tr><td>先画低保真，再慢慢升档</td><td>直接在可运行原型里探索</td><td>反馈落在真实交互与材质上</td></tr>
+<tr><td>用形容词描述想要的感觉</td><td>给图片、给参考、给具体方向名</td><td>减少「差不多就行」的平均输出</td></tr>
+<tr><td>要「再改一版」</td><td>要十版并排、要可调控件</td><td>选择空间变大，品味有地方落地</td></tr>
+<tr><td>接受 Agent 的第一直觉</td><td>点名对抗平均的替代方向与技术</td><td>从模板感走向有记忆点的材质</td></tr></table>
+
+<h2>02 保真度阶梯塌了：在成品介质里探索</h2>
+<p>过去设计师有理由从低保真开始：改一张草图比改一套前端便宜。Agent 把这个成本结构翻了过来——几分钟就能得到能点、能滚、能接假数据的界面。继续在静帧里「假装探索」，等于放弃了你现在最便宜的实验介质。</p>
+<p>原文的提醒很硬：在成品里探索，不等于一上来就追求上线质量。你仍然在发散；只是发散的载体变成了真交互。颜色在动效里才暴露问题，间距在真实内容长度下才露馅，微交互只有点了才知道俗不俗。</p>
+<div class="note"><p>这和读本里 Claude Design「先探索再构建」、Stripe Harbor「用真原型对齐」是同一方向的不同切口。Dbggr 这篇更进一步：它不只说「用高保真」，而是说「平均会跟着高保真一起出现」——你必须同时升级审美对抗手段。</p></div>
+
+<h2>03 为什么大家都会交出「平均」</h2>
+<p>「平均」不是侮辱，是统计事实。训练语料、组件库、热门落地页、设计系统示例——它们共同构成一个概率高峰。Agent 没有额外压力时，就会往那儿掉：同一类渐变背景、同一类大标题加双 CTA、同一类「modern SaaS」圆角卡片。</p>
+<p>你若只说「做得好看一点」「更有品牌感」，等于把方向权交还给那个高峰。平均不是失败，是零努力时的最优解；野心才需要被显式点名。</p>
+<blockquote>“The opportunity is ambition and taste.” — Dbggr / Maxine Verbose（大意：机会在于野心与品味）</blockquote>
+<p>对 Zhu 这类明确要躲开「AI 脸」的人，这句话几乎是工作定义：工具已经帮你解决「能不能做出来」；你每天要解决的是「做出来的东西凭什么不是那一万个差不多的页面」。</p>
+
+<h2>04 你是艺术总监，Agent 是制作班底</h2>
+<p>角色换了：你不再是唯一的绘制者，而是定调的人。艺术总监不亲手画每一笔，但要能说清「这版为什么不行」「下一轮往哪边偏」「哪三个方向值得并排看」。</p>
+<table><tr><th>你负责</th><th>Agent 负责</th><th>不要反过来</th></tr>
+<tr><td>命名方向、选择参考、拒绝平均</td><td>快速生产可运行变体</td><td>让 Agent 自己解释「为什么这就够好」</td></tr>
+<tr><td>指出失败原因，收紧 brief</td><td>按 brief 再发散、再实现</td><td>用「再漂亮一点」代替具体失败诊断</td></tr>
+<tr><td>决定哪些设置值得烘焙进产品</td><td>实现 playground、持久化快照</td><td>把调试控件永久留给用户当功能</td></tr></table>
+<div class="note"><p>作者身份本身值得记一笔：文末写明由 AI agent 执笔、经事实核验。这不削弱论点——它反而示范了原文自己的主张：Agent 可以写、可以建，但「要不要交出平均」仍然是人（或负责任的编辑流程）的判断。读的时候把这条诚实声明留在脑子里即可。</p></div>
+
+<h2>05 七条对抗平均的工作模式</h2>
+<p>原文给出一组可重复的模式。编者整理成七条，按使用顺序排列：</p>
+<table><tr><th>#</th><th>模式</th><th>怎么做</th><th>刻意避免</th></tr>
+<tr><td>1</td><td>给图片，不给形容词</td><td>丢情绪板、截图、材质特写；说「更接近图 2 的密度」</td><td>「elegant / premium / delightful」空词</td></tr>
+<tr><td>2</td><td>要十版并排</td><td>一次生成多个真不同方向，并排比较</td><td>单线对话里「再改改」</td></tr>
+<tr><td>3</td><td>对抗平均拉力</td><td>显式点名替代方向：编辑感、工业感、原始材质、极端密度……</td><td>只禁止紫色/Inter，却不给新引力</td></tr>
+<tr><td>4</td><td>点名技术</td><td>要求 Canvas / WebGL / shaders / SVG / noise 等具体介质</td><td>默认 div + CSS 渐变就结束</td></tr>
+<tr><td>5</td><td>每个想法做成 playground</td><td>宽范围控件 + 方差（variance），让你旋出极端</td><td>只有「开/关」或窄范围滑杆</td></tr>
+<tr><td>6</td><td>别要改动，要控件</td><td>「给一个控制 X 的滑杆」而不是「把 X 调大一点」</td><td>每改一次就锁死一次参数</td></tr>
+<tr><td>7</td><td>保存快照 / 持久化设置</td><td>可回放的状态，方便对比与烘焙</td><td>好参数丢在聊天记录里</td></tr></table>
+<p>第 3、4 条经常被一起用：你不只说「不要平均」，还要说「用 shader 做颗粒感背景」或「用 SVG 噪声做边缘」——技术选择本身就是审美选择。</p>
+
+<h2>06 「别要改动，要控件」：playground 思维</h2>
+<p>这是全文最能立刻改工作流的一句。你对 Agent 说「标题再大一点」，得到的是一次锁定；你说「给标题字号一个从 24 到 120 的滑杆，默认停在你认为对的位置」，得到的是探索空间。</p>
+<p>好的 playground 有三个特征：</p>
+<ul>
+<li><b>范围够宽。</b>窄范围只会在平均附近微调；宽范围才能旋到「有点过分但突然对了」的区域。</li>
+<li><b>有方差。</b>不只调均值，也调随机性、密度、对比——让同一次生成能长出不同面孔。</li>
+<li><b>状态可存。</b>快照（snapshot）让你能说「回到今天下午三点那版颗粒度」，而不是靠记忆复述。</li>
+</ul>
+<div class="note"><p>把每个想法先做成 playground，听起来慢，其实是在用 Agent 的速度优势。你花一次生成换来一条可调曲面；之后的品味判断都发生在曲面上，而不是在下一轮聊天的运气里。</p></div>
+
+<h2>07 每轮之后说清楚「为什么失败」</h2>
+<p>发散不是无目的地扔骰子。每轮结束后，用一两句话写下失败原因——这会立刻收紧下一轮 brief。例如：</p>
+<ul>
+<li>「失败因为还是居中 hero + 双按钮，结构没动。」</li>
+<li>「失败因为材质只靠 CSS 渐变，没有真正的表面细节。」</li>
+<li>「失败因为控件范围太窄，最极端也不过平均偏一点。」</li>
+</ul>
+<p>Agent 很会继承你的措辞。你把失败说清楚，它才有东西可对抗；你只说「再试试」，它就在附近游荡。</p>
+
+<h2>08 收尾像工程师：烘焙设置、砍掉冗余</h2>
+<p>探索期结束，要换帽子。原文强调 finish like an engineer：</p>
+<ul>
+<li>把选中的 playground 设置烘焙（bake）进正式样式与代码，去掉调试 UI。</li>
+<li>删掉未使用的方向、死代码、实验分支。</li>
+<li>看性能：shader、Canvas、大图噪声在真机上的成本。</li>
+<li>保留 brief 活着——不是归档一封过期提示词，而是留下「我们拒绝了什么、为什么」。</li>
+</ul>
+<table><tr><th>阶段</th><th>优化目标</th><th>交付物</th></tr>
+<tr><td>探索</td><td>方差、可逆、可比较</td><td>多方向 + playground + 快照</td></tr>
+<tr><td>收束</td><td>清晰、可维护、可上线</td><td>烘焙后的设置、干净代码、活 brief</td></tr></table>
+
+<h2>09 可直接粘贴的提示词 / playground 请求模板</h2>
+<p>下面两段可直接贴进编码 Agent。按「先并排方向 → 再要控件」使用，不要合成一条超长提示。</p>
+<pre><code># 1) 十版并排：对抗平均
+你是实现导向的设计工程师，不是模板生成器。
+为「[产品一句话 + 受众]」生成 10 个可运行方向（同一路由下并排或可切换）。
+
+硬性要求：
+- 结构、密度、字体气质、动效、材质必须彼此真正不同（不是换色）
+- 至少 3 个显式对抗「现代 SaaS 平均」：例如编辑排版 / 工业面板 / 原始画布 / 极端信息密度
+- 至少 2 个点名使用 Canvas 或 SVG noise 或 CSS 无法轻易伪造的表面
+- 禁止：居中大标题 + 双 CTA、通用 Indigo/紫渐变、Inter 默认栈、「elevate your workflow」类空文案
+- 每个方向用一行注明：它拒绝了哪种平均、它依赖什么技术
+
+输出后不要自我表扬；等我指出失败原因再进入下一轮。
+</code></pre>
+<pre><code># 2) 把选中方向做成 playground（别直接改死）
+基于方向「[名称]」，不要按我的口头修改锁死参数。
+请做一个调试 playground：
+
+控件（范围必须宽）：
+- typeScale: 0.8–1.8
+- density: 0–100（间距与信息量）
+- surfaceNoise: 0–1（颗粒 / 材质强度）
+- motionAmp: 0–1
+- accentShift: -30°–+30°（色相偏移，避免锁死在默认强调色）
+- variance: 0–1（每次刷新的变异强度）
+
+要求：
+- 默认值停在你认为对的位置，但两端必须能旋出「过分」的结果
+- 提供「保存快照」与「对比上一快照」
+- 所有设置序列化到 URL 或 localStorage，刷新不丢
+- 先不要做产品化 UI；这是给我当艺术总监用的控制台
+</code></pre>
+
+<h2>10 自查清单</h2>
+<ul>
+<li>我有没有在可运行原型里探索，而不是只在静帧里改？</li>
+<li>上一轮 brief 里，有没有具体图片/方向名，而不只是形容词？</li>
+<li>有没有至少一次要「多版并排」而不是单线「再改改」？</li>
+<li>我有没有点名一项会把界面拉离平均的技术（Canvas / shader / SVG / noise）？</li>
+<li>我是在要改动，还是在要控件？</li>
+<li>playground 的范围够不够宽？有没有 variance？</li>
+<li>每轮结束后，我有没有写下「为什么失败」？</li>
+<li>收尾时有没有烘焙设置、删除调试面、检查性能？</li>
+<li>活 brief 里是否记录了「拒绝了什么」？</li>
+</ul>
+<div class="note"><p>这篇和读本 No.05「躲开 AI 审美默认值」、Anthropic「分布收敛」是同一战争的不同战线：Salman 给的是发散—标准—对抗评审；Dbggr 给的是艺术总监 + playground + 点名技术。若你已经在用编码 Agent 出真页面，这篇更贴手——平均不是审美意见，是你不作为时的默认出货。</p></div>
+</article>
+</body></html>

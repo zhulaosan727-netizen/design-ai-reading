@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#B03D6E">
+  <!-- 读本 cover system v1: paper / grid / mono label / line-art motif / one accent -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.24 · 独特审美</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">FIGHT THE AVERAGE</text>
+  <!-- motif: grid of bland identical UI cards; one accent path breaks into radiating canvas/shader geometry -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.5" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- row 1: three bland cards (centered hero + dual buttons) -->
+    <path d="M100 140 H300 V300 H100 Z"/><path d="M130 170 H270"/><path d="M145 195 H255"/><path d="M140 230 H185 V255 H140 Z"/><path d="M210 230 H255 V255 H210 Z"/>
+    <path d="M340 140 H540 V300 H340 Z"/><path d="M370 170 H510"/><path d="M385 195 H495"/><path d="M380 230 H425 V255 H380 Z"/><path d="M450 230 H495 V255 H450 Z"/>
+    <path d="M580 140 H780 V300 H580 Z"/><path d="M610 170 H750"/><path d="M625 195 H735"/><path d="M620 230 H665 V255 H620 Z"/><path d="M690 230 H735 V255 H690 Z"/>
+    <!-- row 2 left: two more bland cards -->
+    <path d="M100 340 H300 V500 H100 Z"/><path d="M130 370 H270"/><path d="M145 395 H255"/><path d="M140 430 H185 V455 H140 Z"/><path d="M210 430 H255 V455 H210 Z"/>
+    <path d="M340 340 H540 V500 H340 Z"/><path d="M370 370 H510"/><path d="M385 395 H495"/><path d="M380 430 H425 V455 H380 Z"/><path d="M450 430 H495 V455 H450 Z"/>
+    <!-- empty slot outline where average would continue -->
+    <path d="M580 340 H780 V500 H580 Z" stroke-dasharray="6 6" stroke-opacity=".35"/>
+  </g>
+  <!-- accent: breakout from the empty slot into richer geometry (radiating lines = canvas/shader) -->
+  <g fill="none" stroke="#B03D6E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M680 420 C720 400 760 360 820 300"/>
+    <path d="M820 300 L860 240"/>
+    <path d="M820 300 L900 260"/>
+    <path d="M820 300 L940 320"/>
+    <path d="M820 300 L900 380"/>
+    <path d="M820 300 L860 420"/>
+    <path d="M820 300 L780 360"/>
+    <!-- nested varied frames suggesting playground controls -->
+    <path d="M860 480 H1060 V620 H860 Z"/>
+    <path d="M880 510 H980"/><path d="M880 540 H1040"/><path d="M880 570 H1000"/>
+    <circle cx="1020" cy="510" r="10"/>
+    <path d="M1014 510 H1026 M1020 504 V516"/>
+  </g>
+  <circle cx="820" cy="300" r="7" fill="#B03D6E"/>
+  <text x="790" y="200" font-family="IBM Plex Mono,monospace" font-size="12" letter-spacing="2" fill="#B03D6E">CANVAS · SHADER · VARIANCE</text>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="#1B2B26">Stop shipping the average</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">DBGGR</text>
+</svg>

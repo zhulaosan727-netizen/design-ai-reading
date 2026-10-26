@@ -1,0 +1,142 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>把审美变成可打分标准 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#F0E4E8">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 27 · 独特审美 / 审美 / 评审 / Harness</div><h1>把审美变成可打分标准</h1><div class="en">Harness design for long-running application development</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Prithvi Rajasekaran</dd><dt>身份</dt><dd>Anthropic（Engineering / Labs）</dd><dt>日期</dt><dd>2026-03-24</dd><dt>原文</dt><dd><a href="https://www.anthropic.com/engineering/harness-design-long-running-apps">anthropic.com/engineering ↗</a></dd></dl><a class="readorig" href="https://www.anthropic.com/engineering/harness-design-long-running-apps" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/harness-design-frontend-grader.svg" alt="Harness design for long-running application development 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解。原文是 Anthropic Engineering 长文，讲长程应用开发的 harness（编排脚手架）；本篇把重心放在其中对设计师最有杠杆的一节——前端设计打分器（frontend design grader）：四条标准、加重原创性、生成-评审分离、Playwright 真页审阅，以及标准措辞如何把模型推向特定气质。长程 planner–generator–evaluator 只作背景；文末给出可写进个人 AI 工作流的「设计打分 Skill」模板。想看完整实验、成本表与 DAW 案例，请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li>
+<li>为什么「自己夸自己」会锁死在平均脸</li>
+<li>两个洞见：原则可打分，生成与评审要拆开</li>
+<li>四条标准：质量 / 原创 / 手艺 / 功能</li>
+<li>加权：把火力打在原创性与整体气质上</li>
+<li>闭环怎么跑：Playwright 真页、5–15 轮、可转向</li>
+<li>标准措辞会偷改品味：博物馆那一跃</li>
+<li>长程 harness 只要知道这些</li>
+<li>给 Zhu 的个人设计打分 Skill 模板</li>
+<li>自查清单</li>
+</ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，「好不好看」难打分；「是否符合我们的原则」可以。</b>审美无法完全还原成一个分数，但把原则写成可打分标准（grading criteria），结果会明显好过裸模型。</p>
+<p><b>第二，生成与评审必须拆开。</b>同一 Agent 自评时，会自信地赞美平庸输出——主观设计尤甚。拆成 generator + evaluator（灵感来自 GAN），再把评审者调得更挑剔，比逼生成者「自我批判」管用得多。</p>
+<p><b>第三，标准的措辞本身就是审美方向盘。</b>写「museum quality」会把输出推向某种汇聚；加重 originality，等于显式惩罚 AI slop，鼓励审美冒险。</p>
+<table><tr><th>默认做法</th><th>原文主张</th><th>结果差异</th></tr>
+<tr><td>问模型「好看吗 / 再美一点」</td><td>按原则打分 + 分项反馈</td><td>有可迭代的具体缺口，而非空赞美</td></tr>
+<tr><td>同一对话里自产自评</td><td>独立 evaluator + few-shot 校准</td><td>挑剔可调，生成者有外部压力</td></tr>
+<tr><td>只看静态截图口头评</td><td>Playwright 打开真页再打分</td><td>交互与实现细节进入评审</td></tr>
+<tr><td>四维平均加权</td><td>设计质量 + 原创性权重大于手艺/功能</td><td>逼离「能用但没记忆点」</td></tr></table>
+
+<h2>02 为什么「自己夸自己」会锁死在平均脸</h2>
+<p>作者同时追两个问题：让 Claude 做出高质量前端；让它在无人干预下做出完整应用。前端 design skill 与长程 coding harness 都曾把表现抬到基线之上，但都撞到天花板。突破口之一，是正视自评失灵。</p>
+<p>让 Agent 评价自己刚做的东西，它倾向于自信地夸——哪怕人类一眼看出平庸。设计没有「单测绿了」那种二元验收，「够不够精致 / 是不是套模板」全是判断。模型对自己生成的布局又特别宽大。</p>
+<p>即便任务可验证，Agent 有时仍会用差判断拖垮表现。把「做事的」和「判事的」拆开，是强杠杆：拆开不会立刻消灭宽松——评审者仍是 LLM，仍偏爱 LLM 产物——但<b>把独立评审者调得怀疑</b>，远比让生成者狠批自己容易；一旦有外部反馈，生成者才有东西可迭代。</p>
+<div class="note"><p>这和读本 No.24「别再交出平均水准」、No.05「躲开 AI 审美默认值」打的是同一场仗：平均是零努力时的吸引子。Dbggr 让你当艺术总监；Salman 让你对抗评审；这篇给你一套可工程化的打分环——把「我觉得俗」翻译成模型不得不响应的分项批判。</p></div>
+
+<h2>03 两个洞见：原则可打分，生成与评审要拆开</h2>
+<p>前端实验由两个洞见定型：</p>
+<ol>
+<li><b>审美不能完全变成分数，但能被原则改善。</b>「这设计美吗？」难稳定回答；「它有没有遵循我们写好的好设计原则？」给了可打的靶子。</li>
+<li><b>生成与打分分离，才能形成反馈环。</b>同一提示词里「先做再夸」几乎必然滑向自我确认。</li>
+</ol>
+<p>作者把四条标准同时写进 generator 与 evaluator 的提示——生成时就知道评分尺子，评审时按同一尺子给批判。这不是事后贴标签，而是从第一轮就改变先验。</p>
+
+<h2>04 四条标准：质量 / 原创 / 手艺 / 功能</h2>
+<table><tr><th>标准</th><th>问什么</th><th>高分长什么样</th><th>低分信号</th></tr>
+<tr><td><b>Design quality</b>（设计质量）</td><td>是连贯整体，还是零件拼盘？</td><td>色、字、布局、图像合成独特情绪与身份</td><td>各区块各自为政，没有统一气质</td></tr>
+<tr><td><b>Originality</b>（原创性）</td><td>有没有自定义决策？</td><td>人类设计师能认出刻意选择</td><td>模板布局、库默认、紫渐变盖白卡片等 AI 套路</td></tr>
+<tr><td><b>Craft</b>（手艺）</td><td>字号层级、间距、色彩和谐、对比是否合格？</td><td>基本功过关</td><td>层级塌、对比翻车——能力检查，不是创意检查</td></tr>
+<tr><td><b>Functionality</b>（功能可用性）</td><td>离开美学，用户还能否完成任务？</td><td>主操作找得到，路径不用猜</td><td>好看但不可用，或主 CTA 失踪</td></tr></table>
+<p>Craft 与 Functionality 是能力门槛：大多数像样实现默认不差；挂掉说明基本功破了。真正拉开差距的是前两项——整体身份与「看得出是人做了选择」。</p>
+
+<h2>05 加权：把火力打在原创性与整体气质上</h2>
+<p>作者显式强调：<b>设计质量与原创性权重大于手艺与功能</b>。原因很实在——Claude 在 craft / functionality 上本来就不差；弱在 bland。标准里显式惩罚高度同质的 AI slop，再把权重压向设计与原创，等于把模型往审美冒险推。</p>
+<p>评审者还用带详细分项拆解的 few-shot 示例校准，让分数贴合作者偏好，并减少跨轮漂移。对个人用户，这意味着：你的「讨厌什么」必须写成样例，不能只写形容词。</p>
+<table><tr><th>若平均加权</th><th>若加重 quality + originality</th></tr>
+<tr><td>模型靠「能用 + 整齐」拿高分，安于安全布局</td><td>安全布局在总分里吃亏，必须拿出可辨认的决策</td></tr>
+<tr><td>紫渐变白卡片仍可能「手艺尚可」蒙混</td><td>原创性项直接点名此类模式为失败</td></tr>
+<tr><td>反馈说「再精致一点」</td><td>反馈说「这里仍是模板默认，没有身份」</td></tr></table>
+
+<h2>06 闭环怎么跑：Playwright 真页、5–15 轮、可转向</h2>
+<p>编排建在 Claude Agent SDK 上：generator 先按用户提示产出 HTML/CSS/JS；evaluator 持有 Playwright MCP，自己打开真页、导航、截图、细看实现，再按四维打分并写详细批判；反馈回灌 generator 进入下一轮。实践中跑 5–15 轮，整轮可达约四小时——因为评审在点真页面，不是扫一张静图。</p>
+<p>每轮后 generator 还要做战略选择：分数在变好就继续 refine；方向不对就整体 pivot 到另一套审美。有的生成渐进打磨，有的轮次之间大转弯。</p>
+<ul>
+<li>分数大体随轮次上升后平台，但仍有余量</li>
+<li>后期整体往往更好，但作者常更偏爱中间某轮——提醒你不要迷信「最后一版」</li>
+<li>实现复杂度通常上升：评审逼生成者上更有野心的解法</li>
+<li><b>即便第一轮</b>，带标准的输出也明显好过完全无提示基线——说明标准措辞本身已在拉离默认</li>
+</ul>
+<div class="note"><p>对个人工作流：你不必真的挂四小时 Playwright。关键机制可缩成「双角色」——一个对话只负责出方案，另一个（新上下文或另一模型）只负责按你的量表打分；禁止自评自夸。真页审阅能上则上：间距、对比、主按钮在真视口里才暴露。</p></div>
+
+<h2>07 标准措辞会偷改品味：博物馆那一跃</h2>
+<p>作者观察到：标准里的措辞会以他未完全预见到的方式塑造输出。写上类似「最好的设计具备博物馆级品质」（museum quality）的句子，会把设计推向某种特定视觉汇聚——评分维度不只在量好坏，也在定性格。</p>
+<p>最戏剧的例子：荷兰艺术博物馆站点。第 9 轮已是干净的深色着陆页，抛光、符合预期；第 10 轮却整段推翻，改成空间体验——CSS perspective 的 3D 房间、棋盘地板、墙上自由挂画、以门洞在展厅间导航，而不是滚屏或普通点击。作者形容这是单次直出里没见过的创造跳跃。</p>
+<table><tr><th>轮次现象</th><th>对你的含义</th></tr>
+<tr><td>标准一写入，iter 1 就好过裸模型</td><td>先写尺子，再生成；别等「做完再评」</td></tr>
+<tr><td>措辞塑造气质</td><td>你的 Skill 里每个形容词都是方向，不是装饰</td></tr>
+<tr><td>中段有时优于末段</td><td>保留中间快照；分数不是唯一选版依据</td></tr>
+<tr><td>后期可能剧烈 pivot</td><td>允许「推倒重来」写进 generator 指令</td></tr></table>
+<blockquote>“Is this design beautiful?” is hard… “does this follow our principles for good design?” gives Claude something concrete to grade against. — Prithvi Rajasekaran / Anthropic</blockquote>
+
+<h2>08 长程 harness 只要知道这些</h2>
+<p>前端打分器验证后，同一 GAN 式结构扩到全栈：Planner（1–4 句扩成有野心的产品规格，偏产品与高层技术，避免过早锁死细节）、Generator（按 sprint 做功能，React/Vite/FastAPI 等）、Evaluator（Playwright 点穿应用，按产品深度、功能、视觉、代码质量打分，硬阈值不达标则 sprint 失败）。Sprint 前双方协商 done 标准；用文件通信。</p>
+<p>对照实验很直观：同一句「做复古 2D 游戏制作器」，solo 约 20 分钟 / $9，核心玩法却坏掉；全 harness 约 6 小时 / $200，可玩且带 AI 辅助能力。后续随 Opus 4.6 变强，作者拆掉不再承重的 sprint 脚手架，但仍保留 planner 与（在能力边界上的）evaluator——原则是：<b>harness 的每一块都编码「模型自己还做不到什么」；模型进步后要重审，而不是无限堆脚手架。</b></p>
+<p>对本篇读者：你不需要复刻整套多 Agent 工厂。你需要的是同一思想在设计侧的最小实现——原则量表 + 独立评审 + 真页或真截图反馈。</p>
+
+<h2>09 给 Zhu 的个人设计打分 Skill 模板</h2>
+<p>下面可直接改成 Claude Skill、Cursor 规则，或「评审专用」对话置顶。按 Zhu 的目标预填了「反 AI 脸 / 个人站气质」；请改成你的品牌词，并换成你自己的 few-shot 好坏例。</p>
+<pre><code># design-grader.skill（评审专用，禁止生成整页）
+你是独立设计评审员，不是作者。禁止夸奖或重写整页；只按量表打分与给可执行批判。
+
+## 权重（总分 100）
+- Design quality 35：是否形成统一身份与情绪，而非模块拼盘
+- Originality 35：是否看得出刻意决策；模板/库默认/AI 套路直接扣分
+- Craft 15：层级、间距、对比、对齐的基本功
+- Functionality 15：主任务能否完成，主操作是否可发现
+
+## 显式失败模式（命中则 Originality 上限 40）
+- 居中大标题 + 双 CTA 的通用 SaaS hero
+- 紫/靛渐变盖白卡片、玻璃拟态堆砌
+- Inter/系统默认栈无人格；「elevate your workflow」空文案
+- 无差别圆角卡片栅格，无主次叙事
+
+## 高分锚点（写你的正面例子）
+- 版式有编辑感或海报感，首屏只服务一个论点
+- 材质/字体/密度有可命名的选择（例如「报纸栏宽」「工业面板」）
+- 动效有目的，而不是为动而动
+
+## 输出格式
+1. 四维分数 + 一句话总判
+2. 每维：证据（指出具体区块）+ 下一轮必须改的一条
+3. 战略建议：refine 当前方向 / pivot 到【命名方向】
+4. 不要给「整体很棒」类句子
+</code></pre>
+<pre><code># generator 侧（配合上面的 grader）
+你根据用户 brief 生成/修改前端。你知道评分权重偏向 Design quality 与 Originality。
+每轮收到 grader 报告后：
+- 若 Originality 或 Design quality &lt; 70：优先结构性改动，禁止只改色
+- 若连续两轮同分平台：提出一个完全不同的视觉方向并说明放弃了什么
+- 保留可回退的中间版本说明（哪一版、为何可能更好）
+不要自我打分；等待独立 grader。
+</code></pre>
+<pre><code># 最小双会话用法（无 Playwright 时）
+会话 A（生成）：只产出页面/原型，结束时不要自评。
+会话 B（新上下文）：粘贴 A 的代码或截图 + design-grader.skill，只输出分数与批判。
+把 B 的报告贴回 A，进入下一轮。目标 3–8 轮；手动保存中间你喜欢的一版。
+</code></pre>
+
+<h2>10 自查清单</h2>
+<ul>
+<li>我有没有把「好不好看」改写成可打分的原则条目？</li>
+<li>生成与评审是否拆开（新上下文 / 另一角色），而不是同一气泡自评？</li>
+<li>权重是否故意压在设计质量与原创性上？</li>
+<li>失败模式有没有点名具体 AI slop，而不只是「不要俗」？</li>
+<li>评审是否尽量基于真页或真实视口截图，而不只是脑内想象？</li>
+<li>标准措辞有没有泄露我想要的气质（并我接受这种汇聚）？</li>
+<li>有没有保存中间轮次，而不是默认最后一版最好？</li>
+<li>generator 是否被允许在平台期 pivot，而不是无限微调平均脸？</li>
+<li>我的 few-shot 样例是我的品味，还是又从网上抄了通用「好设计」形容词？</li>
+</ul>
+<div class="note"><p>读本里 Anthropic「用 Skills 改进前端设计」、OpenAI「首屏是海报」、Dbggr「对抗平均」都在教你怎么说清美。这篇补上工程环节：美也可以被编排——不是把品味交给分数，而是把原则写成模型无法敷衍的外部压力。你要的不是更高的平均分，而是那次博物馆式的第十轮跳跃有机会发生。</p></div>
+</article>
+</body></html>

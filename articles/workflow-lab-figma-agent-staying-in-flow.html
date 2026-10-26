@@ -1,0 +1,141 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>判断留给你，杂活交给 Agent · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#DFEAEF">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 26 · AI 设计工作流 / Figma / Agent / 设计系统</div><h1>判断留给你，杂活交给 Agent</h1><div class="en">Workflow lab: Staying in the flow with Figma&#x2019;s agent</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Brett McMillin</dd><dt>身份</dt><dd>Designer Advocate, Figma</dd><dt>日期</dt><dd>2026-10-06</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/workflow-lab-staying-in-the-flow-with-the-figma-agent/">figma.com ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/workflow-lab-staying-in-the-flow-with-the-figma-agent/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/workflow-lab-figma-agent-staying-in-flow.svg" alt="Workflow lab: Staying in the flow with Figma's agent 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解。原文是 Figma「Workflow Lab」系列样板：虚构产品 Offtrail 加临时主持人权限时，设计师如何把库修复、评审整理、合规对照、组件增强规格交给 Agent，自己只守住设计、产品与政策判断。文中 Skills 名称、工作顺序与四个产出，均按原文事实整理；例子与清单是编者面向个人站与设计系统场景写的。想看原流程图与截图，请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li>
+<li>核心问题：什么需要判断，什么只需要做完</li>
+<li>先修库，再做功能：/repair-library-usage</li>
+<li>功能本身：判断必须留在主路径</li>
+<li>评审之后：把评论堆成高信号简报</li>
+<li>合规 Skill：对照规则，不替你猜政策</li>
+<li>组件增强写在同一文件里</li>
+<li>一次需求，四份产出</li>
+<li>预览再应用：保护注意力的操作习惯</li>
+<li>什么时候不要交给 Agent</li>
+<li>可直接改写的 Skill / 提示模板</li>
+<li>自查清单</li>
+</ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，「知道该交什么」本身是设计技能。</b>不是「会不会用 Agent」，而是不断问：这步需要我的判断（judgment），还是只需要做完（doing）？</p>
+<p><b>第二，维护也是设计工作。</b>替换过期组件、修好变量绑定，不如画新屏炫目，却决定设计系统（design system）是「一套系统」还是「几个同名碎片」。Agent 适合做聚焦检查与重复修复；例外仍由你解释。</p>
+<p><b>第三，Agent 最有用的形态是保护注意力。</b>它承接上下文、处理重复步骤、准备下一步，让你少花时间管理「通往上线的路径」，多花时间决定「什么值得上线」。</p>
+<table><tr><th>留给设计师</th><th>交给 Agent</th><th>刻意避免</th></tr>
+<tr><td>功能主路径、产品取舍、政策怎么改体验</td><td>库对齐、评论归类、合规标注、增强规格草稿</td><td>让 Agent「顺便」定权限规则或法务结论</td></tr>
+<tr><td>模糊匹配怎么办、要不要增强系统组件</td><td>清晰可替换的 deprecated 实例与变量</td><td>一上来全文件大扫除，再回头做功能</td></tr>
+<tr><td>验收「改哪些、不改哪些」</td><td>先列出 findings，再按你的指令 apply</td><td>静默改完才告诉你「都修好了」</td></tr></table>
+
+<h2>02 核心问题：什么需要判断，什么只需要做完</h2>
+<p>原文开篇几乎就是全文口号：用 AI 做设计，就是不断问——<i>What needs my judgment, and what just needs doing?</i> 听起来平淡，一到 deadline 就容易崩：你既想每个产品和设计决定仍是自己的，又不想在过期组件、散乱评论、合规文档之间来回跳。</p>
+<p>场景是虚构 App <b>Offtrail</b>（本地户外聚会）。现有权限体验没法让人「只主持一场活动」；团队要加临时主持人权限：到期显示、管理员可管、过期与失败可恢复。功能建在旧权限屏上——而那些屏已经混了当前组件与手改过期变量。</p>
+<div class="note"><p>对 Zhu 这种自己用 AI 搭站、又要躲开「AI 脸」的人：你真正稀缺的不是「再画一屏」，而是注意力带宽。杂活（busywork）会把判断力挤出心流（flow）。这篇给的不是又一个「生成界面」demo，而是一张分工图。</p></div>
+
+<h2>03 先修库，再做功能：/repair-library-usage</h2>
+<p>设计师先选<b>预计复用</b>的 frame，连上当前库，跑 <code>/repair-library-usage</code>。Agent 对照库检查实例与变量绑定：有明确新等价物的，直接替换；两边都能凑合、看不清意图的，留下不动，并在旁边标注发现了什么、为什么停手。</p>
+<p>目标写得很清楚：<b>只更新新工作会建其上的那一段体验</b>，不是清扫整个文件。设计师只处理影响本项目的例外，然后进入临时访问流的第一稿——不必在「修文件」和「做功能」之间来回弹。</p>
+<table><tr><th>Agent 做</th><th>设计师做</th><th>为什么</th></tr>
+<tr><td>匹配清晰的 deprecated → 当前组件/变量</td><td>读模糊案例的 annotation</td><td>清晰替换是执行；模糊是语义判断</td></tr>
+<tr><td>只扫你选中的复用范围</td><td>决定范围边界</td><td>全文件大扫除会制造新上下文税</td></tr>
+<tr><td>把「为什么停」写在画布上</td><td>决定例外是保留还是改</td><td>例外往往编码了真实产品历史</td></tr></table>
+<blockquote>“Maintenance is design work.” — Brett McMillin / Figma（大意：维护也是设计工作）</blockquote>
+<p>原文提醒：这些小决定重复做下去，决定系统是连贯还是名存实亡。Agent 做检查与重复劳动；你仍解释例外意味着什么。</p>
+
+<h2>04 功能本身：判断必须留在主路径</h2>
+<p>源文件修好后，设计师自己设计临时访问流：主路径，加上到期、失败、恢复状态。这里没有「让 Agent 先出十个权限方案」——因为权限、身份、过期边界，正是产品与政策判断的高密度区。</p>
+<p>原文另有 Zoom out：文案、品牌语气、多语言也是流程的一部分；Agent 可以拉品牌语气、试替代文案、看其他语言下的屏。那是表达层的加速，不是把「该不该临时授权」交给模型。</p>
+<div class="note"><p>读本里 Linear「主判断留在自己手里」、Vercel product-design Skill「代码不告诉为什么」是同一立场的不同工具面。这篇更贴 Figma 画布：判断画在主路径上，杂活从侧枝被 Agent 接走。</p></div>
+
+<h2>05 评审之后：把评论堆成高信号简报</h2>
+<p>Crit 之后，评论会混成两类：一类是清楚动作（改到期文案、收紧层级、让恢复路径更好找）；一类是政策问题（邀请过期未接受怎么办？权限更新失败时谁看到什么？会话中途到期成员看见什么？）。</p>
+<p>设计师让 Agent 整理线程：归并重复反馈、标出矛盾、突出未决问题，压成一份短的高信号简报（high-signal brief）——什么立刻可改，什么仍需想。</p>
+<table><tr><th>评论里常见噪声</th><th>Agent 整理后</th><th>你仍要亲自做的</th></tr>
+<tr><td>同一建议说了三遍</td><td>合成一条可执行项</td><td>排优先级</td></tr>
+<tr><td>「这合法吗？」散落各处</td><td>标成开放政策问题</td><td>找合规伙伴或跑合规 Skill</td></tr>
+<tr><td>互相打架的视觉建议</td><td>显式列出矛盾</td><td>选边或重开讨论</td></tr></table>
+
+<h2>06 合规 Skill：对照规则，不替你猜政策</h2>
+<p>有些法务问题设计组答不上来。设计师不猜，而是跑团队的 <code>/compliance-review</code>：Skill 里挂着安全/合规伙伴维护的检查项，Agent 带着那些人期望设计师自问的问题来看访问、身份、权限相关流，并把发现标注到对应 frame。</p>
+<p>关键边界：Agent <b>搜集外部指引并给出 guided feedback</b>；设计师决定这些发现<b>会怎样改变功能</b>。它不扮演律师，也不替你拍板政策。</p>
+<div class="note"><p>个人站很少有正式合规文档，但仍可自建「对照表」：隐私文案、权限披露、第三方登录边界。Skill 的价值是「带着固定问题清单看稿」，不是「模型懂法」。</p></div>
+
+<h2>07 组件增强写在同一文件里</h2>
+<p>合规发现：列表用的系统组件 <b>item row</b> 还不支持展示「临时访问何时到期」。做一次性自定义组件，既扩 scope，又让体验脱离设计系统。更耐用的路是增强系统组件本身。</p>
+<p>此时功能已近完成。另开一套设计系统交接容易拖项目、逼设计师切上下文。于是用 <code>/document-component-enhancement</code>，在<b>同一 Figma 文件新分区</b>起草规格：需要什么行为、现状差在哪、缺哪些状态、可能改动与开放问题。</p>
+<p>设计师审草稿、确认开放问题，把该分区交给设计系统团队。规格与出问题的 frame、评论、组件同文件——评审能追溯动机；所有权也清楚：功能怎么发展归功能设计师，组件怎么改归系统团队；Agent 说明需要什么改、为什么，让系统团队能审，功能侧继续往前。</p>
+
+<h2>08 一次需求，四份产出</h2>
+<p>原文收束得很利落：一个产品请求，落到四件具体产出——</p>
+<ol>
+<li>现有屏上的设计系统缺口被识别（并部分修复）</li>
+<li>临时访问流覆盖主路径 + 到期 / 失败 / 恢复</li>
+<li>对照合规指引的标注 + 合成后的反馈简报</li>
+<li>item row 增强规格（行为、缺口、推理链回链到现场）</li>
+</ol>
+<p>共享、可视、多人画布把这些产出留在同一工件上：流、评论、标注不散到别的工具。Agent 的价值不是「又画了一屏」，而是检查、修复、蒸馏反馈；设计师做的是定义功能的设计、产品与政策决定。</p>
+<table><tr><th>产出</th><th>主要执行者</th><th>若不做会怎样</th></tr>
+<tr><td>库缺口识别与局部修复</td><td>Agent + 设计师裁定例外</td><td>新功能建在不可信基座上</td></tr>
+<tr><td>完整临时访问流</td><td>设计师</td><td>只有 happy path</td></tr>
+<tr><td>合规标注 + 反馈简报</td><td>Agent 整理，设计师决策</td><td>政策问题淹没在评论噪声里</td></tr>
+<tr><td>组件增强规格（同文件）</td><td>Agent 起草，系统团队拥有</td><td>一次性野组件，或交接丢上下文</td></tr></table>
+
+<h2>09 预览再应用：保护注意力的操作习惯</h2>
+<p>原文 Zoom out 给了一个可立刻养成的模式：先让 Agent <b>只列 findings、不改文件</b>——「对照已连接库审查选中 frame，列出过期组件与变量，提议当前等价物，标出模糊匹配。不要做任何修改。」读完画布上的标注后，再让它<b>只应用匹配清晰的项</b>，模糊案保留。</p>
+<p>这就是 preview-before-apply。它把「静默大改」变成「你批准的补丁」，也让你在心流里只处理真正需要判断的差分。</p>
+
+<h2>10 什么时候不要交给 Agent</h2>
+<ul>
+<li><b>政策与法务结论。</b>可以跑合规对照，不能让模型「觉得大概合规」。</li>
+<li><b>产品取舍。</b>临时权限到期后谁还能看什么——这是产品决定。</li>
+<li><b>模糊的库匹配。</b>两个新组件都能凑合时，留下标注比瞎替更好。</li>
+<li><b>系统组件的最终形态。</b>增强规格可草稿；拥有权仍在设计系统团队。</li>
+<li><b>全文件「顺便清理」。 </b>范围一扩，杂活会反噬注意力。</li>
+<li><b>你还说不清成功标准时。</b>先写清 brief，再开 Agent；否则它只会加速混乱。</li>
+</ul>
+
+<h2>11 可直接改写的 Skill / 提示模板</h2>
+<p>下面三段可改成你自己的斜杠命令或聊天模板。名称可自定；结构对齐原文三 Skills。</p>
+<pre><code># /repair-library-usage（预览模式）
+对照当前已连接的设计库，审查【选中的 frame】：
+1. 列出过期组件实例与错误/过期变量绑定
+2. 对每一项给出「当前等价物」建议
+3. 标出模糊匹配（两个都能用 / 意图不清）并说明为何不确定
+4. 本轮不要修改文件，只在画布旁标注 findings
+等我确认后，再只应用「清晰匹配」项；模糊案保持原样。
+范围：只处理本功能会复用的屏，不做全文件清理。
+</code></pre>
+<pre><code># 评审后简报
+阅读本文件中关于【功能名】的评论线程：
+- 归并重复反馈为可执行项
+- 显式列出互相矛盾的建议
+- 把政策/法务/权限类问题单独成「开放问题」清单
+输出一份短简报：立刻可改 / 需讨论 / 需合规对照。不要改设计。
+</code></pre>
+<pre><code># /document-component-enhancement
+基于【合规/评审发现】与周围设计上下文，在本文件新分区起草组件增强规格：
+- 需要的行为（含状态）
+- 当前组件缺口
+- 缺失状态列表
+- 开放问题（留给设计系统团队）
+- 回溯链接：指向触发该需求的 frame / 评论
+不要发明新的一次性组件；默认路径是增强系统组件。
+我审完开放问题后再分享给系统团队。
+</code></pre>
+
+<h2>12 自查清单</h2>
+<ul>
+<li>开 Agent 前，我有没有先问「这步要判断还是要做完」？</li>
+<li>修库时有没有限定在「本功能会建其上」的 frame，而不是全文件大扫除？</li>
+<li>模糊匹配是留下标注，还是被静默改掉了？</li>
+<li>功能主路径、到期/失败/恢复，是不是仍由我设计？</li>
+<li>Crit 后有没有把评论压成高信号简报，而不是在线程里游泳？</li>
+<li>合规结果是「改变功能的输入」，还是被当成最终判决？</li>
+<li>系统缺口是增强组件 + 同文件规格，还是又做了一个野组件？</li>
+<li>有没有先 preview findings，再 apply？</li>
+<li>四个产出里，我缺了哪一块：库缺口 / 完整流 / 合规与简报 / 增强规格？</li>
+</ul>
+<div class="note"><p>这篇和读本里「Got skills」「Agents meet canvas」「Teaching agents product design」是同一条生产线的不同工位：那些篇教你怎么写 Skill、怎么接画布；这篇教你怎么在真实功能压力下分工。若你已经会让 Agent 画屏，下一步不是画得更多，而是让它把你捞出杂活，好把判断留在主路径上。</p></div>
+</article>
+</body></html>

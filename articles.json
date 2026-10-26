@@ -528,5 +528,47 @@
     "cover": "covers/inside-design-at-shopify-ai.svg",
     "accent": "#5A7A2E",
     "tint": "#E5EAE0"
+  },
+  {
+    "slug": "workflow-lab-figma-agent-staying-in-flow",
+    "title_zh": "判断留给你，杂活交给 Agent",
+    "title_en": "Workflow lab: Staying in the flow with Figma's agent",
+    "author": "Brett McMillin",
+    "author_role": "Designer Advocate, Figma",
+    "source": "https://www.figma.com/blog/workflow-lab-staying-in-the-flow-with-the-figma-agent/",
+    "date": "2026-10-06",
+    "added": "2026-10-26",
+    "tags": [
+      "Figma",
+      "Agent",
+      "工作流",
+      "设计系统"
+    ],
+    "dek": "知道什么该交给 Agent，本身就是一项设计技能。",
+    "category": "AI 设计工作流",
+    "cover": "covers/workflow-lab-figma-agent-staying-in-flow.svg",
+    "accent": "#1A6B8A",
+    "tint": "#DFEAEF"
+  },
+  {
+    "slug": "harness-design-frontend-grader",
+    "title_zh": "把审美变成可打分标准",
+    "title_en": "Harness design for long-running application development",
+    "author": "Prithvi Rajasekaran",
+    "author_role": "Anthropic（Engineering / Labs）",
+    "source": "https://www.anthropic.com/engineering/harness-design-long-running-apps",
+    "date": "2026-03-24",
+    "added": "2026-10-26",
+    "tags": [
+      "审美",
+      "评审",
+      "Harness",
+      "Anthropic"
+    ],
+    "dek": "「好不好看」难打分；按原则打分可以——拆开生成与评审，逼 AI 离开平均脸。",
+    "category": "独特审美",
+    "cover": "covers/harness-design-frontend-grader.svg",
+    "accent": "#8B3D5C",
+    "tint": "#F0E4E8"
   }
 ]

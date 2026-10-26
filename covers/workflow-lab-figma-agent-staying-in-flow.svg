@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#1A6B8A">
+  <!-- 读本 cover system v1 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.26 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">JUDGMENT VS BUSYWORK</text>
+  <!-- motif: main ink judgment path through center; side busywork branches (wrench/library, comment stacks, spec doc) handled by agent accent lines -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- main deep-work path (judgment stays here) -->
+    <path d="M200 420 C320 400 380 280 520 260 C640 242 700 320 820 340 C920 356 980 300 1060 280"/>
+    <circle cx="200" cy="420" r="6" fill="#1B2B26" stroke="none" fill-opacity=".75"/>
+    <circle cx="1060" cy="280" r="6" fill="#1B2B26" stroke="none" fill-opacity=".75"/>
+    <!-- focus diamond / attention node on main path -->
+    <path d="M520 260 L545 285 L520 310 L495 285 Z"/>
+    <!-- left branch: library wrench / component repair -->
+    <path d="M320 400 L260 320"/>
+    <path d="M240 300 H280 V340 H240 Z"/>
+    <path d="M248 318 H272 M260 308 V330"/>
+    <path d="M252 308 L268 324 M268 308 L252 324" stroke-opacity=".45"/>
+    <!-- upper-left: comment stacks -->
+    <path d="M420 280 L380 200"/>
+    <path d="M350 160 H410 V185 H350 Z"/>
+    <path d="M355 190 H405 V210 H355 Z"/>
+    <path d="M360 215 H400 V232 H360 Z"/>
+    <path d="M365 168 H395 M365 198 H390"/>
+    <!-- right branch: spec document -->
+    <path d="M820 340 L880 420"/>
+    <path d="M860 440 H960 V560 H860 Z"/>
+    <path d="M875 465 H945 M875 490 H930 M875 515 H940 M875 540 H910"/>
+  </g>
+  <!-- accent: agent lines taking busywork off the main path -->
+  <g fill="none" stroke="#1A6B8A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- agent arcs from busywork nodes back to side rail -->
+    <path d="M260 320 C200 300 160 260 140 200"/>
+    <path d="M380 200 C300 180 220 150 160 140"/>
+    <path d="M880 420 C960 400 1020 360 1080 300"/>
+    <!-- agent rail (side track) -->
+    <path d="M140 200 C180 160 240 130 320 120 C520 100 760 110 980 160 C1040 175 1080 240 1080 300"/>
+    <circle cx="140" cy="200" r="5" fill="#1A6B8A" stroke="none"/>
+    <circle cx="1080" cy="300" r="5" fill="#1A6B8A" stroke="none"/>
+    <!-- small agent tick marks on rail -->
+    <path d="M320 120 V132 M520 105 V117 M760 112 V124"/>
+  </g>
+  <text x="150" y="185" font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="2" fill="#1A6B8A">AGENT</text>
+  <text x="500" y="350" font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="2" fill="#1B2B26" fill-opacity=".55">JUDGMENT</text>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="#1B2B26">Staying in the flow with Figma&#x2019;s agent</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">FIGMA</text>
+</svg>

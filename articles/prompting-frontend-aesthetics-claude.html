@@ -1,0 +1,132 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>四维提示词：把前端拉出 AI 默认脸 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#EDE7E2">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 29 · 提示词与 Skill / 提示词 / 审美 / Typography / Skill</div><h1>四维提示词：把前端拉出 AI 默认脸</h1><div class="en">Prompting for frontend aesthetics</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Prithvi Rajasekaran</dd><dt>身份</dt><dd>Anthropic（Claude Cookbook；@rgb-prithvi）</dd><dt>日期</dt><dd>2025-10-21</dd><dt>原文</dt><dd><a href="https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics">platform.claude.com/cookbook ↗</a></dd></dl><a class="readorig" href="https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/prompting-frontend-aesthetics-claude.svg" alt="Prompting for frontend aesthetics 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解。原文是 Anthropic Claude Cookbook 条目，讲如何在生成前端之前用提示词（prompt）把模型拉离「分布内」（on-distribution）的 AI 默认脸。三条策略、四维审美提示、隔离字体提示、主题约束示例，按原文事实整理；中文可用模板与对照表是编者改写。它是读本 No.01「用 Skills 改进前端设计」与 No.27「把审美变成可打分标准」的<strong>提示词侧同伴</strong>：生成前怎么 brief，而不是生成后怎么打分。想看完整英文 prompt 与 notebook，请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li>
+<li>为什么「现代干净」只会换来平均脸</li>
+<li>三条策略：分维引导、灵感参照、显式禁令</li>
+<li>四维总提示：字体 / 色彩 / 动效 / 背景</li>
+<li>可粘贴的中文精简模板</li>
+<li>有引导 vs 无引导：你会看到什么模式</li>
+<li>隔离实验：只开字体这一维</li>
+<li>主题约束：Solarpunk 怎么写才管用</li>
+<li>和 No.01 / No.27 怎么配合</li>
+<li>自查清单</li>
+</ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，Claude 能写出不错的前端，但没引导时会保守地汇聚到「AI 脸」。</b>白底、紫渐变、Inter、可预测布局——作者把它叫作 on-distribution / AI slop 倾向：模型承认自己容易滑向这套。</p>
+<p><b>第二，别用一个形容词包打天下。</b>把字体（typography）、色彩与主题（color &amp; theme）、动效（motion）、背景（backgrounds）拆开点名；再给具体灵感（IDE 主题、文化美学），并显式禁掉常见默认。</p>
+<p><b>第三，完整审美提示是基线；隔离某一维适合控速与对照。</b>需要整体气质时用四维总提示；需要快速验证「是不是字体在拖后腿」时，只开 typography 提示。</p>
+<table><tr><th>你常说的</th><th>原文主张改成</th><th>为何更有效</th></tr>
+<tr><td>「现代、干净、精致」</td><td>分别写四维 + 禁令列表</td><td>形容词落在分布中心；禁令与具象选择才能离中</td></tr>
+<tr><td>「参考好看的 SaaS」</td><td>IDE 主题 / 文化美学等可命名灵感</td><td>过宽的「好看」仍会收敛；可命名才可执行</td></tr>
+<tr><td>一次生成后再说「再美一点」</td><td>生成前写入审美 brief</td><td>先验已偏，事后修往往只换色</td></tr>
+<tr><td>永远贴同一段超长 skill</td><td>总提示作基线，必要时隔离单维</td><td>可控、可对比、迭代更快</td></tr></table>
+
+<h2>02 为什么「现代干净」只会换来平均脸</h2>
+<p>Cookbook 开宗明义：模型生成前端的能力已经够用，缺的是审美方向。没有指导时，输出偏保守、同质——不是「坏」，是「没法记住」。这和读本反复说的分布收敛（distribution convergence）是同一物理：零努力提示会掉进训练集里最高频的「像官网」模式。</p>
+<p>作者的解法不是骂模型没品味，而是承认倾向，然后用结构化 brief 把它拉到分布外（off distribution）。</p>
+<div class="note"><p>若你已经读过 No.27 的 grader：那是生成后的外部压力。本篇是生成前的先验塑造。两者叠用时，最忌「生成时含糊、评审时才突然要求博物馆气质」——标准应在 brief 里先出现。</p></div>
+
+<h2>03 三条策略：分维引导、灵感参照、显式禁令</h2>
+<ol>
+<li><b>按设计维度分别引导。</b>字体、色彩、动效、背景逐项写清期望，而不是一句「整体高级」。</li>
+<li><b>引用设计灵感，但不要过度处方。</b>IDE 主题、文化美学等给方向；留给模型组合空间，避免把每个像素写死。</li>
+<li><b>显式点名常见默认。</b>不说「避免俗气」，而说避免 Inter / Roboto / Arial / 系统字体、白底紫渐变、可预测布局、cookie-cutter 结构；也提醒不要在多次生成里又汇聚到 Space Grotesk。</li>
+</ol>
+<p>三条合在一起：目标维度 + 具体灵感 + 明确黑名单 → 输出才有机会长出可辨认的身份。</p>
+
+<h2>04 四维总提示：字体 / 色彩 / 动效 / 背景</h2>
+<p>原文的 <code>DISTILLED_AESTHETICS_PROMPT</code> 核心可以记成下面这张表（英文短句为作者取向的压缩，完整块见原文 cookbook）：</p>
+<table><tr><th>维度</th><th>要求什么</th><th>显式躲开什么</th></tr>
+<tr><td><b>Typography</b></td><td>漂亮、独特的字体选择；先陈述选择再写代码</td><td>Arial、Inter、以及无人格的系统栈</td></tr>
+<tr><td><b>Color &amp; Theme</b></td><td>内聚；CSS 变量；主色 + 锐利强调色，胜过胆怯的均分调色板；可借鉴 IDE 主题 / 文化美学</td><td>白底上的紫/靛渐变；没有主次的「都温和」</td></tr>
+<tr><td><b>Motion</b></td><td>HTML 用 CSS；React 可用 Motion 库；一次编排好的页面加载 + 交错显现，胜过散落的微交互</td><td>为动而动、处处 hover 弹一下</td></tr>
+<tr><td><b>Backgrounds</b></td><td>氛围与纵深，而不是实心默认；分层渐变、几何图案、情境化效果</td><td>一片平涂白/灰，无层次</td></tr></table>
+<p>总提示还会要求：承认自己有 AI slop 倾向；在浅色/深色、字体、美学之间保持变化；不要跨次生成又收敛到同一安全选择。</p>
+<blockquote>Claude has a tendency toward generic, “on-distribution” designs… — Prithvi Rajasekaran / Anthropic Cookbook（大意：Claude 倾向于通用的、分布内的设计）</blockquote>
+
+<h2>05 可粘贴的中文精简模板</h2>
+<p>下面是编者按原文结构压成的中文可用版，可直接放进 Claude / Cursor 系统提示或 Skill。保留少量英文关键词，方便模型对齐 cookbook 语义。</p>
+<pre><code># frontend-aesthetics.brief（生成前粘贴）
+你容易滑向 on-distribution / AI slop。生成前端前必须先做出可命名的审美决策，再写代码。
+
+## Typography
+- 选择独特、漂亮的字体；禁止 Arial / Inter / Roboto / Open Sans / Lato / 纯系统栈
+- 也避免多次任务都退回 Space Grotesk
+- 高对比搭配；字重可走极端（100/200 对 800/900）；字号可出现 3x+ 跳跃
+- 先用一句话声明字体选择与理由，再开始写 CSS
+
+## Color &amp; Theme
+- 用 CSS 变量；一套内聚主题
+- 一个主导色 + 锐利强调色，不要胆怯的均分浅彩
+- 可参考：某 IDE 主题名 / 某文化美学（例：Solarpunk、editorial newspaper）
+- 禁止：白底紫渐变、玻璃拟态堆砌当「高级」
+
+## Motion
+- 静态 HTML：CSS-only；React：可用 Motion
+- 优先一次编排的 page-load + staggered reveals
+- 禁止无叙事的散落微交互
+
+## Backgrounds
+- 要氛围与深度：分层、几何、情境纹理
+- 禁止无层次的实心默认底
+
+## 输出前自检
+- 若截图像「又一个 AI SaaS 模板」，推倒字体与主题，不要只改圆角
+</code></pre>
+
+<h2>06 有引导 vs 无引导：你会看到什么模式</h2>
+<p>原文用几类常见产物做对照（SaaS 着陆页、博客文章页、管理后台表格）。模式比截图更重要：</p>
+<table><tr><th>场景</th><th>无引导时常见</th><th>有四维提示后</th></tr>
+<tr><td>SaaS landing</td><td>白底、紫强调、居中英雄区、双 CTA、Inter</td><td>主题可命名；字体与背景先立住身份</td></tr>
+<tr><td>Blog post</td><td>通用衬线/无衬线混用无编辑感</td><td>编辑向字号跳跃与栏宽更明确</td></tr>
+<tr><td>Admin table</td><td>默认灰表、无密度与状态气质</td><td>色彩变量与动效更克制但有系统感</td></tr></table>
+<p>结论不是「有提示就一定美」，而是：无提示几乎必然 simplistic white/purple；有提示后变化显著增加——这正是你要的「离分布」。</p>
+
+<h2>07 隔离实验：只开字体这一维</h2>
+<p><code>TYPOGRAPHY_PROMPT</code> 单独使用时，规则更锋利：永远不要 Inter / Roboto / Open Sans / Lato / 系统字体；按气质给冲击性选择，例如——</p>
+<ul>
+<li>Impact / 代码感：JetBrains Mono、Fira Code、Space Grotesk（注意：总提示里提醒别跨任务收敛到它）</li>
+<li>Editorial：Playfair、Crimson、Fraunces</li>
+<li>Startup：Clash、Satoshi、Cabinet</li>
+<li>Technical：IBM Plex、Source Sans 3</li>
+<li>Distinctive：Bricolage、Obviously、Newsreader</li>
+</ul>
+<p>并要求：高对比配对；字重与字号走极端跳跃；<b>写代码前先陈述选择</b>。隔离的价值是诊断——若只换字体维度，页面就从「模板」变成「有主见」，说明问题常出在 typography 先验，而不是你还不够会写「再精致一点」。</p>
+<div class="note"><p>个人站实用法：先跑一版「只开字体」看性格是否立住；再叠加色彩与背景。比一上来贴整份百科更省 token，也更容易知道哪一维在救命。</p></div>
+
+<h2>08 主题约束：Solarpunk 怎么写才管用</h2>
+<p>原文给主题约束示例：Solarpunk——暖绿 / 金 / 大地色；有机与技术并存；自然图案；基调希望；字体偏复古未来（retro-futuristic）。要点是：用可感觉的材料与情绪词，而不是「请做得有 solarpunk 感」六个字。</p>
+<table><tr><th>弱约束</th><th>强约束（示例取向）</th></tr>
+<tr><td>「solarpunk 风格」</td><td>暖绿与金为主、土色支撑；界面同时显有机曲线与技术网格</td></tr>
+<tr><td>「自然一点」</td><td>背景用自然图案或分层植物几何，而不是贴一张风景图</td></tr>
+<tr><td>「积极向上」</td><td>希望感来自明度与强调色，而不是口号文案</td></tr></table>
+
+<h2>09 和 No.01 / No.27 怎么配合</h2>
+<p>读本里同一作者线索可以排成一条工作流：</p>
+<ol>
+<li><b>No.01 Skills</b>：把反收敛原则沉淀成可复用 skill（偏「常驻人格」）。</li>
+<li><b>本篇 Prompting</b>：每次任务前的四维 brief + 禁令 + 灵感（偏「这一枪怎么开」）。</li>
+<li><b>No.27 Grader</b>：生成后独立评审，加重原创性，必要时 pivot（偏「外部压力」）。</li>
+</ol>
+<p>顺序建议：Skill 垫底 → 本篇 brief 瞄准 → 生成 → grader 逼离平均。不要用 grader 弥补「生成时根本没说禁 Inter」——那是在用评审修补空白先验。</p>
+
+<h2>10 自查清单</h2>
+<ul>
+<li>我是否又只写了「现代干净」，而没有点名四维？</li>
+<li>禁令有没有具体到字体名与「白底紫渐变」，而不只是「不要 AI 脸」？</li>
+<li>灵感是可命名的主题 / IDE / 文化，还是「参考好看网站」？</li>
+<li>动效是一次编排的加载叙事，还是到处微交互？</li>
+<li>背景有没有纵深，还是实心默认？</li>
+<li>多次生成是否又悄悄汇聚到同一安全字体（含 Space Grotesk）？</li>
+<li>这一轮该用四维总提示，还是隔离单维做诊断？</li>
+<li>brief 里的标准，是否与我在 No.27 grader 里打的分一致？</li>
+</ul>
+<div class="note"><p>Zhu 要的「非泛用 UI」和这篇的口号是同一句：别跟模型求「更好」，要逼它「离分布」。四维点名 + 具体灵感 + 显式黑名单，是生成前成本最低的杠杆；再与 No.01 的 skill、No.27 的打分环串起来，才是完整的反平均脸流水线。</p></div>
+</article>
+</body></html>

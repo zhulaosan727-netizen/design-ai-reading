@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#3D6B8C">
+  <!-- 读本 cover system v1 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.28 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">REVERSE HANDOFF</text>
+  <!-- motif: ticket/backlog pile (left) vs direct path canvas → shared component → PR merge -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- backlog ticket pile (left, buried) -->
+    <path d="M100 220 H280 V290 H100 Z" transform="rotate(-6 190 255)"/>
+    <path d="M110 250 H270 V320 H110 Z" transform="rotate(-2 190 285)"/>
+    <path d="M120 280 H280 V350 H120 Z"/>
+    <path d="M135 300 H250 M135 320 H220"/>
+    <path d="M100 380 H260 V440 H100 Z" opacity=".7"/>
+    <path d="M115 400 H230 M115 418 H200"/>
+    <!-- faded ticket stubs -->
+    <path d="M140 470 H250 V510 H140 Z" stroke-opacity=".4"/>
+    <path d="M155 485 H220" stroke-opacity=".4"/>
+    <!-- canvas frame (center-left) -->
+    <path d="M360 200 H560 V380 H360 Z"/>
+    <path d="M385 240 H535 M385 280 H500 M385 320 H520"/>
+    <circle cx="420" cy="350" r="8"/>
+    <path d="M440 350 H520"/>
+    <!-- shared component node (center) -->
+    <path d="M640 280 H800 V400 H640 Z"/>
+    <path d="M660 310 H780 M660 340 H750 M660 370 H770"/>
+    <!-- PR / merge node (right) -->
+    <path d="M920 260 H1080 V420 H920 Z"/>
+    <path d="M945 300 H1055 M945 335 H1020 M945 370 H1040"/>
+    <circle cx="1000" cy="390" r="10"/>
+  </g>
+  <!-- accent: reverse-handoff arrow canvas → component → PR -->
+  <g fill="none" stroke="#3D6B8C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M560 290 C590 290 610 320 640 340"/>
+    <path d="M800 340 C840 340 880 340 920 340"/>
+    <path d="M920 340 L900 325 M920 340 L900 355"/>
+    <!-- merge checkmark -->
+    <path d="M980 388 L995 400 L1020 375"/>
+    <!-- reverse label arc suggesting designer→engineer review -->
+    <path d="M420 420 C520 500 780 520 1000 440"/>
+    <path d="M1000 440 L980 455 M1000 440 L990 418"/>
+  </g>
+  <text x="130" y="545" font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="2" fill="#1B2B26" fill-opacity=".5">BACKLOG</text>
+  <text x="380" y="195" font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="2" fill="#1B2B26" fill-opacity=".55">CANVAS</text>
+  <text x="655" y="270" font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="2" fill="#1B2B26" fill-opacity=".55">SHARED</text>
+  <text x="945" y="250" font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="2" fill="#3D6B8C">PR · MERGE</text>
+  <text x="560" y="560" font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="2" fill="#3D6B8C">DESIGNER BUILDS · ENGINEER REVIEWS</text>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="24" fill="#1B2B26">Deploying designs directly with Figma Make</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">FIGMA</text>
+</svg>

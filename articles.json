@@ -570,5 +570,47 @@
     "cover": "covers/harness-design-frontend-grader.svg",
     "accent": "#8B3D5C",
     "tint": "#F0E4E8"
+  },
+  {
+    "slug": "workflow-lab-figma-make-deploy",
+    "title_zh": "设计师直接改代码、推 PR：Figma Make 的反向交接",
+    "title_en": "Workflow lab: Deploying designs directly with Figma Make",
+    "author": "Laura Fehre",
+    "author_role": "Designer Advocate, Figma",
+    "source": "https://www.figma.com/blog/workflow-lab-deploying-designs-directly-with-figma-make/",
+    "date": "2026-07-16",
+    "added": "2026-10-27",
+    "tags": [
+      "Figma Make",
+      "交接",
+      "无障碍",
+      "PR"
+    ],
+    "dek": "小修小补别进 backlog 死掉：设计师连上生产代码，工程师改审代码。",
+    "category": "AI 设计工作流",
+    "cover": "covers/workflow-lab-figma-make-deploy.svg",
+    "accent": "#3D6B8C",
+    "tint": "#E2E9EF"
+  },
+  {
+    "slug": "prompting-frontend-aesthetics-claude",
+    "title_zh": "四维提示词：把前端拉出 AI 默认脸",
+    "title_en": "Prompting for frontend aesthetics",
+    "author": "Prithvi Rajasekaran",
+    "author_role": "Anthropic（Claude Cookbook；@rgb-prithvi）",
+    "source": "https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics",
+    "date": "2025-10-21",
+    "added": "2026-10-27",
+    "tags": [
+      "提示词",
+      "审美",
+      "Typography",
+      "Skill"
+    ],
+    "dek": "别说「现代干净」：分别点字体、色彩、动效、背景，并点名禁掉紫渐变与 Inter。",
+    "category": "提示词与 Skill",
+    "cover": "covers/prompting-frontend-aesthetics-claude.svg",
+    "accent": "#6B4A2E",
+    "tint": "#EDE7E2"
   }
 ]

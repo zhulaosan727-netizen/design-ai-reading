@@ -1,0 +1,136 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Atlassian 实测 DESIGN.md：便携上下文的得与失 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E1EAE7">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 30 · 提示词与 Skill / DESIGN.md / MCP / Skills / 便携上下文</div><h1>Atlassian 实测 DESIGN.md：便携上下文的得与失</h1><div class="en">Atlassian’s DESIGN.md is here: what we learned testing portable design context in practice</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Kylor Hall、Andrew Campbell</dd><dt>身份</dt><dd>Principal Prompt Engineer 等（Atlassian Design System / AI 上下文）</dd><dt>日期</dt><dd>2026-06-15</dd><dt>原文</dt><dd><a href="https://www.atlassian.com/blog/how-we-build/atlassians-design-md-is-here-what-we-learned-testing-portable-design-context-in-practice">atlassian.com/blog ↗</a></dd></dl><a class="readorig" href="https://www.atlassian.com/blog/how-we-build/atlassians-design-md-is-here-what-we-learned-testing-portable-design-context-in-practice" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/atlassian-design-md-portable-context.svg" alt="Atlassian’s DESIGN.md is here: what we learned testing portable design context in practice 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计师 / 设计系统视角重写的讲解。原文是 Atlassian「How We Build」里，Kylor Hall 与 Andrew Campbell 对 Google Stitch 提出的 <b>DESIGN.md</b> 格式做的实战测评——同一套结构化内容管线生成文件，在 Team ’26 演示与内部 playground 里对照 MCP、Skills、无上下文。数字来自他们自述的 illustrative 结果，不是论文。它和读本 No.03「用 design.md 让 Agent 做出品牌感页面」（Vercel）、No.06「教 Agent 做产品设计」（Vercel）、No.29「四维提示词」形成一条线：前几篇讲「怎么写便携规范」；本篇讲「便携快照在生产里贵在哪、该留给谁」。公开文件见 <code>atlassian.design/DESIGN.md</code>。想看完整英文与截图对照，请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li>
+<li>问题：没有品牌上下文，AI 只会产出 slop</li>
+<li>DESIGN.md 是什么——以及不是什么</li>
+<li>他们怎么造出自己的那份文件</li>
+<li>Team ’26：一次性原型里它真的管用</li>
+<li>生产对照表：token、时间、轮次</li>
+<li>三条硬限制：全量装载、削薄失真、鼓励重写</li>
+<li>四类场景：便携快照真正发光的地方</li>
+<li>和 No.03 / No.06 / No.29 怎么排工作流</li>
+<li>可粘贴：选型清单与 DESIGN.md 骨架</li>
+<li>自查清单</li>
+</ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，一份 Markdown 真能治「平均脸」。</b>没有品牌 / 组件 / 模式上下文时，模型会滑向渐变按钮、全大写标题、通用卡片、没人要的 hover——社区叫它 UI 「slop」。把 DESIGN.md 丢进 vibe coding 工具，Team ’26 那次演示里，同一 prompt 能从 generic 变成可辨认的 Atlassian 色、间距、形、字、elevation。</p>
+<p><b>第二，生产里它往往更贵、更慢、更不准。</b>内部 playground 做简单登录页时，单靠 DESIGN.md 大约多耗 ~92% token，时间更长，token 消耗方差约 2.7×；平均约 7.21M token / 6m 46s / 45.3 轮，对比 ADS MCP 的 3.75M / 5m 1s / 35.1 轮。</p>
+<p><b>第三，选型口诀：有 MCP / Skills 就用它们；DESIGN.md 留给跨平台便携、客户主题、蓝天原型。</b>它是 intent 快照，不是完整生产规范、代码库或 linter。</p>
+<table><tr><th>场景</th><th>优先上下文</th><th>为何</th></tr>
+<tr><td>仓库内改现有 ADS / 自有组件库</td><td>MCP 按需拉取 + Skills + lint</td><td>少 token、鼓励 <code>import</code> 而不是重写</td></tr>
+<tr><td>陌生工具里一枪出品牌感原型</td><td>DESIGN.md</td><td>无法挂内部 MCP；适配 Tailwind / shadcn 够用</td></tr>
+<tr><td>给客户上传品牌以生成报表 / 仪表盘</td><td>DESIGN.md（或同级便携文件）</td><td>管理员可上传；不必暴露完整 DS</td></tr>
+<tr><td>只有形容词「现代干净」</td><td>先补四维 brief（见 No.29）再谈文件</td><td>文件救不了空白先验</td></tr></table>
+
+<h2>02 问题：没有品牌上下文，AI 只会产出 slop</h2>
+<p>诊断并不神秘：没有你的品牌、组件与模式，模型只能平均训练数据。技术上「能用」，视觉上「谁都能认成 AI 官网」。Atlassian 设计系统团队已经在建 AI 时代的 context engine：ADS <b>MCP server</b>、细粒度 <b>AI skills</b>、把文档编码给 agent 与人共用的结构化内容模型——他们说这在降低 token 成本、提高数千名内部 builder 的生成质量上有效。</p>
+<p>DESIGN.md 是另一条路：Google 为 Stitch 开源的 Markdown 格式，一份「品牌 + UI 模式」的便携快照。社区里它被当作治 slop 的简单药。Atlassian 的问题是：它和已有 MCP / skills 怎么并存？便携换来的代价是什么？</p>
+<div class="note"><p>读本里「平均脸」已出现多次（No.01 分布收敛、No.29 on-distribution）。本篇贡献的是组织级证据：同一内容管线喂三种投递方式（全量 md / 按需 MCP / skill 分包），成本与行为差异可以被量出来——哪怕他们强调这只是 illustrative playground，不是研究论文。</p></div>
+
+<h2>03 DESIGN.md 是什么——以及不是什么</h2>
+<p><b>是什么：</b>一份描述设计系统关键元素的便携 Markdown。前半偏机器可读，列出 design tokens；后半给人与 agent 读，写色彩、间距、布局、elevation、组件背后的设计rationale（设计理据）。</p>
+<p><b>不是什么：</b>生产环境里那份完整技术规范。它不包含现有代码库、维持标准的 linter、Figma 里的细规格。规范自己也说：捕捉的是 <b>intent（意图）</b>，不是系统全貌。</p>
+<table><tr><th>层</th><th>DESIGN.md 通常有</th><th>生产 DS 还要有</th></tr>
+<tr><td>Token / 基础</td><td>精简后的色、间距、字、elevation</td><td>完整语义 token、主题变体、暗色等</td></tr>
+<tr><td>组件</td><td>散文式外观与用法摘要</td><td>可 import 的包、API、无障碍、测试</td></tr>
+<tr><td>治理</td><td>几乎没有</td><td>lint、类型检查、评审、版本发布</td></tr>
+<tr><td>投递</td><td>每次 prompt 全量塞进上下文</td><td>MCP 工具按组件 / 图标按需取</td></tr></table>
+
+<h2>04 他们怎么造出自己的那份文件</h2>
+<p>不是手写一份「感觉像 Atlassian」的散文。他们用驱动 MCP 与 agent skills 的同一条结构化内容管线生成 DESIGN.md，再在常见 vibe coding 工具里试，针对现有指导没盖住的常见错误收紧措辞。也就是说：文件质量上限，仍取决于你是否已有可复用的内容模型——便携格式本身不会凭空造出系统。</p>
+<blockquote>DESIGN.md’s spec frames the format as capturing the intent, rather than the full details of a system. — Atlassian How We Build（大意：规格把该格式框定为捕捉意图，而非系统全貌）</blockquote>
+
+<h2>05 Team ’26：一次性原型里它真的管用</h2>
+<p>Team ’26 主题演讲有一段：用 Figma Make + Teamwork Graph 生成自定义仪表盘。要求一眼像 Atlassian，又不能依赖内部 MCP。这正是 DESIGN.md 的舞台。</p>
+<p>结果：相当不错。同一台上 prompt，有文件 vs 无文件——有文件时颜色、间距、形状、字体、elevation 开始像 ADS。高层指导 + 规格，特别适合从零定制 Tailwind / shadcn 这类通用库。一枪原型（one-shot prototype）场景成立。</p>
+<div class="note"><p>若你的日常是「在 Cursor 里改已经挂着 <code>@atlaskit/button</code> 的仓库」，别被 keynote 截图带偏：那是陌生环境、无内部工具、从零拼界面。生产对照在下一节。</p></div>
+
+<h2>06 生产对照表：token、时间、轮次</h2>
+<p>生产代码库意味着：已有 token 与组件库、更严的 lint 与类型检查。在此环境下，他们发现 DESIGN.md 整体弱于已嵌入研发流程的 MCP 与 skills。简单任务（例如做登录页）时，仅用 DESIGN.md 作设计系统指导，大约多 ~92% token、更久、run 间方差约 2.7×。</p>
+<table><tr><th>Approach</th><th>可用的 DS 上下文</th><th>Avg tokens</th><th>Avg time</th><th>Avg turns</th></tr>
+<tr><td>No context</td><td>~5%</td><td>4.20M</td><td>6m 19s</td><td>43</td></tr>
+<tr><td>ADS MCP</td><td>~80%</td><td>3.75M</td><td>5m 1s</td><td>35.1</td></tr>
+<tr><td>ADS skill</td><td>~80%</td><td>4.43M</td><td>5m 23s</td><td>36</td></tr>
+<tr><td>DESIGN.md</td><td>~30%</td><td>7.21M</td><td>6m 46s</td><td>45.3</td></tr></table>
+<p>作者反复强调：这不是结论性论文；模型、prompt、系统质量、环境都会改结果。但方向一致：全量静态文件在「已有库」里又贵又容易歪。</p>
+
+<h2>07 三条硬限制：全量装载、削薄失真、鼓励重写</h2>
+<ol>
+<li><b>上下文一次全给，不能按需。</b>MCP 可 <code>ads_plan</code> 之类工具只取某一组件；上百图标与大量语义 token 用不到就不进上下文。Skills 虽没那么细，也拆成较小文件集。DESIGN.md 则每次全量——更贵、更慢，更早撞 truncation，准确度下降。</li>
+<li><b>为了短，只好丢。</b>他们给 agent 的按需指导约 2.5 MB；压成 DESIGN.md 约 80 KB ≈ 19,800 LLM tokens（去掉 frontmatter 约 10,700），在社区样本里已偏大。代价：砍掉 50+ 组件大量用法、大幅修剪 foundations、去掉低使用 token。Agent 为补洞，往往会去读组件实现——等于用探索回合买回你故意删掉的指导。</li>
+<li><b>规格暴露内部，怂恿重实现。</b>散文写清 button 的 background / text / border，不如教 agent：</li>
+</ol>
+<pre><code>import Button from '@atlaskit/button';
+&lt;Button appearance="primary" spacing="compact" /&gt;
+</code></pre>
+<p>可维护性的关键是改一处 Button、全库受益。DESIGN.md 有意不写这类代码指导，只给「如何从零再实现」的规格——测试里它更常重建 ADS 组件而不是复用。MCP / skills 更像「说明书」；再配 lint，用零 token 守住标准，形成正反馈。</p>
+<div class="note"><p>Zhu 若在个人站或小仓库：没有 MCP 时，DESIGN.md / design.md 仍是最便宜的「离平均脸」开关（与 No.03 一致）。一旦组件库稳定，下一步不是把 md 写得更长，而是加「优先 import、禁止复制样式」的 skill + 几条 lint——这正是 Atlassian 说的 abstraction 升级。</p></div>
+
+<h2>08 四类场景：便携快照真正发光的地方</h2>
+<ul>
+<li><b>高层艺术方向（high-level artistic direction）：</b>最简 DESIGN.md 只写视觉方向与感觉；若你从未文档化这些，它本身就是有用产物。Front-matter 若与代码库 token 重复，价值较低。</li>
+<li><b>陌生环境里的快速原型：</b>蓝天探索、试新工具时，不必配齐技术栈，也不必把现有组件约束全塞进模型。</li>
+<li><b>与设计工具互操作：</b>有些 AI 工具靠改预置组件来贴近你的语言——DESIGN.md 的粒度刚好。</li>
+<li><b>客户主题 / 自适应 UI：</b>报表、图表、仪表盘要「像客户品牌」时，让 admin / 品牌团队上传一份便携描述，比开放完整 DS 现实得多。</li>
+</ul>
+<p>共同点：agent 生成 UI 的环境里，现有 DS 产物不可用或不实用。</p>
+
+<h2>09 和 No.03 / No.06 / No.29 怎么排工作流</h2>
+<ol>
+<li><b>No.29 四维提示：</b>生成前的审美 brief（字体 / 色 / 动效 / 背景 + 禁令）——没有它，任何 md 都在修「空白人格」。</li>
+<li><b>No.03 Vercel design.md：</b>公开一份品牌向 md + 样式表 + eval 闭环——偏「仓库外也要像我们」。</li>
+<li><b>本篇 Atlassian：</b>同一意图的便携文件，在生产对照里输给 MCP / Skills；公开 <code>atlassian.design/DESIGN.md</code>，并反馈标准（非标准 render 属性、单独暗色变体等）。</li>
+<li><b>No.06 教 Agent 产品设计：</b>更上游的产品判断；本篇只管「视觉系统如何投递给模型」。</li>
+</ol>
+<p>建议顺序：四维 brief 立人格 → 有 MCP 用 MCP，否则挂 design.md / DESIGN.md → 组件库成熟后把「import 优先」写进 skill，并让 lint 零成本守门 → 便携文件留给跨工具与客户主题。</p>
+
+<h2>10 可粘贴：选型清单与 DESIGN.md 骨架</h2>
+<pre><code># context-routing.checklist（每次开 Agent 任务前）
+[ ] 目标环境能否挂我们的 MCP / 内部 skills？
+    → 能：禁用「整份 DESIGN.md 塞进系统提示」；改为工具按需取
+[ ] 是否已有可 import 的按钮 / 输入 / 布局包？
+    → 有：skill 里写「禁止根据散文重写组件样式」
+[ ] 是否一次性陌生工具原型 / 客户主题上传？
+    → 是：使用精简 DESIGN.md（意图 + 关键 token + 少数字体与 elevation）
+[ ] 文件是否 &gt; ~20k tokens？
+    → 是：继续砍低频 token 与组件散文；把细用法留在 MCP
+
+# DESIGN.md 最小骨架（意图层，非生产全集）
+---
+# machine-readable tokens（示例字段名，按你系统改）
+color.primary: ...
+space.scale: ...
+radius.medium: ...
+elevation.card: ...
+---
+
+## Voice / direction
+一句话气质 + 三件「绝不要」（对应 No.29 禁令）
+
+## Foundations
+Colour / Spacing / Typography / Elevation — 各用短 rationale，不贴全表
+
+## Components（仅高频 5–8 个）
+每个：用途、何时不用、关键变体名；不要写可被 import 替代的像素散文
+</code></pre>
+
+<h2>11 自查清单</h2>
+<ul>
+<li>我是在治 slop，还是在给已有组件库加第三份说明书？</li>
+<li>当前任务能否用 MCP 只取一个组件，而不是加载整份 md？</li>
+<li>Agent 输出是 <code>import Button from '…'</code>，还是又手写了一套 button CSS？</li>
+<li>为缩到 80KB 级，我删掉的用法指导，会不会逼模型去读源码补洞？</li>
+<li>lint 是否已覆盖「禁止裸 hex / 禁止复刻库内组件」——零 token 的那一层？</li>
+<li>客户主题 / 跨工具场景，是否才是 DESIGN.md 的主场，而不是 CI 里的每次生成？</li>
+<li>公开的 DESIGN.md 与内部 MCP 是否同源生成，避免两套真相？</li>
+<li>标准有分歧时（如暗色、非标准 render 属性），有没有反馈上游而不是静默分叉？</li>
+</ul>
+<div class="note"><p>一句话收束：DESIGN.md 是很好的「护照」——过境、出示身份、在陌生柜台快速被认出；它不是你家的「档案柜」。档案柜（MCP 按需抽屉 + Skills + lint）更省 token、也更准。Atlassian 选择把护照公开在 <code>atlassian.design/DESIGN.md</code>，同时告诉你：家里办事，请用抽屉。</p></div>
+</article>
+</body></html>

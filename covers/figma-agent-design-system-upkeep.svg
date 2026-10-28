@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#A03D4A">
+  <!-- 读本 cover system v1 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.31 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">SYSTEM UPKEEP</text>
+  <!-- motif: design-system library shelf; drifting pieces; agent re-shelving -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- bookshelf frame -->
+    <path d="M160 160 H780 V580 H160 Z"/>
+    <path d="M160 280 H780 M160 400 H780 M160 520 H780"/>
+    <!-- neat books / components on shelves -->
+    <path d="M190 180 H230 V265 H190 Z"/>
+    <path d="M245 190 H285 V265 H245 Z"/>
+    <path d="M300 185 H340 V265 H300 Z"/>
+    <path d="M355 195 H395 V265 H355 Z"/>
+    <path d="M410 180 H450 V265 H410 Z"/>
+    <path d="M190 300 H250 V385 H190 Z"/>
+    <path d="M265 310 H325 V385 H265 Z"/>
+    <path d="M340 295 H400 V385 H340 Z"/>
+    <path d="M415 305 H475 V385 H415 Z"/>
+    <path d="M190 420 H240 V505 H190 Z"/>
+    <path d="M255 430 H305 V505 H255 Z"/>
+    <path d="M320 415 H370 V505 H320 Z"/>
+    <!-- empty slots (gaps) -->
+    <path d="M490 200 H560 V250 H490 Z" stroke-dasharray="6 4" stroke-opacity=".45"/>
+    <path d="M520 320 H590 V370 H520 Z" stroke-dasharray="6 4" stroke-opacity=".45"/>
+    <!-- drifting / dusty pieces floating off shelf -->
+    <path d="M820 220 H900 V290 H820 Z" transform="rotate(12 860 255)" stroke-opacity=".55"/>
+    <path d="M860 340 H940 V400 H860 Z" transform="rotate(-8 900 370)" stroke-opacity=".5"/>
+    <path d="M800 460 H870 V520 H800 Z" transform="rotate(18 835 490)" stroke-opacity=".45"/>
+    <!-- dust marks -->
+    <path d="M910 200 L920 190 M930 210 L945 195" stroke-opacity=".35" stroke-width="1.2"/>
+    <path d="M950 350 L965 340 M970 370 L985 355" stroke-opacity=".35" stroke-width="1.2"/>
+    <path d="M880 500 L895 490 M900 520 L915 505" stroke-opacity=".35" stroke-width="1.2"/>
+  </g>
+  <!-- accent: agent arm + guided arrows re-shelving (repair/alignment action) -->
+  <g fill="none" stroke="#A03D4A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- agent arm from right -->
+    <path d="M1080 380 H980"/>
+    <path d="M980 380 L940 300"/>
+    <path d="M940 300 L900 280"/>
+    <!-- gripper holding a component -->
+    <path d="M870 250 H930 V310 H870 Z"/>
+    <path d="M880 265 H920 M880 285 H910"/>
+    <!-- guide arrows into empty shelf slots -->
+    <path d="M860 290 L580 225"/>
+    <path d="M595 215 L580 225 L598 235"/>
+    <path d="M900 310 L575 345"/>
+    <path d="M590 335 L575 345 L592 355"/>
+    <!-- alignment tick marks on shelf -->
+    <path d="M500 265 V275 M530 265 V275 M550 265 V275"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".5">
+    <text x="170" y="150">LIBRARY · SHELF</text>
+    <text x="820" y="180">DRIFT</text>
+    <text x="960" y="420">AGENT</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="28" fill="#1B2B26">How to lighten design system upkeep with the Figma agent</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">FIGMA</text>
+</svg>

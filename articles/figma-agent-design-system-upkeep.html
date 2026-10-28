@@ -1,0 +1,135 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>用 Figma Agent 减轻设计系统日常维护 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#F1E4E5">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 31 · AI 设计工作流 / Figma / Agent / 设计系统 / Skills</div><h1>用 Figma Agent 减轻设计系统日常维护</h1><div class="en">How to lighten design system upkeep with the Figma agent</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Wayne Lin</dd><dt>身份</dt><dd>Product Manager, Figma（前 Airbnb 等支付 / marketplace 产品负责人）</dd><dt>日期</dt><dd>2026-10-06</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/figma-agent-and-design-systems/">figma.com/blog ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/figma-agent-and-design-systems/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/figma-agent-design-system-upkeep.svg" alt="How to lighten design system upkeep with the Figma agent 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计系统维护视角重写的讲解。原文是 Figma PM Wayne Lin 写的「把 Agent 用在设计系统日常」——文档、对齐、命名、token 检查——让你把时间花在定规则，而不是伺候系统。读本已有 No.18「Got skills?」、No.19「试这 10 个 Skills」、No.22「Workflow Lab：画布上保持心流」等 Figma Agent 篇；那些偏介绍能力与心流，<b>本篇收窄到设计系统（design system）维护杠杆</b>：审计漂移、批量换件、库指南自动注入、可复用 skill。席位说明按原文：Full seat 在 Professional / Organization / Enterprise / 部分 Education；Starter 有限；Collab / Dev / View 仅草稿可用。细节与动图请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li>
+<li>为何 DS 维护总被推迟——以及 Agent 上下文从哪来</li>
+<li>自动化文档：do/don’t、变体、API 建议</li>
+<li>案例：Uber 的 /create-api 与 /create-color</li>
+<li>让产品稿重新贴库：审计与批量替换</li>
+<li>案例：Granola 把线上屏拖回 Figma 再换件</li>
+<li>给库写 guidelines：意图自动进 prompt</li>
+<li>清理：命名统一与 token 采纳检查</li>
+<li>和 No.18 / No.19 / No.22 怎么分工</li>
+<li>可粘贴：维护 skill 模板与周检清单</li>
+<li>自查清单</li>
+</ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，设计系统靠一堆「必要但好推」的活撑着：</b>命名清理、token 使用检查、过期文档、产品稿相对库的漂移（drift）。团队越快，越难看清哪里脱节。</p>
+<p><b>第二，Agent 输出质量取决于上下文，而大量上下文住在 DS 里。</b>同一套 Agent，既能帮你做维护，也能在新建时自动套用系统规则——目标是把精力留在「塑造系统」的决策，而不是「伺候系统」的劳务。</p>
+<p><b>第三，三条工作流就够上手：</b>文档（do/don’t、变体示例、handoff API 建议）→ 对齐（盘点组件/token、映射库、批量 @ 替换）→ 清理（命名收敛、token 采纳标注，并打成可复跑 skill）。</p>
+<table><tr><th>维护债</th><th>人工痛点</th><th>让 Agent 做的事</th></tr>
+<tr><td>文档落后</td><td>七个平台各写一遍规格</td><td>起草 do/don’t、变体图、API 建议；技能化 <code>/create-api</code></td></tr>
+<tr><td>稿面漂移</td><td>一屏跨多库，难追来源</td><td>盘点 + 映射；标记手搓按钮 vs <code>Button/Secondary</code></td></tr>
+<tr><td>命名分裂</td><td>hover / hovered / mouse-over</td><td>清单 → 决议 → 全库应用 → 留下代码对照表</td></tr>
+<tr><td>Token 未采纳</td><td>8px 写死 vs 共享 spacing</td><td>检查采纳、标注使用；打成定期 skill</td></tr></table>
+
+<h2>02 为何 DS 维护总被推迟——以及 Agent 上下文从哪来</h2>
+<p>Wayne 开篇定调：每套设计系统都依赖那些「该做但容易拖」的维护。产品节奏一快，漂移就静默发生。与此同时，开发侧越来越多用 agentic coding 工具——设计文件的结构与清晰度，直接变成对面生成质量的输入。Agent 只有拿到好上下文才靠谱；而「好上下文」很大一块，就是你的 DS：组件意图、token、命名约定、库指南。</p>
+<p>因此这篇不是「又一个画按钮的 Agent 演示」，而是：把维护从你的待办里挪走，并在创建时自动贴规则。</p>
+<div class="note"><p>若你只把 Agent 当「更快画一屏」，却从不治理库：短期出活，长期是在加速制造漂移。本篇的杠杆顺序是反的——先让库可被 Agent 读懂，再让 Agent 帮你守库。</p></div>
+
+<h2>03 自动化文档：do/don’t、变体、API 建议</h2>
+<p>文档服务多角色：设计师选对组件，开发要 handoff 细节。核心是说清「系统打算怎么被用」，才能一致、才有质量线。组件行为一旦定稿，文档却最容易掉队——这时让 Agent 起草，而不是从空白页手写。</p>
+<p>原文建议你这样下指令：</p>
+<ul>
+<li>写清组件的 do’s / don’ts</li>
+<li>用视觉示例展示不同 variants、properties、configurations</li>
+<li>为 handoff 建议组件 API：例如把多个 boolean 收成 enum、去掉不必要的 hover 状态、把埋在子层的属性提升上来</li>
+</ul>
+<p>注意第三点：这已经不只是「写说明」，而是在推你做 API 设计决策——Agent 提出合并建议，人拍板，再写回库。</p>
+
+<h2>04 案例：Uber 的 /create-api 与 /create-color</h2>
+<p>Uber 产品设计师 Ian Guisard 用 Agent + 自建 skills，覆盖七个平台的组件文档。设计师跑 <code>/create-api</code>，得到清晰、面向开发的组件工作方式描述；跑 <code>/create-color</code>，得到色规格：各变体 / 状态下每一部分用了哪个 design token。开发少翻文件、少来回问；团队把时间从「逐份改规格」挪到「改进系统本身」。</p>
+<blockquote>Output from an agent is only as good as the context it’s given — Wayne Lin / Figma Blog（大意：Agent 输出只与它所获上下文一样好）</blockquote>
+<div class="note"><p>和读本 No.18 / No.19 的衔接：skills 不是玩具斜杠命令，而是「把一次成功的文档流程冻成可复跑资产」。七个平台若各写各的 prompt，必然再度漂移；冻成 <code>/create-api</code> 才是系统级动作。</p></div>
+
+<h2>05 让产品稿重新贴库：审计与批量替换</h2>
+<p>产品建设越快，越难看清哪里脱节。Agent 的价值是：找缝，并在缝变大之前换回当前组件与 token。</p>
+<p><b>审计（audit）时可要求：</b></p>
+<ul>
+<li>盘点一屏用到的组件与 token</li>
+<li>映射到各自所在 library</li>
+</ul>
+<p>例：结账屏上设计师手搓了「Save for later」按钮。Agent 对照库，标出它重复了系统的 <code>Button/Secondary</code>，并指出硬编码色或间距而非当前 token——设计师得以在稿往前走之前换上生产件。</p>
+<p><b>对齐（match）时可要求：</b></p>
+<ul>
+<li>在 prompt 里 @ 提到某组件 / token，做跨稿批量替换</li>
+<li>按某个 library 做 find / replace，再人工审 diff</li>
+</ul>
+<p>现有产品屏与 AI 生成稿都可能脱节；批量替换比逐个手换现实。</p>
+
+<h2>06 案例：Granola 把线上屏拖回 Figma 再换件</h2>
+<p>Granola（AI 笔记应用）产品设计师 Paavan Buddhdev 用 Figma Chrome 扩展把线上屏拉进 Figma——拉进来的按钮等与设计系统断开。他不必逐个手换：选中导入的按钮，让 Agent 换成库里对应件。这是「审计 + 匹配」的连续动作：先承认断开，再一次性贴回。</p>
+
+<h2>07 给库写 guidelines：意图自动进 prompt</h2>
+<p>把旧稿贴回库之后，下一问是：新稿如何默认就在系统上？原文答案：给已发布 library 添加 guidelines，写入意图、规则与模式。库被 attach 时，这些上下文自动带上，设计师不必每句 prompt 重申。</p>
+<table><tr><th>做法</th><th>效果</th><th>风险若缺失</th></tr>
+<tr><td>Library guidelines</td><td>意图随库自动注入</td><td>每人重写规则，口径分叉</td></tr>
+<tr><td>Skills（如 /create-api）</td><td>高频流程一键复跑</td><td>每次从聊天从头教</td></tr>
+<tr><td>仅口头约定</td><td>人记得时有效</td><td>Agent 与新人看不到</td></tr></table>
+<p>这与 Atlassian 篇的「context engine」同构：规则要住在系统投递层，而不是住在某次聊天记录里。</p>
+
+<h2>08 清理：命名统一与 token 采纳检查</h2>
+<p>小不一致堆积很快，手修烦，且侵蚀对系统的信任——建造者更愿绕开库。Agent 可接管一部分 upkeep。</p>
+<p><b>命名：</b>改一个组件容易；全库同一状态叫 <code>hover</code> / <code>hovered</code> / <code>mouse-over</code>，或 <code>small</code> / <code>sm</code>，是另一份工。还可把 <code>icon_1</code> 这类空名改成 <code>linkedin_icon</code>。流程建议：盘点 → 露出漂移名 → 人做一次命名决议 → Agent 全库应用 → <b>留下重命名记录供代码侧同步</b>。</p>
+<p><b>Token：</b>库变大后，难知每组件是否仍绑对 token。让 Agent 检查采纳率，并标注组件在用哪些 token。例：某按钮图标间距写死 <code>8 px</code>，而其余库用共享 spacing token。若要定期跑，把步骤打成 skill。</p>
+
+<h2>09 和 No.18 / No.19 / No.22 怎么分工</h2>
+<ol>
+<li><b>No.18 Got skills：</b>为何把默会知识冻成 skill——本篇的 <code>/create-api</code>、<code>/create-color</code>、token 周检都是其 DS 特化。</li>
+<li><b>No.19 十个 skills：</b>灵感清单与作者秀肌；本篇不重复罗列，只取维护向用法。</li>
+<li><b>No.22 心流 Workflow Lab：</b>画布上如何不打断思考；本篇假设你已会唤起 Agent，焦点是「维护债队列」。</li>
+<li><b>本篇：</b>文档 / 对齐 / 清理三条维护流水线 + 库 guidelines 自动注入。</li>
+</ol>
+<p>建议落地顺序：先给主库写 guidelines → 冻 1–2 个文档 skill → 对一屏做审计试点 → 再开命名与 token 周检 skill。不要一上来全库重命名。</p>
+
+<h2>10 可粘贴：维护 skill 模板与周检清单</h2>
+<pre><code># skill: /ds-audit-screen
+你是设计系统维护助手。对当前选中 Frame：
+1. 列出用到的组件与 token，并映射到 library 名
+2. 标记：手搓且视觉重复库组件的实例（给出建议替换的主组件名）
+3. 标记：硬编码色 / 间距 / 圆角（给出应使用的 token 名，若库中存在）
+4. 输出表格：问题 | 位置 | 建议动作（swap / tokenize / ignore）
+不要擅自改稿，等我确认后再批量替换。
+
+# skill: /ds-rename-pass
+输入：命名决议表（旧名 → 新名）。
+1. 在指定 library 内找出所有旧名命中
+2. 预览变更列表（组件、变体、属性、图层）
+3. 我确认后应用，并导出「旧名,新名」对照 CSV 供工程同步
+禁止发明决议表之外的新名字。
+
+# skill: /ds-token-adoption
+对指定组件集：
+1. 检查填充 / 描边 / 间距 / 圆角是否绑定 token
+2. 标注每层使用的 token；标出裸数值
+3. 若同一角色出现多种 token，列冲突
+输出可粘贴进文档的注释层建议。
+
+# 每周 30 分钟（人 + Agent）
+[ ] 抽 1 条产品主路径屏跑 /ds-audit-screen
+[ ] 合并本周新增的 handoff 问题进 /create-api 类 skill
+[ ] 若有命名决议，只跑一列（例如状态名），避免大爆炸
+[ ] 抽 5 个高频组件跑 /ds-token-adoption
+[ ] 检查主库 guidelines 是否仍与近两周产品决策一致
+</code></pre>
+
+<h2>11 自查清单</h2>
+<ul>
+<li>我是在用 Agent 画新花样，还是先让它盘点漂移？</li>
+<li>主 library 是否已写 guidelines，从而少在 prompt 里重复规则？</li>
+<li>文档 skill 是否产出开发可读的 API / token 映射，而不只是好看的说明页？</li>
+<li>审计之后，是否真的 swap 回 <code>Button/Secondary</code> 一类生产件，而不是「知道了」？</li>
+<li>批量替换有没有人工审 diff？</li>
+<li>命名清理有没有留给工程的对照表？</li>
+<li>token 检查是否打成可定期跑的 skill，而不是一年一次运动式？</li>
+<li>席位是否匹配（Full seat 等）——协作者是否只在草稿里能用 Agent？</li>
+</ul>
+<div class="note"><p>收束给 Zhu：设计系统的日常不是「再画一个主按钮」，而是让架子上的书回到正确格子。Figma Agent 适合当那只归架的手臂——文档、对齐、命名、token——前提是你先写下 guidelines 与 skill，让上下文住在库里。把定规则的时间留给自己；把重复的归架动作交给画布上的 Agent。</p></div>
+</article>
+</body></html>

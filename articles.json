@@ -612,5 +612,47 @@
     "cover": "covers/prompting-frontend-aesthetics-claude.svg",
     "accent": "#6B4A2E",
     "tint": "#EDE7E2"
+  },
+  {
+    "slug": "atlassian-design-md-portable-context",
+    "title_zh": "Atlassian 实测 DESIGN.md：便携上下文的得与失",
+    "title_en": "Atlassian’s DESIGN.md is here: what we learned testing portable design context in practice",
+    "author": "Kylor Hall、Andrew Campbell",
+    "author_role": "Principal Prompt Engineer 等（Atlassian Design System / AI 上下文）",
+    "source": "https://www.atlassian.com/blog/how-we-build/atlassians-design-md-is-here-what-we-learned-testing-portable-design-context-in-practice",
+    "date": "2026-06-15",
+    "added": "2026-10-28",
+    "tags": [
+      "DESIGN.md",
+      "MCP",
+      "Skills",
+      "便携上下文"
+    ],
+    "dek": "一份 Markdown 能治 AI 界面「平均脸」，但生产环境里 MCP 与 Skills 更省 token、也更准。",
+    "category": "提示词与 Skill",
+    "cover": "covers/atlassian-design-md-portable-context.svg",
+    "accent": "#2E6B5A",
+    "tint": "#E1EAE7"
+  },
+  {
+    "slug": "figma-agent-design-system-upkeep",
+    "title_zh": "用 Figma Agent 减轻设计系统日常维护",
+    "title_en": "How to lighten design system upkeep with the Figma agent",
+    "author": "Wayne Lin",
+    "author_role": "Product Manager, Figma（前 Airbnb 等支付/marketplace 产品负责人）",
+    "source": "https://www.figma.com/blog/figma-agent-and-design-systems/",
+    "date": "2026-10-06",
+    "added": "2026-10-28",
+    "tags": [
+      "Figma",
+      "Agent",
+      "设计系统",
+      "Skills"
+    ],
+    "dek": "文档、对齐、命名、token 检查：把重复的系统维护交给画布上的 Agent，把精力留给定规则。",
+    "category": "AI 设计工作流",
+    "cover": "covers/figma-agent-design-system-upkeep.svg",
+    "accent": "#A03D4A",
+    "tint": "#F1E4E5"
   }
 ]

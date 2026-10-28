@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#2E6B5A">
+  <!-- 读本 cover system v1 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.30 · 提示词与 Skill</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">PORTABLE CONTEXT</text>
+  <!-- motif: left = portable DESIGN.md passport sheet; right = MCP filing cabinet with drawers -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- filing cabinet (production / MCP) -->
+    <path d="M720 160 H1040 V580 H720 Z"/>
+    <path d="M720 250 H1040 M720 340 H1040 M720 430 H1040 M720 520 H1040"/>
+    <!-- drawer fronts -->
+    <path d="M740 185 H1020 V235 H740 Z"/>
+    <path d="M740 275 H1020 V325 H740 Z"/>
+    <path d="M740 365 H1020 V415 H740 Z"/>
+    <path d="M740 455 H1020 V505 H740 Z"/>
+    <!-- drawer handles -->
+    <path d="M860 205 H900 M860 295 H900 M860 385 H900 M860 475 H900"/>
+    <!-- loose prototype frame (small, left of cabinet connection) -->
+    <path d="M560 280 H680 V400 H560 Z"/>
+    <path d="M575 300 H665 M575 320 H645 M575 340 H655 M575 360 H630"/>
+  </g>
+  <!-- accent: portable markdown sheet + passport stamp (the portable snapshot) -->
+  <g fill="none" stroke="#2E6B5A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M140 180 H400 L430 210 V560 H140 Z"/>
+    <path d="M400 180 V210 H430"/>
+    <path d="M170 250 H390 M170 280 H370 M170 310 H385 M170 340 H350 M170 370 H380 M170 400 H360 M170 430 H375 M170 460 H340"/>
+    <!-- passport stamp circle -->
+    <circle cx="285" cy="500" r="38"/>
+    <circle cx="285" cy="500" r="28"/>
+    <path d="M265 490 H305 M270 510 H300"/>
+  </g>
+  <!-- accent arrows: on-demand from drawers into prototype (MCP fetch) -->
+  <g fill="none" stroke="#2E6B5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M720 210 H690 L680 340"/>
+    <path d="M668 328 L680 340 L692 328"/>
+    <path d="M720 300 H695"/>
+    <path d="M720 390 H695"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".5">
+    <text x="150" y="165">DESIGN.MD · SNAPSHOT</text>
+    <text x="735" y="150">MCP · ON DEMAND</text>
+    <text x="560" y="420">PROTOTYPE</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="#1B2B26">Atlassian’s DESIGN.md is here: portable design context</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">ATLASSIAN</text>
+</svg>

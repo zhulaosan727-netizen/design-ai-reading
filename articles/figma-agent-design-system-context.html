@@ -1,0 +1,126 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>让设计系统真正喂饱 Figma Agent · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E2E8F0">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 33 · 提示词与 Skill / Figma / Agent / 设计系统 / Guidelines / Skills</div><h1>让设计系统真正喂饱 Figma Agent</h1><div class="en">How to put your design system to work with the Figma agent</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Wayne Lin</dd><dt>身份</dt><dd>Product Manager, Figma（前 Airbnb 等支付 / marketplace 产品负责人）</dd><dt>日期</dt><dd>2026-10-22</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/how-to-put-your-design-system-to-work-with-the-figma-agent/">figma.com/blog ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/how-to-put-your-design-system-to-work-with-the-figma-agent/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/figma-agent-design-system-context.svg" alt="How to put your design system to work with the Figma agent 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按「生成时喂上下文」视角重写的讲解。原文是 Figma PM Wayne Lin 在 2026-10-22 写的续篇——如何让设计系统在 <b>prompt 时刻</b>真正被 Agent 用上：连接已发布 library、写 Guidelines、挂 Examples、冻成 Skills。读本 No.31「用 Figma Agent 减轻设计系统日常维护」同作者、偏审计 / 归架 / 命名；<b>本篇偏创建：四层上下文如何让输出长得像你们队，而不是另起一套</b>。两篇宜连读。席位：Full seat 在 Professional / Organization / Enterprise / 部分 Education；Starter 有限；Collab / Dev / View 仅草稿可用。细节请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li>
+<li>Agent 只与上下文一样好——DS 里已经有答案</li>
+<li>第一层：接上 Library（组件与 token）</li>
+<li>库质量信号：名字、变体、变量、可复用模式</li>
+<li>第二层：Guidelines——判断写进库，自动进 prompt</li>
+<li>四类上下文对照表</li>
+<li>第三层：Examples——比解释更强的「做成什么样」</li>
+<li>第四层：Skills——教一次，斜杠触发</li>
+<li>从输出学习：修画布，回写规则</li>
+<li>与 No.31 怎么分工；个人站最小配置</li>
+<li>自查清单</li>
+</ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，Figma Agent 再强，也只等于你给它的上下文。</b>上下文越具体——系统原则、当下任务——它越能做出「像你们产品」的决策，你越少花时间纠正 generic / off-brand 结果。</p>
+<p><b>第二，设计系统里其实已经有大半原料：</b>该用的组件与 token、文档化的规则、展示如何拼装的例子。难的是：在 prompt 时刻让 Agent <b>拿得到</b>。</p>
+<p><b>第三，记住四层投递：</b>Guidelines（常驻规则）→ Library examples（拼装范例）→ Add context（任务专用文件 / 画板）→ Skills（可复跑流程）。库是砖，指南是选砖规矩，例子是砌法，Skill 是工法手册。</p>
+<table><tr><th>层</th><th>住在哪</th><th>何时自动生效</th><th>最适合</th></tr>
+<tr><td>Library</td><td>已发布组件 / 变量</td><td>聊天里启用 Libraries</td><td>用对砖，而不是手搓</td></tr>
+<tr><td>Guidelines</td><td>挂在已发布库上的说明文件</td><td>库启用时自动带入</td><td>从零创建时的选用 / 例外</td></tr>
+<tr><td>Examples</td><td><code>Examples</code> 页或名尾 <code>_example</code></td><td>作为可复用范例 / 或本次附件</td><td>字段怎么分行、可选区怎么呈现</td></tr>
+<tr><td>Skills</td><td>斜杠命令</td><td>你输入 <code>/</code> 触发</td><td>审计、分析组件等重复流程</td></tr></table>
+
+<h2>02 Agent 只与上下文一样好——DS 里已经有答案</h2>
+<p>Wayne 开篇定调：Agent 像任何协作者，价值上限由你提供的信息决定。有了正确上下文，输出会看起来、用起来像你们的产品，你少纠正「平均脸」。</p>
+<p>设计系统本就囤着这些：组件、token、规则、例子。缺口不在「再写一份长 prompt」，而在 <b>access at prompt time（提示时可达）</b>。</p>
+<blockquote>Output from an agent is only as good as the context it’s given — Wayne Lin / Figma Blog（大意：Agent 输出只与它所获上下文一样好）</blockquote>
+<div class="note"><p>与 No.31 的衔接：维护篇让架子上的书回到格子；本篇让 Agent 新建时默认从正确格子取书。顺序建议：库能被读懂（名字 / 变量 / guidelines）→ 再谈生成质量。</p></div>
+
+<h2>03 第一层：接上 Library（组件与 token）</h2>
+<p>做法很具体：打开 Agent 聊天 → 在 prompt 框选 <b>Libraries</b> → 选中本项目要用的已发布库。接上之后，Agent 能识别团队批准的资产，并在输出里使用那些组件与 token。</p>
+<p>结账流例子：若你要它做一张订单摘要卡，它可以拉取库里已有的 <code>Card/OrderSummary/Default</code>、批准的按钮变体、间距与颜色变量来组装——而不是从零发明一张「自带样式」的新卡。</p>
+<p>若只要改屏上某一个资产（例如换某一个按钮），用 <b>@-mention</b> 点名组件或 token，做定向编辑。</p>
+
+<h2>04 库质量信号：名字、变体、变量、可复用模式</h2>
+<p>库对 Agent 有多有用，取决于它把行为说得多清楚：有意义的组件名、定义好的 properties / variants、应用 variables、以及展示小块如何拼成模式的可复用 pattern。这些是给 Agent 的强信号——每个资产是干什么的、该怎么动。</p>
+<table><tr><th>信号</th><th>Agent 更容易做什么</th><th>缺失时的典型翻车</th></tr>
+<tr><td>有意义命名</td><td>选对主组件</td><td>另起 <code>Frame 127</code> 风格的手搓件</td></tr>
+<tr><td>Properties / variants</td><td>在已有变体里切换</td><td>复制一层再改色</td></tr>
+<tr><td>Variables</td><td>绑间距 / 色 token</td><td>硬编码 8px / #hex</td></tr>
+<tr><td>可复用模式</td><td>按你们的组装习惯拼</td><td>组件对了，版式仍像陌生产品</td></tr></table>
+
+<h2>05 第二层：Guidelines——判断写进库，自动进 prompt</h2>
+<p>有了库，Agent 知道有哪些砖；但「何时用、有何例外」往往读不出来。<b>Guidelines</b> 是挂在已发布设计库上的书面说明文件：库一启用，它们自动进入相关 prompt，设计师不必每句重申。</p>
+<p>原文建议写进 guidelines 的内容：</p>
+<ul>
+<li>应 consistently 遵守的规则</li>
+<li>例外</li>
+<li>要避免的错误，以及改怎么做</li>
+<li>相似组件 / 变体 / 模式之间如何选择</li>
+</ul>
+<p>添加路径：打开设计库 → Library → Manage guidelines → 上传文件 → Apply changes。</p>
+<p>例子：库里同时有 primary / secondary 按钮，但结账屏「Place order」CTA 团队永远用 primary、「Back」用 secondary——把规则写进 guideline，Agent 就有具体选择依据。Guidelines 在 <b>从零创建</b>时效果最好；编辑已有设计时的一致性仍在改进中。</p>
+
+<h2>06 四类上下文对照表</h2>
+<p>Wayne 给了一个 tl;dr，值得背下来：</p>
+<table><tr><th>类型</th><th>一句话</th><th>寿命</th></tr>
+<tr><td>Guidelines</td><td>团队如何使用设计库的常驻规则</td><td>挂在库上，跨新工作复用</td></tr>
+<tr><td>Library examples</td><td>组件与模式在实践中如何拼</td><td>作为范例资产长期可发现</td></tr>
+<tr><td>Add context</td><td>与本次任务相关的文件 / 画板 / 图</td><td>单次 prompt</td></tr>
+<tr><td>Skills</td><td>你希望 Agent 重复遵循的流程</td><td>教一次，<code>/</code> 触发</td></tr></table>
+
+<h2>07 第三层：Examples——比解释更强的「做成什么样」</h2>
+<p>给 Agent 一个「应该长什么样」的例子，往往比纯文字 prompt 更有力——就像你给同事一张现成结账屏当起点。</p>
+<p><b>长期范例：</b>把完整设计发布为组件，放在名为 <code>Examples</code> 的页面上；或在名称末尾加 <code>_example</code>（大小写敏感）。若是 component set，命名 / 页位置应用到父 set，不要只改某个 variant。可参考 Material 3 Design Kit。</p>
+<p><b>本次专用：</b>点 + → Attach Figma files，选或粘贴相关设计；也可直接贴画板 / 图片，或让 Agent 把截图变成可编辑设计。</p>
+<p>航运地址表单例子：库提供字段与复选框；但「哪些字段共一行、公寓号等可选字段怎么呈现」需要例子来告诉 Agent。过去的设计范例给出分组与间距起点，它再适配本次结账体验。</p>
+<div class="note"><p><code>Examples</code> 与 <code>_example</code> 是约定，不是装饰。个人站若只有一套小组件：建一个 <code>Examples</code> 页，放 2–3 个「完整小节」（表单、空态、定价卡）当范例，比再写 500 字 prompt 管用。</p></div>
+
+<h2>08 第四层：Skills——教一次，斜杠触发</h2>
+<p>创建 skill：告诉 Agent 这个 skill 要做什么，给出步骤；可预览并在 markdown 编辑器里改。也可用 Community 技能或分享自己的。</p>
+<p>重复流程——无障碍审计、检查是否用上最新组件——不要每次重写。冻成 skill，任意聊天里用 <code>/</code> 触发。例：</p>
+<ul>
+<li><code>/design-system-audit</code>：对照库检查选中屏，标出 detached 实例、硬编码值、误用组件、无障碍缺口</li>
+<li><code>/analyze-components</code>：查重复、命名错误、与库断开的组件，并建议路径</li>
+</ul>
+<p>两者都可先 flag，再由团队决定让 Agent 执行或人自己改——与 No.31 的维护 skill 同构，只是本篇强调「生成侧也可复用同一套肌肉」。</p>
+
+<h2>09 从输出学习：修画布，回写规则</h2>
+<p>和任何 AI 协作一样，要复核。发现问题：在画布上直接让 Agent 改，或 @ 点名该用的组件 / token。若它 <b>反复犯同一错</b>，信号是：回去更新 guidelines、重访设计库、或给更好例子——而不是无限加长单次 prompt。</p>
+<pre><code># 反馈闭环（建议贴在团队 wiki）
+1. 生成 → 人审（品牌 / 选用 / a11y）
+2. 单次错误 → 画布上 @ 修正
+3. 同类错误 ≥2 次 → 写进 Guidelines 或补一个 _example
+4. 流程性错误 → 冻进 /skill，下次斜杠触发
+5. 库缺口（缺变体 / 烂命名）→ 开 DS 债，不靠 prompt 硬扛
+</code></pre>
+
+<h2>10 与 No.31 怎么分工；个人站最小配置</h2>
+<ol>
+<li><b>No.31 维护：</b>文档、审计、批量换件、命名、token 采纳——归架。</li>
+<li><b>本篇生成：</b>Libraries + Guidelines + Examples + Skills——喂饱创建。</li>
+<li><b>建议顺序：</b>主库启用 + 一页 guidelines（选用 / 例外）→ 2 个完整 Examples → 1 个 <code>/ds-audit-screen</code> skill → 再扩。</li>
+</ol>
+<pre><code># 个人站 / 小项目最小包（1 小时可起）
+[ ] 发布一个小 library（哪怕 8 个组件）
+[ ] Manage guidelines：上传 1 份 md
+    - primary CTA vs secondary
+    - 禁止另起按钮；必须用库变体
+    - 间距只允许 spacing token
+[ ] Examples 页：放「表单小节」「卡片列表」各 1
+[ ] Skill：/brand-check —— 对照库列出未用组件的手搓层
+[ ] 每次 Agent 聊天：先开 Libraries，再说话
+</code></pre>
+
+<h2>11 自查清单</h2>
+<ul>
+<li>Agent 聊天里是否已启用正确 Libraries，而不是只靠自然语言描述品牌？</li>
+<li>需要定点替换时，我有没有 @ 组件 / token，而不是「把那个按钮改红」？</li>
+<li>Guidelines 是否写了例外与「如何二选一」，而不只是赞美式原则？</li>
+<li>从零创建 vs 编辑已有——我是否接受后者仍可能要更多人工校正？</li>
+<li>Examples 是否在 <code>Examples</code> 页或正确使用 <code>_example</code>（含 set 父级）？</li>
+<li>重复流程有没有冻成 <code>/</code> skill，而不是每次粘贴长 prompt？</li>
+<li>反复错误是回写了 guidelines / 库 / 例子，还是只在单次对话里生气？</li>
+<li>席位是否匹配（Full seat 等）？协作者是否只在草稿可用 Agent？</li>
+</ul>
+<div class="note"><p>收束给 Zhu：No.31 教你归架，本篇教你喂料。Figma Agent 不会「懂你们队」，除非 library 砖块、guidelines 判断、examples 砌法、skills 工法在 prompt 时刻都在场。个人站也一样——先让小库可被启用，再谈生成像你。少纠正平均脸的时间，应来自上下文工程，而不是更长的一句「请做得有品味」。</p></div>
+</article>
+</body></html>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#3A5F8C">
+  <!-- 读本 cover system v1 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.33 · 提示词与 Skill</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">FOUR CONTEXT LAYERS</text>
+  <!-- motif: four nested/stacked context layers feeding an agent frame -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Layer 1: library bricks (bottom-most left stack) -->
+    <path d="M140 420 H280 V560 H140 Z"/>
+    <path d="M155 445 H195 V485 H155 Z"/><path d="M210 445 H250 V485 H210 Z"/>
+    <path d="M155 500 H195 V540 H155 Z"/><path d="M210 500 H250 V540 H210 Z"/>
+    <!-- Layer 2: guideline scroll -->
+    <path d="M140 280 H300 V390 H140 Z"/>
+    <path d="M160 305 H280 M160 325 H270 M160 345 H275 M160 365 H255"/>
+    <path d="M280 280 Q310 300 280 320" stroke-opacity=".55"/>
+    <!-- Layer 3: example thumbnail -->
+    <path d="M140 160 H320 V260 H140 Z"/>
+    <path d="M155 180 H230 V230 H155 Z"/>
+    <path d="M245 185 H305 M245 205 H295 M245 225 H300"/>
+    <!-- Layer 4: skill slash badge -->
+    <path d="M360 180 H480 V260 H360 Z"/>
+    <path d="M385 220 L420 200 L455 220"/>
+    <path d="M400 235 H440"/>
+    <!-- Agent canvas frame on the right -->
+    <path d="M720 180 H1040 V560 H720 Z"/>
+    <path d="M740 210 H1020 V280 H740 Z"/>
+    <path d="M740 300 H860 V420 H740 Z"/>
+    <path d="M880 300 H1020 V420 H880 Z"/>
+    <path d="M740 440 H1020 V530 H740 Z"/>
+    <path d="M755 460 H1005 M755 485 H980 M755 510 H995"/>
+  </g>
+  <!-- accent: flow arrows from four layers into agent canvas -->
+  <g fill="none" stroke="#3A5F8C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M330 210 H680"/>
+    <path d="M665 200 L680 210 L665 220"/>
+    <path d="M310 335 H560 Q620 335 680 300"/>
+    <path d="M665 290 L680 300 L668 312"/>
+    <path d="M290 490 H560 Q640 490 680 400"/>
+    <path d="M668 388 L680 400 L692 390"/>
+    <path d="M490 220 H560 Q600 240 680 250"/>
+    <path d="M665 240 L680 250 L668 262"/>
+    <!-- accent highlight on agent top bar (receiving context) -->
+    <path d="M740 210 H1020" stroke-width="3"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".5">
+    <text x="145" y="150">EXAMPLES</text>
+    <text x="145" y="270">GUIDELINES</text>
+    <text x="145" y="410">LIBRARY</text>
+    <text x="365" y="170">SKILLS /</text>
+    <text x="735" y="165">AGENT CANVAS</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="#1B2B26">How to put your design system to work with the Figma agent</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">FIGMA</text>
+</svg>

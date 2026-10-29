@@ -654,5 +654,49 @@
     "cover": "covers/figma-agent-design-system-upkeep.svg",
     "accent": "#A03D4A",
     "tint": "#F1E4E5"
+  },
+  {
+    "slug": "ai-in-design-2026-inflection",
+    "title_zh": "AI 设计 2026：拐点已至",
+    "title_en": "AI in Design 2026: The inflection point is here",
+    "author": "Robyn Park",
+    "author_role": "Designer Fund（与 Foundation Capital 联合发布 AI in Design 2026 报告）",
+    "source": "https://designerfund.com/blog/ai-in-design-2026",
+    "date": "2026-05-20",
+    "added": "2026-10-29",
+    "tags": [
+      "调研",
+      "工作流",
+      "组织",
+      "招聘",
+      "原型"
+    ],
+    "dek": "900+ 设计师调研：周使用率 91%，半数已把 AI 代码推进生产——角色在合并，政策却落后。",
+    "category": "AI 设计工作流",
+    "cover": "covers/ai-in-design-2026-inflection.svg",
+    "accent": "#C15A48",
+    "tint": "#F1E5E2"
+  },
+  {
+    "slug": "figma-agent-design-system-context",
+    "title_zh": "让设计系统真正喂饱 Figma Agent",
+    "title_en": "How to put your design system to work with the Figma agent",
+    "author": "Wayne Lin",
+    "author_role": "Product Manager, Figma（前 Airbnb 等支付 / marketplace 产品负责人）",
+    "source": "https://www.figma.com/blog/how-to-put-your-design-system-to-work-with-the-figma-agent/",
+    "date": "2026-10-22",
+    "added": "2026-10-29",
+    "tags": [
+      "Figma",
+      "Agent",
+      "设计系统",
+      "Guidelines",
+      "Skills"
+    ],
+    "dek": "库组件、Guidelines、Examples、Skills 四层上下文——Agent 才能像你们队一样选按钮，而不是另起一套。",
+    "category": "提示词与 Skill",
+    "cover": "covers/figma-agent-design-system-context.svg",
+    "accent": "#3A5F8C",
+    "tint": "#E2E8F0"
   }
 ]

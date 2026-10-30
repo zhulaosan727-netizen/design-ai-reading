@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#8C3D5A">
+  <!-- 读本 cover system v1 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.35 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">CODE CANVAS LOCKSTEP</text>
+  <!-- motif: left FigJam flow, middle bridge, right code tree -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Left: FigJam flow nodes -->
+    <path d="M100 200 H280 V270 H100 Z"/>
+    <path d="M180 270 V320"/>
+    <path d="M100 320 H280 V390 H100 Z"/>
+    <path d="M180 390 V440"/>
+    <path d="M100 440 H280 V510 H100 Z"/>
+    <path d="M120 225 H260 M120 245 H230"/>
+    <path d="M120 345 H250 M120 365 H220"/>
+    <path d="M120 465 H240 M120 485 H255"/>
+    <!-- Right: code brackets / component tree -->
+    <path d="M820 180 H1040 V560 H820 Z"/>
+    <path d="M845 220 H880 V260"/><path d="M1015 220 H980 V260"/>
+    <path d="M860 300 H1000"/>
+    <path d="M875 330 H920"/><path d="M875 355 H960"/><path d="M875 380 H940"/>
+    <path d="M860 420 H1000"/>
+    <path d="M875 450 H945"/><path d="M875 475 H970"/><path d="M875 500 H930"/>
+    <path d="M845 530 H880"/><path d="M1015 530 H980"/>
+    <!-- subtle tree lines -->
+    <path d="M890 330 V380"/><path d="M890 450 V500"/>
+  </g>
+  <!-- accent: MCP / bridge only -->
+  <g fill="none" stroke="#8C3D5A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M300 355 H500"/>
+    <path d="M485 345 L500 355 L485 365"/>
+    <path d="M520 280 H720 V430 H520 Z" stroke-width="2.5"/>
+    <path d="M540 320 H700 M540 350 H680 M540 380 H690"/>
+    <path d="M740 355 H800"/>
+    <path d="M785 345 L800 355 L785 365"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".5">
+    <text x="110" y="185">TOOLBAR</text>
+    <text x="110" y="310">MODAL</text>
+    <text x="110" y="430">TOAST</text>
+    <text x="545" y="265">MCP · BRIDGE</text>
+    <text x="835" y="165">CODE · COMPONENTS</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="#1B2B26">Workflow lab: Moving between design and code with agents</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">FIGMA</text>
+</svg>

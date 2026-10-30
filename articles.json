@@ -698,5 +698,50 @@
     "cover": "covers/figma-agent-design-system-context.svg",
     "accent": "#3A5F8C",
     "tint": "#E2E8F0"
+  },
+  {
+    "slug": "figma-agent-uber-granola-atlassian",
+    "title_zh": "Uber、Granola、Atlassian：设计师怎么用 Figma Agent",
+    "title_en": "3 ways product designers use the Figma agent for craft, speed, and creative expression",
+    "author": "Jenny Xie",
+    "author_role": "Editor, Figma（前 Figma Content Strategist；曾任 Dwell 执行编辑）",
+    "source": "https://www.figma.com/blog/3-ways-product-designers-use-the-figma-agent/",
+    "date": "2026-10-06",
+    "added": "2026-10-30",
+    "tags": [
+      "Figma",
+      "Agent",
+      "Skills",
+      "Uber",
+      "Granola",
+      "Atlassian"
+    ],
+    "dek": "文档、反馈、动效三家打法：把 Agent 嵌进已有流程，而不是另开一套工具。",
+    "category": "AI 设计工作流",
+    "cover": "covers/figma-agent-uber-granola-atlassian.svg",
+    "accent": "#5B6B2E",
+    "tint": "#E6E9E0"
+  },
+  {
+    "slug": "workflow-lab-design-code-agents",
+    "title_zh": "设计与代码之间：用 Agent 保持两边同步",
+    "title_en": "Workflow lab: Moving between design and code with agents",
+    "author": "Riccardo Erra",
+    "author_role": "Developer Advocate, Figma（工程 / 设计系统 / AI 辅助产品开发交叉方向）",
+    "source": "https://www.figma.com/blog/workflow-lab-moving-between-design-and-code-with-agents/",
+    "date": "2026-08-26",
+    "added": "2026-10-30",
+    "tags": [
+      "Figma",
+      "MCP",
+      "Code Connect",
+      "Agent",
+      "工作流"
+    ],
+    "dek": "截图喂 Agent 会跑偏；用 FigJam 流程图 + MCP + Code Connect，让第一版更接近可上线。",
+    "category": "AI 设计工作流",
+    "cover": "covers/workflow-lab-design-code-agents.svg",
+    "accent": "#8C3D5A",
+    "tint": "#F0E4E7"
   }
 ]

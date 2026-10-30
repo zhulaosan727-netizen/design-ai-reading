@@ -1,0 +1,115 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Uber、Granola、Atlassian：设计师怎么用 Figma Agent · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E6E9E0">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 34 · AI 设计工作流 / Figma / Agent / Skills / Uber / Granola / Atlassian</div><h1>Uber、Granola、Atlassian：设计师怎么用 Figma Agent</h1><div class="en">3 ways product designers use the Figma agent for craft, speed, and creative expression</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Jenny Xie</dd><dt>身份</dt><dd>Editor, Figma（前 Figma Content Strategist；曾任 Dwell 执行编辑）</dd><dt>日期</dt><dd>2026-10-06</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/3-ways-product-designers-use-the-figma-agent/">figma.com/blog ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/3-ways-product-designers-use-the-figma-agent/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/figma-agent-uber-granola-atlassian.svg" alt="3 ways product designers use the Figma agent for craft, speed, and creative expression 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按「把 Agent 嵌进已有流程」视角重写的讲解。原文是 Figma 编辑 Jenny Xie 在 2026-10-06 写的 GA 案例集——Uber 用 Skills 把组件文档压到一天下午、Granola 用连接器把会议批注直接落到画布、Atlassian 把动效变成系统能力。读本 No.31 / No.33 偏设计系统维护与四层上下文；<b>本篇偏实战：三家把 Agent 嵌进文档、反馈、动效，而不是另开一套工具</b>。席位：Full seat 在 Professional / Organization / Enterprise / 部分 Education；Starter 有限；Collab / Dev / View 仅草稿可用。细节请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li>
+<li>GA 之后 Agent 能多做什么</li>
+<li>可直接抄的 Skills 清单</li>
+<li>Uber：七平台组件文档，从「多人·数月」到「一人·下午」</li>
+<li>Granola：会议批注落画布，把时间留给用户测试</li>
+<li>Atlassian：动效从专家交接变成系统能力</li>
+<li>三家打法对照表</li>
+<li>个人站 / B 端产品怎么嵌</li>
+<li>可复制的 Skill 模板</li>
+<li>自查清单</li>
+</ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，Agent 正式 GA，质量与协作面都上去了。</b>人评 eval 对专业设计师约 60%+ 胜率；新能力包括库级 Guidelines（markdown）、跨 Figma 产品找/插上下文、在画布上跟随协作者的 Agent（multiplayer）。</p>
+<p><b>第二，三家不是「换工具」，而是把 Agent 嵌进原有流程：</b>Uber 嵌进设计系统文档与 handoff；Granola 嵌进会议反馈与组件库清理；Atlassian 嵌进动效系统与品牌表达。</p>
+<p><b>第三，Skills 是可分享的工法。</b>斜杠一次教完、社区可发；文档解剖、色 token 映射、状态展开、缓动曲线——都变成可复跑命令，而不是每次重写长 prompt。</p>
+
+<h2>02 GA 之后 Agent 能多做什么</h2>
+<p>Jenny 开篇定调：从 beta 到 GA，输出更跟得住指令、更扛得住长任务。新增三件对团队真正有用的事：</p>
+<ul>
+<li><b>Guidelines：</b>库所有者上传 markdown，告诉 Agent「红只用于 Delete，不做装饰」这类选用规矩；启用库时自动带入。</li>
+<li><b>跨产品找上下文：</b>从 FigJam sticky、Figma Slides 文案、Design frame 里找并插入到当前工作。</li>
+<li><b>跟随协作者 Agent：</b>画布上可见队友 Agent 在做什么，multiplayer 不再只是人跟人。</li>
+</ul>
+<blockquote>With the agent in Figma, skills run where the work already happens. — Ian Guisard / Uber（大意：Skills 跑在工作已经发生的地方）</blockquote>
+<div class="note"><p>与 No.33 的衔接：Guidelines 是「喂饱创建」的第二层；本篇用 Uber / Granola / Atlassian 证明——规矩 + Skills 一旦住在库和画布上，效率跃迁来自「不必切工具」，不是来自更炫的生成。</p></div>
+
+<h2>03 可直接抄的 Skills 清单</h2>
+<p>原文按场景分了三组，建议先收藏再改造成你们队命名：</p>
+<table><tr><th>场景</th><th>Skill</th><th>干什么</th></tr>
+<tr><td rowspan="5">设计系统文档</td><td><code>/create-color</code></td><td>填充 / 描边 / 阴影 / 渐变映射到 token，标硬编码</td></tr>
+<tr><td><code>/create-anatomy</code></td><td>组件与子组件解剖图</td></tr>
+<tr><td><code>/create-api</code></td><td>API 概览与配置示例</td></tr>
+<tr><td><code>/component-handoff</code></td><td>为选中组件建文档帧</td></tr>
+<tr><td><code>/analyze-components</code></td><td>审计屏上组件问题</td></tr>
+<tr><td rowspan="2">减少杂务</td><td><code>/do-try-consider</code></td><td>评论按优先级框架归类</td></tr>
+<tr><td><code>/ui-state-expander</code></td><td>屏 / 组件 / 流转成完整状态集</td></tr>
+<tr><td rowspan="3">表达与动效</td><td><code>/shader-starter</code></td><td>引导做 shader 填充 / 效果</td></tr>
+<tr><td><code>/ease-like-miggi</code></td><td>缓动换成匹配的 Mig 曲线</td></tr>
+<tr><td><code>/find-animation-opportunities</code></td><td>扫描可加动效的点并给精确值</td></tr></table>
+
+<h2>04 Uber：七平台组件文档，从「多人·数月」到「一人·下午」</h2>
+<p>Uber 设计系统要服务 <b>七个平台</b>。难点不只是做组件，而是讲清楚：一个组件可带几十种 state / variant / slot / boolean / enum——读错范围，后面全是返工。</p>
+<p>Staff PD <b>Ian Guisard</b> 与 Senior PD <b>Niloo Bakhshi</b> 的分工很清晰：Niloo 做高度视觉、细节极重的原型，把新组件愿景做出来；Ian 用 Agent + 自建 Skills 把这些视觉工作翻译成工程可读文档。<code>/create-anatomy</code> 暴露结构，<code>/create-color</code> 把颜色映射到 token 并标硬编码——工程师少挖图层，跨平台来回也少。</p>
+<p>关键结果：<b>过去要多人、数月的文档，现在一个设计师一个下午就能发布。</b>Skills 已发到 Figma Community，任何人可对自家组件跑。Ian 自己也受益：误改硬编码色时 Agent 会明确指出。</p>
+<div class="note"><p>给 Zhu 的可迁移点：个人站或 B 端小库，不必等「七平台」。先写两个 skill——<code>/anatomy-selected</code> 与 <code>/token-map-colors</code>——对主按钮 / 表单字段各跑一次，handoff 帧比口头讲「看图层」稳得多。</p></div>
+
+<h2>05 Granola：会议批注落画布，把时间留给用户测试</h2>
+<p>Granola 是 AI 笔记产品，团队小、实验文化重。PD <b>Paavan Buddhdev</b> 的核心诉求：探索时要在画布上摊开十个版本；Agent 帮他快速迭代并吸收反馈，好把精力挪到大局。</p>
+<p>打法三件套：</p>
+<ol>
+<li><b>Granola connector：</b>把会议笔记 / 转写直接拉到画布当 annotation——日常 crit 与「Taste the Soup」原型试吃会都适用。以前开会狂记 to-do，现在人能更在场。</li>
+<li><b>Chrome 扩展：</b>从线上 Granola 应用拉真实屏到画布，再让 Agent 清理与 <b>Oats</b> 组件库的连接。</li>
+<li><b>文案发散：</b>「给我 30 种这个按钮的说法」——把不想干的战术活交给 Agent。</li>
+</ol>
+<blockquote>The quicker you can get a design in front of a user, the better. — Paavan Buddhdev / Granola（大意：越快把设计放到用户面前越好）</blockquote>
+<p>一切 Agent 用法服务于同一 KPI：<b>更快把设计送到用户面前</b>。</p>
+
+<h2>06 Atlassian：动效从专家交接变成系统能力</h2>
+<p>动效是 Atlassian 品牌与体验的核心，但常常「设计了却上不了船」。小动效团队把动画插画做成可复用组件；Agent 成为这套系统的延伸。Senior PD <b>Alexandra Pereira</b> 的表述很准：把专家 handoff 变成 <b>system capability（系统能力）</b>，同时保住动效 craft。</p>
+<p>日常路径：做 onboarding modal 的设计师从库里选 animated illustration 填 slot；需要定制时，Agent 在 ADS 变量护栏内迭代 easing / duration。企业系统要的是一致性、可访问性、可实现性——与速度同等重要。</p>
+<p>案例：PD <b>Davy Fung</b> 用 Agent 做 Slack 沟通 banner / 内部落地页 header 动效——先说要什么，再问「哪里好、哪里不好」。Lead Motion <b>Maxwell Hathaway</b> 认为：更多人在已熟悉的画布上练，taste 会一起被抬高。</p>
+<div class="note"><p>动效护栏 = 变量 + 可复用组件 + Agent 迭代。个人站若只有轻动效：先冻 2–3 条 duration / easing token，再写 <code>/motion-within-tokens</code> skill，禁止 Agent 发明「看起来酷但库外」的曲线。</p></div>
+
+<h2>07 三家打法对照表</h2>
+<table><tr><th>团队</th><th>嵌进的原流程</th><th>关键杠杆</th><th>可量化结果 / 态度</th></tr>
+<tr><td>Uber</td><td>DS 文档与跨平台 handoff</td><td>Anatomy / color / API Skills + Community 发布</td><td>文档：多人·数月 → 一人·下午</td></tr>
+<tr><td>Granola</td><td>会议反馈、线上屏回流、文案发散</td><td>Connector + Chrome 扩展 + Oats 清理</td><td>会议更在场；更快送到用户</td></tr>
+<tr><td>Atlassian</td><td>动效品牌与 onboarding 表达</td><td>可复用动画组件 + ADS 变量护栏</td><td>非动效设计师也能做出 on-brand 动效</td></tr></table>
+
+<h2>08 个人站 / B 端产品怎么嵌</h2>
+<p>不要「另开一套 Agent 流程」。对照三家，选一条你已经在做的事嵌进去：</p>
+<ol>
+<li><b>你常写组件说明</b> → 学 Uber：选中主组件，跑 anatomy + token 映射，输出一帧 handoff。</li>
+<li><b>你常开设计评审</b> → 学 Granola：会议结束后把录音 / 笔记摘要贴给 Agent，要求按画板分区 annotation；或用 <code>/do-try-consider</code> 整理评论。</li>
+<li><b>你有微动效但没专人</b> → 学 Atlassian：先建 1 个可复用动效组件 + 变量护栏，再让 Agent 只在护栏内改。</li>
+</ol>
+<pre><code># 最小嵌法（本周可做）
+[ ] 启用主 library + 上传 1 页 Guidelines（选用 / 例外）
+[ ] Community 安装 /create-anatomy、/create-color（或自写精简版）
+[ ] 对「主按钮 + 表单字段」各跑一遍，生成 handoff 帧
+[ ] 下一次设计评审：评论用 /do-try-consider 归类
+[ ] 若有动效：冻 duration/easing token，禁止库外曲线
+</code></pre>
+
+<h2>09 可复制的 Skill 模板</h2>
+<pre><code># /handoff-anatomy-tokens（建议冻成 skill）
+目标：为当前选中组件生成开发可读文档帧。
+步骤：
+1. 画 anatomy：标出 subcomponents / slots / 关键 variants
+2. 列出所有颜色 / 阴影 / 描边，映射到设计 token；硬编码标红
+3. 输出简短 API：props 名、默认值、禁用态注意点
+4. 不要发明库外组件；缺变体时列「需 DS 补齐」清单
+输出：同一页新建「Handoff / &lt;ComponentName&gt;」帧
+</code></pre>
+
+<h2>10 自查清单</h2>
+<ul>
+<li>Agent 是否跑在「工作已经发生」的文件里，而不是另开沙盒再复制？</li>
+<li>重复文档 / 审计有没有冻成 <code>/</code> skill，并考虑发 Community 或队内共享？</li>
+<li>Guidelines 是否写了例外（何时用红、何时不用），而不只是原则口号？</li>
+<li>会议反馈是落在画布 annotation，还是仍散落在聊天软件？</li>
+<li>动效迭代是否绑在 DS 变量上，而不是每次自由发挥 easing？</li>
+<li>席位是否匹配（Full seat 等）？协作者是否只在草稿可用 Agent？</li>
+</ul>
+<div class="note"><p>收束给 Zhu：三家共同点不是「更会写 prompt」，而是 <b>Agent 住在原流程里</b>——文档、反馈、动效各自嵌一刀。个人站同样：先选一个每周都在痛的环节（handoff 帧 / 评审整理 / 轻动效），冻成 skill + guidelines，再谈「创意表达」。craft、speed、expression 是同一条链上的三个出口。</p></div>
+</article>
+</body></html>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#5B6B2E">
+  <!-- 读本 cover system v1 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.34 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">CRAFT SPEED EXPRESSION</text>
+  <!-- motif: three vertical lanes feeding one shared Figma canvas -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Lane 1: documentation anatomy -->
+    <path d="M100 160 H280 V560 H100 Z"/>
+    <path d="M120 190 H260 V280 H120 Z"/>
+    <path d="M135 210 H180 V250 H135 Z"/><path d="M195 210 H245 V250 H195 Z"/>
+    <path d="M120 300 H260"/><path d="M120 325 H240"/><path d="M120 350 H250"/><path d="M120 375 H230"/>
+    <path d="M120 410 H200 V480 H120 Z"/><path d="M215 410 H260 V480 H215 Z"/>
+    <path d="M130 500 H250 M130 520 H235"/>
+    <!-- Lane 2: meeting annotations -->
+    <path d="M320 160 H500 V560 H320 Z"/>
+    <path d="M340 200 H480 V300 H340 Z"/>
+    <path d="M355 220 H420 M355 240 H465 M355 260 H440 M355 280 H455"/>
+    <path d="M360 340 H420 V380 H360 Z"/><path d="M430 355 H470"/>
+    <path d="M360 410 H420 V450 H360 Z"/><path d="M430 425 H465"/>
+    <path d="M360 480 H420 V520 H360 Z"/><path d="M430 495 H455"/>
+    <!-- Lane 3: motion curves -->
+    <path d="M540 160 H720 V560 H540 Z"/>
+    <path d="M560 220 C590 180 640 180 670 220 C700 260 650 300 620 340 C590 380 610 420 660 460 C690 485 680 520 650 540"/>
+    <path d="M575 250 C610 230 640 250 655 280"/>
+    <path d="M580 380 C610 360 640 390 655 420"/>
+    <path d="M565 500 H700"/>
+    <!-- Shared Figma canvas frame on the right -->
+    <path d="M820 200 H1080 V520 H820 Z"/>
+    <path d="M840 230 H1060 V300 H840 Z"/>
+    <path d="M840 320 H930 V420 H840 Z"/>
+    <path d="M950 320 H1060 V420 H950 Z"/>
+    <path d="M840 440 H1060 V490 H840 Z"/>
+  </g>
+  <!-- accent: converging arrows + shared frame border -->
+  <g fill="none" stroke="#5B6B2E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M280 360 H780"/>
+    <path d="M765 350 L780 360 L765 370"/>
+    <path d="M500 360 H780"/>
+    <path d="M720 360 H780"/>
+    <path d="M820 200 H1080 V520 H820 Z" stroke-width="2.5"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".5">
+    <text x="110" y="145">DOCS · UBER</text>
+    <text x="330" y="145">NOTES · GRANOLA</text>
+    <text x="550" y="145">MOTION · ATLASSIAN</text>
+    <text x="835" y="185">SHARED CANVAS</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="#1B2B26">3 ways product designers use the Figma agent</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">FIGMA</text>
+</svg>

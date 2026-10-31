@@ -1,0 +1,110 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>如何设计可介入的 Agentic 工作工具 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E1EAE9">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 36 · AI 设计工作流 / Google Cloud / Gemini Enterprise / Agentic UX / 信任 / 协作 / Figma</div><h1>如何设计可介入的 Agentic 工作工具</h1><div class="en">How to design agentic tools for work</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Sheta Chatterjee（访谈）/ Jenny Xie（撰文）</dd><dt>身份</dt><dd>Senior Director, Head of UX and Design, Google Cloud AI（受访者）；Editor, Figma（撰文）</dd><dt>日期</dt><dd>2026-04-29</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/how-to-design-agentic-tools-for-work/">figma.com/blog ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/how-to-design-agentic-tools-for-work/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/design-agentic-tools-for-work.svg" alt="How to design agentic tools for work 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按「目标在用户手里、AI 可介入」视角重写的讲解。原文是 Figma Editor Jenny Xie 访谈 Google Cloud AI UX 负责人 Sheta Chatterjee——Gemini Enterprise 如何把多 Agent、多工具、高风险的企业协作，做成既亲近又可信的体验。读本里多篇偏「画布内 Agent / vibe coding」；<b>本篇偏企业 Agentic UX：编排仪表盘、共享项目、设计性摩擦、治理 harness</b>。细节请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li>
+<li>指导原则：盯目标，而不是盯 AI；且随时可介入</li>
+<li>品牌连续与企业差分：connectors 前置</li>
+<li>越过 prompt box：AI Inbox 作为编排仪表盘</li>
+<li>Collaborative Projects：AI 当队友，每次请求可归因</li>
+<li>主动但不打扰的 nudges</li>
+<li>透明与设计性摩擦：计划暂停 + 引用来源</li>
+<li>Agent Designer 的 harness：数据、工具、许可</li>
+<li>设计过程：Figma 单一真相源 vs vibe coding</li>
+<li>收束：类命令行前夜，craft 与 taste 更贵</li>
+<li>对照表与自查清单</li>
+</ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，企业 Agentic 体验的北极星不是「AI 有多能干」，而是「用户始终盯着自己的业务目标」。</b>同时必须让人看见：自己可以随时介入——因为手里是敏感数据与真实商业结果。</p>
+<p><b>第二，工作从单次命令走向编排（orchestration）。</b>Gemini Enterprise 用 AI Inbox 当活的仪表盘（agents 在忙什么 / 已完成 / 需要你出手），用 Collaborative Projects 把 AI 放进持久共享空间当队友，而不是各开各的私聊线程。</p>
+<p><b>第三，信任靠「设计性摩擦 + 治理 harness」。</b>行动前故意停一下讲清计划；回答永远带 source citations；自定义 Agent 时用 harness 规定能碰什么数据、用什么工具、何时必须问许可。造得太容易的时代，clarity / IA / trust / polish 反而更决定谁会被真正用起来。</p>
+
+<h2>02 指导原则：盯目标，而不是盯 AI；且随时可介入</h2>
+<p>Sheta 把原则说得很硬：用户的注意力应永远在自己的 goal 上，而不是在「管理 AI」上。与此同时，必须清楚标明用户可以 intervene——企业场景里信息敏感、决策后果真实，不能做成黑箱自动驾驶。</p>
+<blockquote>Our guiding principle is that the user’s focus should always be on their goal, not on managing AI. … it’s crucial to make clear that the user can intervene. — Sheta Chatterjee</blockquote>
+<p>这组张力决定了后面所有表面：chat、视觉仪表盘、自定义 Agent builder、共享项目空间——每一处都在「亲近可用」与「可控可信」之间找平衡。</p>
+<div class="note"><p>Zhu 做个人站或小 B 端 AI 工具时，先问两句：用户打开产品是为了完成哪件事？界面有没有把他们拖进「调 Agent / 清队列 / 看日志」？若答案是后者，原则已经破了。</p></div>
+
+<h2>03 品牌连续与企业差分：connectors 前置</h2>
+<p>Gemini Enterprise 建立在消费端 Gemini 之上。高层要求「感觉是同一个品牌」：sparkle 图标、引导性渐变、圆角形、有意的动效，把两端拴在一起。差分发生在功能层——尤其是 <b>connectors 前置</b>：prompt box 形态与消费端一致，但企业版更早、更显眼地露出与 Workspace、Jira、Notion 等业务工具的连接，好让助手拿到对的上下文。</p>
+<table><tr><th>层</th><th>消费端 Gemini</th><th>Gemini Enterprise</th></tr>
+<tr><td>视觉语言</td><td>sparkle / 渐变 / 圆角 / 动效</td><td>同一套，保持品牌连续</td></tr>
+<tr><td>Prompt box</td><td>单人、轻上下文</td><td>形态连续，但 connectors 前置</td></tr>
+<tr><td>工作单元</td><td>对话线程为主</td><td>编排：Inbox + 共享项目</td></tr>
+<tr><td>信任叙事</td><td>实时叙述「在做什么」</td><td>更细粒度的 thinking state + 计划暂停</td></tr>
+<tr><td>治理</td><td>相对轻</td><td>Agent Designer harness（数据 / 工具 / 许可）</td></tr></table>
+
+<h2>04 越过 prompt box：AI Inbox 作为编排仪表盘</h2>
+<p>团队明确：未来的工作不只是单次命令，而是 orchestration——多工具、多数据源、多 Agent 委派复杂任务。于是出现 <b>AI Inbox</b>：活的仪表盘，一眼看见 agents 正在做啥、什么完成了、哪里卡着等你介入。例如「明早要交的市场分析已就绪，待你审」。视觉工作流更像团队 check-in，而不是来回的 chat thread。</p>
+<pre><code># AI Inbox 三种格子（设计时先画清）
+[进行中]  Agent 还在跑 · 可打开看进度 / 取消
+[已完成]  产物就绪 · 主 CTA = 审阅 / 采用
+[需介入]  权限 / 歧义 / 高风险 · 主 CTA = 决策或改计划
+</code></pre>
+<div class="note"><p>个人工具也可缩小版 Inbox：别把所有 Agent 输出塞进一条时间线。用三态列表，把「需要你动手」抬到第一屏——这就是「可介入」的界面化。</p></div>
+
+<h2>05 Collaborative Projects：AI 当队友，每次请求可归因</h2>
+<p>Sheta 最自豪的决定之一：从个人 chat 线程，迁到 <b>持久共享项目空间</b>——AI 像另一名队员，执行任务、总结讨论、调出项目文件。空间全员可见、可引用；每一次对 Agent 的请求都归因到具体队员。这对问责与理解「Agent 为何这么做」至关重要。</p>
+<p>AI 常驻协作空间，还能填补知识断层：工程师上传技术规格后，设计师不必自己翻文档，可以直接问助手。工作最大的病是 silos；AI 在此扮演 single source of truth，把生产力工具抬成 <b>team intelligence amplifier</b>。协作里还能进 Canvas Mode 生成与编辑文档。</p>
+<blockquote>It’s this natural way of integrating AI that elevates it from a productivity tool to a team intelligence amplifier. — Sheta Chatterjee</blockquote>
+<table><tr><th></th><th>Solo chat 线程</th><th>Collaborative Project</th></tr>
+<tr><td>可见性</td><td>多半私有</td><td>团队共享、可引用</td></tr>
+<tr><td>归因</td><td>难追溯谁让 AI 做了什么</td><td>每次请求归到人</td></tr>
+<tr><td>知识</td><td>易形成个人上下文孤岛</td><td>填补 silos，成团队真相源</td></tr>
+<tr><td>AI 角色</td><td>个人助手</td><td>队友（执行 / 总结 / 取文件）</td></tr>
+<tr><td>产物</td><td>散落在对话里</td><td>Canvas Mode 等可编辑文档</td></tr></table>
+
+<h2>06 主动但不打扰的 nudges</h2>
+<p>真正 agentic 的系统要能 anticipate。团队在试非侵入式 nudges：例如「项目截止日期临近，要我起草状态更新吗？」或在聊天里「举手」表示有话要说。目标是 magical 而非打断；同时把无缝工具集成当作设计支柱，好让 AI 真正懂你的工作世界。</p>
+<pre><code># nudge 设计三问（过不了就别弹）
+1. 是否绑定真实上下文？（截止日 / 未读反馈 / 卡住的 Agent）
+2. 默认动作是建议，还是擅自执行？
+3. 忽略成本是否接近零？（易关掉、不占主流程）
+</code></pre>
+
+<h2>07 透明与设计性摩擦：计划暂停 + 引用来源</h2>
+<p>企业用户要把敏感信息交给 AI，控制感应写进交互，而不是写进政策 PDF。消费端会实时叙述「在做什么」；企业版把 thinking state 做得更细。例如让 Agent 跟踪一次上线健康度：它先陈述意图计划——理解项目、拆 SurveyMonkey 反馈、分析 Jira 支持工单、起草要点备忘——这是一次 <b>deliberate pause / designed friction</b>，确保用户仍是最终权威。回答里永远 bake 进 source citations。</p>
+<div class="note"><p>这与读本下一篇 Emil 的「Friction as a Feature」是同构的：不是为慢而慢，而是在高风险决策前留一个迫使判断的停顿。Google 把它产品化成「计划暂停」；Emil 把它抬到品味与造物门槛。</p></div>
+
+<h2>08 Agent Designer 的 harness：数据、工具、许可</h2>
+<p>创建自定义 Agent 时，Agent Designer 让你定义 <b>harness</b>——治理层：Agent 能访问哪些数据、能用哪些工具、何时必须停下请求许可。安全与逻辑直接交到用户手里，而不是事后审计才发现越权。</p>
+<table><tr><th>Harness 字段</th><th>要回答的问题</th><th>界面暗示</th></tr>
+<tr><td>Data access</td><td>能读哪些源 / 文件夹 / 工单？</td><td>白名单式选择，默认最小权限</td></tr>
+<tr><td>Tools</td><td>能调哪些 API / 连接器？</td><td>按任务勾选，危险工具单独标</td></tr>
+<tr><td>Ask permission when</td><td>哪些动作必须停下来问人？</td><td>写入、外发、删改设为默认询问</td></tr>
+<tr><td>Narration level</td><td>thinking state 细到哪一层？</td><td>企业默认更细，可折叠</td></tr>
+<tr><td>Citations</td><td>是否强制带来源？</td><td>企业默认开，不可关</td></tr></table>
+
+<h2>09 设计过程：Figma 单一真相源 vs vibe coding</h2>
+<p>从最早概念到上线，Figma 是 single source of truth。前端用 FigJam 映射用户目标、旅程、投票；再进入高保真。改动要考虑如何 cascade、如何 scale——旅程才刚开始。在这个规模下，在 Figma 里建设、文档化、维护设计系统至关重要：能 refinement 细节、管理复杂状态，这是 vibe coding 够不到的深度。有了单一真相源，也能与消费端团队交叉对照，让一侧成功的实验反映到另一侧。</p>
+
+<h2>10 收束：类命令行前夜，craft 与 taste 更贵</h2>
+<p>Sheta 把当下比作 GUI 出现前的命令行时代：clarity、信息架构、信任、视觉 polish——这些原则没消失。人们造得极快，但决定「用户会不会真用」的，仍是细节。Agent / orchestration 术语吓人，终端用户只想把活干完；设计师的长项正是让复杂事感觉简单、人性、愉悦。快速原型时代，造出「不一定对」的东西太容易——<b>craft 与 taste 比以往任何时候都重要</b>。</p>
+
+<h2>11 对照表与自查清单</h2>
+<pre><code># Zhu 设计 AI 产品 / 个人工具清单
+[ ] 首屏是否服务「用户目标」，而不是「Agent 状态面板」？
+[ ] 敏感 / 不可逆动作前，有没有计划暂停（intended plan）？
+[ ] 回答是否默认带来源引用（source citations）？
+[ ] 多 Agent 是否有 Inbox 三态：进行中 / 完成 / 需介入？
+[ ] 协作场景：请求是否可归因到人？空间是否共享持久？
+[ ] Nudge 是否绑定真实上下文，且忽略成本接近零？
+[ ] 自定义 Agent 有无 harness：数据 / 工具 / 何时询问？
+[ ] 复杂状态是否在设计系统里管，而不是只靠 vibe coding？
+[ ] 与消费端 / 其他表面是否共享单一真相源（Figma）？
+[ ] 上线前做一次「taste pass」：快不等于对
+</code></pre>
+<ul>
+<li>用户打开产品后 10 秒，注意力在业务目标还是在「管 AI」？</li>
+<li>需要介入时，入口是否比「翻聊天记录」更短？</li>
+<li>企业差分是否落在 connectors / 治理 / 协作，而不是另画一套皮？</li>
+<li>设计性摩擦用在高风险节点，还是散落成处处确认框？</li>
+<li>造得快的原型，有没有经过 craft / taste 筛选再推生产？</li>
+</ul>
+<div class="note"><p>收束给 Zhu：Gemini Enterprise 的课不是「多做几个 Agent」，而是把原则钉死——<b>目标在用户手里、AI 可介入</b>；再用 Inbox 编排、共享项目归因、计划暂停与 harness 把信任做成可点的交互。个人站同样适用：先设计「何时停、何时问、何时归因」，再谈生成速度。快，应该来自编排清晰，而不是来自拿掉所有判断。</p></div>
+</article>
+</body></html>

@@ -743,5 +743,50 @@
     "cover": "covers/workflow-lab-design-code-agents.svg",
     "accent": "#8C3D5A",
     "tint": "#F0E4E7"
+  },
+  {
+    "slug": "design-agentic-tools-for-work",
+    "title_zh": "如何设计可介入的 Agentic 工作工具",
+    "title_en": "How to design agentic tools for work",
+    "author": "Sheta Chatterjee（访谈）/ Jenny Xie（撰文）",
+    "author_role": "Senior Director, Head of UX and Design, Google Cloud AI（受访者）；Editor, Figma（撰文）",
+    "source": "https://www.figma.com/blog/how-to-design-agentic-tools-for-work/",
+    "date": "2026-04-29",
+    "added": "2026-10-31",
+    "tags": [
+      "Google Cloud",
+      "Gemini Enterprise",
+      "Agentic UX",
+      "信任",
+      "协作",
+      "Figma"
+    ],
+    "dek": "目标在用户手里、AI 可介入：Google Cloud UX 如何设计 Gemini Enterprise。",
+    "category": "AI 设计工作流",
+    "cover": "covers/design-agentic-tools-for-work.svg",
+    "accent": "#2F6B6A",
+    "tint": "#E1EAE9"
+  },
+  {
+    "slug": "friction-as-a-feature",
+    "title_zh": "摩擦是功能：AI 时代为什么还要故意变慢",
+    "title_en": "Friction as a Feature",
+    "author": "Emil Kowalski",
+    "author_role": "Independent designer / UI craft writer（animations, interaction craft；知名独立设计师）",
+    "source": "https://emilkowal.ski/ui/friction-as-a-feature",
+    "date": "2026",
+    "added": "2026-10-31",
+    "tags": [
+      "Friction",
+      "品味",
+      "判断",
+      "Vibe coding",
+      "克制"
+    ],
+    "dek": "造物成本归零后，故意留下的摩擦才是品味的筛子。",
+    "category": "独特审美",
+    "cover": "covers/friction-as-a-feature.svg",
+    "accent": "#B05A2A",
+    "tint": "#F0E5E0"
   }
 ]

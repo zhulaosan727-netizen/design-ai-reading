@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#2F6B6A">
+  <!-- 读本 cover system v1 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.36 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">GOAL NOT MANAGING AI</text>
+  <!-- motif: shared project space + AI Inbox dashboard + intervening hand/pause -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Shared project board (left) -->
+    <path d="M90 180 H420 V560 H90 Z"/>
+    <path d="M90 230 H420"/>
+    <circle cx="125" cy="205" r="10"/>
+    <circle cx="155" cy="205" r="10"/>
+    <circle cx="185" cy="205" r="10"/>
+    <path d="M220 200 H380"/>
+    <!-- chat / attribution lines -->
+    <path d="M120 270 H300"/>
+    <path d="M120 300 H360"/>
+    <path d="M120 330 H280"/>
+    <path d="M120 380 H340"/>
+    <path d="M120 410 H300"/>
+    <!-- canvas mode panel -->
+    <path d="M120 450 H380 V530 H120 Z"/>
+    <path d="M140 475 H360 M140 500 H320"/>
+    <!-- AI Inbox dashboard (right) -->
+    <path d="M700 180 H1060 V560 H700 Z"/>
+    <path d="M700 230 H1060"/>
+    <path d="M730 205 H900"/>
+    <!-- three status rows -->
+    <path d="M730 270 H1030 V330 H730 Z"/>
+    <path d="M730 360 H1030 V420 H730 Z"/>
+    <path d="M730 450 H1030 V510 H730 Z"/>
+    <path d="M750 290 H920 M750 310 H860"/>
+    <path d="M750 380 H900 M750 400 H840"/>
+    <path d="M750 470 H910 M750 490 H870"/>
+    <!-- status dots -->
+    <circle cx="1000" cy="300" r="8"/>
+    <circle cx="1000" cy="390" r="8"/>
+  </g>
+  <!-- accent: intervening pause / hand on inbox item needing intervention -->
+  <g fill="none" stroke="#2F6B6A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- raised hand / pause gesture over third row -->
+    <path d="M1000 480 V510" stroke-width="2.6"/>
+    <path d="M988 490 H1012" stroke-width="2.6"/>
+    <!-- pause bars (designed friction) -->
+    <path d="M480 340 H620" stroke-width="2.2"/>
+    <path d="M605 328 L620 340 L605 352"/>
+    <path d="M530 300 V380 M560 300 V380" stroke-width="3"/>
+    <!-- intervening hand outline -->
+    <path d="M500 420 C510 400 540 395 555 415 C560 400 575 400 580 415 C590 405 605 415 600 435 C620 440 615 470 590 475 L510 475 C490 470 485 440 500 420 Z" stroke-width="2.2"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".5">
+    <text x="220" y="208">PROJECT</text>
+    <text x="730" y="208">AI INBOX</text>
+    <text x="510" y="290">PAUSE</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="#1B2B26">How to design agentic tools for work</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">FIGMA</text>
+</svg>

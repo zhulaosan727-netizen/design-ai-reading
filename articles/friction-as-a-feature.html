@@ -1,0 +1,95 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>摩擦是功能：AI 时代为什么还要故意变慢 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#F0E5E0">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 37 · 独特审美 / Friction / 品味 / 判断 / Vibe coding / 克制</div><h1>摩擦是功能：AI 时代为什么还要故意变慢</h1><div class="en">Friction as a Feature</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Emil Kowalski</dd><dt>身份</dt><dd>Independent designer / UI craft writer（animations, interaction craft；知名独立设计师）</dd><dt>日期</dt><dd>2026</dd><dt>原文</dt><dd><a href="https://emilkowal.ski/ui/friction-as-a-feature">emilkowal.ski ↗</a></dd></dl><a class="readorig" href="https://emilkowal.ski/ui/friction-as-a-feature" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/friction-as-a-feature.svg" alt="Friction as a Feature 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按「故意留下的摩擦 = 品味筛子」视角重写并扩写的讲解。原文是 Emil Kowalski 的短文——造物成本被 AI 抹平之后，为什么我们仍需要 friction。读本 No.36（Google Cloud / Gemini Enterprise）把「计划暂停」写成产品里的 designed friction；<b>本篇把它抬到审美与造物伦理：没有摩擦，只剩空洞输出</b>。短文本身极简，下文用对照表、个人站清单与跨篇对照把它讲透。细节请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li>
+<li>摩擦一向被视为敌人——大多时候也对</li>
+<li>摩擦的第二份工作：逼你先想清楚再造</li>
+<li>AI 抹掉成本之后：值得造的门槛塌了</li>
+<li>便宜的建造可以是思考——前提是你真的验证</li>
+<li>为什么人们讨厌 vibe-coded 的东西</li>
+<li>去掉摩擦之后只剩输出：空洞、无质感</li>
+<li>结论：摩擦是功能，不是 bug</li>
+<li>与 Google「计划暂停」的同构对照</li>
+<li>Zhu 的加摩清单与自查</li>
+</ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，去掉无用摩擦仍然正确</b>——产品吹「frictionless」、整家公司靠去摩吃饭，大方向没问题。</p>
+<p><b>第二，摩擦曾悄悄干着另一件事：在动手之前逼你判断。</b>写代码贵的时候，成本本身抬高了「哪些想法配活到被造出来」的门槛；AI 把成本抹平，门槛跟着塌。</p>
+<p><b>第三，我们仍需要故意留下的摩擦</b>——它强迫使用 judgment，滤掉不配被造的点子。Feature，不是 bug。对 Zhu：在 review gate、开写前的准则、taste pass 上加摩，比再快一轮生成更值钱。</p>
+
+<h2>02 摩擦一向被视为敌人——大多时候也对</h2>
+<p>我们把 friction 当坏事：让人慢、低效、一团糟。产品拿「去除摩擦」当卖点；整家公司的存在意义就是「frictionless」。Emil 承认：<b>大多时候，这是对的</b>。结账多一步、设置里藏关键开关、加载无意义的等待——这些该砍。</p>
+<p>问题不在「去摩」本身，而在把摩擦当成绝对的恶之后，连它曾承担的筛选功能一并扔掉。</p>
+
+<h2>03 摩擦的第二份工作：逼你先想清楚再造</h2>
+<p>AI 之前，写代码贵。建造成本抬高了门槛：哪些想法能活到被真正造出来。你必须挑剔，因为努力本身逼你决定什么值得做。摩擦不是拖后腿的沙子，而是一道筛：浅的点子在动手前就死了，活下来的至少经过一轮「值不值得」。</p>
+<pre><code># 前 AI 时代的隐性门槛（成本 ≈ 摩擦）
+想法 → 估工时 / 怕返工 → 放弃 or 精炼 → 动手 → 上线
+         ↑
+    这里已经滤掉大半「只是一时兴起」
+</code></pre>
+
+<h2>04 AI 抹掉成本之后：值得造的门槛塌了</h2>
+<p>AI 去掉了那份成本。一个想法可以在几分钟内变成应用。于是「什么值得造」的 bar 大幅降低。不是模型变蠢了，是筛选器坏了：以前靠贵活下来的判断，现在没有自然发生的地方。</p>
+<div class="note"><p>Zhu 用 Cursor / Claude 搭个人站时最容易踩的坑：周六下午连出三版定价页，周一全推上线「让数据说话」——其实没有判断，只有产量。门槛塌了，责任转到你自己身上：要么加回摩擦，要么接受一堆「只是存在」的界面。</p></div>
+
+<h2>05 便宜的建造可以是思考——前提是你真的验证</h2>
+<p>Emil 公允地补了一句：便宜的建造也可以是一种思考。做 option A 与 B 再比较，往往比空想更能验证。原型即思考（prototyping is thinking）。</p>
+<p><b>但前提是你真的在验证。</b>没有什么能阻止你把 A 和 B 都直接 ship——因为几乎不费力，摩擦没了。区分在于：便宜原型是用来做判断的输入，还是用来跳过判断的借口。</p>
+<table><tr><th></th><th>有验证的便宜建造</th><th>无判断的便宜建造</th></tr>
+<tr><td>目的</td><td>比较 A/B，形成选择</td><td>两边都上，或先上再说</td></tr>
+<tr><td>停顿</td><td>有明确准则再定胜负</td><td>没有「怎样算够好」</td></tr>
+<tr><td>结果</td><td>一个留下，一个归档</td><td>界面堆叠、语言漂移</td></tr>
+<tr><td>感觉</td><td>设计过的</td><td>只是存在（just exist）</td></tr></table>
+
+<h2>06 为什么人们讨厌 vibe-coded 的东西</h2>
+<p>这就是为什么人们反感近来涌入的 vibe-coded apps 与 UI libraries：背后很少有思考，因为没有摩擦去强迫思考。它们「don't feel designed, they just exist」——不像被设计过，只是存在着。（Emil 注脚指向 Swami 的推文，意象贴切。）</p>
+<p>「Vibe coding」不是原罪；原罪是把 vibe 当成无需品味关卡的许可证。库可以生成，但默认态、空态、错误态、动效曲线、文案语气——这些才是「感觉被设计过」的来源，也恰好是生成最容易敷衍的地方。</p>
+
+<h2>07 去掉摩擦之后只剩输出：空洞、无质感</h2>
+<p>去掉摩擦之后，剩下的只有 output。它感觉无意义、空、没有 texture。质感来自取舍的痕迹：你删过什么、你拒绝过什么、你在某一跳交互上多停了一晚。没有这些痕迹，界面再花也像未打磨的坯。</p>
+<blockquote>That’s what happens when we remove friction. The only thing left is the output, it feels meaningless, empty, like there’s no texture to it. — Emil Kowalski</blockquote>
+
+<h2>08 结论：摩擦是功能，不是 bug</h2>
+<p>所以我们仍需要摩擦。它强迫使用 judgment，滤掉不配被造的想法。Feature，not a bug。（Emil 注脚：这一 framing 来自 Drazen 的推文。）</p>
+<table><tr><th></th><th>去掉一切摩擦</th><th>保留设计性摩擦</th></tr>
+<tr><td>速度</td><td>想法 → 上线以分钟计</td><td>关键节点故意变慢</td></tr>
+<tr><td>筛选</td><td>几乎无；产量代替判断</td><td>准则 / review / taste pass 过滤</td></tr>
+<tr><td>产物气质</td><td>空洞、同质、just exist</td><td>有取舍痕迹、有质感</td></tr>
+<tr><td>风险</td><td>浅点子与深点子同等出货</td><td>可能「过度谨慎」——可用清单约束范围</td></tr>
+<tr><td>适用</td><td>低风险探索草稿</td><td>对外界面、品牌、不可逆流程</td></tr></table>
+
+<h2>09 与 Google「计划暂停」的同构对照</h2>
+<p>读本 No.36 里，Sheta 把企业 Agent 的 intended plan 做成 deliberate pause——行动前讲清步骤，用户仍是最终权威。那是产品内的 designed friction。Emil 谈的是造物侧的同一逻辑：在「生成 → 上线」之间加回判断。两边都在说：<b>慢不是无能，是权威还在人手里</b>。</p>
+<table><tr><th></th><th>Google Cloud（No.36）</th><th>Emil（本篇）</th></tr>
+<tr><td>场景</td><td>企业 Agent 执行高风险任务前</td><td>任何人用 AI 把想法变成产品时</td></tr>
+<tr><td>摩擦形态</td><td>计划暂停 + 引用来源 + harness</td><td>判断门槛 + 验证 + taste</td></tr>
+<tr><td>要保护的</td><td>信任、敏感数据、商业结果</td><td>品味、质感、值得被造的标准</td></tr>
+<tr><td>失败时</td><td>黑箱乱执行</td><td>一堆 vibe-coded、just exist 的壳</td></tr></table>
+<div class="note"><p>跨篇用法：给用户的产品里留「计划暂停」；给你自己的工作流里留「taste pass」。两处摩擦对准的都是「人仍是权威」。</p></div>
+
+<h2>10 Zhu 的加摩清单与自查</h2>
+<pre><code># 个人站 / AI 工作流：该加摩擦的地方（不是该砍的地方）
+[ ] Prompt 前写 3 条成功标准（什么叫「这版够好」）
+[ ] 生成 ≥2 版时，先定比较维度再打开第二个文件
+[ ] 合并 / 发布前固定 10 分钟 taste pass（动效、空态、文案语气）
+[ ] 不可逆操作（域名、付费、公开仓库）设 24h 冷却或第二人确认
+[ ] 设计系统变更：先 FigJam 一句「为何改」，再让 Agent 改代码
+[ ] 每周回顾：哪些上线项其实「只是存在」？归档或重做
+[ ] 禁止「两边都 ship」除非有明确实验假设与结束条件
+</code></pre>
+<ul>
+<li>最近一次上线，有没有写过「怎样算够好」再动手？</li>
+<li>讨厌某个 vibe-coded 站时，缺的是功能还是取舍痕迹？</li>
+<li>工具链里有没有默认的 review gate，还是全靠自觉？</li>
+<li>便宜原型是在帮你做判断，还是在帮你逃避判断？</li>
+<li>对用户暴露的流程里，高风险节点有没有设计性停顿（对照 No.36）？</li>
+</ul>
+<div class="note"><p>收束给 Zhu：Emil 的短文可以当一张座右铭——<b>造物成本归零后，故意留下的摩擦才是品味的筛子</b>。去摩仍然要对无用等待、多余步骤动手；但在准则、验证、taste pass 上加摩，不是退步，是避免「只是存在」的界面。Feature，not a bug。下一篇动手前，先问：这道摩擦是在保护判断，还是在折磨用户？只留前者。</p></div>
+</article>
+</body></html>

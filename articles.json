@@ -788,5 +788,51 @@
     "cover": "covers/friction-as-a-feature.svg",
     "accent": "#B05A2A",
     "tint": "#F0E5E0"
+  },
+  {
+    "slug": "figma-specs-markdown-as-medium",
+    "title_zh": "Specs：把 Markdown 做成画布上的协作容器",
+    "title_en": "Introducing Specs: Markdown as a medium",
+    "author": "Luke Zhang / Johnny Dallas / Aosheng Ran",
+    "author_role": "Product Manager / Software Engineer / Product Designer, Figma",
+    "source": "https://www.figma.com/blog/introducing-figma-specs/",
+    "date": "2026-10-15",
+    "added": "2026-11-01",
+    "tags": [
+      "Specs",
+      "Markdown",
+      "MCP",
+      "Figma agent",
+      "context",
+      "PRD"
+    ],
+    "dek": "Markdown 不再只躺在本地文件——Specs 让意图、画布与 Agent 同屏协作。",
+    "category": "AI 设计工作流",
+    "cover": "covers/figma-specs-markdown-as-medium.svg",
+    "accent": "#4A5A9C",
+    "tint": "#E4E8F2"
+  },
+  {
+    "slug": "vercel-agent-skills-reusable-context",
+    "title_zh": "Agent Skills：把一次性提示词做成可安装的上下文库",
+    "title_en": "Agent Skills: Creating, Installing, and Sharing Reusable Agent Context",
+    "author": "John Lindquist（via Vercel Community Session；Vercel KB guide）",
+    "author_role": "Vercel Knowledge Base / Community Session guide（skills CLI & skills.sh）",
+    "source": "https://vercel.com/kb/guide/agent-skills-creating-installing-and-sharing-reusable-agent-context",
+    "date": "2026",
+    "date_note": "Living KB：基于 Community Session，并随 Agent Skills 标准 / skills CLI / skills.sh 更新",
+    "added": "2026-11-01",
+    "tags": [
+      "Skills",
+      "SKILL.md",
+      "AGENTS.md",
+      "progressive disclosure",
+      "skills CLI"
+    ],
+    "dek": "别再每开一个对话重讲一遍设计系统——Skills 是 Agent 上下文的「npm 时刻」。",
+    "category": "提示词与 Skill",
+    "cover": "covers/vercel-agent-skills-reusable-context.svg",
+    "accent": "#9C6B2E",
+    "tint": "#EEE6DE"
   }
 ]

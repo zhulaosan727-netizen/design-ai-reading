@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#9C6B2E">
+  <!-- 读本 cover system v1 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.39 · 提示词与 Skill</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">SKILLS NOT PROMPTS</text>
+  <!-- motif: nested folders / progressive disclosure layers -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- layer 1: metadata chip row -->
+    <path d="M160 180 H480 V260 H160 Z"/>
+    <path d="M180 210 H320"/>
+    <path d="M180 235 H400"/>
+    <path d="M520 180 H900 V260 H520 Z"/>
+    <path d="M540 210 H700"/>
+    <path d="M540 235 H820"/>
+    <!-- layer 2: SKILL.md body (deeper) -->
+    <path d="M200 300 H1000 V480 H200 Z"/>
+    <path d="M200 340 H1000"/>
+    <path d="M230 325 H420"/>
+    <path d="M240 380 H700"/>
+    <path d="M240 410 H820"/>
+    <path d="M240 440 H640"/>
+    <!-- layer 3: scripts/references/assets folders -->
+    <path d="M240 520 H420 V600 H240 Z"/>
+    <path d="M255 505 H340 V520"/>
+    <path d="M480 520 H680 V600 H480 Z"/>
+    <path d="M495 505 H600 V520"/>
+    <path d="M740 520 H960 V600 H740 Z"/>
+    <path d="M755 505 H880 V520"/>
+    <!-- bracket showing disclosure stack -->
+    <path d="M120 180 V600"/>
+    <path d="M120 180 H145"/>
+    <path d="M120 600 H145"/>
+  </g>
+  <!-- accent: one activated skill chip -->
+  <g fill="none" stroke="#9C6B2E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M520 180 H900 V260 H520 Z"/>
+    <path d="M540 210 H760" stroke-width="2"/>
+    <path d="M540 235 H840" stroke-width="2"/>
+    <!-- small activation mark -->
+    <circle cx="870" cy="220" r="12" stroke-width="2.5"/>
+    <path d="M864 220 L870 226 L880 212" stroke-width="2"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".5">
+    <text x="170" y="165">1 · METADATA</text>
+    <text x="210" y="290">2 · SKILL.MD BODY</text>
+    <text x="250" y="635">SCRIPTS</text>
+    <text x="490" y="635">REFERENCES</text>
+    <text x="760" y="635">ASSETS</text>
+    <text x="530" y="165">ACTIVE SKILL</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="#1B2B26">Agent Skills: Reusable Agent Context</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">VERCEL KB</text>
+</svg>

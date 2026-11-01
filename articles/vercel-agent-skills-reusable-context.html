@@ -1,0 +1,223 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Agent Skills：把一次性提示词做成可安装的上下文库 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#EEE6DE">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 39 · 提示词与 Skill / Skills / SKILL.md / AGENTS.md / progressive disclosure / skills CLI</div><h1>Agent Skills：把一次性提示词做成可安装的上下文库</h1><div class="en">Agent Skills: Creating, Installing, and Sharing Reusable Agent Context</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>John Lindquist（via Vercel Community Session；Vercel KB guide）</dd><dt>身份</dt><dd>Vercel Knowledge Base / Community Session guide（skills CLI &amp; skills.sh）</dd><dt>日期</dt><dd>2026</dd><dt>原文</dt><dd><a href="https://vercel.com/kb/guide/agent-skills-creating-installing-and-sharing-reusable-agent-context">vercel.com/kb ↗</a></dd></dl><a class="readorig" href="https://vercel.com/kb/guide/agent-skills-creating-installing-and-sharing-reusable-agent-context" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/vercel-agent-skills-reusable-context.svg" alt="Agent Skills: Creating, Installing, and Sharing Reusable Agent Context 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按「上下文的 npm 时刻」视角重写并扩写的讲解。原文是 Vercel KB，基于 John Lindquist 的 Community Session，并随 Agent Skills 标准、skills CLI、skills.sh 持续更新（living guide）。读本已有 Anthropic Skills、Figma Agent Skills、DESIGN.md 等篇；<b>本篇把「可安装的 Skill」讲成工程习惯：目录、frontmatter、渐进披露、CLI、安全</b>，并落到 Zhu 的口味硬规则模板。细节请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂 Skills</li>
+<li>空白石板问题：模型不懂「你好」意味着什么</li>
+<li>架构：Skill vs 包、被动 vs 主动上下文</li>
+<li>渐进披露：三层加载，避免上下文肥胖</li>
+<li>SKILL.md 解剖：name、description 才是路由</li>
+<li>正文结构与可选目录</li>
+<li>何时用 AGENTS.md，何时用 Skill</li>
+<li>复杂度阶梯：先 Markdown，再脚本，最后才 MCP</li>
+<li>skills CLI：安装、发现、更新</li>
+<li>发布与安全：git 即发布，脚本要当代码审</li>
+<li>映射到设计工作：decision table</li>
+<li>Zhu 迷你 SKILL.md：UI 口味 / 禁左侧色条</li>
+<li>安装清单与自查</li>
+</ol></nav>
+
+<h2>01 先给结论：三句话读懂 Skills</h2>
+<p><b>第一，Skills 把一次性提示词变成可版本管理的 Agent 行为库</b>——解决 blank-slate：模型不懂你的目录、设计系统、部署规则、以及你们组织里「好」的定义。</p>
+<p><b>第二，Skill = 含 <code>SKILL.md</code> 的文件夹（可加附属文件）；skill package = 含一个或多个 Skill 的仓库。</b>被动上下文用 <code>AGENTS.md</code>（永远生效）；主动上下文用 Skills（按需加载的专项流程）。</p>
+<p><b>第三，靠 progressive disclosure 控体积：</b>先暴露 name+description 做路由 → 激活后再读正文 → scripts / references / assets 仅在需要时加载。对 Zhu：别再每个新对话重讲设计系统——装一次 Skill，让 Agent 在相关时自己捡起来。</p>
+
+<h2>02 空白石板问题：模型不懂「你好」意味着什么</h2>
+<p>模型懂通用语言和框架，不懂：你的 folder structure、design system、deployment rules、以及在你组织里 what “good” means。每次开新聊天都把部落知识再粘贴一遍——这是在用人力补上下文协议的缺口。</p>
+<p>原文把 Skills 称作上下文的「npm moment」：不是每次会话 copy/paste 长说明，而是安装一次，让 Agent 在相关时加载。</p>
+<div class="note"><p>和读本 No.01 附近 Anthropic「Improving frontend design through Skills」同构：前端变好看，靠的不是更长的一次性 prompt，而是可复用的 Skill。本篇补工程层：怎么写、怎么装、怎么和 AGENTS.md 分工。</p></div>
+
+<h2>03 架构：Skill vs 包、被动 vs 主动上下文</h2>
+<table><tr><th></th><th>Skill</th><th>Skill package</th></tr>
+<tr><td>形态</td><td>单文件夹，至少有 SKILL.md</td><td>仓库 / 目录，含一个或多个 Skill</td></tr>
+<tr><td>安装单位</td><td>可按 --skill 名挑选</td><td><code>npx skills add owner/repo</code></td></tr>
+<tr><td>类比</td><td>一个 npm 包里的一个 bin/模块</td><td>整个 npm scope / monorepo</td></tr></table>
+<table><tr><th></th><th>被动上下文（AGENTS.md）</th><th>主动上下文（Skills）</th></tr>
+<tr><td>何时在</td><td>几乎每个任务</td><td>专项工作流被路由到时</td></tr>
+<tr><td>例子</td><td>安全护栏、严格 TS、永不绕过鉴权、格式约定</td><td>部署到 Vercel、分析 CSV、写 PRD、React 性能审查</td></tr>
+<tr><td>可靠性</td><td>最高（无激活决策）</td><td>依赖 description 路由质量</td></tr>
+<tr><td>体积压力</td><td>必须短而硬</td><td>可厚，因按需加载</td></tr></table>
+
+<h2>04 渐进披露：三层加载，避免上下文肥胖</h2>
+<p>Skills 故意不让 Agent 一上来读完全部：</p>
+<ol>
+<li><b>Metadata</b>（name + description）早期可见，供决定是否相关。</li>
+<li><b>Full instructions</b>（SKILL.md 正文）仅在激活时加载。</li>
+<li><b>Resources</b>（scripts / references / assets）仅当 Skill 指示需要时再加载。</li>
+</ol>
+<p>这是在和「把 40 页设计规范塞进系统提示」对着干：路由薄、正文适时、附件更懒。</p>
+<pre><code>披露层
+┌─────────────────────────────┐
+│ 1 name + description（路由） │  ← 几乎总在
+├─────────────────────────────┤
+│ 2 SKILL.md 正文（步骤/约束） │  ← 激活后
+├─────────────────────────────┤
+│ 3 scripts/ references/ assets/│  ← 用到才读
+└─────────────────────────────┘
+</code></pre>
+
+<h2>05 SKILL.md 解剖：name、description 才是路由</h2>
+<p>最小布局：目录里至少一个 <code>SKILL.md</code>。文件必须以 YAML frontmatter 开头，且包含必填字段 <b>name</b>、<b>description</b>。</p>
+<pre><code>---
+name: my-skill
+description: Do X for Y projects. Use when the user asks about X or mentions Y.
+---
+
+# Instructions
+（步骤、约束、例子）
+</code></pre>
+<p>硬约束：name 必须与父目录名一致；仅小写字母 / 数字 / 连字符。description 要写清 <b>做什么 + 何时用</b>——它是 routing rule，不是标题。</p>
+<table><tr><th></th><th>坏 description</th><th>好 description</th></tr>
+<tr><td>写法</td><td>Helps with PDFs.</td><td>Extract text and tables from PDFs, fill forms, merge documents. Use when the user mentions PDFs, forms, scanning, or document extraction.</td></tr>
+<tr><td>问题</td><td>Agent 不知何时激活</td><td>触发词与能力边界清楚</td></tr></table>
+<p>可选、跨生态相对安全的 frontmatter：license、compatibility、metadata（适合放 semver）、allowed-tools（实验性）。</p>
+
+<h2>06 正文结构与可选目录</h2>
+<p>正文无强制格式，但想要可靠，用可预期结构：</p>
+<ul>
+<li>What this skill does</li>
+<li>When to use it（以及 when not）</li>
+<li>Inputs needed</li>
+<li>Step-by-step procedure</li>
+<li>Validation / 怎样算做完</li>
+<li>Common failure modes and fixes</li>
+</ul>
+<p>可选目录，用来保持 SKILL.md 精炼：</p>
+<ul>
+<li><code>scripts/</code> — 可执行辅助</li>
+<li><code>references/</code> — 长文档、清单、模板</li>
+<li><code>assets/</code> — 静态模板、示例配置、图</li>
+</ul>
+
+<h2>07 何时用 AGENTS.md，何时用 Skill</h2>
+<p>原文说得很直：</p>
+<table><tr><th>放进 AGENTS.md</th><th>放进 Skill</th></tr>
+<tr><td>几乎每个任务都适用</td><td>专项工作流</td></tr>
+<tr><td>要最大可靠性（不做激活决策）</td><td>偶尔才用</td></tr>
+<tr><td>Agent 绝不该忽略</td><td>希望跨仓库 / 团队可发现、可复用</td></tr>
+</table>
+<div class="note"><p>Zhu 硬规则「卡片/告警禁止左侧竖向色条」——这是几乎每次做 UI 都不能破的，更适合 AGENTS.md 或「永远相关」的短规则；完整的 frontend-design / taste 流程（步骤、反例、检查清单）则做成 Skill，避免把 AGENTS.md 撑成小说。</p></div>
+
+<h2>08 复杂度阶梯：先 Markdown，再脚本，最后才 MCP</h2>
+<ol>
+<li><b>Markdown-only</b>（多数 Skill 停在这）</li>
+<li>需要确定性自动化时再加 <code>scripts/</code></li>
+<li>需要严格类型载荷或强控外部调用时，才上 tool / MCP</li>
+</ol>
+<p>别一上来就为「改间距口味」挂三个 MCP——先把 description 和正文写清楚。</p>
+
+<h2>09 skills CLI：安装、发现、更新</h2>
+<pre><code># 安装包
+npx skills add &lt;owner/repo&gt;
+npx skills add vercel-labs/agent-skills
+npx skills add https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines
+npx skills add ./my-local-skills
+
+# 常用选项
+npx skills add -g vercel-labs/agent-skills          # 全局
+npx skills add vercel-labs/agent-skills --list      # 只列不装
+npx skills add vercel-labs/agent-skills --skill frontend-design --skill skill-creator
+npx skills add vercel-labs/agent-skills --skill frontend-design -g -y   # CI 友好
+npx skills add vercel-labs/agent-skills --all
+
+# Day-2
+npx skills list
+npx skills find typescript
+npx skills remove web-design-guidelines
+npx skills check
+npx skills update
+npx skills init my-skill
+</code></pre>
+<p>安装范围：项目级（进仓库、团队共享）或全局（本机跨项目）。可用 symlink（推荐）或 copy。生态入口：skills.sh、agentskills.io、vercel-labs/agent-skills 等（见原文 Resources）。</p>
+
+<h2>10 发布与安全：git 即发布，脚本要当代码审</h2>
+<p>没有单独的「publish 到 skills.sh」命令：把 Skill 放进 git 仓库 → 分享 → 别人用 <code>npx skills add</code> 安装时，可经 install telemetry 出现在 skills.sh。公开仓库至少要有 Skill 文件夹 + SKILL.md；强烈建议 README、许可、若有 scripts 则写安全说明。</p>
+<p>安全现实：把 Skill 当代码——安装前读；对 <code>scripts/</code> 尤其小心（会跑命令）；钉住已知仓库，更新时看 diff。</p>
+
+<h2>11 映射到设计工作：decision table</h2>
+<table><tr><th>设计侧材料</th><th>更像</th><th>建议载体</th></tr>
+<tr><td>禁止左侧 accent bar、字体栈、圆角阶梯</td><td>永远生效的硬规则</td><td>AGENTS.md（短）或 always-on 片段</td></tr>
+<tr><td>「做营销页 / 仪表盘」的完整步骤与反例</td><td>专项工作流</td><td>Skill（如 frontend-design）</td></tr>
+<tr><td>某品牌页的色板与语气</td><td>项目便携上下文</td><td>design.md（读本多篇）+ 必要时 Skill 引用它</td></tr>
+<tr><td>一次性「帮我改这页 hero」</td><td>会话提示</td><td>聊天即可；重复第三次 → 抽成 Skill</td></tr>
+<tr><td>Figma 画布上的功能意图</td><td>多人、嵌图</td><td>Specs（见 No.38），不是 SKILL.md</td></tr></table>
+
+<h2>12 Zhu 迷你 SKILL.md：UI 口味 / 禁左侧色条</h2>
+<p>下面是一份可直接改名使用的草稿——description 按路由规则写；硬禁令与读本共用 skill「zhu-design-hard-rules」对齐：绝对禁止在卡片 / 告警 / 详情面板 / 列表行左侧加竖向色条或 border-left accent bar；状态与强调改用标签、图标、表面色温或顶边 / 全框。</p>
+<pre><code>---
+name: zhu-ui-taste
+description: Apply Zhu's UI taste rules for cards, alerts, panels, and lists.
+  Ban left accent bars; prefer tags, icons, surface warmth, or top/full borders.
+  Use when generating or reviewing UI, polishing layouts, writing Codex design
+  prompts, or the user mentions 卡片, 告警, accent, border-left, or 设计硬规则.
+---
+
+# What
+Enforce distinctive, non-generic UI that matches Zhu's hard visual rules.
+
+# When to use
+- Generating or refactoring cards, alerts, detail panels, list rows
+- Writing design prompts for Cursor / Codex
+- Reviewing AI-generated UI for "AI slop" accents
+
+# When not to use
+- Pure backend / data tasks with no UI surface
+- Brand systems that explicitly require a different accent language
+  (still never invent left bars unless user overrides in writing)
+
+# Inputs
+- Target files or screenshots / descriptions of the UI
+- Optional: design.md or component list
+
+# Steps
+1. Scan for border-left / left vertical accent bars on cards, alerts,
+   panels, list rows — remove them.
+2. Re-encode status with: tags, icons, surface temperature, top border,
+   or full outline — not a left rail.
+3. Prefer neutral light gray page chrome; avoid greenish/bluish gray drift.
+4. Keep density intentional; no decorative gradients as status.
+5. Summarize changes as a short checklist the user can skim.
+
+# Validation
+- [ ] No left accent bars on the listed surfaces
+- [ ] Status still readable (color + label/icon, not color alone)
+- [ ] No new generic "AI look" chrome
+
+# Failure modes
+- Model "softens" the ban into "subtle left bar" — reject; ban is absolute
+- Over-tagging every row — prefer one clear status cue
+</code></pre>
+
+<h2>13 安装清单与自查</h2>
+<pre><code># 安装前
+[ ] 打开仓库 README / SKILL.md，通读 description 与 scripts/
+[ ] 确认来源是已知 owner（如 vercel-labs）或自己的 fork
+[ ] 需要全局还是仅本项目？默认偏项目级，团队可复现
+
+# 安装
+[ ] npx skills add owner/repo --list 先看有哪些
+[ ] npx skills add owner/repo --skill &lt;name&gt;  [-g] [-y]
+[ ] npx skills list 确认就位
+
+# 维护
+[ ] npx skills check / update；更新前看 diff
+[ ] 重复粘贴第三次的提示词 → skills init 抽成 Skill
+[ ] 硬禁令保持短，放进 AGENTS.md；长流程放 Skill
+
+# 安全
+[ ] 不装来路不明、含可疑 scripts/ 的包
+[ ] 把 Skill 变更当代码审查
+</code></pre>
+<ul>
+<li>你现在每个新对话是否仍在重讲设计系统？</li>
+<li>AGENTS.md 是否已经太长，该把专项流程拆进 Skill？</li>
+<li>现有 Skill 的 description 是标题腔，还是带触发词的路由规则？</li>
+<li>左侧色条禁令写在「偶尔才加载」的 Skill 里，会不会被漏激活？（考虑 AGENTS.md 短句 + Skill 详版双写）</li>
+<li>安装过的第三方 Skill，上次 update 后有没有读 diff？</li>
+</ul>
+<div class="note"><p>收束给 Zhu：Skills 的命题是<strong>上下文终于能像依赖一样安装</strong>——description 负责被找对，正文负责做对，scripts 负责偶发的硬自动化。AGENTS.md 管「绝不破例」；Skill 管「这类活怎么干」；画布 Specs（No.38）管「这一单功能的意图」。下一小时：把最常粘贴的那段口味说明 <code>npx skills init zhu-ui-taste</code> 写进去，并把左侧色条禁令同时落进 AGENTS.md 一句硬规则。Skills，not prompts。</p></div>
+</article>
+</body></html>

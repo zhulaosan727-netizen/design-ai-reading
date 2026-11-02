@@ -878,5 +878,28 @@
     "cover": "covers/give-ai-agent-design-taste.svg",
     "accent": "#6B3A8C",
     "tint": "#EBE5EF"
+  },
+  {
+    "slug": "career-advice-ai-frontier-balwit",
+    "title_zh": "从做事到指挥：如何培养你的野心",
+    "title_en": "Career Advice from the AI Frontier",
+    "author": "Avital Balwit",
+    "author_role": "Anthropic，Dario Amodei 的 Chief of Staff",
+    "source": "https://www.digitalistpapers.com/vol2/balwit",
+    "date": "2025-12-11",
+    "date_note": "Digitalist Papers vol.2 页面标 Dec 11；脚注引用 2025 年中资料，故按 2025-12-11",
+    "added": "2026-11-02",
+    "tags": [
+      "野心",
+      "品味",
+      "职业",
+      "Anthropic",
+      "愿景"
+    ],
+    "dek": "认知会被 AI 追平；真正拉开差距的，是你敢不敢培养野心、品味与愿景去指挥它。",
+    "category": "独特审美",
+    "cover": "covers/career-advice-ai-frontier-balwit.svg",
+    "accent": "#8C2A4A",
+    "tint": "#F1E4E7"
   }
 ]

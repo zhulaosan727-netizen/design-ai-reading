@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#8C2A4A">
+  <!-- 读本 cover system v1: from doing → directing; cultivate ambition -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.42 · 独特审美</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">CULTIVATE AMBITION</text>
+  <!-- motif: left = lone doer at desk; center = arrow of shift; right = director with AI assistant tabs -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- lone IC desk + typing hands -->
+    <path d="M100 380 H320 V520 H100 Z"/>
+    <path d="M120 410 H300"/>
+    <path d="M120 440 H260"/>
+    <path d="M120 470 H280"/>
+    <!-- person silhouette (circle head + torso) -->
+    <circle cx="210" cy="300" r="28"/>
+    <path d="M170 360 C180 330 240 330 250 360"/>
+    <!-- obsolete skill label area: hourglass of words -->
+    <path d="M140 200 H200 L180 250 L200 300 H140 L160 250 Z" stroke-opacity=".55"/>
+  </g>
+  <!-- transition chevrons -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".5" stroke-linecap="round">
+    <path d="M360 360 L400 380 L360 400"/>
+    <path d="M400 360 L440 380 L400 400"/>
+  </g>
+  <!-- director + AI team tabs -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- director figure -->
+    <circle cx="560" cy="280" r="28"/>
+    <path d="M520 340 C530 310 590 310 600 340"/>
+    <!-- arms open directing -->
+    <path d="M520 360 L470 400"/>
+    <path d="M600 360 L650 400"/>
+    <!-- AI assistant tabs (open browser/agent windows) -->
+    <path d="M680 200 H860 V300 H680 Z"/>
+    <path d="M690 220 H780"/><path d="M690 245 H820"/><path d="M690 270 H800"/>
+    <path d="M700 340 H900 V440 H700 Z"/>
+    <path d="M710 360 H820"/><path d="M710 385 H870"/><path d="M710 410 H850"/>
+    <path d="M720 480 H920 V580 H720 Z"/>
+    <path d="M730 500 H860"/><path d="M730 525 H890"/><path d="M730 550 H840"/>
+    <!-- small connection lines from director to tabs -->
+    <path d="M600 340 L680 250" stroke-opacity=".45"/>
+    <path d="M610 360 L700 390" stroke-opacity=".45"/>
+    <path d="M600 380 L720 500" stroke-opacity=".45"/>
+  </g>
+  <!-- accent: vision / ambition arrow launching forward from director -->
+  <g fill="none" stroke="#8C2A4A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M560 200 L560 140"/>
+    <path d="M540 165 L560 140 L580 165"/>
+    <!-- orbit of taste/values/vision -->
+    <circle cx="560" cy="120" r="18" stroke-width="2"/>
+    <path d="M552 120 H568 M560 112 V128" stroke-width="1.75"/>
+    <!-- ambition arc sweeping to right horizon -->
+    <path d="M590 130 C720 90 900 110 1040 200" stroke-width="2.25"/>
+    <path d="M1010 175 L1040 200 L1005 215"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".5">
+    <text x="120" y="555">DOING / IC</text>
+    <text x="510" y="555">DIRECTING</text>
+    <text x="700" y="185">AI TEAM</text>
+    <text x="980" y="250" fill="#8C2A4A" fill-opacity=".85">VISION</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="#1B2B26">Career Advice from the AI Frontier</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">DIGITALIST PAPERS / ANTHROPIC</text>
+</svg>

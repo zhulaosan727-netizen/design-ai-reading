@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#6B3A8C">
+  <!-- 读本 cover system v1 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.41 · 独特审美</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">TASTE IS CONTEXT</text>
+  <!-- motif: open mush cloud of averages vs funnel of specific facts into agent -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- mush cloud / average blob (left) -->
+    <path d="M180 280 C140 240 160 180 220 170 C250 140 320 150 340 190 C390 170 440 210 420 270 C460 300 440 360 390 370 C360 420 280 410 250 370 C200 390 150 340 180 280 Z"/>
+    <!-- generic marks inside cloud -->
+    <path d="M240 250 H320"/>
+    <path d="M230 280 H340"/>
+    <path d="M250 310 H310"/>
+    <circle cx="280" cy="340" r="8"/>
+    <!-- funnel edges -->
+    <path d="M480 200 L620 420"/>
+    <path d="M700 200 L560 420"/>
+    <!-- fact chips flowing in -->
+    <path d="M500 230 H580 V260 H500 Z"/>
+    <path d="M540 280 H640 V310 H540 Z"/>
+    <path d="M560 330 H650 V360 H560 Z"/>
+    <!-- agent box receiving facts -->
+    <path d="M520 450 H700 V580 H520 Z"/>
+    <path d="M540 490 H680"/>
+    <path d="M540 520 H650"/>
+    <path d="M540 550 H670"/>
+    <!-- arrow from funnel neck -->
+    <path d="M590 420 V450"/>
+  </g>
+  <!-- accent: one precise token chip (the specific fact that kills the average) -->
+  <g fill="none" stroke="#6B3A8C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M820 280 H1040 V360 H820 Z"/>
+    <path d="M840 310 H980" stroke-width="2"/>
+    <path d="M840 335 H920" stroke-width="2"/>
+    <!-- hash/token mark -->
+    <path d="M860 250 H900 V280" stroke-width="2"/>
+    <path d="M870 250 V280" stroke-width="2"/>
+    <!-- line connecting token to funnel -->
+    <path d="M820 320 H700" stroke-width="2"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".5">
+    <text x="210" y="200">AVERAGE UI</text>
+    <text x="530" y="185">FACTS IN</text>
+    <text x="545" y="615">AGENT</text>
+    <text x="830" y="265">TOKEN / REF</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="#1B2B26">9 ways to give your AI agent design taste</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">UISCANNER</text>
+</svg>

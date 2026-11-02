@@ -834,5 +834,49 @@
     "cover": "covers/vercel-agent-skills-reusable-context.svg",
     "accent": "#9C6B2E",
     "tint": "#EEE6DE"
+  },
+  {
+    "slug": "agents-md-outperforms-skills",
+    "title_zh": "AGENTS.md 在评测里胜过 Skills：被动上下文为何更可靠",
+    "title_en": "AGENTS.md outperforms skills in our agent evals",
+    "author": "Jude Gao",
+    "author_role": "Vercel（Agent evals / Next.js docs research）",
+    "source": "https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals",
+    "date": "2026-01-27",
+    "added": "2026-11-02",
+    "tags": [
+      "AGENTS.md",
+      "Skills",
+      "agent evals",
+      "Next.js",
+      "retrieval-led reasoning"
+    ],
+    "dek": "Skills 触发率只有一半；把压缩文档索引写进 AGENTS.md，评测直接拉满 100%。",
+    "category": "提示词与 Skill",
+    "cover": "covers/agents-md-outperforms-skills.svg",
+    "accent": "#2A6F7A",
+    "tint": "#E0EAEC"
+  },
+  {
+    "slug": "give-ai-agent-design-taste",
+    "title_zh": "九种给 AI 编程 Agent 真正设计品味的方法",
+    "title_en": "9 ways to give your AI coding agent real design taste",
+    "author": "uiscanner（团队博文）",
+    "author_role": "uiscanner（设计拆解 / MCP 工具）",
+    "source": "https://uiscanner.com/blog/give-ai-agent-design-taste",
+    "date": "2026-07-04",
+    "added": "2026-11-02",
+    "tags": [
+      "design taste",
+      "AI aesthetic",
+      "tokens",
+      "MCP",
+      "eval"
+    ],
+    "dek": "Agent 不是没品味，是你没给它可品味的事实——形容词只会得到统计平均。",
+    "category": "独特审美",
+    "cover": "covers/give-ai-agent-design-taste.svg",
+    "accent": "#6B3A8C",
+    "tint": "#EBE5EF"
   }
 ]

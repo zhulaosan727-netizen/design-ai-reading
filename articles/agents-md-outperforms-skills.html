@@ -1,0 +1,186 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>AGENTS.md 在评测里胜过 Skills：被动上下文为何更可靠 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E0EAEC">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 40 · 提示词与 Skill / AGENTS.md / Skills / agent evals / Next.js / retrieval-led reasoning</div><h1>AGENTS.md 在评测里胜过 Skills：被动上下文为何更可靠</h1><div class="en">AGENTS.md outperforms skills in our agent evals</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Jude Gao</dd><dt>身份</dt><dd>Vercel（Agent evals / Next.js docs research）</dd><dt>日期</dt><dd>2026-01-27</dd><dt>原文</dt><dd><a href="https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals">vercel.com/blog ↗</a></dd></dl><a class="readorig" href="https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/agents-md-outperforms-skills.svg" alt="AGENTS.md outperforms skills in our agent evals 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按「被动上下文 vs 按需 Skills」视角重写并扩写的讲解。原文是 Jude Gao 在 Vercel 的评测报告：面向 Next.js 16 新 API，比较 Baseline / Skill / Skill+显式指令 / AGENTS.md 文档索引。读本昨日 No.39 讲 Skills 工程习惯；<b>本篇用硬数字回答：框架知识该放 AGENTS.md 还是 Skill？</b>细节请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂评测</li>
+<li>问题：训练数据跟不上 Next.js 16</li>
+<li>两条路：Skills vs AGENTS.md</li>
+<li>Skills 默认几乎等于没装</li>
+<li>显式指令能救，但措辞很脆</li>
+<li>评测怎么硬化才可信</li>
+<li>赢家：AGENTS.md 压缩文档索引</li>
+<li>为何被动胜过主动检索</li>
+<li>上下文膨胀：40KB → 8KB 仍满分</li>
+<li>一键接入：npx agents-md</li>
+<li>对框架作者与 Zhu 的分工建议</li>
+<li>对照表、模板与自查清单</li>
+</ol></nav>
+
+<h2>01 先给结论：三句话读懂评测</h2>
+<p><b>第一，Skills 默认触发率不可靠。</b>在 Vercel 的 Next.js 评测里，56% 的用例 Agent 根本没 invoke Skill；默认 Skill 配置通过率 53%，与「完全没有文档」的 Baseline 持平（+0）。</p>
+<p><b>第二，写进 AGENTS.md 的显式指令能把 Skill 拉到 79%，但措辞脆弱。</b>「MUST 先 invoke」vs「先 explore 项目再 invoke」会改变 Agent 锚定顺序，同一 Skill、同一文档，结果差一截。</p>
+<p><b>第三，把压缩文档索引直接写进 AGENTS.md，通过率 100%（Build / Lint / Test 全满分）。</b>从约 40KB 压到 8KB 仍保持 100%。对框架横切知识：被动上下文目前优于按需检索。</p>
+
+<h2>02 问题：训练数据跟不上 Next.js 16</h2>
+<p>编码 Agent 依赖的训练数据会过期。Next.js 16 引入的 <code>'use cache'</code>、<code>connection()</code>、<code>forbidden()</code> 等 API 还不在当前模型训练分布里——Agent 要么写出错误代码，要么退回旧模式。</p>
+<p>反过来也成立：你还在跑旧版 Next.js，模型却建议尚不存在的新 API。Vercel 想解决的是：给 Agent <b>与项目版本匹配（version-matched）</b> 的文档访问权。</p>
+<div class="note"><p>和设计侧同构：模型「见过很多仪表盘」，不等于见过你仓库的 token、组件名、以及 Zhu「禁止左侧竖向色条」硬规则。框架 API 缺口与设计系统缺口，都是 <b>pre-training-led reasoning</b> 的失败模式。</p></div>
+
+<h2>03 两条路：Skills vs AGENTS.md</h2>
+<table>
+<tr><th></th><th>Skills（按需）</th><th>AGENTS.md（持久）</th></tr>
+<tr><td>形态</td><td>打包 prompts / tools / docs，Agent 识别需要时 invoke</td><td>项目根目录 Markdown；每回合可用，无需决定是否加载</td></tr>
+<tr><td>类比</td><td>工具抽屉：用时打开</td><td>工作台铭牌：始终在眼前</td></tr>
+<tr><td>上下文开销</td><td>理论上更省（只在需要时）</td><td>始终占用；必须压缩</td></tr>
+<tr><td>失败点</td><td>「该不该查」的决策</td><td>写太长导致噪声</td></tr>
+<tr><td>Claude Code 对应</td><td>Skills</td><td><code>CLAUDE.md</code> 同类机制</td></tr>
+</table>
+<p>团队先押注 Skills：干净的关注点分离、最小上下文开销、skills.sh 上可复用目录看起来很对。然后他们跑了 eval。</p>
+
+<h2>04 Skills 默认几乎等于没装</h2>
+<table>
+<tr><th>配置</th><th>通过率</th><th>相对 Baseline</th></tr>
+<tr><td>Baseline（无文档）</td><td>53%</td><td>—</td></tr>
+<tr><td>Skill（默认行为）</td><td>53%</td><td>+0pp</td></tr>
+</table>
+<p><b>56% 的用例里 Skill 从未被 invoke。</b>文档在环境里，Agent 就是不用。更糟：在 Build / Lint / Test 细项上，默认 Skill 有时比 Baseline 更差（例如 Test 58% vs 63%）——闲置 Skill 可能引入噪声或分心。</p>
+<p>这不是 Vercel 独有：当前模型「不可靠地使用可用工具」是已知限制。设计侧同理：你装了 frontend-design Skill，但 description 路由弱、或任务表述不像触发词，Agent 会直接用训练平均「好看界面」开干。</p>
+
+<h2>05 显式指令能救，但措辞很脆</h2>
+<p>他们在 AGENTS.md 里加了显式指令，例如：先探索项目结构，再 invoke <code>nextjs-doc</code> Skill。触发率升到 95%+，通过率到 <b>79%（+26pp）</b>。</p>
+<table>
+<tr><th>指令措辞</th><th>行为</th><th>结果倾向</th></tr>
+<tr><td>「You MUST invoke the skill」（先读文档）</td><td>先锚定文档模式</td><td>易错过项目上下文</td></tr>
+<tr><td>「Explore project first, then invoke skill」</td><td>先建心理模型，文档当参考</td><td>更好</td></tr>
+</table>
+<p>原文举 <code>'use cache'</code> 评测：invoke-first 写出正确的 <code>page.tsx</code>，却完全漏掉必需的 <code>next.config.ts</code> 改动；explore-first 两边都拿到。</p>
+<p><b>同一 Skill、同一文档、措辞微调 → 行为大幅摆动。</b>这种脆弱性让「靠指令催 Skill」难以放心上生产。</p>
+<div class="note"><p>短引用（Jude Gao / Vercel）：措辞脆弱性是他们担心 production 可用性的核心原因之一。对 Zhu：别指望「记得先读 DESIGN.md」这类一句软提醒——要么被动塞进 AGENTS.md，要么接受触发失败。</p></div>
+
+<h2>06 评测怎么硬化才可信</h2>
+<p>早期套件有模糊 prompt、测实现细节而非可观察行为、以及测「已在训练数据里」的 API——测不到真正关心的缺口。硬化手段包括：去掉 test leakage、消解矛盾、改为 behavior-based assertions，并专门加入训练数据外的 Next.js 16 API。</p>
+<p>聚焦套件覆盖的 API 包括：</p>
+<ul>
+<li><code>connection()</code>（动态渲染）</li>
+<li><code>'use cache'</code> 指令</li>
+<li><code>cacheLife()</code> / <code>cacheTag()</code></li>
+<li><code>forbidden()</code> / <code>unauthorized()</code></li>
+<li><code>proxy.ts</code></li>
+<li>异步 <code>cookies()</code> / <code>headers()</code></li>
+<li><code>after()</code>、<code>updateTag()</code>、<code>refresh()</code></li>
+</ul>
+<p>后文所有数字都来自这套硬化评测；各配置同一测试，并重试以降低模型方差。</p>
+
+<h2>07 赢家：AGENTS.md 压缩文档索引</h2>
+<p>关键直觉：<b>去掉「该不该查」这个决策点。</b>不是把全文塞进 AGENTS.md，而是塞一份索引——告诉 Agent 去哪里找与当前 Next.js 版本匹配的具体文档文件；需要时再读 <code>.next-docs/</code> 里的文件。</p>
+<p>注入内容里的关键指令：</p>
+<pre><code>IMPORTANT: Prefer retrieval-led reasoning over pre-training-led reasoning
+for any Next.js tasks.</code></pre>
+<table>
+<tr><th>配置</th><th>通过率</th><th>相对 Baseline</th></tr>
+<tr><td>Baseline（无文档）</td><td>53%</td><td>—</td></tr>
+<tr><td>Skill（默认）</td><td>53%</td><td>+0pp</td></tr>
+<tr><td>Skill + 显式指令</td><td>79%</td><td>+26pp</td></tr>
+<tr><td>AGENTS.md 文档索引</td><td><b>100%</b></td><td><b>+47pp</b></td></tr>
+</table>
+<table>
+<tr><th>配置</th><th>Build</th><th>Lint</th><th>Test</th></tr>
+<tr><td>Baseline</td><td>84%</td><td>95%</td><td>63%</td></tr>
+<tr><td>Skill（默认）</td><td>84%</td><td>89%</td><td>58%</td></tr>
+<tr><td>Skill + 显式指令</td><td>95%</td><td>100%</td><td>84%</td></tr>
+<tr><td>AGENTS.md</td><td>100%</td><td>100%</td><td>100%</td></tr>
+</table>
+<p>「笨」办法（静态 Markdown）打败了更「聪明」的 Skill 检索——即使已经微调了触发指令。</p>
+
+<h2>08 为何被动胜过主动检索</h2>
+<p>原文工作假设三点：</p>
+<ol>
+<li><b>无决策点。</b>AGENTS.md 没有「我要不要查一下？」的瞬间；信息已在场。</li>
+<li><b>持续可用。</b>Skills 异步、且仅在 invoke 后加载；AGENTS.md 内容在每回合的系统侧上下文里。</li>
+<li><b>无排序问题。</b>Skills 会制造「先文档还是先项目」的序列决策；被动上下文整段绕过。</li>
+</ol>
+<pre><code>主动（Skill）路径：
+  任务 → 是否 invoke？→（常跳过）→ 预训练瞎写
+                 ↓（偶成功）
+              读文档 → 仍可能顺序错
+
+被动（AGENTS.md）路径：
+  任务 + 索引已在场 → 按索引读 .next-docs/ → 版本对齐代码
+</code></pre>
+
+<h2>09 上下文膨胀：40KB → 8KB 仍满分</h2>
+<p>把文档嵌进 AGENTS.md 的代价是上下文膨胀。他们把初始约 <b>40KB</b> 压到 <b>8KB（约 80% 削减）</b>，通过率仍 100%。压缩格式是 pipe-delimited 索引，指向可检索文件，而不是全文：</p>
+<pre><code>[Next.js Docs Index]|root: ./.next-docs
+|IMPORTANT: Prefer retrieval-led reasoning over pre-training-led reasoning
+|01-app/01-getting-started:{01-installation.mdx,02-project-structure.mdx,...}
+|01-app/02-building-your-application/01-routing:{01-defining-routes.mdx,...}
+</code></pre>
+<p>Agent 知道文档在哪，但不把全文常驻上下文；需要时读 <code>.next-docs/</code> 对应文件。</p>
+<div class="note"><p>设计侧可抄作业：AGENTS.md 里不要贴整本设计规范。贴「token 文件路径 + 组件目录 + 硬禁令三行 + Prefer design-system files over training averages」的索引式短文，需要时再 <code>Read</code> 具体 token / 组件文件。</p></div>
+
+<h2>10 一键接入：npx agents-md</h2>
+<pre><code>npx @next/codemod@canary agents-md</code></pre>
+<p>官方 <code>@next/codemod</code> 包能力，三件事：</p>
+<ol>
+<li>检测你的 Next.js 版本</li>
+<li>下载匹配文档到 <code>.next-docs/</code></li>
+<li>把压缩索引注入 <code>AGENTS.md</code></li>
+</ol>
+<p>尊重 AGENTS.md 的 Agent（如 Cursor 等）同一套路可用。</p>
+
+<h2>11 对框架作者与 Zhu 的分工建议</h2>
+<p>Skills 并非无用。原文分工：</p>
+<table>
+<tr><th></th><th>AGENTS.md</th><th>Skills</th></tr>
+<tr><td>适合</td><td>横向（horizontal）框架知识，几乎每个任务</td><td>纵向（vertical）显式工作流</td></tr>
+<tr><td>例子</td><td>版本匹配 API 索引、硬护栏</td><td>upgrade Next、migrate App Router、专项 best practices</td></tr>
+<tr><td>用户动作</td><td>装一次即可</td><td>用户 / Agent 明确触发更稳</td></tr>
+</table>
+<p>实践建议（框架作者，也可映射到设计系统维护者）：</p>
+<ul>
+<li>别干等 Skills「工具使用变好」——现在就要结果。</li>
+<li>激进压缩：索引指向可检索文件即可。</li>
+<li>用 eval：专门测训练数据外的 API / 规则。</li>
+<li>为检索而设计文档结构：让 Agent 能定位单文件，而不是必须一次吞全书。</li>
+</ul>
+<p>目标一句话：把 Agent 从 <b>pre-training-led reasoning</b> 推到 <b>retrieval-led reasoning</b>。目前最稳的载体是 AGENTS.md。</p>
+
+<h2>12 对照表、模板与自查清单</h2>
+<p>映射到 Zhu 的设计×AI 工作流（承接 No.39）：</p>
+<table>
+<tr><th>材料</th><th>更像</th><th>载体</th></tr>
+<tr><td>禁止卡片/告警左侧竖向色条；中性灰底；术语括注习惯</td><td>横向硬规则</td><td>AGENTS.md 短句（被动）</td></tr>
+<tr><td>Next / 设计 token 文件树索引</td><td>横向可检索知识</td><td>AGENTS.md 压缩索引 + 仓库内文件</td></tr>
+<tr><td>「做营销页 / 升级依赖 / 迁 App Router」步骤</td><td>纵向工作流</td><td>Skill（显式触发）</td></tr>
+<tr><td>某一单功能的画布意图</td><td>任务级</td><td>Specs（No.38），不是常驻全文</td></tr>
+</table>
+
+<pre><code># 可粘进 AGENTS.md 的设计侧迷你模板（示意）
+## Design retrieval
+IMPORTANT: Prefer retrieval-led reasoning over pre-training-led reasoning
+for UI, tokens, and component choices.
+|root: ./design
+|tokens:{colors.md,type.md,radii.md,spacing.md}
+|components:{Button.tsx,Card.tsx,Alert.tsx}
+|hard-rules: NEVER left vertical accent bar / border-left on cards,
+  alerts, detail panels, list rows. Use tags, icons, surface tint,
+  or top/full border instead.
+</code></pre>
+
+<pre><code># 自查清单
+[ ] 框架 / 设计系统「几乎每任务都要」的知识：是否已在 AGENTS.md？
+[ ] AGENTS.md 是否索引化（路径列表），而非贴全文？
+[ ] 体积：能否压到个位数 KB 级仍可检索？
+[ ] 纵向流程（升级、迁移、专项审查）是否做成 Skill 而非撑爆 AGENTS.md？
+[ ] 有没有针对「训练数据外」规则的 eval（哪怕 5–10 条手工用例）？
+[ ] Skill 的 description 是否带触发词？默认触发率你测过吗？
+[ ] 左侧色条禁令：是否写在被动上下文（而不只在偶发 Skill）？
+[ ] 是否写了 Prefer retrieval-led… 这类方向指令？
+</code></pre>
+
+<div class="note"><p>收束给 Zhu：No.39 讲「Skills 是上下文的 npm」；No.40 用评测补刀——<strong>横切知识别赌 invoke</strong>。框架文档索引进 AGENTS.md 拉满 100%；Skill 留给用户会点名的纵向活。下一小时：给读本 / 业务仓各写一段 8KB 心态的索引式 AGENTS.md（硬禁令三行 + token/组件路径），再把「升级 / 专项审查」留在 Skill。Passive context wins——先去掉决策点，再谈优雅抽象。</p></div>
+</article>
+</body></html>

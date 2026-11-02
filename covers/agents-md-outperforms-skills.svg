@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#2A6F7A">
+  <!-- 读本 cover system v1 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.40 · 提示词与 Skill</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">PASSIVE CONTEXT WINS</text>
+  <!-- motif: four eval bars + AGENTS.md always-on rail vs skill invoke gate -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- baseline bar 53% -->
+    <path d="M160 220 H160 V520 H200 V220 Z"/>
+    <path d="M160 220 H200"/>
+    <!-- skill default 53% same height -->
+    <path d="M280 220 H280 V520 H320 V220 Z"/>
+    <path d="M280 220 H320"/>
+    <!-- skill+instr 79% taller -->
+    <path d="M400 160 H400 V520 H440 V160 Z"/>
+    <path d="M400 160 H440"/>
+    <!-- skill invoke gate (decision diamond) -->
+    <path d="M560 300 L620 340 L560 380 L500 340 Z"/>
+    <path d="M560 380 V440"/>
+    <path d="M620 340 H700"/>
+    <path d="M500 340 H420"/>
+    <!-- dashed "maybe load" path -->
+    <path d="M700 340 H820" stroke-dasharray="8 6"/>
+    <path d="M820 300 H980 V420 H820 Z"/>
+    <!-- docs index lines inside skill box (muted) -->
+    <path d="M840 330 H960"/>
+    <path d="M840 360 H930"/>
+    <path d="M840 390 H950"/>
+  </g>
+  <!-- accent: AGENTS.md full-height always-on column at 100% -->
+  <g fill="none" stroke="#2A6F7A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1040 140 H1080 V520 H1040 Z"/>
+    <path d="M1040 140 H1080"/>
+    <!-- checkmark at top = 100% -->
+    <circle cx="1060" cy="175" r="16" stroke-width="2.5"/>
+    <path d="M1052 175 L1058 181 L1070 167" stroke-width="2"/>
+    <!-- always-on rail connecting to agent -->
+    <path d="M1060 520 V580"/>
+    <path d="M1020 580 H1100"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".5">
+    <text x="150" y="545">53%</text>
+    <text x="270" y="545">53%</text>
+    <text x="395" y="545">79%</text>
+    <text x="1035" y="545">100%</text>
+    <text x="140" y="575">BASE</text>
+    <text x="255" y="575">SKILL</text>
+    <text x="365" y="575">+INSTR</text>
+    <text x="1010" y="610">AGENTS.MD</text>
+    <text x="520" y="285">INVOKE?</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="#1B2B26">AGENTS.md outperforms skills in our evals</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">VERCEL</text>
+</svg>

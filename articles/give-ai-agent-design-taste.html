@@ -1,149 +1,95 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>九种给 AI 编程 Agent 真正设计品味的方法 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#EBE5EF">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>九种给 AI 编程 Agent 真正设计品味的方法 · 读本</title><link rel="stylesheet" href="../assets/style.css"><style>.video-card{margin:1.8em 0}.video-frame{position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--rule);background:#CFCFCF;cursor:pointer}.video-frame img,.video-frame iframe,.video-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block}.video-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#7A1E2B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px}.video-card figcaption{margin-top:10px;font-size:14px;opacity:.8}.video-index{margin:2em 0;padding:16px 18px;border:1px solid var(--rule)}article.body figure img{width:100%;height:auto;display:block}article.body figcaption{margin-top:8px;font-size:14px;opacity:.75}</style></head><body class="article" style="--tint:#EBE5EF">
 <section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 41 · 独特审美 / design taste / AI aesthetic / tokens / MCP / eval</div><h1>九种给 AI 编程 Agent 真正设计品味的方法</h1><div class="en">9 ways to give your AI coding agent real design taste</div></div>
-<dl class="meta mono"><dt>作者</dt><dd>uiscanner（团队博文）</dd><dt>身份</dt><dd>uiscanner（设计拆解 / MCP 工具）</dd><dt>日期</dt><dd>2026-07-04</dd><dt>原文</dt><dd><a href="https://uiscanner.com/blog/give-ai-agent-design-taste">uiscanner.com/blog ↗</a></dd></dl><a class="readorig" href="https://uiscanner.com/blog/give-ai-agent-design-taste" target="_blank" rel="noopener">阅读原文 →</a></div>
+<dl class="meta mono"><dt>作者</dt><dd>uiscanner（团队博文）</dd><dt>署名</dt><dd>uiscanner（设计拆解 / MCP 工具）</dd><dt>日期</dt><dd>2026-07-04</dd><dt>原文</dt><dd><a href="https://uiscanner.com/blog/give-ai-agent-design-taste">uiscanner.com ↗</a></dd></dl><a class="readorig" href="https://uiscanner.com/blog/give-ai-agent-design-taste" target="_blank" rel="noopener">阅读原文 →</a></div>
 <figure class="cover"><img src="../covers/give-ai-agent-design-taste.svg" alt="9 ways to give your AI coding agent real design taste 封面"></figure></section>
 <article class="body">
-<p class="notice">深度精讲：这不是译文，而是编者按「品味 = 可供应的上下文」视角重写并扩写的讲解。原文 uiscanner 列出九种从大杠杆到收尾的做法；uiscanner 只是其中一环，不是全部。<b>贯穿线：用具体事实替换开放决策，把训练分布的统计平均挤出去。</b>文中会叠入 Zhu 硬规则（禁左侧竖向色条）与可读本对照。细节请点上方「阅读原文」。</p>
+<p class="notice">中文全文译文：由「译文工坊」根据英文原文自动翻译生成，供学习参考。结构与措辞以译文为准；想看原始论述，请点上方「阅读原文」。</p>
 <nav class="toc"><div class="mono">本篇目录</div><ol>
-<li>先给结论：Agent 不是没品味</li>
-<li>方式 1：真参考，别用形容词</li>
-<li>方式 2：参考落成 design tokens</li>
-<li>方式 3：给组件，不只给 token</li>
-<li>方式 4：上下文里放真例子</li>
-<li>方式 5：MCP 接通活的设计上下文</li>
-<li>方式 6：Adopt / Avoid 风格简报</li>
-<li>方式 7：把约束写进 prompt</li>
-<li>方式 8：视觉反馈环</li>
-<li>方式 9：用 eval，别用 vibe</li>
-<li>贯穿线与 Zhu 对照表</li>
-<li>可粘贴清单与 prompt 模板</li>
-</ol></nav>
+<li><a href="#section-1">1. 从真实的参考出发，而不是形容词</a></li><li><a href="#section-2">2. 把参考变成设计令牌（design token）</a></li><li><a href="#section-3">3. 不只给 Token，也要给组件</a></li><li><a href="#section-4">4. 在上下文中给它看示例</a></li><li><a href="#section-5">5. 接入 MCP 服务器，获取实时设计上下文</a></li><li><a href="#section-6">6. 给它一份包含“采用”与“避免”清单的风格指南</a></li><li><a href="#section-7">7. 把约束写进提示词</a></li><li><a href="#section-8">8. 借助视觉反馈循环迭代</a></li><li><a href="#section-9">9. 用评测把关，而不是凭氛围</a></li><li><a href="#section-10">贯穿始终的主线</a></li><li><a href="#section-11">来源</a></li></ol></nav>
 
-<h2>01 先给结论：Agent 不是没品味</h2>
-<p>原文开篇很硬：Agent 缺品味，不是因为它笨，而是因为你没给它任何可品味的事实。语言模型会把你留下的每个缺口填成训练数据的统计中心——「好看的现代 Web UI」的中心，就是 Inter、紫色渐变、居中 hero、三张一样的功能卡。你说「clean and modern」，等于在请求平均值，于是你得到平均值。</p>
-<p><b>对 Agent 而言，taste = context：</b>具体参考、真实数值、具名模式、以及把最高概率答案从糊状平均推开的紧约束。下面九种按杠杆从大到小排列。</p>
-<div class="note"><p>短引（uiscanner）：「Taste, for an agent, is context.」这与读本多篇 DESIGN.md / Skills / AGENTS.md 同构——品味不是说服模型「有感觉」，而是供应事实。</p></div>
-
-<h2>02 方式 1：真参考，别用形容词</h2>
-<p>最大单点升级：用具体参考替换抽象描述词。NN/g 关于 AI 原型的研究也指向同一结论：模糊 prompt 失败；修复是指向既有风格或具体产物，而不是描述感觉。「Make it premium」只在同一片平均云里挪几寸；「Build it like Linear's marketing site」一次关掉上千个开放决策。</p>
-<table>
-<tr><th></th><th>形容词派</th><th>参考派</th></tr>
-<tr><td>说法</td><td>premium / clean / modern / delightful</td><td>像 Linear 营销站 / Stripe 定价页 / 本仓某页</td></tr>
-<tr><td>Agent 补全</td><td>训练中心（Inter + 紫渐变 + 三卡）</td><td>该参考的布局原型与气质锚点</td></tr>
-<tr><td>决策关闭数</td><td>极少</td><td>极多（版式、密度、语气一并锚定）</td></tr>
-</table>
-<p>做法：选你真心佩服、且与当前原型同类的 1–2 个站，<b>直接点名</b>。后面所有步骤都建在这个锚上。</p>
-
-<h2>03 方式 2：参考落成 design tokens</h2>
-<p>点名有帮助，但 Agent 仍要猜真实数值。把缺口关掉：抽出 tokens——精确颜色、字体族、type scale、圆角、间距节奏、阴影、动效。Tokens 是外观的原子单位。交给 Agent <code>#635bff</code> 和 14/16/20/24 字号阶，它就不必从训练汤里再发明一套色与阶。</p>
-<p>uiscanner 的位置在这里：贴公开 URL → 设计拆解（teardown）：tokens、按区块的结构、以及面向 Claude 的 build prompt。它用视觉 + DOM 读渲染页，能抓到真正的主按钮（而不是源码里第一个 button）、hero 是居中还是分栏、哪些图是装饰（并给出原创重做提示）。它描述与 tokenize，不复制或再托管原站资源字节——你在自己的栈里按 tokens 与结构重建。</p>
-<pre><code>ui_teardown("stripe.com", target: "landing")</code></pre>
-
-<h2>04 方式 3：给组件，不只给 token</h2>
-<p>Tokens 定调色板；components 定形状。同一个 <code>#111</code> 按钮在 8px 网格上仍可有十种做法。若项目有组件库（shadcn/ui、Radix、自研 primitives），按名字点名：「用我们的 <code>Button</code> 和 <code>Card</code>，不要新造。」指向真实组件越多，跨会话一致性越高。</p>
-<p>失败模式：Agent 默默在三个文件之外再实现一个已存在的按钮。显式引用组件名即可切断。</p>
-<table>
-<tr><th>只给 token</th><th>token + 组件名</th></tr>
-<tr><td>色与间距对，结构仍漂移</td><td>形状与 API 收敛到现有 primitives</td></tr>
-<tr><td>易出现「几乎一样」的私货 Button</td><td>复用率上升，设计系统不被掏空</td></tr>
-</table>
-
-<h2>05 方式 4：上下文里放真例子</h2>
-<p>品味最适合示范传递。别只描述约定——把仓库里 2–3 个真正做好的组件丢进上下文，说「match this」。Agent 从好例子推断间距习惯、命名、prop 模式与克制，远优于一段规则散文。</p>
-<p>这是清单上最便宜的高杠杆动作：例子你已经有了，放在模型眼前，而不是假设它知道。</p>
-<div class="note"><p>Zhu 实践：与其写「卡片要有品味」，不如 @ 一篇读本卡片组件 + 一篇告警组件，并附加硬禁令：这两类表面禁止左侧竖向色条 / <code>border-left</code> accent bar。</p></div>
-
-<h2>06 方式 5：MCP 接通活的设计上下文</h2>
-<p>Prompt 是一次性的；Model Context Protocol（MCP）服务器是 Agent 可按需拉取的结构化事实管道。Figma 团队把 MCP 说成 unlock，正因它用准确、机器可读的上下文替换猜测：工具要 token 或组件，服务器返回真值，而不是幻觉。</p>
-<p>uiscanner 可作为其一。接入 Claude Code 一例：</p>
-<pre><code>claude mcp add uiscanner -- npx -y uiscanner-mcp@latest</code></pre>
-<p>亦可作为 Claude Code / Cursor / Codex 的 MCP 客户端工具。暴露五个工具：</p>
-<table>
-<tr><th>工具</th><th>作用</th></tr>
-<tr><td><code>ui_teardown(url, target?)</code></td><td>扫描页面 → tokens、结构、build prompt</td></tr>
-<tr><td><code>ui_probe(url)</code></td><td>廉价预检，不消耗 scan</td></tr>
-<tr><td><code>get_teardown(id|link)</code></td><td>取回已完成 teardown</td></tr>
-<tr><td><code>retarget_teardown(id, target)</code></td><td>不重扫，把 build prompt 改到另一 archetype</td></tr>
-<tr><td><code>whoami()</code></td><td>报告套餐与剩余 scans</td></tr>
-</table>
-<p>Target archetypes：<code>landing</code> / <code>dashboard</code> / <code>marketing</code> / <code>ecommerce</code> / <code>portfolio</code> / <code>mobile</code> / <code>general</code>。stdio-only，跑在本机。每次扫描返回 id 与可分享的 <code>uiscanner.com/t/&lt;id&gt;</code> 链接。</p>
-
-<h2>07 方式 6：Adopt / Avoid 风格简报</h2>
-<p>方向清楚后，写成短而有立场的 brief，让 Agent 每次都读。最强模式是显式 <b>adopt / avoid</b>：模型被拉向最「像那么回事」的答案，所以列出避免项与列出采用项同等重要——例如：不要三张一模一样的卡片横排、不要假精确统计如 <code>99.99%</code>、不要处处渐变、不要滥用 em dash。十条锋利规则胜过千字散文。</p>
-<p>放进仓库（<code>AGENTS.md</code> / <code>DESIGN.md</code> / 系统提示），避免每次重贴。</p>
-<pre><code>## Adopt
-- 中性浅灰页面底（无绿偏 / 蓝偏灰）
-- 状态用标签、图标、表面色温、顶边或全框
-- 中文术语括注英文（design tokens）
-
-## Avoid（硬）
-- 卡片 / 告警 / 详情面板 / 列表行左侧竖向色条或 border-left accent bar
-- Inter + 紫渐变 + 居中 hero + 三功能卡的默认套餐（无参考时）
-- 形容词式口味（premium / clean）代替具名参考
-</code></pre>
-
-<h2>08 方式 7：把约束写进 prompt</h2>
-<p>即便以上都有，请求本身仍需要边界。GenDesigns 的 AI UI prompt 框架可当清单：platform、user、output spec、mood/style、patterns/components、technical constraints。事先声明框架与样式系统（Next.js、Tailwind、我们的 tokens），点名布局模式（「split hero、bottom tab、bento grid」），迭代时用精确值。「加 32px 垂直内边距」优于「再松一点」——模糊说法会再次邀请平均值。</p>
-
-<h2>09 方式 8：视觉反馈环</h2>
-<p>初稿就是初稿。真正拉开差距的是生成之后。Agentic Coding Handbook 的 visual feedback loop：渲染 → 截图 → 把截图喂回 Agent → 指出问题 → 再生成 → 重复。截图配 prompt，让模型看见真实输出而非想象输出；能标注就标注问题区域，优于纯文字描述。</p>
-<p>有参考时：把你的截图与起始 teardown 对照，缺口一目了然。</p>
-<pre><code>循环
-渲染 UI → screenshot → 标注问题区 → 再生成
-         ↑__________________________|
-对照：teardown / 参考站 / 上一版屏幕
-</code></pre>
-
-<h2>10 方式 9：用 eval，别用 vibe</h2>
-<p>在看输出之前先定义「好」——按标准打分，而不是按心情。轻量 UI eval 可以是每次都跑的短清单：是否使用我们的 tokens、是否复用现有组件、是否达到 AA 对比度、是否避开禁模式、间距与层级是否贴合参考。让 Agent 对照清单自检；多屏构建时与前一屏做 diff，抓漂移。Vibe-check 只能撑一屏；eval 能撑五十屏。</p>
-<table>
-<tr><th>Vibe</th><th>Eval</th></tr>
-<tr><td>「感觉差点意思」</td><td>可勾选的规则与回归用例</td></tr>
-<tr><td>不可复现</td><td>可跨会话 / 跨人复跑</td></tr>
-<tr><td>一屏够用</td><td>多屏防漂移</td></tr>
-</table>
-
-<h2>11 贯穿线与 Zhu 对照表</h2>
-<p>每一条都是同一动作在不同高度：<b>用具体事实替换开放决策。</b>参考胜过形容词，tokens 胜过参考名，组件胜过 tokens，例子胜过描述，活的 MCP 胜过一次性粘贴，风格简报胜过记忆，约束胜过希望，反馈环胜过初稿，eval 胜过 vibe。品味不是说服模型拥有的东西——是你供应的上下文；供应越多，平均值赢的空间越小。</p>
-<table>
-<tr><th>高度</th><th>供应物</th><th>Zhu 侧落点</th></tr>
-<tr><td>1 参考</td><td>具名站点 / 页</td><td>读本封面系统、admirable 产品页</td></tr>
-<tr><td>2 Tokens</td><td>色 / 字阶 / 半径…</td><td>统一 SVG 封面色规、中性灰 #E6E6E6</td></tr>
-<tr><td>3 组件</td><td>Button / Card 名</td><td>读本卡片、告警、详情面板 primitives</td></tr>
-<tr><td>4 例子</td><td>仓库内好组件</td><td>@ 现有 article card，禁左色条示范</td></tr>
-<tr><td>5 MCP</td><td>活拆解 / 设计系统</td><td>uiscanner 或自建 token MCP</td></tr>
-<tr><td>6 简报</td><td>adopt / avoid</td><td>AGENTS.md + zhu-design-hard-rules</td></tr>
-<tr><td>7 Prompt 边</td><td>平台 / 模式 / 精确值</td><td>GenDesigns 式六项清单</td></tr>
-<tr><td>8 反馈环</td><td>截图标注</td><td>生成 → 截卡片 → 对照封面系统</td></tr>
-<tr><td>9 Eval</td><td>勾选清单</td><td>左色条零容忍；dek 单行；栏目三选一</td></tr>
-</table>
-
-<h2>12 可粘贴清单与 prompt 模板</h2>
-<pre><code># 九步供应品味（每次新界面前扫一遍）
-[ ] 1 点名 1–2 个真参考（非 premium/clean）
-[ ] 2 抽出或拉取 tokens（色/字/半径/间距/影/动）
-[ ] 3 点名现有 Button/Card/… 禁止私货重造
-[ ] 4 上下文放入 2–3 个本仓好例子
-[ ] 5 需要活上下文时接通 MCP（teardown / 设计系统）
-[ ] 6 AGENTS.md / DESIGN.md 写 adopt + avoid
-[ ] 7 Prompt 含：平台、用户、输出规格、模式、技术约束、精确值
-[ ] 8 截图反馈环：标注 → 再生成（对照参考）
-[ ] 9 跑 UI eval 清单，而非 vibe
-[ ] 硬禁：卡片/告警/详情/列表行 — 无左侧竖向色条 / border-left
-</code></pre>
-
-<pre><code># Prompt 模板（可直接改）
-Build a [archetype: landing|dashboard|…] in [Next.js + Tailwind].
-Reference: [Linear marketing / Stripe pricing / 本仓 path].
-Use tokens from [./design/tokens.md] and components [Button, Card, Alert].
-Match the spacing/naming of these examples: [@FileA, @FileB].
-Constraints:
-- No left vertical accent bar / border-left on cards, alerts, panels, list rows
-- Status via tags, icons, surface tint, or top/full border
-- Exact values when iterating (e.g. py-8 = 32px), no "more space"
-Self-check against eval: tokens · reuse components · AA contrast · avoid list · hierarchy vs reference.
-</code></pre>
-
-<div class="note"><p>收束给 Zhu：九种方法的海拔不同，动作只有一个——<strong>别给形容词，给事实</strong>。结合 No.40：横切硬规则（禁左色条、中性灰、术语括注）进 AGENTS.md 被动上下文；纵向「拆参考 → 建页」流程可做成 Skill 或 MCP 调用。下一小时：选一个你真喜欢的站做 teardown，把 tokens + avoid 列表写进仓库，再用上方模板跑一屏，截图对照 eval 勾选。Taste is context——平均值只赢在你留白的地方。</p></div>
+<p>指南 · 清单体</p>
+<p>2026 年 7 月 4 日 · 阅读 7 分钟</p>
+<p>你的智能体并不是因为笨才没有品味，而是因为你没给它任何可以拿来判断品味的东西。语言模型会用训练数据的统计中心去填补你留下的每一处空白，而“漂亮的现代网页 UI”的中心，就是 Inter 字体、紫色渐变、居中的首屏，再加三张功能卡片。你要求“简洁、现代”，其实是在要求平均水平，得到的自然也是平均水平。</p>
+<p>对智能体来说，品味就是上下文：具体的参考、真实的数值、有名字的模式，以及严格的约束，它们能把概率最高的答案从一团平庸中推开。下面是九种具体的供给方式，按影响从大到小排列，最后几项偏收尾打磨。uiscanner 只是清单中的一项，不是全部。</p>
+<h2 id="section-1">1. 从真实的参考出发，而不是形容词</h2>
+<p>最大的单项提升，是用具体的参考取代抽象的描述。NN/g 关于用 AI 做原型的研究说得很直白：含糊的提示词注定失败，解决办法是指向一种成熟的风格或某个具体的作品，而不是描述感受。“做得高级一点”，只会让你在同一团平均值里挪动几寸；“照 Linear 营销网站的样子来做”，则能一次性收敛上千个悬而未决的决策。</p>
+<p>在你要构建的类型里，挑一两个你真心欣赏的网站，并点名它们。<a href="https://uiscanner.com/explore">探索图库</a>是浏览值得研究的网站拆解的快捷入口，从 <a href="https://uiscanner.com/teardown/stripe-com">Stripe</a> 到 <a href="https://uiscanner.com/teardown/linear-app">Linear</a> 都有。以真实参考为锚点，是下面所有方法的基础。</p>
+<h2 id="section-2">2. 把参考变成设计令牌（design token）</h2>
+<p>点出网站名字会有帮助，但智能体仍然得去猜它的实际数值。要弥补这个缺口，就提取 Token：精确的颜色、字体族、字号阶梯、圆角、间距节奏、阴影和动效。Token 是一种外观风格的原子单位。把 <code>#635bff</code> 和 14/16/20/24 的字号阶梯交给智能体，它就不会再从训练数据的一锅乱炖里凭空编造颜色和字号了。</p>
+<p>uiscanner 正是用武之地。粘贴任意公开 URL，它会返回一份设计拆解：Token（颜色、字体、字号阶梯、圆角、间距、阴影、动效）、逐个板块的结构，以及一份为 Claude 定制的构建提示词。它结合视觉识别与 DOM 来读取渲染后的页面，因此能找到真正的主按钮，而不是源码里的第一个按钮；能判断首屏是居中还是左右分栏；还能分辨哪些图像只是装饰（并附上提示词，用于重新生成原创素材）。它只做描述和 Token 提取，绝不复制或转存原始素材文件，所以你可以基于这些 Token 和结构，在自己的技术栈里重新搭建。</p>
+<p>在<a href="https://uiscanner.com/explore">网页应用</a>里粘贴 URL，即可在浏览器中查看拆解结果；或者在接入 MCP（模型上下文协议）后（见第 5 节），让智能体通过一次工具调用直接获取：</p>
+<pre><code class="language-text">ui_teardown("stripe.com", target: "landing")</code></pre>
+<h2 id="section-3">3. 不只给 Token，也要给组件</h2>
+<p>Token 决定调色板，组件决定形态。一个基于 <code>8px</code> 网格的 <code>#111</code> 按钮，仍然可以有十种不同的实现方式。如果你的项目有组件库（shadcn/ui、Radix 或自研的基础组件），就按名称告诉智能体去用：“使用我们的 <code>Button</code> 和 <code>Card</code> 基础组件，不要另起炉灶。”你越明确地指向真实组件，智能体自行发明的东西就越少，跨会话的输出也就越一致。</p>
+<p>这里常见的失败模式是：智能体悄悄重新实现了一个其实隔着三个文件就已存在的按钮。明确引用该组件，这种情况就不会发生。</p>
+<h2 id="section-4">4. 在上下文中给它看示例</h2>
+<p>品味最适合通过示范来传递。与其描述你的规范，不如从自己的代码库里挑两三个真实、写得好的组件放进上下文，然后说“照这个来”。比起一大段规则，智能体从三个优秀示例中，更能推断出你的间距习惯、命名方式、prop 模式，以及那份克制。</p>
+<p>这是清单里成本最低、杠杆最高的一招。示例你本来就有，直接摆到模型面前，别指望它自己知道。</p>
+<h2 id="section-5">5. 接入 MCP 服务器，获取实时设计上下文</h2>
+<p>提示词转瞬即逝；而模型上下文协议（MCP）服务器是一条常驻的管道，智能体可以随时按需从中拉取结构化的事实。Figma 团队之所以把 MCP 视为关键突破，正是因为它用准确、机器可读的上下文取代了猜测：工具请求一个 Token 或组件，服务器返回的是真实的值，而不是幻觉出来的值。</p>
+<p>uiscanner 就可以作为这样的服务器运行。一行命令即可将它接入 Claude Code：</p>
+<pre><code class="language-bash">claude mcp add uiscanner -- npx -y uiscanner-mcp@latest</code></pre>
+<p>它是一个 MCP（模型上下文协议）客户端工具，可用于 Claude Code、Cursor 和 Codex，<a href="https://uiscanner.com/mcp">安装页面</a>涵盖了每一种的配置方法。它提供五个工具：</p>
+<table><thead><tr><th>工具</th><th>功能</th></tr></thead><tbody><tr><td><code>ui_teardown(url, target?)</code></td><td>将页面扫描为 Token、结构和构建提示词</td></tr><tr><td><code>ui_probe(url)</code></td><td>低成本预检，不消耗扫描次数</td></tr><tr><td><code>get_teardown(id|link)</code></td><td>重新获取已完成的 teardown</td></tr><tr><td><code>retarget_teardown(id, target)</code></td><td>无需重新扫描，即可将构建提示词调整为另一种原型</td></tr><tr><td><code>whoami()</code></td><td>查看套餐和剩余扫描次数</td></tr></tbody></table>
+<p>目标原型包括 <code>landing</code>、<code>dashboard</code>、<code>marketing</code>、<code>ecommerce</code>、<code>portfolio</code>、<code>mobile</code> 和 <code>general</code>。它仅支持 stdio，因此在你的本机运行，没有可指向的远程端点。每次扫描都会返回一个 id 和一个可分享的 <code>uiscanner.com/t/&lt;id&gt;</code> 链接。</p>
+<h2 id="section-6">6. 给它一份包含“采用”与“避免”清单的风格指南</h2>
+<p>一旦确定了方向，就把它写成一份简短、有态度的说明，让智能体每次都读一遍。这里最有效的模式是明确的“采用/避免”表述。由于模型会被强烈地拉向最常见的答案，列出要避免的内容和列出要采用的内容同样重要：不要三张一模一样的卡片排成一行，不要 <code>99.99%</code> 这类虚假精确的数据，不要处处使用渐变，不要用破折号。十条犀利的规则，胜过千言万语的描述。</p>
+<p>把它放进仓库（<code>AGENTS.md</code>、<code>DESIGN.md</code> 或系统提示词），这样每次生成都会自动生效，不用你反复粘贴。</p>
+<h2 id="section-7">7. 把约束写进提示词</h2>
+<p>即便做到了以上所有，请求本身仍然需要边界。GenDesigns 的 AI UI 提示词框架是一份很实用的清单：平台、用户、输出规格说明、情绪/风格、模式/组件，以及技术约束。先把框架和样式方案交代清楚（Next.js、Tailwind、我们的 Token），点明布局模式（“分栏首屏、底部标签页导航、bento 网格”），迭代时使用精确数值。“增加 <code>32px</code> 的垂直内边距”胜过“多留点空间”，因为含糊的说法只会再次招来平均水平的结果。</p>
+<h2 id="section-8">8. 借助视觉反馈循环迭代</h2>
+<p>初稿只是草稿。真正的差异在于生成之后做什么。Agentic Coding Handbook 提出的视觉反馈循环就是这种模式：渲染 UI、截图、把截图回传给智能体、指出问题所在、重新生成，然后不断重复。把截图和提示词一起提供，模型就能直接看到实际输出，而不是它想象中的输出。条件允许时给截图加标注；圈出问题区域胜过用文字描述。</p>
+<p>在这个循环里，参考稿才真正派上用场：把你的截图与最初使用的拆解稿对照，差距一目了然。</p>
+<h2 id="section-9">9. 用评测把关，而不是凭氛围</h2>
+<p>最后，在看输出之前先定义什么是“好”，这样你对照的是标准，而不是感觉。一个轻量的 UI 评测，就是每次都跑一遍的简短清单：是否使用了我们的 Token，是否复用了现有组件，是否达到 AA 对比度，是否避开了被禁止的模式，以及在间距和层级上是否与参考稿一致。让智能体按清单自查，并将新页面与之前的页面做 diff，以便在多页面构建中发现偏离。凭氛围检查只适用于一个页面；评测可以扩展到五十个。</p>
+<h2 id="section-10">贯穿始终的主线</h2>
+<p>这里的每一条，都是在不同层面做同一件事：用具体的事实取代悬而未决的决定。参考稿胜过形容词，Token 胜过参考稿，组件胜过 Token，示例胜过描述，实时的 <a href="https://uiscanner.com/mcp">MCP feed</a> 胜过一次性粘贴，风格指南胜过记忆，约束胜过期望，反馈循环胜过初稿，评测胜过氛围。品味不是你说服模型去拥有的东西，而是你提供的上下文；你提供得越多，平均水平获胜的空间就越小。</p>
+<p>最快的起步方式，是给你的智能体一份带有真实数值的真实参考。扫描一个你欣赏的网站，把 Token 和结构交给智能体，再在你自己的技术栈里构建。如果想在接入之前先看看拆解长什么样，可以去 <a href="https://uiscanner.com/explore">explore gallery</a> 浏览几个。</p>
+<h2 id="section-11">来源</h2>
+<ul><li><a href="https://gendesigns.ai/blog/ai-prompts-for-ui-design-complete-framework">How to Write AI Prompts That Generate Beautiful UI: The Complete Framework (GenDesigns)</a></li><li><a href="https://www.figma.com/blog/design-systems-ai-mcp/">Design Systems And AI: Why MCP Servers Are The Unlock (Figma Blog)</a></li><li><a href="https://www.nngroup.com/articles/vague-prototyping/">Prompt to Design Interfaces: Why Vague Prompts Fail and How to Fix Them (NN/g)</a></li><li><a href="https://tweag.github.io/agentic-coding-handbook/WORKFLOW_VISUAL_FEEDBACK/">Visual Feedback Loop (Agentic Coding Handbook)</a></li></ul>
+<p style="margin-top:3em"><a class="readorig" href="https://uiscanner.com/blog/give-ai-agent-design-taste" target="_blank" rel="noopener">阅读原文 →</a></p>
 </article>
+<footer class="mono">原文 © uiscanner（团队博文） · 本页为自动生成的中文译文，仅供学习参考</footer>
+<script>
+(function () {
+  function play(frame) {
+    var embed = frame.getAttribute('data-embed');
+    var direct = frame.getAttribute('data-direct') === '1';
+    var url = frame.getAttribute('data-video-url') || '';
+    var title = frame.getAttribute('data-title') || '视频';
+    if (direct && url) {
+      var video = document.createElement('video');
+      video.src = url;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      var poster = frame.getAttribute('data-poster');
+      if (poster) video.poster = poster;
+      frame.innerHTML = '';
+      frame.appendChild(video);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (embed) {
+      var iframe = document.createElement('iframe');
+      iframe.src = embed;
+      iframe.title = title;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('loading', 'eager');
+      frame.innerHTML = '';
+      frame.appendChild(iframe);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (url) window.open(url, '_blank', 'noopener');
+  }
+  document.querySelectorAll('.video-frame[data-video-url]').forEach(function (frame) {
+    frame.addEventListener('click', function () { play(frame); });
+    frame.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); play(frame); }
+    });
+  });
+})();
+</script>
 </body></html>

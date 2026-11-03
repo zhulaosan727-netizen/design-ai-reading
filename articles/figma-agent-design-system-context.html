@@ -1,126 +1,107 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>让设计系统真正喂饱 Figma Agent · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E2E8F0">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>让设计系统真正喂饱 Figma Agent · 读本</title><link rel="stylesheet" href="../assets/style.css"><style>.video-card{margin:1.8em 0}.video-frame{position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--rule);background:#CFCFCF;cursor:pointer}.video-frame img,.video-frame iframe,.video-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block}.video-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#7A1E2B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px}.video-card figcaption{margin-top:10px;font-size:14px;opacity:.8}.video-index{margin:2em 0;padding:16px 18px;border:1px solid var(--rule)}article.body figure img{width:100%;height:auto;display:block}article.body figcaption{margin-top:8px;font-size:14px;opacity:.75}</style></head><body class="article" style="--tint:#E2E8F0">
 <section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 33 · 提示词与 Skill / Figma / Agent / 设计系统 / Guidelines / Skills</div><h1>让设计系统真正喂饱 Figma Agent</h1><div class="en">How to put your design system to work with the Figma agent</div></div>
-<dl class="meta mono"><dt>作者</dt><dd>Wayne Lin</dd><dt>身份</dt><dd>Product Manager, Figma（前 Airbnb 等支付 / marketplace 产品负责人）</dd><dt>日期</dt><dd>2026-10-22</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/how-to-put-your-design-system-to-work-with-the-figma-agent/">figma.com/blog ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/how-to-put-your-design-system-to-work-with-the-figma-agent/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<dl class="meta mono"><dt>作者</dt><dd>Wayne Lin</dd><dt>署名</dt><dd>Product Manager, Figma（前 Airbnb 等支付 / marketplace 产品负责人）</dd><dt>日期</dt><dd>2026-10-22</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/how-to-put-your-design-system-to-work-with-the-figma-agent/">figma.com ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/how-to-put-your-design-system-to-work-with-the-figma-agent/" target="_blank" rel="noopener">阅读原文 →</a></div>
 <figure class="cover"><img src="../covers/figma-agent-design-system-context.svg" alt="How to put your design system to work with the Figma agent 封面"></figure></section>
 <article class="body">
-<p class="notice">深度精讲：这不是译文，而是编者按「生成时喂上下文」视角重写的讲解。原文是 Figma PM Wayne Lin 在 2026-10-22 写的续篇——如何让设计系统在 <b>prompt 时刻</b>真正被 Agent 用上：连接已发布 library、写 Guidelines、挂 Examples、冻成 Skills。读本 No.31「用 Figma Agent 减轻设计系统日常维护」同作者、偏审计 / 归架 / 命名；<b>本篇偏创建：四层上下文如何让输出长得像你们队，而不是另起一套</b>。两篇宜连读。席位：Full seat 在 Professional / Organization / Enterprise / 部分 Education；Starter 有限；Collab / Dev / View 仅草稿可用。细节请点上方「阅读原文」。</p>
+<p class="notice">中文全文译文：由「译文工坊」根据英文原文自动翻译生成，供学习参考。结构与措辞以译文为准；想看原始论述，请点上方「阅读原文」。</p>
 <nav class="toc"><div class="mono">本篇目录</div><ol>
-<li>先给结论：三句话读懂这篇</li>
-<li>Agent 只与上下文一样好——DS 里已经有答案</li>
-<li>第一层：接上 Library（组件与 token）</li>
-<li>库质量信号：名字、变体、变量、可复用模式</li>
-<li>第二层：Guidelines——判断写进库，自动进 prompt</li>
-<li>四类上下文对照表</li>
-<li>第三层：Examples——比解释更强的「做成什么样」</li>
-<li>第四层：Skills——教一次，斜杠触发</li>
-<li>从输出学习：修画布，回写规则</li>
-<li>与 No.31 怎么分工；个人站最小配置</li>
-<li>自查清单</li>
-</ol></nav>
+<li><a href="#section-1">分享：如何借助 Figma 智能体让你的设计系统发挥作用</a></li><li><a href="#section-2">从事实来源开始</a></li><li><a href="#section-3">用指南明确团队的判断标准</a></li><li><a href="#section-4">向 Figma 智能体展示你的系统在实践中的运用</a></li><li><a href="#section-5">将重复的指令转化为 Skills</a></li><li><a href="#section-6">从 Figma 智能体的输出中学习</a></li><li><a href="#section-7">相关文章</a></li><li><a href="#section-8">使用 Figma 创作与协作</a></li></ol></nav>
 
-<h2>01 先给结论：三句话读懂这篇</h2>
-<p><b>第一，Figma Agent 再强，也只等于你给它的上下文。</b>上下文越具体——系统原则、当下任务——它越能做出「像你们产品」的决策，你越少花时间纠正 generic / off-brand 结果。</p>
-<p><b>第二，设计系统里其实已经有大半原料：</b>该用的组件与 token、文档化的规则、展示如何拼装的例子。难的是：在 prompt 时刻让 Agent <b>拿得到</b>。</p>
-<p><b>第三，记住四层投递：</b>Guidelines（常驻规则）→ Library examples（拼装范例）→ Add context（任务专用文件 / 画板）→ Skills（可复跑流程）。库是砖，指南是选砖规矩，例子是砌法，Skill 是工法手册。</p>
-<table><tr><th>层</th><th>住在哪</th><th>何时自动生效</th><th>最适合</th></tr>
-<tr><td>Library</td><td>已发布组件 / 变量</td><td>聊天里启用 Libraries</td><td>用对砖，而不是手搓</td></tr>
-<tr><td>Guidelines</td><td>挂在已发布库上的说明文件</td><td>库启用时自动带入</td><td>从零创建时的选用 / 例外</td></tr>
-<tr><td>Examples</td><td><code>Examples</code> 页或名尾 <code>_example</code></td><td>作为可复用范例 / 或本次附件</td><td>字段怎么分行、可选区怎么呈现</td></tr>
-<tr><td>Skills</td><td>斜杠命令</td><td>你输入 <code>/</code> 触发</td><td>审计、分析组件等重复流程</td></tr></table>
-
-<h2>02 Agent 只与上下文一样好——DS 里已经有答案</h2>
-<p>Wayne 开篇定调：Agent 像任何协作者，价值上限由你提供的信息决定。有了正确上下文，输出会看起来、用起来像你们的产品，你少纠正「平均脸」。</p>
-<p>设计系统本就囤着这些：组件、token、规则、例子。缺口不在「再写一份长 prompt」，而在 <b>access at prompt time（提示时可达）</b>。</p>
-<blockquote>Output from an agent is only as good as the context it’s given — Wayne Lin / Figma Blog（大意：Agent 输出只与它所获上下文一样好）</blockquote>
-<div class="note"><p>与 No.31 的衔接：维护篇让架子上的书回到格子；本篇让 Agent 新建时默认从正确格子取书。顺序建议：库能被读懂（名字 / 变量 / guidelines）→ 再谈生成质量。</p></div>
-
-<h2>03 第一层：接上 Library（组件与 token）</h2>
-<p>做法很具体：打开 Agent 聊天 → 在 prompt 框选 <b>Libraries</b> → 选中本项目要用的已发布库。接上之后，Agent 能识别团队批准的资产，并在输出里使用那些组件与 token。</p>
-<p>结账流例子：若你要它做一张订单摘要卡，它可以拉取库里已有的 <code>Card/OrderSummary/Default</code>、批准的按钮变体、间距与颜色变量来组装——而不是从零发明一张「自带样式」的新卡。</p>
-<p>若只要改屏上某一个资产（例如换某一个按钮），用 <b>@-mention</b> 点名组件或 token，做定向编辑。</p>
-
-<h2>04 库质量信号：名字、变体、变量、可复用模式</h2>
-<p>库对 Agent 有多有用，取决于它把行为说得多清楚：有意义的组件名、定义好的 properties / variants、应用 variables、以及展示小块如何拼成模式的可复用 pattern。这些是给 Agent 的强信号——每个资产是干什么的、该怎么动。</p>
-<table><tr><th>信号</th><th>Agent 更容易做什么</th><th>缺失时的典型翻车</th></tr>
-<tr><td>有意义命名</td><td>选对主组件</td><td>另起 <code>Frame 127</code> 风格的手搓件</td></tr>
-<tr><td>Properties / variants</td><td>在已有变体里切换</td><td>复制一层再改色</td></tr>
-<tr><td>Variables</td><td>绑间距 / 色 token</td><td>硬编码 8px / #hex</td></tr>
-<tr><td>可复用模式</td><td>按你们的组装习惯拼</td><td>组件对了，版式仍像陌生产品</td></tr></table>
-
-<h2>05 第二层：Guidelines——判断写进库，自动进 prompt</h2>
-<p>有了库，Agent 知道有哪些砖；但「何时用、有何例外」往往读不出来。<b>Guidelines</b> 是挂在已发布设计库上的书面说明文件：库一启用，它们自动进入相关 prompt，设计师不必每句重申。</p>
-<p>原文建议写进 guidelines 的内容：</p>
-<ul>
-<li>应 consistently 遵守的规则</li>
-<li>例外</li>
-<li>要避免的错误，以及改怎么做</li>
-<li>相似组件 / 变体 / 模式之间如何选择</li>
-</ul>
-<p>添加路径：打开设计库 → Library → Manage guidelines → 上传文件 → Apply changes。</p>
-<p>例子：库里同时有 primary / secondary 按钮，但结账屏「Place order」CTA 团队永远用 primary、「Back」用 secondary——把规则写进 guideline，Agent 就有具体选择依据。Guidelines 在 <b>从零创建</b>时效果最好；编辑已有设计时的一致性仍在改进中。</p>
-
-<h2>06 四类上下文对照表</h2>
-<p>Wayne 给了一个 tl;dr，值得背下来：</p>
-<table><tr><th>类型</th><th>一句话</th><th>寿命</th></tr>
-<tr><td>Guidelines</td><td>团队如何使用设计库的常驻规则</td><td>挂在库上，跨新工作复用</td></tr>
-<tr><td>Library examples</td><td>组件与模式在实践中如何拼</td><td>作为范例资产长期可发现</td></tr>
-<tr><td>Add context</td><td>与本次任务相关的文件 / 画板 / 图</td><td>单次 prompt</td></tr>
-<tr><td>Skills</td><td>你希望 Agent 重复遵循的流程</td><td>教一次，<code>/</code> 触发</td></tr></table>
-
-<h2>07 第三层：Examples——比解释更强的「做成什么样」</h2>
-<p>给 Agent 一个「应该长什么样」的例子，往往比纯文字 prompt 更有力——就像你给同事一张现成结账屏当起点。</p>
-<p><b>长期范例：</b>把完整设计发布为组件，放在名为 <code>Examples</code> 的页面上；或在名称末尾加 <code>_example</code>（大小写敏感）。若是 component set，命名 / 页位置应用到父 set，不要只改某个 variant。可参考 Material 3 Design Kit。</p>
-<p><b>本次专用：</b>点 + → Attach Figma files，选或粘贴相关设计；也可直接贴画板 / 图片，或让 Agent 把截图变成可编辑设计。</p>
-<p>航运地址表单例子：库提供字段与复选框；但「哪些字段共一行、公寓号等可选字段怎么呈现」需要例子来告诉 Agent。过去的设计范例给出分组与间距起点，它再适配本次结账体验。</p>
-<div class="note"><p><code>Examples</code> 与 <code>_example</code> 是约定，不是装饰。个人站若只有一套小组件：建一个 <code>Examples</code> 页，放 2–3 个「完整小节」（表单、空态、定价卡）当范例，比再写 500 字 prompt 管用。</p></div>
-
-<h2>08 第四层：Skills——教一次，斜杠触发</h2>
-<p>创建 skill：告诉 Agent 这个 skill 要做什么，给出步骤；可预览并在 markdown 编辑器里改。也可用 Community 技能或分享自己的。</p>
-<p>重复流程——无障碍审计、检查是否用上最新组件——不要每次重写。冻成 skill，任意聊天里用 <code>/</code> 触发。例：</p>
-<ul>
-<li><code>/design-system-audit</code>：对照库检查选中屏，标出 detached 实例、硬编码值、误用组件、无障碍缺口</li>
-<li><code>/analyze-components</code>：查重复、命名错误、与库断开的组件，并建议路径</li>
-</ul>
-<p>两者都可先 flag，再由团队决定让 Agent 执行或人自己改——与 No.31 的维护 skill 同构，只是本篇强调「生成侧也可复用同一套肌肉」。</p>
-
-<h2>09 从输出学习：修画布，回写规则</h2>
-<p>和任何 AI 协作一样，要复核。发现问题：在画布上直接让 Agent 改，或 @ 点名该用的组件 / token。若它 <b>反复犯同一错</b>，信号是：回去更新 guidelines、重访设计库、或给更好例子——而不是无限加长单次 prompt。</p>
-<pre><code># 反馈闭环（建议贴在团队 wiki）
-1. 生成 → 人审（品牌 / 选用 / a11y）
-2. 单次错误 → 画布上 @ 修正
-3. 同类错误 ≥2 次 → 写进 Guidelines 或补一个 _example
-4. 流程性错误 → 冻进 /skill，下次斜杠触发
-5. 库缺口（缺变体 / 烂命名）→ 开 DS 债，不靠 prompt 硬扛
-</code></pre>
-
-<h2>10 与 No.31 怎么分工；个人站最小配置</h2>
-<ol>
-<li><b>No.31 维护：</b>文档、审计、批量换件、命名、token 采纳——归架。</li>
-<li><b>本篇生成：</b>Libraries + Guidelines + Examples + Skills——喂饱创建。</li>
-<li><b>建议顺序：</b>主库启用 + 一页 guidelines（选用 / 例外）→ 2 个完整 Examples → 1 个 <code>/ds-audit-screen</code> skill → 再扩。</li>
-</ol>
-<pre><code># 个人站 / 小项目最小包（1 小时可起）
-[ ] 发布一个小 library（哪怕 8 个组件）
-[ ] Manage guidelines：上传 1 份 md
-    - primary CTA vs secondary
-    - 禁止另起按钮；必须用库变体
-    - 间距只允许 spacing token
-[ ] Examples 页：放「表单小节」「卡片列表」各 1
-[ ] Skill：/brand-check —— 对照库列出未用组件的手搓层
-[ ] 每次 Agent 聊天：先开 Libraries，再说话
-</code></pre>
-
-<h2>11 自查清单</h2>
-<ul>
-<li>Agent 聊天里是否已启用正确 Libraries，而不是只靠自然语言描述品牌？</li>
-<li>需要定点替换时，我有没有 @ 组件 / token，而不是「把那个按钮改红」？</li>
-<li>Guidelines 是否写了例外与「如何二选一」，而不只是赞美式原则？</li>
-<li>从零创建 vs 编辑已有——我是否接受后者仍可能要更多人工校正？</li>
-<li>Examples 是否在 <code>Examples</code> 页或正确使用 <code>_example</code>（含 set 父级）？</li>
-<li>重复流程有没有冻成 <code>/</code> skill，而不是每次粘贴长 prompt？</li>
-<li>反复错误是回写了 guidelines / 库 / 例子，还是只在单次对话里生气？</li>
-<li>席位是否匹配（Full seat 等）？协作者是否只在草稿可用 Agent？</li>
-</ul>
-<div class="note"><p>收束给 Zhu：No.31 教你归架，本篇教你喂料。Figma Agent 不会「懂你们队」，除非 library 砖块、guidelines 判断、examples 砌法、skills 工法在 prompt 时刻都在场。个人站也一样——先让小库可被启用，再谈生成像你。少纠正平均脸的时间，应来自上下文工程，而不是更长的一句「请做得有品味」。</p></div>
+<figure><img src="../figures/figma-agent-design-system-context/01-regionalized-19ae3c97d2531e33444434f6083.avif" alt="" loading="lazy" decoding="async"></figure>
+<p>Wayne Lin，Figma 产品经理</p>
+<ul><li><a href="https://www.figma.com/blog/inside-figma/">走进 Figma</a></li><li><a href="https://www.figma.com/blog/design-systems/">设计系统</a></li><li><a href="https://www.figma.com/blog/figma-agent/">Figma 智能体</a></li></ul>
+<p>设计系统能帮助 Figma 智能体理解定义你产品的原则与规范。下面介绍如何让这些上下文真正为智能体所用。</p>
+<h2 id="section-1">分享：如何借助 Figma 智能体让你的设计系统发挥作用</h2>
+<p>首屏插图：Cynthia Alfonso</p>
+<p><a href="https://www.figma.com/blog/3-ways-product-designers-use-the-figma-agent/">Figma 智能体 产品设计师使用 Figma 智能体的 3 种方式：兼顾匠心、速度与创意表达 了解 Uber、Granola 和 Atlassian 的团队如何借助 Figma 智能体（现已全面开放）支持高质量、快节奏的工作。</a>是一位强大的协作者。但和任何协作者一样，它的价值取决于你提供的信息。它对你的设计系统和手头工作了解得越具体，就越能做出贴合团队实际构建方式的决策。有了合适的上下文，智能体的产出才能真正在外观和质感上贴近你的产品，让你少花时间去修改那些千篇一律或不符合品牌调性的成果。</p>
+<p>这些上下文大多已经存在于你的设计系统中：从智能体应使用的组件和 Token，到说明它们如何组合的文档化规则和示例。难点在于确保智能体在需要时能够获取这一切。下面介绍如何让它了解全貌。</p>
+<h2 id="section-2"><a href="https://www.figma.com/blog/how-to-put-your-design-system-to-work-with-the-figma-agent/#start-with-your-source-of-truth">从事实来源开始</a></h2>
+<p>你的设计库包含智能体所需的最基础的构建模块。将已发布的库连接到智能体，就为它打下了这个基础。连接之后，智能体就能识别哪些资产是团队认可的，并在产出中使用这些组件和 Token。</p>
+<p>要让 Figma 智能体访问你的库，请打开智能体对话，在提示词输入框中选择“Libraries”，然后选择本项目要使用的已发布库。</p>
+<p>假设你的团队正在设计新的结账流程。如果你让智能体构建一张订单摘要卡片，它可以直接调用库中已定义的组件和变量。它可能会使用你现有的 <code>Card/OrderSummary/Default</code> 组件、获批的按钮变体，以及你的间距和颜色变量来完成设计，而不是从零创建一张带有自己样式和结构的新卡片。</p>
+<p>当你希望 Figma 智能体修改产品中某个特定位置的特定素材时（比如替换屏幕上的某个按钮），可以用 <code>@-</code> 提及你希望它使用的组件或 Token。</p>
+<p>你的库对组件及其行为定义得越清晰，对智能体就越有用。<a href="https://help.figma.com/hc/en-us/articles/38978644498199-AI-workflows-collection-Refine-your-components-and-variables-for-the-Figma-agent#h_01KKFV30GE7M7PH1YPBCNXG07W">这意味着</a>要使用有意义的组件名称、定义属性和变体、应用变量，并构建可复用的模式，以展示较小的部分如何组合在一起。这些细节能让智能体更清楚地判断每个素材的用途和预期行为。</p>
+<h2 id="section-3"><a href="https://www.figma.com/blog/how-to-put-your-design-system-to-work-with-the-figma-agent/#make-your-team-s-judgment-explicit-with-guidelines">用指南明确团队的判断标准</a></h2>
+<h4 id="">指南中应该包含什么？</h4>
+<p>→ Figma 智能体应始终遵循的规则</p>
+<p>→ 这些规则的例外情况</p>
+<p>→ 需要避免的错误及正确做法</p>
+<p>→ 如何在相似的组件、变体或模式之间做选择</p>
+<p>智能体获得你的库之后，就知道有哪些构建模块可用。但有些决策无法从库本身看出来，比如何时使用某些组件，或者这种用法在什么情况下有例外。<a href="https://help.figma.com/hc/en-us/articles/43509372175511-Add-guidelines-files-to-a-design-library">指南</a>是附加在已发布设计库上的书面说明文件，你可以在其中沉淀这些判断。启用了库的任何提示词都会自动包含它们，让智能体在创建新设计时有据可循，而无需每次都重复说明。</p>
+<p>当智能体从零开始创建设计时，指南的效果最好。我们正在努力提升它在编辑现有设计时应用指南的一致性。</p>
+<p>要添加指南，请打开你的设计库，然后依次进入 Library → Manage guidelines，上传包含指南的文件，并点击 Apply changes。</p>
+<p>例如，假设你的库同时包含主要按钮和次要按钮，但团队在结账页面的“提交订单”行动号召（CTA）上始终使用主要按钮。你可以把这条规则写进指南，让智能体知道在这种情况下该选哪一个。你也可以为“返回”等操作指定使用次要按钮，让智能体有明确的规则可循。这些指南会一直附加在库上，让你的团队在用智能体创建新设计时可以复用这些指导。</p>
+<h2 id="section-4"><a href="https://www.figma.com/blog/how-to-put-your-design-system-to-work-with-the-figma-agent/#show-the-figma-agent-your-system-in-practice">向 Figma 智能体展示你的系统在实践中的运用</a></h2>
+<h4 id="">Figma 智能体所用上下文类型，简而言之：</h4>
+<p><b>指南（Guidelines）</b>是团队使用设计库的长期规则。它们始终附属于设计库，并适用于之后的所有新工作。</p>
+<p><b>设计库示例</b>展示团队在实践中如何组合组件和模式。</p>
+<p><b>添加上下文</b>可以为 Figma 智能体提供与当前任务相关的参考，例如特定的 Figma 文件或画框。</p>
+<p><b>Skills </b>用于沉淀你希望 Figma 智能体遵循的可重复流程。</p>
+<p>给智能体看一个成品应该是什么样子，往往比用提示词反复解释更有效。就像你会把现有的结账页面交给同事作为起点一样，你也可以把一份设计交给智能体，让它在此基础上调整。</p>
+<p><code>Examples</code> 和 <code>_example</code> 区分大小写。对于组件集，请将命名或页面位置应用于父级组件集，而不是单个变体。可参考 <a href="https://www.figma.com/community/file/1035203688168086460/material-3-design-kit">Material 3 Design Kit</a>。</p>
+<p>要将设计添加到提示词中，请点击 + → Attach Figma files，然后选择或粘贴相关设计。</p>
+<p>对于希望智能体在今后工作中复用的模式，可以将完整设计作为组件发布到 <code>Examples</code> 页面，或在其名称末尾添加 <code>_example</code>。如果示例只针对你当前的工作，不一定是会重复使用的模式，则将其作为上下文添加到当前提示词中。你也可以直接把画框或图片粘贴到聊天中，或让智能体把截图转换为可编辑的设计。</p>
+<p>例如，你可能要在结账流程中添加一个收货地址表单。设计库提供了表单字段和复选框，但仅靠这些组件，并不能说明团队如何组织收货地址表单，比如哪些字段同排显示，或者公寓门牌号等选填字段如何呈现。以往设计中的一个示例可以展示团队如何对字段分组、如何处理间距，让智能体获得一个可针对此次结账体验调整的起点。</p>
+<h2 id="section-5"><a href="https://www.figma.com/blog/how-to-put-your-design-system-to-work-with-the-figma-agent/#turn-recurring-instructions-into-skills">将重复的指令转化为 Skills</a></h2>
+<p><a href="https://help.figma.com/hc/en-us/articles/40283639496599-Create-and-manage-custom-skills-in-Figma">创建 Skill</a> 时，告诉 Figma 智能体你希望这个 Skill 做什么，并提供它应遵循的步骤或指令。随后你可以预览并编辑该 Skill，包括直接在 markdown 编辑器中修改。</p>
+<p>你也可以使用<a href="https://www.figma.com/blog/try-these-10-skills-and-show-off-your-own/">来自 Figma 社区</a>的 Skills，或分享你自己的 Skills 供他人使用。</p>
+<p>我们很多人都在一遍遍重复同样的流程，无论是审查界面是否符合可访问性标准，还是频繁检查自己用的是不是最新的组件。现在，你不必每次都重写同样的指令，可以把这套流程变成智能体可复用的<a href="https://www.figma.com/blog/try-these-10-skills-and-show-off-your-own/">一项技能 试试这 10 个技能，也秀出你自己的现在你可以直接在 Figma 中为我们的智能体编写技能，让你的观点真正落地。这里有 10 个我们最喜欢的技能，帮你开个头。</a>。技能是一组你只需教给智能体一次的指令，之后在任何对话中输入正斜杠 <code>(/)</code> 即可触发。你无需每次重写同样的提示词，或重走同样的流程，只要发布一个技能，供团队或整个组织使用。</p>
+<p>例如，<code>/design-system-audit</code> 技能可以对照你的库检查选中的界面，并标记脱离的实例、硬编码值、误用的组件以及可访问性缺口。<code>/analyze-components</code> 技能则可以检查你的组件，找出重复项、命名错误，以及与库失去关联的组件。两者都能标记潜在问题并给出后续建议，你可以让智能体去执行，也可以由团队自行处理。</p>
+<h2 id="section-6"><a href="https://www.figma.com/blog/how-to-put-your-design-system-to-work-with-the-figma-agent/#learn-from-the-figma-agent-s-output">从 Figma 智能体的输出中学习</a></h2>
+<p>想让 Figma 智能体修正画布上的错误，可以在提示词中告诉它要改什么，或用 <code>@-</code> 提及你希望它使用的具体组件或 Token。</p>
+<p>和使用任何 AI 一样，仔细复核输出依然很重要。审查它的成果时，一旦发现问题，你可以直接在画布上让智能体立即纠正。如果你发现它总是犯同样的错误，这就说明你可能需要回头更新规范、重新审视设计库，或给它提供更好的示例作为参考。</p>
+<p>Figma 智能体面向 Professional、Organization、Enterprise 以及部分 Education 方案的完整席位用户开放，Starter 方案则为有限开放。Collab、Dev 和 View 席位可以在各自的草稿中使用该智能体。</p>
+<p>在我们的<a href="https://help.figma.com/hc/en-us/articles/37998629035799-Work-with-the-Figma-agent-in-design-files">帮助中心</a>了解更多关于 Figma 智能体的信息。</p>
+<figure><img src="../figures/figma-agent-design-system-context/01-regionalized-19ae3c97d2531e33444434f6083.avif" alt="" loading="lazy" decoding="async"></figure>
+<p>Wayne 是 Figma 的产品经理，专注于让 AI 有效使用设计系统。加入 Figma 之前，Wayne 曾在 Airbnb 等支付和交易平台类公司担任产品负责人。</p>
+<p><a href="https://www.linkedin.com/in/waynelin/">LinkedIn</a></p>
+<h2 id="section-7">相关文章</h2>
+<ul><li><a href="https://www.figma.com/blog/figma-agent-and-design-systems/">如何借助 Figma 智能体减轻设计系统的维护负担</a><a href="https://www.figma.com/blog/inside-figma/">Figma 内部</a><a href="https://www.figma.com/blog/design-systems/">设计系统</a><a href="https://www.figma.com/blog/figma-agent/">Figma 智能体</a><a href="https://www.figma.com/blog/product-updates/">产品更新</a></li><li><a href="https://www.figma.com/blog/3-ways-product-designers-use-the-figma-agent/">产品设计师使用 Figma 智能体的 3 种方式：打磨细节、提升速度、释放创意</a><a href="https://www.figma.com/blog/maker-stories/">创作者故事</a><a href="https://www.figma.com/blog/figma-agent/">Figma 智能体</a><a href="https://www.figma.com/blog/case-study/">案例研究</a><a href="https://www.figma.com/blog/product-updates/">产品更新</a></li><li><a href="https://www.figma.com/blog/got-skills-make-the-figma-agent-a-better-collaborator/">掌握技能了吗？让 Figma 智能体成为更好的协作伙伴</a><a href="https://www.figma.com/blog/working-well/">高效工作</a><a href="https://www.figma.com/blog/figma-agent/">Figma 智能体</a><a href="https://www.figma.com/blog/figma-design/">Figma Design</a><a href="https://www.figma.com/blog/figma-make/">Figma Make</a><a href="https://www.figma.com/blog/figma-mcp/">Figma MCP</a><a href="https://www.figma.com/blog/ai/">AI</a><a href="https://www.figma.com/blog/tips-and-inspiration/">提示与灵感</a></li></ul>
+<h2 id="section-8">使用 Figma 创作与协作</h2>
+<p>免费开始使用</p>
+<p style="margin-top:3em"><a class="readorig" href="https://www.figma.com/blog/how-to-put-your-design-system-to-work-with-the-figma-agent/" target="_blank" rel="noopener">阅读原文 →</a></p>
 </article>
+<footer class="mono">原文 © Wayne Lin · 本页为自动生成的中文译文，仅供学习参考</footer>
+<script>
+(function () {
+  function play(frame) {
+    var embed = frame.getAttribute('data-embed');
+    var direct = frame.getAttribute('data-direct') === '1';
+    var url = frame.getAttribute('data-video-url') || '';
+    var title = frame.getAttribute('data-title') || '视频';
+    if (direct && url) {
+      var video = document.createElement('video');
+      video.src = url;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      var poster = frame.getAttribute('data-poster');
+      if (poster) video.poster = poster;
+      frame.innerHTML = '';
+      frame.appendChild(video);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (embed) {
+      var iframe = document.createElement('iframe');
+      iframe.src = embed;
+      iframe.title = title;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('loading', 'eager');
+      frame.innerHTML = '';
+      frame.appendChild(iframe);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (url) window.open(url, '_blank', 'noopener');
+  }
+  document.querySelectorAll('.video-frame[data-video-url]').forEach(function (frame) {
+    frame.addEventListener('click', function () { play(frame); });
+    frame.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); play(frame); }
+    });
+  });
+})();
+</script>
 </body></html>

@@ -1,142 +1,224 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>把审美变成可打分标准 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#F0E4E8">
-<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 27 · 独特审美 / 审美 / 评审 / Harness</div><h1>把审美变成可打分标准</h1><div class="en">Harness design for long-running application development</div></div>
-<dl class="meta mono"><dt>作者</dt><dd>Prithvi Rajasekaran</dd><dt>身份</dt><dd>Anthropic（Engineering / Labs）</dd><dt>日期</dt><dd>2026-03-24</dd><dt>原文</dt><dd><a href="https://www.anthropic.com/engineering/harness-design-long-running-apps">anthropic.com/engineering ↗</a></dd></dl><a class="readorig" href="https://www.anthropic.com/engineering/harness-design-long-running-apps" target="_blank" rel="noopener">阅读原文 →</a></div>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>把审美变成可打分标准 · 读本</title><link rel="stylesheet" href="../assets/style.css"><style>.video-card{margin:1.8em 0}.video-frame{position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--rule);background:#CFCFCF;cursor:pointer}.video-frame img,.video-frame iframe,.video-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block}.video-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#7A1E2B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px}.video-card figcaption{margin-top:10px;font-size:14px;opacity:.8}.video-index{margin:2em 0;padding:16px 18px;border:1px solid var(--rule)}article.body figure img{width:100%;height:auto;display:block}article.body figcaption{margin-top:8px;font-size:14px;opacity:.75}</style></head><body class="article" style="--tint:#F0E4E8">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 27 · 独特审美 / 审美 / 评审 / Harness / Anthropic</div><h1>把审美变成可打分标准</h1><div class="en">Harness design for long-running application development</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Prithvi Rajasekaran</dd><dt>署名</dt><dd>Anthropic（Engineering / Labs）</dd><dt>日期</dt><dd>2026-03-24</dd><dt>原文</dt><dd><a href="https://www.anthropic.com/engineering/harness-design-long-running-apps">anthropic.com ↗</a></dd></dl><a class="readorig" href="https://www.anthropic.com/engineering/harness-design-long-running-apps" target="_blank" rel="noopener">阅读原文 →</a></div>
 <figure class="cover"><img src="../covers/harness-design-frontend-grader.svg" alt="Harness design for long-running application development 封面"></figure></section>
 <article class="body">
-<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解。原文是 Anthropic Engineering 长文，讲长程应用开发的 harness（编排脚手架）；本篇把重心放在其中对设计师最有杠杆的一节——前端设计打分器（frontend design grader）：四条标准、加重原创性、生成-评审分离、Playwright 真页审阅，以及标准措辞如何把模型推向特定气质。长程 planner–generator–evaluator 只作背景；文末给出可写进个人 AI 工作流的「设计打分 Skill」模板。想看完整实验、成本表与 DAW 案例，请点上方「阅读原文」。</p>
+<p class="notice">中文全文译文：由「译文工坊」根据英文原文自动翻译生成，供学习参考。结构与措辞以译文为准；想看原始论述，请点上方「阅读原文」。</p>
 <nav class="toc"><div class="mono">本篇目录</div><ol>
-<li>先给结论：三句话读懂这篇</li>
-<li>为什么「自己夸自己」会锁死在平均脸</li>
-<li>两个洞见：原则可打分，生成与评审要拆开</li>
-<li>四条标准：质量 / 原创 / 手艺 / 功能</li>
-<li>加权：把火力打在原创性与整体气质上</li>
-<li>闭环怎么跑：Playwright 真页、5–15 轮、可转向</li>
-<li>标准措辞会偷改品味：博物馆那一跃</li>
-<li>长程 harness 只要知道这些</li>
-<li>给 Zhu 的个人设计打分 Skill 模板</li>
-<li>自查清单</li>
-</ol></nav>
+<li><a href="#section-1">为什么朴素的实现不够用</a></li><li><a href="#section-2">前端设计：让主观质量变得可评分</a></li><li><a href="#section-3">扩展到全栈编码</a></li><li><a href="#section-9">下一步会怎样</a></li><li><a href="#section-10">附录</a></li><li><a href="#section-11">作者与致谢</a></li></ol></nav>
 
-<h2>01 先给结论：三句话读懂这篇</h2>
-<p><b>第一，「好不好看」难打分；「是否符合我们的原则」可以。</b>审美无法完全还原成一个分数，但把原则写成可打分标准（grading criteria），结果会明显好过裸模型。</p>
-<p><b>第二，生成与评审必须拆开。</b>同一 Agent 自评时，会自信地赞美平庸输出——主观设计尤甚。拆成 generator + evaluator（灵感来自 GAN），再把评审者调得更挑剔，比逼生成者「自我批判」管用得多。</p>
-<p><b>第三，标准的措辞本身就是审美方向盘。</b>写「museum quality」会把输出推向某种汇聚；加重 originality，等于显式惩罚 AI slop，鼓励审美冒险。</p>
-<table><tr><th>默认做法</th><th>原文主张</th><th>结果差异</th></tr>
-<tr><td>问模型「好看吗 / 再美一点」</td><td>按原则打分 + 分项反馈</td><td>有可迭代的具体缺口，而非空赞美</td></tr>
-<tr><td>同一对话里自产自评</td><td>独立 evaluator + few-shot 校准</td><td>挑剔可调，生成者有外部压力</td></tr>
-<tr><td>只看静态截图口头评</td><td>Playwright 打开真页再打分</td><td>交互与实现细节进入评审</td></tr>
-<tr><td>四维平均加权</td><td>设计质量 + 原创性权重大于手艺/功能</td><td>逼离「能用但没记忆点」</td></tr></table>
+<p><i>作者：Prithvi Rajasekaran，我们<a href="https://www.anthropic.com/news/introducing-anthropic-labs"> Labs</a> 团队成员。</i></p>
+<p>过去几个月，我一直在研究两个相互关联的问题：让 Claude 产出高质量的前端设计，以及让它在无人干预的情况下构建完整的应用。这项工作源于我们早先在<a href="https://github.com/anthropics/claude-code/blob/main/plugins/frontend-design/skills/frontend-design/SKILL.md">前端设计 skill</a> 和<a href="https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents">长时间运行的编程智能体 harness</a> 上的探索。当时，我和同事通过提示词工程和 harness 设计，把 Claude 的表现提升到了远高于基线的水平，但两者最终都遇到了瓶颈。</p>
+<p>为了突破瓶颈，我寻找了一些新颖的 AI 工程方法，希望它们能同时适用于两个截然不同的领域：一个由主观品味决定，另一个则取决于可验证的正确性和可用性。受<a href="https://en.wikipedia.org/wiki/Generative_adversarial_network">生成对抗网络</a>（GAN）启发，我设计了一个包含<b>生成器</b>和<b>评估器</b>两个智能体的多智能体结构。要构建一个能够可靠且有品味地为产出打分的评估器，首先得制定一套标准，把“这个设计好不好？”这类主观判断转化为具体、可评分的指标。</p>
+<p>随后，我把这些技术应用到长时间运行的自主编程中，并沿用了早先 harness 工作中的两条经验：把构建过程拆分成可处理的小块，以及使用结构化产物在会话之间传递上下文。最终成果是一个由规划器、生成器和评估器组成的三智能体架构，能在长达数小时的自主编程会话中产出功能丰富的全栈应用。</p>
+<h2 id="section-1">为什么朴素的实现不够用</h2>
+<p>我们之前已经证明，harness 设计对长时间运行的智能体化编程的效果影响很大。在早先的<a href="https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents">实验</a>中，我们用一个初始化智能体把产品规格说明拆解为任务列表，再由一个编程智能体逐个功能地实现这些任务，并在会话之间交接产物以传递上下文。更广泛的开发者社区也得出了类似的结论，例如“<a href="https://ghuntley.com/ralph/">Ralph Wiggum</a>”方法，就是用 hook 或脚本让智能体持续处于迭代循环中。</p>
+<p>但有些问题始终存在。面对更复杂的任务，智能体仍然容易随着时间推移而跑偏。在拆解这一问题时，我们发现智能体执行此类任务时有两种常见的失败模式。</p>
+<p>第一，随着上下文窗口被填满，模型在长任务中往往会逐渐失去连贯性（参见我们关于<a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">上下文工程</a>的文章）。有些模型还会出现“上下文焦虑”：当它们接近自认为的上下文上限时，就会过早地收尾。上下文重置可以同时解决这两个问题。它会彻底清空上下文窗口并启动一个全新的智能体，再配合一份结构化的交接，把前一个智能体的状态和下一步工作传递过去。</p>
+<p>这与压缩（compaction）不同。压缩是把对话的早期部分就地总结，让同一个智能体在缩短后的历史上继续工作。压缩能保持连续性，却不会给智能体一张白纸，所以上下文焦虑仍可能持续存在。重置则提供一张白纸，代价是交接产物必须包含足够的状态，下一个智能体才能顺利接手。在我们早期的测试中，Claude Sonnet 4.5 的上下文焦虑相当严重，仅靠压缩不足以支撑长任务的出色表现，因此上下文重置成了 harness 设计中不可或缺的一环。这解决了核心问题，但每次运行 harness 都会增加编排复杂度、Token 开销和延迟。</p>
+<p>第二个问题我们此前没有处理过，那就是自我评估。当被要求评估自己产出的工作时，智能体往往会自信地夸赞，即便在人类观察者看来，质量明显只是平庸。这个问题在设计这类主观任务中尤为突出，因为这里没有类似可验证软件测试的二元检查。布局是精致还是千篇一律，需要靠判断，而智能体在给自己的作品打分时，总是稳定地偏向正面评价。</p>
+<p>然而，即便是在结果可验证的任务上，智能体在完成任务的过程中有时仍会表现出糟糕的判断，拖累任务表现。把干活的智能体和评判的智能体分开，是解决这一问题的有力杠杆。这种分离本身并不会立刻消除宽容倾向：评估者仍然是一个大语言模型（LLM），天然倾向于对 LLM 生成的输出手下留情。但事实证明，把独立的评估者调教得更挑剔，要比让生成者苛刻地审视自己的成果容易得多；而一旦有了这种外部反馈，生成者就有了可以据以迭代的具体依据。</p>
+<h2 id="section-2">前端设计：让主观质量变得可评分</h2>
+<p>我从前端设计入手做实验，因为自我评估的问题在这里最为明显。在没有任何干预的情况下，Claude 通常倾向于采用安全、可预测的布局：功能上没问题，视觉上却平淡无奇。</p>
+<p>有两点认识塑造了我为前端设计搭建的 harness。第一，审美虽然无法完全简化为一个分数，个人品味也always各不相同，但如果评分标准中编码了设计原则与偏好，审美是可以被改进的。“这个设计美吗？”很难得到一致的回答，而“它是否遵循了我们的优秀设计原则？”则让 Claude 有了可以对照评分的具体依据。第二，把前端生成与前端评分分开，就能形成一个反馈闭环，推动生成者产出更出色的结果。</p>
+<p>基于此，我写了四条评分标准，并在提示词中同时提供给生成者智能体和评估者智能体：</p>
+<ul><li><b>设计质量：</b>设计给人的感觉是一个连贯的整体，还是零散部件的拼凑？出色的作品意味着色彩、排版、布局、图像和其他细节相互配合，营造出独特的氛围与辨识度。</li><li><b>原创性：</b>是否有定制化决策的痕迹，还是只是模板布局、组件库默认样式和 AI 生成的套路？人类设计师应当能看出刻意的创意选择。未经修改的现成组件，或是白色卡片叠紫色渐变这类典型的 AI 生成痕迹，在这一项上都不合格。</li><li><b>工艺：</b>技术执行层面：排版层级、间距一致性、色彩和谐、对比度。这是一项能力检查，而非创意检查。大多数合理的实现默认都能做好；不及格则意味着基本功有问题。</li><li><b>功能性：</b>独立于美学之外的可用性。用户能否理解界面的作用、找到主要操作，并且无需猜测就能完成任务？</li></ul>
+<p>我把设计质量和原创性的权重置于工艺和功能性之上。Claude 在工艺和功能性上默认就能拿到不错的分数，因为所需的技术能力对模型来说往往是水到渠成的。但在设计和原创性上，Claude 的产出往往顶多只能算平庸。评分标准明确惩罚高度同质化的“AI slop”模式，而加大设计和原创性的权重，则推动模型在美学上承担更多风险。</p>
+<p>我用带有详细分数拆解的少样本示例来校准评估器。这确保了评估器的判断与我的偏好一致，并减少了各次迭代之间的分数漂移。</p>
+<p>我基于 <a href="https://platform.claude.com/docs/en/agent-sdk/overview">Claude Agent SDK</a> 搭建了这个循环，使编排保持简单。生成器智能体首先根据用户提示词创建一个 HTML/CSS/JS 前端。我给评估器配备了 Playwright MCP（模型上下文协议），让它在对每项标准打分并撰写详细评语之前，可以直接与线上页面交互。实际运行中，评估器会自行浏览页面、截图并仔细研究实现，然后给出评估。这些反馈会回流给生成器，作为下一次迭代的输入。每次生成我会运行 5 到 15 次迭代，生成器在回应评估器的评语时，每次迭代通常都会把成果推向更具辨识度的方向。由于评估器是在主动浏览页面，而不是给静态截图打分，每个循环都要消耗真实的时钟时间。完整运行最长可达四个小时。我还要求生成器在每次评估后做出一个策略性决定：如果分数趋势良好，就继续优化当前方向；如果这条路走不通，就转向一种完全不同的美学风格。</p>
+<p>在多次运行中，评估器的评分随迭代不断提高，随后趋于平稳，但仍有提升空间。有些生成结果是渐进式打磨，另一些则在迭代之间出现了急剧的美学转向。</p>
+<p>评估标准的措辞以我没有完全预料到的方式引导了生成器。像“最好的设计具有博物馆级品质”这样的措辞，会把设计推向某种特定的视觉趋同，这说明与评估标准相关的提示词设计会直接塑造产出的气质。</p>
+<p>虽然分数总体上随迭代提升，但这一趋势并不总是干净的线性增长。后期的实现整体上往往更好，但我经常遇到更喜欢中间某一轮而非最后一轮的情况。实现的复杂度也倾向于逐轮上升，生成器会针对评估器的反馈尝试更有野心的方案。即便是第一轮迭代，产出也明显优于完全没有提示词的基线，这说明在评估器给出任何反馈、推动进一步打磨之前，评估标准及其相关措辞本身就已经把模型从通用的默认选项上引开了。</p>
+<p>在一个值得一提的示例中，我让模型为一家荷兰艺术博物馆制作网站。到第九轮迭代时，它为一家虚构的博物馆做出了一个简洁的深色主题落地页。页面视觉上很精致，但基本在我的预期之内。然而到第十轮时，它彻底推翻了原有思路，把网站重新构想为一种空间体验：用 CSS 透视渲染出带棋盘格地板的 3D 房间，艺术作品以自由形式挂在墙上，并通过门洞在各展厅之间导航，而不是滚动或点击。这种创造性的飞跃，是我此前从未在单次生成中见过的。</p>
+<figure class="video-card"><div class="video-frame" role="button" tabindex="0" data-video-url="https://cdn.sanity.io/files/4zrzovbb/website/9877febd34432f7f582aecd0023b951223605c6a.mp4" data-embed="" data-direct="1" data-poster="" data-title="视频" aria-label="播放视频：视频"><div class="video-placeholder" aria-hidden="true">▶</div><span class="video-play" aria-hidden="true">▶</span></div><figcaption><a href="https://cdn.sanity.io/files/4zrzovbb/website/9877febd34432f7f582aecd0023b951223605c6a.mp4" target="_blank" rel="noreferrer">视频</a><span class="video-provider">视频文件</span><a class="video-open" href="https://cdn.sanity.io/files/4zrzovbb/website/9877febd34432f7f582aecd0023b951223605c6a.mp4" target="_blank" rel="noreferrer">新窗口打开</a></figcaption></figure>
+<h2 id="section-3">扩展到全栈编码</h2>
+<p>有了这些发现，我把这种受 GAN 启发的模式应用到了全栈开发中。生成器—评估器循环与软件开发生命周期天然契合，其中代码评审和 QA 所扮演的结构性角色与设计评估器相同。</p>
+<h3 id="section-4">架构</h3>
+<p>在我们早先的<a href="https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents">长时运行 harness</a>中，我们通过一个初始化智能体、一个每次只处理一个功能的编码智能体，以及会话之间的上下文重置，解决了跨多个会话保持编码连贯性的问题。上下文重置是关键的突破口：当时的 harness 使用的是 Sonnet 4.5，它表现出前面提到的“上下文焦虑”倾向。打造一个能在上下文重置之间良好运转的 harness，是让模型始终专注于任务的关键。Opus 4.5 基本自行消除了这种行为，因此我得以把上下文重置完全从这套 harness 中去掉。整个构建过程中，智能体作为一个连续会话运行，上下文的增长则由 <a href="https://platform.claude.com/docs/en/agent-sdk/overview">Claude Agent SDK</a> 的自动压缩来处理。</p>
+<p>这次我在原有 harness 的基础上，构建了一个三智能体系统，每个智能体负责弥补我在之前运行中观察到的一个具体缺口。系统包含以下智能体角色：</p>
+<p><b>规划者（Planner）：</b>我们之前的长时运行 harness 要求用户预先提供详细的规格说明。我想把这一步自动化，于是创建了一个规划智能体，它接收 1-4 句话的简单提示词，并将其扩展为完整的产品规格说明。我在提示词中要求它在范围上要有野心，并专注于产品上下文和高层技术设计，而不是具体的技术实现细节。这样强调，是因为担心如果规划者一开始就给出过细的技术细节而又出了错，规格说明中的错误会层层传导到下游的实现。更明智的做法似乎是约束智能体要产出的交付成果，让它们在工作过程中自己摸索路径。我还要求规划者寻找机会，把 AI 功能融入产品规格说明。（示例见文末附录。）</p>
+<p><b>生成者（Generator）：</b>早先 harness 中一次只做一个功能的方式，在范围管理上效果很好。我在这里采用了类似的模式，指示生成者按冲刺工作，每次从规格说明中选取一个功能。每个冲刺都使用 React、Vite、FastAPI 和 SQLite（后来换成 PostgreSQL）技术栈来实现应用，并且要求生成者在每个冲刺结束、交给 QA 之前先对自己的工作进行自评。它还可以使用 git 进行版本控制。</p>
+<p><b>评估者：</b>早期 harness 产出的应用往往看起来很惊艳，但真正用起来仍然有不少 bug。为了发现这些问题，评估者使用 Playwright MCP，像真实用户一样在运行中的应用里点击操作，测试 UI 功能、API 端点和数据库状态。随后，它会依据自己发现的 bug，以及一套以前端实验为蓝本的评分标准，对每个冲刺打分。这套标准在这里被调整为覆盖产品深度、功能性、视觉设计和代码质量。每项标准都有硬性阈值，只要有一项低于阈值，该冲刺就算失败，生成者会收到关于问题所在的详细反馈。</p>
+<p>每个冲刺开始前，生成者和评估者会先协商一份冲刺契约：在编写任何代码之前，就这一块工作“完成”的标准达成一致。这样做是因为产品规格说明刻意写得比较高层，我需要一个步骤来弥合用户故事与可测试实现之间的差距。生成者提出自己要构建什么、如何验证成功，评估者则审阅这份提议，确保生成者做的是对的事。两者反复迭代，直到达成一致。</p>
+<p>沟通通过文件完成：一个智能体写下一个文件，另一个智能体读取后，要么在该文件内回应，要么新建一个文件，再由前一个智能体读取。随后，生成者按照约定好的契约进行构建，再把成果交给 QA。这样既让工作忠实于规格说明，又避免过早过度限定实现细节。</p>
+<h3 id="section-5">运行 harness</h3>
+<p>在这个 harness 的第一版中，我使用 Claude Opus 4.5，分别用完整 harness 和单智能体系统运行用户提示词，以便对比。我选择 Opus 4.5，是因为开始这些实验时，它是我们最强的编程模型。</p>
+<p>我写了下面这条提示词，用来生成一个复古电子游戏制作器：</p>
+<blockquote><p>创建一个 2D 复古游戏制作器，功能包括关卡编辑器、精灵编辑器、实体行为，以及可试玩的测试模式。</p></blockquote>
+<p>下表列出了 harness 类型、运行时长和总成本。</p>
+<p><b>Harness</b></p>
+<p><b>时长</b></p>
+<p><b>成本</b></p>
+<p>单智能体</p>
+<p>20 分钟</p>
+<p>$9</p>
+<p>完整 harness</p>
+<p>6 小时</p>
+<p>$200</p>
+<p>这套 harness 的成本高出 20 多倍，但输出质量的差距一眼就能看出来。</p>
+<p>我期待的是这样一个界面：可以搭建关卡及其组成部分（sprites、entities、tile layout），然后点击运行就能真正玩这个关卡。我先打开了单智能体运行的产出，最初的应用看起来与这些预期基本吻合。</p>
+<p>然而，随着我一路点击下去，问题逐渐暴露。布局浪费空间，固定高度的面板让大部分视口都空着。工作流也很僵硬：想要填充关卡时，系统提示我先创建 sprites 和 entities，但界面里没有任何东西引导我遵循这个顺序。更关键的是，游戏本身根本跑不起来。我的 entities 出现在了屏幕上，却对任何输入都没有反应。深入代码后发现，entity 定义与游戏运行时之间的连接是断开的，而且表面上看不出问题出在哪里。</p>
+<figure><img src="../figures/harness-design-frontend-grader/01-next-image.webp" alt="" loading="lazy" decoding="async"><figcaption>打开单智能体 harness 创建的应用时的初始界面。<br></figcaption></figure>
+<figure><img src="../figures/harness-design-frontend-grader/02-next-image.webp" alt="" loading="lazy" decoding="async"><figcaption>在单智能体 harness 做出的 sprite 编辑器中创建 sprite</figcaption></figure>
+<figure><img src="../figures/harness-design-frontend-grader/03-next-image.webp" alt="" loading="lazy" decoding="async"><figcaption>尝试运行我创建的关卡，但没有成功</figcaption></figure>
+<p>评估完单智能体的运行结果后，我把注意力转向 harness 的运行结果。这次运行从同样的一句话提示词出发，但规划器步骤把它扩展成了一份包含 16 项功能、横跨十个冲刺的规格说明，远远超出了单智能体运行所尝试的范围。除了核心编辑器和试玩模式，这份规格说明还要求实现 sprite 动画系统、行为模板、音效和音乐、AI 辅助的 sprite 生成器和关卡设计器，以及带分享链接的游戏导出。我让规划器使用了我们的 <a href="https://github.com/anthropics/claude-code/blob/main/plugins/frontend-design/skills/frontend-design/SKILL.md">frontend design skill</a>，它读取后据此为应用创建了视觉设计语言，并写入规格说明。在每个冲刺中，生成器与评估器会协商出一份契约，明确该冲刺的具体实现细节，以及用于验证完成情况的可测试行为。</p>
+<p>与单独运行相比，这个应用一上来就显得更精致、更流畅。画布占满了整个视口，面板尺寸合理，界面具有统一的视觉识别，并且贴合规格说明中的设计方向。单独运行时我感受到的一些笨拙之处依然存在——工作流仍然没有说明应当先创建精灵（sprite）和实体，再去填充关卡，我只能自己摸索才弄明白。这更像是基础模型在产品直觉上的欠缺，而不是这套 harness 本来要解决的问题，不过它也确实表明，在 harness 内部进行有针对性的迭代，有望进一步提升输出质量。</p>
+<p>在逐个体验各个编辑器的过程中，这次运行相对于单独运行的优势变得更加明显。精灵编辑器功能更丰富、更完整，工具面板更清爽，取色器更好用，缩放控件的可用性也更高。</p>
+<p>由于我要求规划器在其规格说明中融入 AI 功能，这个应用还内置了 Claude 集成，让我可以通过提示词来生成游戏的各个部分。这大大加快了工作流。</p>
+<figure><img src="../figures/harness-design-frontend-grader/04-next-image.webp" alt="" loading="lazy" decoding="async"><figcaption>初始界面：在使用完整 harness 构建的应用中创建新游戏</figcaption></figure>
+<figure><img src="../figures/harness-design-frontend-grader/05-next-image.webp" alt="" loading="lazy" decoding="async"><figcaption>精灵编辑器用起来更清爽、更容易上手</figcaption></figure>
+<figure><img src="../figures/harness-design-frontend-grader/06-next-image.webp" alt="" loading="lazy" decoding="async"><figcaption>使用内置的 AI 功能生成关卡<br></figcaption></figure>
+<figure><img src="../figures/harness-design-frontend-grader/07-next-image.webp" alt="" loading="lazy" decoding="async"><figcaption>使用内置的 AI 功能生成关卡<br></figcaption></figure>
+<figure><img src="../figures/harness-design-frontend-grader/08-next-image.webp" alt="" loading="lazy" decoding="async"><figcaption>试玩我生成的游戏</figcaption></figure>
+<p>最大的差别出现在游玩模式。我真的可以移动自己的实体并玩起这个游戏。物理效果还有些粗糙——角色跳上平台后却与平台发生了重叠，直觉上显得不对劲——但核心功能是能用的，而单独运行并没有做到这一点。四处移动了一阵后，我确实碰到了 AI 构建游戏关卡时的一些局限：有一堵很大的墙我怎么也跳不过去，就此卡住了。这说明 harness 还可以处理一些常识层面的改进和边缘情况，从而进一步打磨这个应用。</p>
+<p>翻阅日志可以看出，评估器始终让实现与规格说明保持一致。每个冲刺中，它都会逐条核对冲刺合约中的测试标准，并通过 Playwright 操作正在运行的应用，对任何偏离预期行为的地方提交 bug。这些合约十分细致——仅冲刺 3 就有 27 条标准，覆盖关卡编辑器——评估器给出的发现也足够具体，无需额外排查即可着手修复。下表列出了评估器发现的几个问题示例：</p>
+<p><b>合约标准</b></p>
+<p><b>评估器的发现</b></p>
+<p>矩形填充工具支持点击并拖动，用所选图块填充矩形区域</p>
+<p><b>未通过</b> — 工具只在拖动的起点和终点放置图块，而不是填充整个区域。<code>fillRectangle</code> 函数存在，但在 mouseUp 时没有被正确触发。</p>
+<p>用户可以选中并删除已放置的实体出生点</p>
+<p><b>未通过</b> — <code>LevelEditor.tsx:892</code> 中的 Delete 键处理函数要求 <code>selection</code> 和 <code>selectedEntityId</code>同时被设置，但点击实体时只会设置 <code>selectedEntityId</code>。条件应为 <code>selection || (selectedEntityId &amp;&amp; activeLayer === 'entity')</code>。</p>
+<p>用户可以通过 API 重新排序动画帧</p>
+<p><b>未通过</b> — <code>PUT /frames/reorder</code> 路由定义在 <code>/{frame_id}</code> 路由之后。FastAPI 把 'r<code>eorder</code>' 当作整数类型的 frame_id 去匹配，并返回 422："unable to parse string as an integer."</p>
+<p>要让评估器达到这个水平，需要下一番功夫。开箱即用的 Claude 是个很糟糕的 QA 智能体。早期运行中，我看着它找出了真实存在的问题，却又自己说服自己“问题不大”，最终还是通过了工作成果。它还倾向于只做表面测试，而不去深挖边缘情况，因此更隐蔽的 bug 常常漏网。调优的循环是：阅读评估器的日志，找出它的判断与我不一致的示例，再更新 QA 的提示词来解决这些问题。这样的开发循环经历了好几轮，评估器的打分方式才让我觉得合理。即便如此，harness 的输出仍然显示出模型 QA 能力的局限：细小的布局问题、某些地方不够直观的交互，以及嵌套更深的功能中未被发现的 bug，评估器并没有对这些功能做足够彻底的测试。显然，通过进一步调优，验证能力还有提升空间。但与单智能体独立运行相比——应用的核心功能根本无法使用——这一提升是显而易见的。</p>
+<h3 id="section-6">迭代优化 harness</h3>
+<p>第一版 harness 的结果令人鼓舞，但它也臃肿、缓慢且昂贵。顺理成章的下一步，就是在不降低性能的前提下想办法简化 harness。这一方面出于常识，另一方面也源于一个更普遍的原则：harness 中的每个组件，都编码了一个关于“模型自己做不到什么”的假设，而这些假设值得做压力测试——它们可能本来就不正确，也可能随着模型进步很快过时。我们的博客文章 <a href="https://www.anthropic.com/research/building-effective-agents">Building Effective Agents</a> 把这一核心理念概括为“尽可能找到最简单的解决方案，只在必要时才增加复杂度”，任何维护智能体 harness 的人都会反复遇到这种模式。</p>
+<p>在第一次简化尝试中，我大刀阔斧地精简了 harness，并尝试了几个新颖的想法，但始终无法复现原版的性能。同时，我也很难判断 harness 设计中究竟哪些部分是真正承重的，又是以什么方式承重的。基于这次经验，我改用了更有条理的方法：每次只移除一个组件，并观察它对最终结果的影响。</p>
+<p>在这些迭代循环进行的过程中，我们还发布了 Opus 4.6，这进一步促使我降低 harness 的复杂度。我们有充分的理由预期，4.6 所需的脚手架会比 4.5 更少。正如我们在<a href="https://www.anthropic.com/news/claude-opus-4-6">发布博客</a>中所说：“[Opus 4.6] 规划更审慎，能更长时间地持续执行智能体化的任务，在更大的代码库中运行更可靠，并且具备更强的代码评审与调试能力，可以发现自己的错误。”它在长上下文检索方面也有显著提升。而这些，恰恰都是 harness 当初为了弥补而构建的能力。</p>
+<h3 id="section-7">移除冲刺结构</h3>
+<p>我首先把冲刺结构整个移除了。冲刺结构原本有助于把工作拆分成若干块，让模型能够连贯地推进。鉴于 Opus 4.6 的改进，我们有充分的理由相信，模型无需这种拆分也能原生胜任这项工作。</p>
+<p>我保留了规划器（planner）和评估器（evaluator），因为它们各自仍在带来明显价值。没有规划器时，生成器会低估任务范围：面对原始提示词，它会不先撰写规格说明就直接开始构建，最终做出的应用功能会比有规划器时少得多。</p>
+<p>去掉冲刺结构后，我把评估器改为在整个运行结束时只评估一次，而不再按冲刺逐个打分。由于模型能力强了很多，评估器在某些运行中的重要程度也随之改变，其价值取决于任务相对于模型自身能稳定完成的范围处在什么位置。在 4.5 上，这条边界很近：我们的构建任务正处在生成器单独也能做好的极限边缘，评估器在整个构建过程中都能抓出有意义的问题。到了 4.6，模型的原始能力提升，边界向外移动。过去需要评估器把关才能连贯实现的任务，现在往往生成器自己就能处理得很好；对于边界以内的任务，评估器成了多余的开销。但对于构建中仍处在生成器能力边缘的部分，评估器依然能带来实实在在的提升。</p>
+<p>实际的启示是：评估器并不是一个固定的“要或不要”的决定。当任务超出当前模型单独就能稳定完成的范围时，它才值得付出这份成本。</p>
+<p>在简化结构的同时，我还加入了提示词设计，来改进 harness 在每个应用中构建 AI 功能的方式，具体来说，就是让生成器构建一个真正的智能体，通过工具来驱动应用自身的功能。这需要大量迭代，因为相关知识出现得比较晚，Claude 的训练数据对它的覆盖很薄。但经过足够的调优，生成器已经能正确地构建智能体了。</p>
+<h3 id="section-8">更新后 harness 的结果</h3>
+<p>为了检验更新后的 harness，我用下面这条提示词生成了一个数字音频工作站（DAW），即用于作曲、录音和混音的音乐制作程序：</p>
+<blockquote><p>使用 Web Audio API，在浏览器中构建一个功能完备的 DAW。</p></blockquote>
+<p>这次运行依然漫长而昂贵，耗时约 4 小时，Token 成本为 $124。</p>
+<p>大部分时间花在了构建器上，它在没有 Opus 4.5 所需的冲刺拆分的情况下，连贯运行了两个多小时。</p>
+<p><b>智能体与阶段</b></p>
+<p><b>时长</b></p>
+<p><b>成本</b></p>
+<p>规划器</p>
+<p>4.7 分钟</p>
+<p>$0.46</p>
+<p>构建（第 1 轮）</p>
+<p>2 小时 7 分钟</p>
+<p>$71.08</p>
+<p>QA（第 1 轮）</p>
+<p>8.8 分钟</p>
+<p>$3.24</p>
+<p>构建（第 2 轮）</p>
+<p>1 小时 2 分钟</p>
+<p>$36.89</p>
+<p>QA（第 2 轮）</p>
+<p>6.8 分钟</p>
+<p>$3.09</p>
+<p>构建（第 3 轮）</p>
+<p>10.9 分钟</p>
+<p>$5.88</p>
+<p>QA（第 3 轮）</p>
+<p>9.6 分钟</p>
+<p>$4.06</p>
+<p><b>V2 完整 Harness</b></p>
+<p><b>3 小时 50 分钟</b></p>
+<p><b>$124.70</b></p>
+<p>和之前的 harness 一样，规划器把一句话的提示词扩展成了完整的规格说明。从日志中可以看到，生成器模型在规划应用和智能体设计、接入智能体，以及交付 QA 之前的测试上都做得不错。</p>
+<p>即便如此，QA 智能体仍然发现了真实存在的缺口。在第一轮反馈中，它指出：</p>
+<blockquote><p>这是一款很出色的应用：设计还原度极高，智能体表现扎实，后端也很好。主要的失分点在功能完整性——虽然应用看起来令人印象深刻，AI 集成也运行良好，但若干核心 DAW 功能只能展示，缺乏交互深度：片段无法在时间轴上拖动或移动，没有乐器 UI 面板（合成器旋钮、鼓垫），也没有可视化效果编辑器（EQ 曲线、压缩器电平表）。这些不是边缘情况——它们是让 DAW 真正可用的核心交互，而且规格说明中明确要求了。</p></blockquote>
+<p>在第二轮反馈中，它又发现了几处功能缺口：</p>
+<blockquote><p>仍然存在的缺口：</p></blockquote>
+<blockquote><p>- 音频录制仍然只是占位实现（按钮可以切换，但没有麦克风采集）</p></blockquote>
+<blockquote><p>- 尚未实现拖动边缘调整片段长度和片段分割</p></blockquote>
+<blockquote><p>- 效果可视化只是数值滑块，而非图形化展示（没有 EQ 曲线）</p></blockquote>
+<p>如果放任不管，生成器仍然可能遗漏细节，或者只做功能占位；而 QA 在抓出这些“最后一公里”的问题、交给生成器修复方面，依然很有价值。</p>
+<p>根据提示词，我期望得到这样一个程序：我可以创作旋律、和声和鼓点节奏，把它们编排成一首歌，并在过程中获得内置智能体的帮助。下面的视频展示了最终结果。</p>
+<figure class="video-card"><div class="video-frame" role="button" tabindex="0" data-video-url="https://cdn.sanity.io/files/4zrzovbb/website/555910f9adb3938734940224e7a6f4c7cbbbd8f2.mp4" data-embed="" data-direct="1" data-poster="" data-title="视频" aria-label="播放视频：视频"><div class="video-placeholder" aria-hidden="true">▶</div><span class="video-play" aria-hidden="true">▶</span></div><figcaption><a href="https://cdn.sanity.io/files/4zrzovbb/website/555910f9adb3938734940224e7a6f4c7cbbbd8f2.mp4" target="_blank" rel="noreferrer">视频</a><span class="video-provider">视频文件</span><a class="video-open" href="https://cdn.sanity.io/files/4zrzovbb/website/555910f9adb3938734940224e7a6f4c7cbbbd8f2.mp4" target="_blank" rel="noreferrer">新窗口打开</a></figcaption></figure>
+<p>这款应用远不是专业的音乐制作软件，智能体的作曲能力显然还有很大提升空间。此外，Claude 实际上听不到声音，这让 QA 反馈循环在音乐品味方面的效果打了折扣。</p>
+<p>不过，最终的应用具备了一个可用音乐制作程序的所有核心部分：在浏览器中运行的编曲视图、调音台和走带控制。除此之外，我还完全通过提示词设计做出了一小段歌曲：智能体设定了速度和调式，写下旋律，搭建鼓轨，调整调音台电平，并加入混响。歌曲创作所需的核心基本单元都已就位，智能体可以自主驱动它们，借助工具从头到尾完成一段简单的制作。你也许会说它还不够“音准完美”，但它正在接近。</p>
+<h2 id="section-9">下一步会怎样</h2>
+<p>随着模型不断进步，我们大致可以预期它们能工作更长时间，处理更复杂的任务。在某些情况下，这意味着围绕模型的脚手架会越来越不重要，开发者只需等待下一代模型，某些问题就会自行解决。另一方面，模型越强，就越有空间去开发各种 harness，完成模型在基线水平下无法胜任的复杂任务。</p>
+<p>有鉴于此，这项工作中有几条经验值得延续。针对你所构建的模型做实验，在真实问题上阅读它的轨迹，并调优其表现以达成预期结果，始终是好的实践。处理更复杂的任务时，有时可以通过拆解任务，让专门的智能体分别负责问题的各个方面，从而获得提升空间。而当新模型发布时，通常也应重新审视 harness：去掉那些对性能不再起承重作用的部分，并加入新的部分，以实现此前可能无法达到的更强能力。</p>
+<p>这项工作让我确信：有趣的 harness 组合空间不会随着模型进步而缩小，而是会发生转移。AI 工程师有价值的工作，就是不断找到下一种新颖的组合。</p>
+<h2 id="section-10">附录</h2>
+<p>由规划器智能体生成的计划示例。</p>
+<pre><code class="language-plaintext">RetroForge - 2D Retro Game Maker
 
-<h2>02 为什么「自己夸自己」会锁死在平均脸</h2>
-<p>作者同时追两个问题：让 Claude 做出高质量前端；让它在无人干预下做出完整应用。前端 design skill 与长程 coding harness 都曾把表现抬到基线之上，但都撞到天花板。突破口之一，是正视自评失灵。</p>
-<p>让 Agent 评价自己刚做的东西，它倾向于自信地夸——哪怕人类一眼看出平庸。设计没有「单测绿了」那种二元验收，「够不够精致 / 是不是套模板」全是判断。模型对自己生成的布局又特别宽大。</p>
-<p>即便任务可验证，Agent 有时仍会用差判断拖垮表现。把「做事的」和「判事的」拆开，是强杠杆：拆开不会立刻消灭宽松——评审者仍是 LLM，仍偏爱 LLM 产物——但<b>把独立评审者调得怀疑</b>，远比让生成者狠批自己容易；一旦有外部反馈，生成者才有东西可迭代。</p>
-<div class="note"><p>这和读本 No.24「别再交出平均水准」、No.05「躲开 AI 审美默认值」打的是同一场仗：平均是零努力时的吸引子。Dbggr 让你当艺术总监；Salman 让你对抗评审；这篇给你一套可工程化的打分环——把「我觉得俗」翻译成模型不得不响应的分项批判。</p></div>
+Overview
+RetroForge is a web-based creative studio for designing and building 2D retro-style video games. It combines the nostalgic charm of classic 8-bit and 16-bit game aesthetics with modern, intuitive editing tools—enabling anyone from hobbyist creators to indie developers to bring their game ideas to life without writing traditional code.
 
-<h2>03 两个洞见：原则可打分，生成与评审要拆开</h2>
-<p>前端实验由两个洞见定型：</p>
-<ol>
-<li><b>审美不能完全变成分数，但能被原则改善。</b>「这设计美吗？」难稳定回答；「它有没有遵循我们写好的好设计原则？」给了可打的靶子。</li>
-<li><b>生成与打分分离，才能形成反馈环。</b>同一提示词里「先做再夸」几乎必然滑向自我确认。</li>
-</ol>
-<p>作者把四条标准同时写进 generator 与 evaluator 的提示——生成时就知道评分尺子，评审时按同一尺子给批判。这不是事后贴标签，而是从第一轮就改变先验。</p>
+The platform provides four integrated creative modules: a tile-based Level Editor for designing game worlds, a pixel-art Sprite Editor for crafting visual assets, a visual Entity Behavior system for defining game logic, and an instant Playable Test Mode for real-time gameplay testing. By weaving AI assistance throughout (powered by Claude), RetroForge accelerates the creative process—helping users generate sprites, design levels, and configure behaviors through natural language interaction.
 
-<h2>04 四条标准：质量 / 原创 / 手艺 / 功能</h2>
-<table><tr><th>标准</th><th>问什么</th><th>高分长什么样</th><th>低分信号</th></tr>
-<tr><td><b>Design quality</b>（设计质量）</td><td>是连贯整体，还是零件拼盘？</td><td>色、字、布局、图像合成独特情绪与身份</td><td>各区块各自为政，没有统一气质</td></tr>
-<tr><td><b>Originality</b>（原创性）</td><td>有没有自定义决策？</td><td>人类设计师能认出刻意选择</td><td>模板布局、库默认、紫渐变盖白卡片等 AI 套路</td></tr>
-<tr><td><b>Craft</b>（手艺）</td><td>字号层级、间距、色彩和谐、对比是否合格？</td><td>基本功过关</td><td>层级塌、对比翻车——能力检查，不是创意检查</td></tr>
-<tr><td><b>Functionality</b>（功能可用性）</td><td>离开美学，用户还能否完成任务？</td><td>主操作找得到，路径不用猜</td><td>好看但不可用，或主 CTA 失踪</td></tr></table>
-<p>Craft 与 Functionality 是能力门槛：大多数像样实现默认不差；挂掉说明基本功破了。真正拉开差距的是前两项——整体身份与「看得出是人做了选择」。</p>
+RetroForge targets creators who love retro gaming aesthetics but want modern conveniences. Whether recreating the platformers, RPGs, or action games of their childhood, or inventing entirely new experiences within retro constraints, users can prototype rapidly, iterate visually, and share their creations with others.
 
-<h2>05 加权：把火力打在原创性与整体气质上</h2>
-<p>作者显式强调：<b>设计质量与原创性权重大于手艺与功能</b>。原因很实在——Claude 在 craft / functionality 上本来就不差；弱在 bland。标准里显式惩罚高度同质的 AI slop，再把权重压向设计与原创，等于把模型往审美冒险推。</p>
-<p>评审者还用带详细分项拆解的 few-shot 示例校准，让分数贴合作者偏好，并减少跨轮漂移。对个人用户，这意味着：你的「讨厌什么」必须写成样例，不能只写形容词。</p>
-<table><tr><th>若平均加权</th><th>若加重 quality + originality</th></tr>
-<tr><td>模型靠「能用 + 整齐」拿高分，安于安全布局</td><td>安全布局在总分里吃亏，必须拿出可辨认的决策</td></tr>
-<tr><td>紫渐变白卡片仍可能「手艺尚可」蒙混</td><td>原创性项直接点名此类模式为失败</td></tr>
-<tr><td>反馈说「再精致一点」</td><td>反馈说「这里仍是模板默认，没有身份」</td></tr></table>
+Features
+1. Project Dashboard &amp; Management
+The Project Dashboard is the home base for all creative work in RetroForge. Users need a clear, organized way to manage their game projects—creating new ones, returning to works-in-progress, and understanding what each project contains at a glance.
 
-<h2>06 闭环怎么跑：Playwright 真页、5–15 轮、可转向</h2>
-<p>编排建在 Claude Agent SDK 上：generator 先按用户提示产出 HTML/CSS/JS；evaluator 持有 Playwright MCP，自己打开真页、导航、截图、细看实现，再按四维打分并写详细批判；反馈回灌 generator 进入下一轮。实践中跑 5–15 轮，整轮可达约四小时——因为评审在点真页面，不是扫一张静图。</p>
-<p>每轮后 generator 还要做战略选择：分数在变好就继续 refine；方向不对就整体 pivot 到另一套审美。有的生成渐进打磨，有的轮次之间大转弯。</p>
-<ul>
-<li>分数大体随轮次上升后平台，但仍有余量</li>
-<li>后期整体往往更好，但作者常更偏爱中间某轮——提醒你不要迷信「最后一版」</li>
-<li>实现复杂度通常上升：评审逼生成者上更有野心的解法</li>
-<li><b>即便第一轮</b>，带标准的输出也明显好过完全无提示基线——说明标准措辞本身已在拉离默认</li>
-</ul>
-<div class="note"><p>对个人工作流：你不必真的挂四小时 Playwright。关键机制可缩成「双角色」——一个对话只负责出方案，另一个（新上下文或另一模型）只负责按你的量表打分；禁止自评自夸。真页审阅能上则上：间距、对比、主按钮在真视口里才暴露。</p></div>
+User Stories: As a user, I want to:
 
-<h2>07 标准措辞会偷改品味：博物馆那一跃</h2>
-<p>作者观察到：标准里的措辞会以他未完全预见到的方式塑造输出。写上类似「最好的设计具备博物馆级品质」（museum quality）的句子，会把设计推向某种特定视觉汇聚——评分维度不只在量好坏，也在定性格。</p>
-<p>最戏剧的例子：荷兰艺术博物馆站点。第 9 轮已是干净的深色着陆页，抛光、符合预期；第 10 轮却整段推翻，改成空间体验——CSS perspective 的 3D 房间、棋盘地板、墙上自由挂画、以门洞在展厅间导航，而不是滚屏或普通点击。作者形容这是单次直出里没见过的创造跳跃。</p>
-<table><tr><th>轮次现象</th><th>对你的含义</th></tr>
-<tr><td>标准一写入，iter 1 就好过裸模型</td><td>先写尺子，再生成；别等「做完再评」</td></tr>
-<tr><td>措辞塑造气质</td><td>你的 Skill 里每个形容词都是方向，不是装饰</td></tr>
-<tr><td>中段有时优于末段</td><td>保留中间快照；分数不是唯一选版依据</td></tr>
-<tr><td>后期可能剧烈 pivot</td><td>允许「推倒重来」写进 generator 指令</td></tr></table>
-<blockquote>“Is this design beautiful?” is hard… “does this follow our principles for good design?” gives Claude something concrete to grade against. — Prithvi Rajasekaran / Anthropic</blockquote>
+- Create a new game project with a name and description, so that I can begin designing my game
+- See all my existing projects displayed as visual cards showing the project name, last modified date, and a thumbnail preview, so that I can quickly find and continue my work
+- Open any project to enter the full game editor workspace, so that I can work on my game
+- Delete projects I no longer need, with a confirmation dialog to prevent accidents, so that I can keep my workspace organized
+- Duplicate an existing project as a starting point for a new game, so that I can reuse my previous work
 
-<h2>08 长程 harness 只要知道这些</h2>
-<p>前端打分器验证后，同一 GAN 式结构扩到全栈：Planner（1–4 句扩成有野心的产品规格，偏产品与高层技术，避免过早锁死细节）、Generator（按 sprint 做功能，React/Vite/FastAPI 等）、Evaluator（Playwright 点穿应用，按产品深度、功能、视觉、代码质量打分，硬阈值不达标则 sprint 失败）。Sprint 前双方协商 done 标准；用文件通信。</p>
-<p>对照实验很直观：同一句「做复古 2D 游戏制作器」，solo 约 20 分钟 / $9，核心玩法却坏掉；全 harness 约 6 小时 / $200，可玩且带 AI 辅助能力。后续随 Opus 4.6 变强，作者拆掉不再承重的 sprint 脚手架，但仍保留 planner 与（在能力边界上的）evaluator——原则是：<b>harness 的每一块都编码「模型自己还做不到什么」；模型进步后要重审，而不是无限堆脚手架。</b></p>
-<p>对本篇读者：你不需要复刻整套多 Agent 工厂。你需要的是同一思想在设计侧的最小实现——原则量表 + 独立评审 + 真页或真截图反馈。</p>
+Project Data Model: Each project contains:
 
-<h2>09 给 Zhu 的个人设计打分 Skill 模板</h2>
-<p>下面可直接改成 Claude Skill、Cursor 规则，或「评审专用」对话置顶。按 Zhu 的目标预填了「反 AI 脸 / 个人站气质」；请改成你的品牌词，并换成你自己的 few-shot 好坏例。</p>
-<pre><code># design-grader.skill（评审专用，禁止生成整页）
-你是独立设计评审员，不是作者。禁止夸奖或重写整页；只按量表打分与给可执行批判。
+Project metadata (name, description, created/modified timestamps)
+Canvas settings (resolution: e.g., 256x224, 320x240, or 160x144)
+Tile size configuration (8x8, 16x16, or 32x32 pixels)
+Color palette selection 
+All associated sprites, tilesets, levels, and entity definitions
 
-## 权重（总分 100）
-- Design quality 35：是否形成统一身份与情绪，而非模块拼盘
-- Originality 35：是否看得出刻意决策；模板/库默认/AI 套路直接扣分
-- Craft 15：层级、间距、对比、对齐的基本功
-- Functionality 15：主任务能否完成，主操作是否可发现
-
-## 显式失败模式（命中则 Originality 上限 40）
-- 居中大标题 + 双 CTA 的通用 SaaS hero
-- 紫/靛渐变盖白卡片、玻璃拟态堆砌
-- Inter/系统默认栈无人格；「elevate your workflow」空文案
-- 无差别圆角卡片栅格，无主次叙事
-
-## 高分锚点（写你的正面例子）
-- 版式有编辑感或海报感，首屏只服务一个论点
-- 材质/字体/密度有可命名的选择（例如「报纸栏宽」「工业面板」）
-- 动效有目的，而不是为动而动
-
-## 输出格式
-1. 四维分数 + 一句话总判
-2. 每维：证据（指出具体区块）+ 下一轮必须改的一条
-3. 战略建议：refine 当前方向 / pivot 到【命名方向】
-4. 不要给「整体很棒」类句子
-</code></pre>
-<pre><code># generator 侧（配合上面的 grader）
-你根据用户 brief 生成/修改前端。你知道评分权重偏向 Design quality 与 Originality。
-每轮收到 grader 报告后：
-- 若 Originality 或 Design quality &lt; 70：优先结构性改动，禁止只改色
-- 若连续两轮同分平台：提出一个完全不同的视觉方向并说明放弃了什么
-- 保留可回退的中间版本说明（哪一版、为何可能更好）
-不要自我打分；等待独立 grader。
-</code></pre>
-<pre><code># 最小双会话用法（无 Playwright 时）
-会话 A（生成）：只产出页面/原型，结束时不要自评。
-会话 B（新上下文）：粘贴 A 的代码或截图 + design-grader.skill，只输出分数与批判。
-把 B 的报告贴回 A，进入下一轮。目标 3–8 轮；手动保存中间你喜欢的一版。
-</code></pre>
-
-<h2>10 自查清单</h2>
-<ul>
-<li>我有没有把「好不好看」改写成可打分的原则条目？</li>
-<li>生成与评审是否拆开（新上下文 / 另一角色），而不是同一气泡自评？</li>
-<li>权重是否故意压在设计质量与原创性上？</li>
-<li>失败模式有没有点名具体 AI slop，而不只是「不要俗」？</li>
-<li>评审是否尽量基于真页或真实视口截图，而不只是脑内想象？</li>
-<li>标准措辞有没有泄露我想要的气质（并我接受这种汇聚）？</li>
-<li>有没有保存中间轮次，而不是默认最后一版最好？</li>
-<li>generator 是否被允许在平台期 pivot，而不是无限微调平均脸？</li>
-<li>我的 few-shot 样例是我的品味，还是又从网上抄了通用「好设计」形容词？</li>
-</ul>
-<div class="note"><p>读本里 Anthropic「用 Skills 改进前端设计」、OpenAI「首屏是海报」、Dbggr「对抗平均」都在教你怎么说清美。这篇补上工程环节：美也可以被编排——不是把品味交给分数，而是把原则写成模型无法敷衍的外部压力。你要的不是更高的平均分，而是那次博物馆式的第十轮跳跃有机会发生。</p></div>
+...</code></pre>
+<h2 id="section-11">作者与致谢</h2>
+<h3 id="section-12">致谢</h3>
+<p>特别感谢 Mike Krieger、Michael Agaby、Justin Young、Jeremy Hadfield、David Hershey、Julius Tarng、Xiaoyi Zhang、Barry Zhang、Orowa Sidker、Michael Tingley、Ibrahim Madha、Martina Long 和 Canyon Robbins 对这项工作的贡献。</p>
+<p>同时感谢 Jake Eaton、Alyssa Leonard 和 Stef Sequeira 在本文成稿过程中提供的帮助。</p>
+<p style="margin-top:3em"><a class="readorig" href="https://www.anthropic.com/engineering/harness-design-long-running-apps" target="_blank" rel="noopener">阅读原文 →</a></p>
 </article>
+<footer class="mono">原文 © Prithvi Rajasekaran · 本页为自动生成的中文译文，仅供学习参考</footer>
+<script>
+(function () {
+  function play(frame) {
+    var embed = frame.getAttribute('data-embed');
+    var direct = frame.getAttribute('data-direct') === '1';
+    var url = frame.getAttribute('data-video-url') || '';
+    var title = frame.getAttribute('data-title') || '视频';
+    if (direct && url) {
+      var video = document.createElement('video');
+      video.src = url;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      var poster = frame.getAttribute('data-poster');
+      if (poster) video.poster = poster;
+      frame.innerHTML = '';
+      frame.appendChild(video);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (embed) {
+      var iframe = document.createElement('iframe');
+      iframe.src = embed;
+      iframe.title = title;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('loading', 'eager');
+      frame.innerHTML = '';
+      frame.appendChild(iframe);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (url) window.open(url, '_blank', 'noopener');
+  }
+  document.querySelectorAll('.video-frame[data-video-url]').forEach(function (frame) {
+    frame.addEventListener('click', function () { play(frame); });
+    frame.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); play(frame); }
+    });
+  });
+})();
+</script>
 </body></html>

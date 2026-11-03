@@ -1,134 +1,212 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>把 AI 变成世界级设计师 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E0E9EF">
-<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 02 · AI 设计工作流 / 提示词 / 审美</div><h1>把 AI 变成世界级设计师</h1><div class="en">How to turn your AI into a world-class designer</div></div>
-<dl class="meta mono"><dt>作者</dt><dd>Anshu Chimala</dd><dt>身份</dt><dd>前 Apple 软件工程与设计团队负责人（12 年）</dd><dt>日期</dt><dd>2026-09-01</dd><dt>原文</dt><dd><a href="https://www.lennysnewsletter.com/p/how-to-turn-your-ai-into-a-world">Lenny's Newsletter ↗</a>（付费文章）</dd></dl><a class="readorig" href="https://www.lennysnewsletter.com/p/how-to-turn-your-ai-into-a-world" target="_blank" rel="noopener">阅读原文 →</a></div>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>把 AI 变成世界级设计师 · 读本</title><link rel="stylesheet" href="../assets/style.css"><style>.video-card{margin:1.8em 0}.video-frame{position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--rule);background:#CFCFCF;cursor:pointer}.video-frame img,.video-frame iframe,.video-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block}.video-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#7A1E2B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px}.video-card figcaption{margin-top:10px;font-size:14px;opacity:.8}.video-index{margin:2em 0;padding:16px 18px;border:1px solid var(--rule)}article.body figure img{width:100%;height:auto;display:block}article.body figcaption{margin-top:8px;font-size:14px;opacity:.75}</style></head><body class="article" style="--tint:#E0E9EF">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 02 · AI 设计工作流 / 工作流 / 评审 / 提示词</div><h1>把 AI 变成世界级设计师</h1><div class="en">How to turn your AI into a world-class designer</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Anshu Chimala</dd><dt>署名</dt><dd>前 Apple 软件工程与设计团队负责人</dd><dt>日期</dt><dd>2026-09-01</dd><dt>原文</dt><dd><a href="https://www.lennysnewsletter.com/p/how-to-turn-your-ai-into-a-world">lennysnewsletter.com ↗</a></dd></dl><a class="readorig" href="https://www.lennysnewsletter.com/p/how-to-turn-your-ai-into-a-world" target="_blank" rel="noopener">阅读原文 →</a></div>
 <figure class="cover"><img src="../covers/how-to-turn-your-ai-into-a-world-class-designer.svg" alt="How to turn your AI into a world-class designer 封面"></figure></section>
 <article class="body">
-<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解，结构、例子、表格和模板都是编者自己的。原文是 Lenny's Newsletter 的付费文章，本篇只依据公开可见的部分（前 6 个技巧）写成；付费墙后若还有内容，本篇未覆盖。原文大量依赖演示视频和前后对比图，下文在相应位置用文字说明，并标注「原文配图见原文」。</p>
+<p class="notice">中文全文译文：由「译文工坊」根据英文原文自动翻译生成，供学习参考。结构与措辞以译文为准；想看原始论述，请点上方「阅读原文」。</p>
 <nav class="toc"><div class="mono">本篇目录</div><ol>
-<li>三句话读懂这篇</li><li>病因：为什么 AI 设计像“委员会决议”</li><li>总框架：给 AI 团队用的双钻模型</li><li>发现（Discover）①：从模型外部引入随机性</li><li>发现（Discover）②：把提示词写得野心十足</li><li>定义（Define）③：请一位“设计评论家”</li><li>定义（Define）④⑤：图像与视频生成</li><li>交付（Deliver）⑥：做减法</li><li>对照表与工作流模板</li><li>自查清单</li></ol></nav>
+<li>探索：发掘可能性的空间</li><li><a href="#section-2">技巧 1：用种子字符串注入多样性</a></li><li><a href="#section-3">技巧 2：让你的提示词更有野心</a></li><li>定义：深化你的设计方向</li><li><a href="#section-4">技巧 3：用子智能体建立正向反馈循环</a></li><li><a href="#section-5">技巧 4：用图像生成丰富设计</a></li><li><a href="#section-6">技巧 5：想要更高级的动效，就用视频生成</a></li><li>交付：把设计打磨成用户会喜爱的作品</li><li><a href="#section-7">技巧 6：删掉没有价值的元素</a></li><li><a href="#section-8">技巧 7：去除 AI 痕迹</a></li></ol></nav>
 
-<h2>01 三句话读懂这篇</h2>
-<p><b>第一，AI 的平庸是训练方式决定的。</b>作者 Anshu Chimala 在 Apple 带过 12 年面向未来 AI 产品的研发设计团队。他认为大模型每做一个设计决定，都在选“最能让所有人满意”的那个选项，结果就是一份标准的“委员会设计”（design-by-committee）。</p>
-<p><b>第二，解法是一套流程，而不是一句神奇提示词。</b>他借用设计界熟悉的双钻模型（Double Diamond），改造成给“AI 设计团队”用的三阶段：发现、定义、交付，每个阶段配具体技巧。</p>
-<p><b>第三，人的位置没有消失，而是移到了两端。</b>开头由你注入方向和品味，结尾由你决定删掉什么。中间的大量执行和迭代交给模型。</p>
-
-<h2>02 病因：为什么 AI 设计像“委员会决议”</h2>
-<p>作者的解释和上一篇 Anthropic 讲的“分布收敛”是同一件事，只是换了个角度：大模型逐个 token 生成设计，每遇到“用什么颜色”“元素怎么排”这类决定，就选概率最高、最不会出错的那个。再加上人类反馈训练进一步奖励“大家都觉得还行”的答案，最后的作品就像一群人开会妥协出来的方案：没人反对，也没人记得。</p>
-<p>而好的设计恰恰相反：从情绪出发，敢于打破规则，用意料之外的选择取悦用户。作者的判断是，模型并非没有创造力，只是默认状态下只用到了大约 1%。</p>
-<div class="note"><p>“委员会设计”这个比喻对资深设计师很好用：你在大公司里一定见过，方案越过越多人的手，棱角就越被磨平。AI 等于把这个过程压缩到了每一个 token。所以对付 AI 的办法，和对付委员会的办法很像：要有一个强势的创意总监（你），以及一套保护大胆想法不被磨平的流程。</p></div>
-
-<h2>03 总框架：给 AI 团队用的双钻模型</h2>
-<p>作者在 Apple 管理人类设计师时学到，团队对“界面应该长什么样”的成见，会让大家反复回到老路。他们靠严格的流程逼自己去“可能性的边缘”找新东西，再把细节打磨到 Apple 的水准。现在他把同一套方法用在 AI 身上：</p>
-<table><tr><th>阶段</th><th>目标</th><th>技巧</th><th>人的角色</th></tr>
-<tr><td>发现 Discover</td><td>跳出平均值，探索足够多的方向</td><td>① 种子字符串注入随机性；② 野心十足的提示词</td><td>提供灵感来源，挑方向</td></tr>
-<tr><td>定义 Define</td><td>给选中的方向一个独特的个性</td><td>③ 设计评论家子代理；④ 图像生成；⑤ 视频生成</td><td>设定评判标准和参考</td></tr>
-<tr><td>交付 Deliver</td><td>打磨，删掉不必要的东西</td><td>⑥ 删掉不增值的元素</td><td>最终取舍</td></tr></table>
-
-<figure class="fig"><img src="../figures/how-to-turn-your-ai-into-a-world-class-designer/01-three-stages.svg" alt="三阶段流程示意" loading="lazy"><figcaption class="mono">图 1 · 三阶段与人在其中的位置 · 示意图：编者绘制</figcaption></figure>
-<h2>04 发现 ①：从模型外部引入随机性</h2>
-<p>作者做了一个很有说服力的对照实验，编者把它概括成三轮：</p>
-<table><tr><th>轮次</th><th>提示方式</th><th>结果</th></tr>
-<tr><td>第一轮</td><td>只说“给我的效率工具做个落地页”</td><td>几乎每次都是紫色渐变、左文右图、同一个结构</td></tr>
-<tr><td>第二轮</td><td>加一句“要完全独特，每个设计决定都随机”</td><td>看起来不同了，但几次之间依然雷同，连用的比喻都一样（原文举的是反复出现的陶艺意象）</td></tr>
-<tr><td>第三轮</td><td>让模型先用脚本生成一串随机字符，再从中“读出”配色、版式、字体方向</td><td>每次结果明显不同，真正一次一个样</td></tr></table>
-<p class="mono">原文配图见原文：三轮各有四个并排截图，直观展示雷同与差异。</p>
-<figure class="fig"><img src="../figures/how-to-turn-your-ai-into-a-world-class-designer/02-seed-variety.svg" alt="随机性来源示意" loading="lazy"><figcaption class="mono">图 2 · 三种提示方式下设计方向的分布 · 示意图：编者绘制</figcaption></figure>
-<p>关键在于第二轮为什么失败：模型无法“真的随机”，它只会预测“听起来像随机”的词。随机性必须从模型外部来。作者引用的是 Sakana AI 发表的 String Seed of Thought 方法：用脚本生成的随机串当灵感种子，让模型从中找子模式、特殊数字之类的线索，再据此定创意方向，同时要求种子本身不出现在设计里。</p>
-<p><b>编者例子：</b>这其实很像设计师常用的“随机词卡”或“抽一张杂志页”练习。区别在于，人类设计师抽到卡片后会主动联想，而模型需要你明确命令它“从这串字符里推导方向”。你也可以把种子换成更有设计感的外部输入：一张随机博物馆藏品图、一个随机城市的街景色、当天的天气数据。</p>
-<div class="note"><p>这个技巧最适合发散阶段做“方向墙”：一次跑 6–8 个版本，像做情绪板一样挑出能打动你的两三个。但别指望种子能直接给出好设计，它只负责把模型推离中心，真正的选择还是你来做。</p></div>
-
-<h2>05 发现 ②：把提示词写得野心十足</h2>
-<p>第二种推力是给模型一个具体又大胆的愿景，让它的每个决定都有依据，而不是临场随便选。作者的方法是先在脑中想象一个灵感来源，比如某种电子游戏的画面、某个室内设计潮流、一件装置艺术，再描述你希望它怎样影响页面。原文举了像素游戏、等距视角立体城市、刻意不对称和不和谐配色等几个方向。</p>
-<p>难点在于想出原创点子。直接问 AI 要点子，只会得到所有人都会得到的平均点子。作者的三步法，编者整理如下：</p>
-<table><tr><th>步骤</th><th>你做什么</th><th>要点</th></tr>
-<tr><td>1. 广撒网</td><td>让 AI 列出大量设计语言方向，每条只写一句</td><td>要广不要深，目的只是激发你的想象</td></tr>
-<tr><td>2. 带着品味收窄</td><td>挑出喜欢的，写下你的真实反应：喜欢什么、讨厌什么、怕它变俗在哪</td><td>这一步注入的是你独有的判断，是作品唯一性的来源</td></tr>
-<tr><td>3. 让 AI 写构建提示词</td><td>满意后，让 AI 把方向整理成一段简洁的构建提示词</td><td>再交给编码代理做第一版</td></tr></table>
-<p>原文第二步的例子是“工业控制面板”方向：作者想要触感、按键反馈和声音，但排斥卡通化或过度拟物（skeuomorphic），担心灰色渐变太无聊，希望加质感和一点颜色。这正是设计师在评审会上会说的话。</p>
-<p>作者还有两条心态建议：听起来“肯定不行”的点子反而值得试，模型常常会超出预期；失败的提示词别扔，换新模型时再跑一次，用来检验新模型的能力边界。</p>
-<div class="note"><p>对 Zhu 最有价值的就是第二步。你多年的设计经验，本质上就是一大堆“我喜欢 / 我讨厌 / 这样会俗”的判断。把这些判断写进收窄环节，结果才会是只有你做得出来的东西。建议把每次写下的反应存进一个“品味笔记”，积累久了，就能直接整理成你自己的 SKILL.md。</p></div>
-
-<h2>06 定义 ③：请一位“设计评论家”</h2>
-<p>到这一步，初稿通常已有潜力，但还残留老套路：顶部导航、左文右按钮、右侧配图。原文配图见原文。</p>
-<p>直接让同一个代理“看看再改好”效果很差，因为它在审自己的代码、自己的决定，无法跳出来看全局。作者的解法是分工：编码代理负责改，另起一个独立的“设计评论家”子代理（subagent）负责打分。评论家每轮只看当前截图，不看代码、不看实现过程、也不看之前的评论，只判断是否达到质量线。</p>
-<p>评论家的工作方式可以概括为四点：先判断设计想要的美学方向；想象顶级设计工作室会如何把这个方向做到极致；指出最大的差距；给出 10 分制分数。另外要求它兼顾整体构图和细节，对“一看就是 AI 做的”套路扣分，反馈具体不空泛，敢下判断。编码代理要一直迭代到评论家独立打出 9 分以上，但这个及格线不告诉评论家，以免影响它打分的客观性。</p>
-<p>成本上也划算：评论家用大而贵的模型，干活的用便宜快速的模型。作者提到，在他的例子里评论家只占不到 10% 的输出 token，比让大模型直接重做便宜一半，也快得多。原文配图见原文：几个页面迭代前后对比，各自形成了独立个性，同时保留了最初的美学方向。</p>
-<p>原文对评判标准的写法给出了三档，编者整理为：</p>
-<table><tr><th>档次</th><th>评判方式</th><th>问题</th></tr>
-<tr><td>差</td><td>“判断我们的设计是否好看、是否不像 AI 做的”</td><td>太主观，每次结果差异很大</td></tr>
-<tr><td>可以</td><td>“先想象顶级工作室怎么做这个美学，再拿我们的设计对比”</td><td>仍偏模糊，但至少给了一致的框架和标准</td></tr>
-<tr><td>很好</td><td>给几张专业作品截图和一张我们的截图，让它按精致度和品味排序</td><td>具体、客观，有视觉基准</td></tr></table>
-<figure class="fig"><img src="../figures/how-to-turn-your-ai-into-a-world-class-designer/03-critic-loop.svg" alt="评论家循环示意" loading="lazy"><figcaption class="mono">图 3 · 干活的代理与评论家的分工循环 · 示意图：编者绘制</figcaption></figure>
-<p>其他要点：给评论家参考图时，说明是情绪板（moodboard），不是要照抄的目标；停止条件要谨慎，否则评论家永远不满意，代理会一直烧 token，建议先跑一两轮看是否收敛；评论家用更大的模型（参数多通常意味着更好的设计感和更宽的想法分布），干活的模型可以小一些，但不能小到执行不好。</p>
-<div class="note"><p>这就是把设计评审（design critique）流程化。资深设计师可以在这里发挥大作用：把你们团队真正的评审标准写进评论家提示词，比如“视觉焦点是否唯一”“信息层级是否三层以内”“是否出现无意义装饰”。再加上“与 4 张标杆截图排序”的方法，评论家就有了可靠的锚点。</p><p>一个提醒：评论家只看截图，所以它评不了交互、无障碍和真实内容下的表现。这些仍然要你自己看。</p></div>
-
-<h2>07 定义 ④⑤：图像与视频生成</h2>
-<h3>④ 用生成图像丰富设计</h3>
-<p>编码代理爱写代码、不爱用图片，于是总用渐变、几何形状、简单图案凑视觉，这本身就是 AI 设计的明显特征。作者的建议是明确要求代理用图像生成（可以再配合着色器 shader 或 3D 效果），并在浏览器里逐帧检查效果。原文配图见原文：加入生成图像前后的页面对比。</p>
-<p>接入方式按工具分三类：自带图像生成的代理（原文列举了 Codex、Antigravity、Grok Build），直接叫它用即可，它通常不会主动用；用 Claude Code 但有 ChatGPT 订阅，可以让代理调用 Codex CLI 走订阅额度；其他情况就给代理一个 OpenAI 或 Gemini 的 API key。</p>
-<p>关于 key 的安全，作者的建议很实在：单独建一个限额很低的 key 专给代理用，泄露或被滥用也损失有限、随时可撤销；把 key 放进被 git 忽略的本地文件，并在 AGENTS.md / CLAUDE.md 里注明只限开发时使用、绝不能打包进产品。</p>
-<h3>⑤ 用视频生成做高级动效</h3>
-<p>作者推荐通过 fal.ai 这类聚合平台接入视频模型，一个 key 就能让代理自己比较、挑选合适的模型。两种用法：</p>
-<table><tr><th>用法</th><th>做法</th><th>效果</th></tr>
-<tr><td>动态图形</td><td>生成纯色背景的循环视频，再抠掉背景（简单的用色键 chroma key，复杂的用视频抠像 video matting 模型）</td><td>得到能叠在任何界面上、不像视频的动画。原文例子是一块碎裂旋转的水晶，带折射和焦散光效；为了让折射可信，先在页面底色上渲染再抠像</td></tr>
-<tr><td>状态之间的流畅过渡</td><td>给两张产品静帧，让视频模型插帧生成过渡片段；用户操作时播放，或随滚动、手势逐帧拖动</td><td>原文例子是一只行李箱：从空中落地、打开、物品落入，随滚动连续播放，用上一段最后一帧作为下一段起点保证衔接</td></tr></table>
-<p class="mono">原文配图见原文：水晶动效与行李箱滚动演示均为视频。</p>
-<div class="note"><p>这两项对 UX 设计师的意义在于：以前需要动效设计师和 3D 师才能做的“品牌时刻”，现在一个人就能做原型。但要警惕新俗套：生成的 3D 水晶、玻璃质感很快会成为下一个紫色渐变。用之前先问一句：这个画面和我的产品故事有什么关系？</p><p>另外，视频方案要考虑加载体积、低端设备性能和“减少动态效果”（prefers-reduced-motion）设置，这些模型不会替你想。</p></div>
-
-<h2>08 交付 ⑥：做减法</h2>
-<p>AI 很爱加东西，几乎不会主动删。过度解释、没有实际作用的元素，是 AI 设计最明显的标志之一；而克制的设计会立刻显得高级。作者说他打磨 AI 设计时，大部分精力都花在删东西上。</p>
-<p>他的例子是自己做的卡路里记录 App。即使明确要了“干净、极简”，初版还是有这些问题：背景和进度条上的粉色光晕；文字上随意的颜色和高亮；食物图片已经说明问题了，却还多了标签和空白；自定义按钮和输入框不如 iOS 原生组件好看。他让模型改成以图片为中心的网格，去掉渐变、光晕和多余容器，做出真正贴近 Apple 原生的极简风格。结果：用原生组件、去掉多余色彩、文字更小更紧凑，让视觉本身说话。原文配图见原文：改版前后的 App 截图。</p>
-<figure class="fig"><img src="../figures/how-to-turn-your-ai-into-a-world-class-designer/04-subtraction.svg" alt="减法清单示意" loading="lazy"><figcaption class="mono">图 4 · 逐项判断元素是否增值 · 示意图：编者绘制</figcaption></figure>
-<p>作者的观察是：删减设计、删代码对模型来说是“冒险”，而模型不爱冒险，所以这一步必须由人推动。</p>
-<blockquote>“AI loves to add more, but it rarely takes away.” — Anshu Chimala</blockquote>
-<div class="note"><p>这一节和 Anthropic frontend-design skill 里引用的 Chanel 那句“出门前照镜子，摘掉一件饰品”是同一个意思。对设计师来说，减法其实是最能体现资历的地方。可以把常见的 AI 多余元素做成一张固定的“删除清单”，每次交付前过一遍（见第 10 节）。</p></div>
-
-<h2>09 对照表与工作流模板</h2>
-<table><tr><th>环节</th><th>常见做法（容易得到平庸结果）</th><th>本文做法</th></tr>
-<tr><td>要多样性</td><td>在提示词里写“要随机、要独特”</td><td>用脚本生成外部随机种子，让模型从中推导方向</td></tr>
-<tr><td>找方向</td><td>直接让 AI 出点子并照用</td><td>AI 广撒网，你带着品味收窄，再让 AI 写构建提示词</td></tr>
-<tr><td>迭代</td><td>让同一个代理自己检查、自己改</td><td>独立的评论家子代理只看截图打分，干活的代理改到 9 分以上</td></tr>
-<tr><td>评判标准</td><td>“好不好看”“像不像 AI”</td><td>与几张标杆截图排序，或对照“顶级工作室会怎么做”</td></tr>
-<tr><td>视觉素材</td><td>渐变、几何形状、CSS 图案</td><td>生成图像，配合 shader / 3D</td></tr>
-<tr><td>动效</td><td>CSS 淡入淡出</td><td>视频生成 + 抠像，或插帧做状态过渡</td></tr>
-<tr><td>收尾</td><td>继续加功能和装饰</td><td>逐项删除不增值的元素，优先原生组件</td></tr></table>
-<p>下面是编者按本文思路写的一份工作流提示词模板，可直接改用（不是原文提示词）：</p>
-<pre>【阶段一：发散】
-任务：为 [产品] 的 [页面] 生成 6 个差异明显的设计方向。
-每个方向开始前：
-1. 用 shell 生成一段 40 位随机字符串（不要在设计里出现它）；
-2. 从字符串里找出数字、重复字母、节奏等线索，推导出配色、版式、字体、母题；
-3. 用一句话写下这个方向的「气质」，再动手做。
-我的品味约束：[例如：不要卡通化；不要灰色渐变；要有触感]
-
-【阶段二：评审循环】
-每轮：截图 → 在全新上下文中调用评论家，只给截图和以下 4 张标杆图。
-评论家任务：说出这个设计追求的美学；想象顶级工作室怎么做；
-列出最大的 3 个差距（具体到元素）；对明显的 AI 套路扣分；
-把 5 张图按精致度排序并给本设计打 10 分制分数。
-先跑 2 轮，看分数是否收敛，再决定是否继续。
-
-【阶段三：减法】
-列出页面上每个元素，标注它服务的用户目标；
-删除所有说不出用途的元素、装饰性光晕和渐变、重复的标签；
-能用平台原生组件的地方不用自定义组件。</pre>
-
-<h2>10 自查清单</h2>
-<ol class="check">
-<li>发散阶段是否至少看过 6 个真正不同的方向，而不是同一结构换颜色？</li>
-<li>随机性是否来自模型外部（种子、外部素材），而不是一句“请随机”？</li>
-<li>选中的方向里，是否写进了你自己的“喜欢 / 讨厌 / 怕变俗”的判断？</li>
-<li>评审是否由独立上下文的评论家完成，而不是让干活的代理自我评价？</li>
-<li>评论家是否有具体的视觉基准（标杆截图）和明确的停止条件？</li>
-<li>页面上是否还有用渐变、几何形状凑数的地方，可以换成真正的图像或动效？</li>
-<li>新加的图像和动效是否和产品故事有关，而不是另一种新俗套？</li>
-<li>是否检查了加载体积、性能和“减少动态效果”设置？</li>
-<li>是否删掉了所有说不出用途的元素：光晕、随意高亮、重复标签、多余容器？</li>
-<li>能用原生组件的地方是否都用了？</li>
-<li>API key 是否单独限额、放在被 git 忽略的文件里，没有进入产品代码？</li>
-</ol>
-<div class="note"><p>和上一篇对照着看：Anthropic 的 skill 解决的是“第一稿别太平庸”，这篇解决的是“怎样用流程把一个方向做深、做精”。前者像设计规范，后者像团队工作流。给 Zhu 的建议：用一个真实项目把三个阶段完整跑一遍，记录每个阶段你花的时间和做的判断。你会发现，时间主要花在第二步的收窄和最后的减法上，而那正是你作为资深设计师最难被替代的部分。</p></div>
+<h3 id="section-1">一套端到端的流程，帮你挖掘 AI 隐藏的创造力</h3>
+<p>∙ 付费</p>
+<p><i>👋 嗨，我是 Lenny。我每周都会分享经过深入研究的产品、增长和职业建议。更多内容：<a href="https://www.lennysjobs.com/">Lenny’s Jobs</a> | <a href="https://www.lennysnewsletter.com/podcast">Lenny’s Podcast</a> | <a href="https://www.lennybot.com/">Lennybot</a> | <a href="https://www.youtube.com/@howiaipodcast">How I AI</a> | <a href="https://maven.com/tech-for-product/become-an-ai-native-builder">成为 AI 原生构建者</a>，以及我其他喜欢的 <a href="https://maven.com/lenny">AI/PM 课程</a></i></p>
+<p><i>P.S. 成为 Insider 订阅用户，即可免费获得整整一年的 Cursor、Notion、Replit、Lovable、Wispr Flow、Linear、ElevenLabs、Factory、PostHog、Granola、Brain.fm、Waking Up 等产品的使用权（先到先得，送完即止）。<a href="https://www.lennysproductpass.com/">了解更多</a>。</i></p>
+<hr>
+<p>我一直以为 AI 不擅长设计。但读完 <a href="https://www.linkedin.com/in/achimala/">Anshu Chimala</a> 这篇令人震撼的文章后，我意识到是我的用法不对。Anshu 在 Apple 带领软件工程和设计团队 12 年，专注于未来 AI 产品的研究和原型设计。他经常在 <a href="https://x.com/anshuc">X</a> 上分享设计教程和演示（他是我最爱关注的人之一）。想更深入地了解如何用 AI 打造独具特色的体验，可以看看他的 <a href="https://substack.com/@anshuc">Substack</a>，也可以在 <a href="https://www.linkedin.com/in/achimala/">LinkedIn</a> 上与他联系。</p>
+<p>我们开始吧。</p>
+<hr>
+<p><b>一款对话式热量追踪应用，用 Claude Fable 5 通过三条提示词构建：</b></p>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_lossy/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff7135ec6-882d-462e-9935-308206a97182_900x900.gif" alt="" loading="lazy" decoding="async"></figure>
+<p><b>一款太空探索游戏，用 Claude Opus 5 通过两条提示词构建：</b></p>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_lossy/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc1445c00-4834-4a86-ab85-5e53ae87a652_900x528.gif" alt="" loading="lazy" decoding="async"></figure>
+<p><b>一个动态落地页，用 Claude Opus 5 + GPT-5.6 Sol 通过三条提示词构建：</b></p>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa3d78ad3-3100-4bf0-b6be-0fc4cfa07987_640x360.gif" alt="" loading="lazy" decoding="async"></figure>
+<p>我经常在 X 上发布这类 AI 设计演示。每次发完，总会有人问：“为什么模型能给你做出这么多惊艳的东西，我一试就只能得到千篇一律的垃圾？感觉你用的完全是另一个模型。”</p>
+<p>我用的并不是另一个模型，只是我从手头的模型里榨取到了<i>更多</i>价值。大多数人只看到了 AI 1% 的创造潜力。我想告诉你如何挖掘剩下的 99%。</p>
+<p>AI 模型本可以展现惊人的创造力，但训练方式压抑了这种创造力。大语言模型是下一个 Token 的预测器：每一步，它们都会查看一段文本序列，并根据数百万个示例预测接下来会出现什么。结果可能会由人类打分，再把评分反馈给模型。这会让模型学会做出稳定、保险、迎合所有人偏好的选择。</p>
+<p>这让常规的大语言模型（LLM）擅长处理大多数任务，却成不了好设计师。要完成一个设计，LLM 必须逐个 Token 地把它构建出来。每当需要做设计决策——用什么颜色，或如何排布元素——模型都会填入它认为最能让所有人满意的 Token。结果，设计往往千篇一律、平淡无味，堪称“委员会式设计”的极致案例。</p>
+<p>而出色的设计恰恰始于感受，目标是引发情感共鸣。它会打破常规，用令人难忘、出人意料的选择取悦用户。出色的设计与 LLM 的天性截然相反——后者在每一步都会选择最可预测的那个答案。</p>
+<p>不过，如果我们能让模型跳出最可预测的选择，就能触及大多数人错过的、广阔的创意版图。</p>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fbc7e732b-64b8-4538-8b17-82290d34d032_1774x887.png" alt="" loading="lazy" decoding="async"></figure>
+<p>这是我在管理 AI 设计师之前，从管理人类设计师身上学到的一课。在 Apple 的大部分职业生涯里，我带领一支研发团队，设计探索性的未来 AI 产品。早期，我们对用户界面“应该如何运作”的先入之见限制了创造力，让我们一再回到老套的想法。通过严谨的方法和新的流程，我们学会了不再重复那些舒适区里的东西，而是去探索可能性的边缘，创造出新的东西。我们也成了专家，能把细节打磨到 Apple 级别的品质。</p>
+<p>离开 Apple 之后，我一直在把同样的流程应用到我与 AI 的协作中。过去几年里，AI 智能体已经变得极其强大。它们几小时就能完成过去我的团队需要数周才能做完的工作。只要引导得当，它们能做出与众不同、前所未见的设计。</p>
+<p>我从 <a href="https://en.wikipedia.org/wiki/Double_Diamond_(design_process_model)">双钻设计流程</a>中获得了一些灵感，并为一支由 AI 智能体而非人类设计师组成的团队重新设计了设计流程：</p>
+<ol><li><b>发现（Discover）</b>：探索多种方向，撰写大胆而有野心的设计简报，找到超越平庸 AI 垃圾内容的新想法。</li><li><b>定义（Define）</b>：推动 AI 突破其惯用模式，并将多个模型串联起来，充分实现设计潜力，从而确立独特的设计个性。</li><li><b>交付（Deliver）</b>：打磨掉粗糙草率的棱角，聚焦关键元素，交付惊艳的最终成果。</li></ol>
+<p>遵循这些阶段，并运用每个阶段中的技巧，你就能在极短的时间内做出出色的设计，让人忍不住问：“为什么 AI 能为你变出魔法（却不能为我）？”</p>
+<h2 id="">探索：发掘可能性的空间</h2>
+<p>设计过程中最难的，是面对一块拥有无限可能的空白屏幕。应对这一刻的最佳方式，是先广泛探索，再深入打磨。AI 是探索各种潜在方向的绝佳工具。</p>
+<p>不过，正如我们所知，模型往往过度依赖熟悉的模式，做出保守的选择。想要探索完整的设计空间，就得引导模型反其道而行：大胆、多样、敢于冒险。下面是两种把它推出舒适区的方法。</p>
+<h2 id="section-2">技巧 1：用种子字符串注入多样性</h2>
+<p>这里的思路是让模型找到新的设计灵感来源，而不是依赖它在训练中学到的默认套路。如果你试过用提示词让模型设计网站或应用，大概已经见过这种默认效果是什么样了。</p>
+<p>举个简单的示例，我给四个 Claude Code 实例下达了同样的提示词：</p>
+<p><b>提示词：</b></p>
+<blockquote><p><i>为我的效率应用做一个落地页。</i></p></blockquote>
+<p><b>Claude Opus 5：</b></p>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7b59bdf3-8a82-46d1-94c2-4a1e60ea7cbf_1456x894.png" alt="" loading="lazy" decoding="async"></figure>
+<p>几乎每次，我们得到的都是偏紫色的渐变、左边文字、右边图形，以及完全相同的结构。它看起来就像所有 AI 设计出来的网站。</p>
+<p>我们并没有要求模型做任何独特或多样的设计，所以它一再退回到自己熟悉的模式也在情理之中。但仅仅要求多样性并不管用：</p>
+<p><b>提示词：</b></p>
+<blockquote><p><i>为我的效率应用做一个落地页。给我完全独特的东西。每个设计决策都完全随机。</i></p></blockquote>
+<p><b>Claude Opus 5：</b></p>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff37064a7-2853-4314-b175-aa65b8a13f43_1456x876.png" alt="" loading="lazy" decoding="async"></figure>
+<p>结果与之前有所不同，但依然缺乏多样性。模型始终使用相同的配色方案、相同的结构，甚至还有同样别扭的陶艺比喻。它预测出的 Token 只是<i>听起来</i>随机，而并非<i>真正</i>随机。</p>
+<p><b>问题在于，模型天生无法真正随机地行动。</b>它只能预测最有可能出现的 Token。如果想要多样性，就必须从模型之外引入。一种做法是 String Seed of Thought，由 <a href="https://pub.sakana.ai/ssot/">Sakana AI 发表</a>。我们让 AI 生成一串随机字符串，并把它当作设计灵感。这样，模型每次做出的决策才会真正不同。</p>
+<p><b>提示词：</b></p>
+<blockquote><p><i>我想让你为我的效率应用做一个落地页。</i></p></blockquote>
+<blockquote><p><i>请按以下步骤进行：</i></p></blockquote>
+<ol><li><i>用 shell 脚本生成一串很长的随机字母数字字符串。</i></li><li><i>根据这串字符串确定创意方向（配色、布局、排版等）。不要只看表面，去寻找其中的子模式、特殊数字，以及任何能启发你的东西。</i></li><li><i>凭你的判断力把这个方向落地，让它看起来出色。</i></li></ol>
+<blockquote><p><i>不要在设计中展示这串字符串，它只是用来给你提供灵感的。</i></p></blockquote>
+<p><b>Claude Opus 5：</b></p>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fbcda7156-dbbd-4d18-a7fb-4cfc124563bf_1456x876.png" alt="" loading="lazy" decoding="async"></figure>
+<p>输出一下子丰富多了！现在我们看到了不同的配色、字体和新想法。之前的设计，任何 Claude 用户都能得到；而这些设计独一无二，每次运行都不会得到相同的结果。</p>
+<h2 id="section-3">技巧 2：让你的提示词更有野心</h2>
+<p>给模型强力推动的另一种方法，是让提示词更具体、更大胆。这样模型就有了清晰的愿景作为决策依据，而不是临场随意发挥。找到独特创意的最佳方式，是把你自己的品味带进来。你先想象灵感来源——一款电子游戏、一种室内设计潮流、一件装置艺术——再描述你希望这种灵感如何影响 AI 的输出。以下是一些示例：</p>
+<blockquote><p><i>“为我的效率应用做一个落地页，采用大胆的像素艺术主题和惊艳的图形。每个板块都应该像游戏里的一帧画面，但整体上仍要能作为落地页正常运作。”</i></p></blockquote>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3d880aa5-5e31-45f5-99c4-8055dcb87f4a_640x360.webp" alt="" loading="lazy" decoding="async"></figure>
+<blockquote><p><i>“为我的效率应用做一个落地页，设定在一座等距视角、充满生气的 3D 城市中，不同的功能以某种方式对应不同的街区或建筑。”</i></p></blockquote>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_lossy/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa7245156-8c71-4ecc-9897-5ce76e561faf_640x360.gif" alt="" loading="lazy" decoding="async"></figure>
+<blockquote><p><i>“为我的效率应用做一个落地页，采用极端不对称的布局、不和谐的配色与排版，以及令人不适的留白。打破所有规则，但依然要好看。”</i></p></blockquote>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_lossy/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F220747d1-f561-405f-a95c-7b05fd64731b_640x360.gif" alt="" loading="lazy" decoding="async"></figure>
+<p>当然，难点在于想出值得去要求的原创点子。AI 也能帮上忙，但如果你只是让它给你一些点子，得到的只会是人人都能得到的平均水平的答案。下面是我用 AI 寻找独特提示词灵感的一套方法：</p>
+<h4 id="">1. 让 AI 列出一大堆点子，并且刻意不要太详细。目的只是激发你的想象力。</h4>
+<blockquote><p><i>我想为我的产品设计一种大胆、独特的设计语言。你能尽可能多地列出点子吗？每个配上简短、概括性的描述。要广，不要深。</i></p></blockquote>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0e1d6d22-1828-47d5-b2f6-0d88fef90ae2_1456x571.webp" alt="" loading="lazy" decoding="async"></figure>
+<h4 id="">2. 把你喜欢的方向可视化，留意自己对不同方向的反应，然后让 AI 继续优化它们。</h4>
+<blockquote><p><i>工业控制面板：</i></p></blockquote>
+<ul><li><i>我设想的是有触感的东西：按下去咔哒作响、很有满足感的按钮，配上好听的音效。</i></li><li><i>一开始我想到的是卡通风或拟物风，但现在觉得有点俗气，请避开。</i></li><li><i>我想要的是风格统一的组件，再加上一些小细节，在不过火的前提下体现这种质感。</i></li><li><i>灰色渐变会显得很无聊，需要更多质感。也许可以在保留控制面板感觉的同时加入一些色彩？</i></li></ul>
+<blockquote><p><i>你能根据我的品味把这个方向再打磨得更锐利一些吗？</i></p></blockquote>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0e7340b1-9a93-4d94-abc6-c6b386f3a36c_1456x449.png" alt="" loading="lazy" decoding="async"></figure>
+<h4 id="">3. 不断迭代直到满意，然后让 AI 写出用来构建它的提示词。</h4>
+<blockquote><p><i>你能写一段简洁的提示词，让 AI 智能体据此构建一个初步的 POC 页面吗？</i></p></blockquote>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4ca0ce7c-c730-443a-bde3-f62996b43c7d_1456x692.png" alt="" loading="lazy" decoding="async"></figure>
+<p>如果你只是把 AI 生成的点子原样再丢回给 AI，很难得到独特的东西。毕竟，任何人都可能做出同样的事。但当你主动引导设计方向时，最终得到的就是只有你才能创造出来的作品。</p>
+<p>不要害怕尝试那些听起来很糟糕的点子。如果你发现自己在想“这绝对行不通”，那你多半走对了路。很多时候，你的智能体会给你惊喜，你会发现自己低估了它。如果没有，那就把结果扔掉，换个方向再试。但请保存那些<i>没有</i>奏效的提示词，等新模型发布后再测试一遍。这样，你就能确保自己充分利用了最新模型的能力。</p>
+<h2 id="">定义：深化你的设计方向</h2>
+<p>到目前为止，我们已经了解了如何探索大量的点子，并有望得到一个有潜力的初始设计。然而，无论怎么写提示词，AI 生成的初始设计通常仍然会显得千篇一律。</p>
+<p>例如，来看看我们使用种子字符串生成的这些设计：</p>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F25c296a8-ce8c-4633-ac96-2dcbad6d9430_1456x876.png" alt="" loading="lazy" decoding="async"></figure>
+<p>这些设计很有潜力，但仍然严重依赖同样陈旧的套路：左边是文字，下面放一个行动号召（CTA）按钮，顶部是导航栏，右边是图形。</p>
+<p>我们的下一个目标，是通过不同的设计选择，让每个设计都有自己的个性。下面是我最喜欢的几种做法。</p>
+<h2 id="section-4">技巧 3：用子智能体建立正向反馈循环</h2>
+<p>我们需要不断迭代设计来改进它。但是，单纯让智能体看着设计然后改进它是行不通的，因为智能体并不客观：它审视的是自己的代码、过往的决策和之前的思路。AI 很难跳出来看全局，也很难“换个思路”。</p>
+<p>要解决这个问题，不要让编码智能体自己决定设计何时足够好，而是让它去请教<i>另一个</i>智能体——一位“设计评审”。评审的工作是查看当前设计的截图并给出反馈。它不关心当前设计是怎么实现的，也不关心花了多少功夫，只关心设计是否真正达到了质量标准。</p>
+<p>这种做法还有一个额外的好处：我们可以让评审使用大而昂贵的模型，又不会花费过高，因为只有在做关键决策时才会用到它。便宜又快的模型负责干体力活，强大的评审模型则负责提供品味。</p>
+<p>让我们在之前的设计上试一试，用 Claude Fable 5 担任评审：</p>
+<p><b>提示词：</b></p>
+<blockquote><p><i>我想让你改进这个设计。为了确定重点改进什么，请使用一个 Fable 5 子智能体作为设计评审。</i></p></blockquote>
+<blockquote><p><i>每次迭代请遵循以下流程：</i></p></blockquote>
+<ul><li><i>截取当前设计的截图</i></li><li><i>在全新的上下文中调用评审，只提供截图，不提供代码、实现细节，也不提供之前的迭代或评审意见</i></li><li><i>让它评估该设计追求的美学风格，想象顶级设计工作室会如何呈现这种美学，然后指出最大的差距</i></li><li><i>最后，让它给出一个满分 10 分的评分，表明当前设计距离工作室级别的质量标准有多近</i></li></ul>
+<blockquote><p><i>请在评审的提示词中提供以下指引：</i></p></blockquote>
+<ul><li><i>它既要从高层思考整体结构与构图，也要审视细枝末节</i></li><li><i>它要警惕那些过度使用、过于夸张或明显带有 AI 生成痕迹的模式，并为此扣分</i></li><li><i>它应给出精准、具体的反馈，而不是含糊的长篇大论</i></li><li><i>它要敢于表达鲜明的观点，而不是依赖安全、省事的做法</i></li></ul>
+<blockquote><p><i>只有当评审者独立判定作品达到 9/10 或更高时，你的工作才算完成。不要把这条标准写进评审者的提示词，让它的打分保持客观。每次都使用同一份评审者提示词。</i></p></blockquote>
+<p><b>Claude Opus 5：</b></p>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5e045d71-d5f7-436a-be1f-eb870df24062_1456x1861.png" alt="" loading="lazy" decoding="async"></figure>
+<p>不再是千篇一律的同一套版式，每个设计现在都有了自己的个性，同时依然保留最初的整体美学风格。</p>
+<p>值得注意的是，在每种情况下，Fable 产生的输出 Token 都不到 10%。如果直接让 Fable 重新设计页面，成本会翻倍，耗时也会长得多。</p>
+<p>这些循环的搭建方式非常关键。以下是一些提示：</p>
+<ul><li><b>确保评审者的评判标准尽可能清晰、客观。</b></li><li class="depth-1">差：“判断我们的设计是否好看，而不是 AI 生成的。”这太主观了，每次运行的结果都会大相径庭。</li><li class="depth-1">尚可：“审视我们想要的美学风格，想象顶级设计工作室会如何实现它，然后以此为标杆评判我们设计的质量。”这个提示词仍然含糊，但它提供了一致的框架和质量标杆。</li><li class="depth-1">优秀：“这里有 5 个设计：4 个专业示例和 1 张我们产品的截图。请按精致度和品味高低排序。”这条指令具体而客观，并为判断提供了视觉基准。</li><li><b>提供示例图片来展示目标质量标杆。</b>你可以使用可比的截图、你喜欢的设计，甚至是 AI 生成的概念图。要指示评审者把这些当作基准或情绪板，而不是目标。你不希望它直接照搬其他设计。</li><li><b>谨慎设定停止条件。</b>否则评审者可能永远觉得设计不够好，而你的智能体会为了取悦它无谓地消耗 Token。先让它做一两轮迭代，观察是否在收敛，再决定是否增加轮数。</li><li><b>为每项工作选择合适的模型。</b>评审者角色可以考虑更大的模型，因为参数越多，通常设计感越好，想法的分布也越广。小模型可以胜任实现者，但也不能太小，你仍然需要一个能把设计方向执行到位的模型。</li></ul>
+<h2 id="section-5">技巧 4：用图像生成丰富设计</h2>
+<p>编程智能体热衷写代码，却通常不会引入图片。它们往往选择更省事的代码方案：渐变、形状和基础图案。这些都是 AI 生成设计的明显特征。</p>
+<p>有些智能体内置了图像工具，但用得不够充分。另一些没有现成的图像工具，不过可以很方便地通过 API 密钥调用 OpenAI 或 Gemini 的 API 来生成图像。</p>
+<p>我们拿上一步的设计来试试：</p>
+<p><b>提示词：</b></p>
+<blockquote><p><i>这个设计相当平淡。请用图像生成增添更多个性。可以考虑把 shader 或 3D 效果与图像结合，做出更有趣的视觉效果。</i></p></blockquote>
+<blockquote><p><i>图像生成请使用这个 OpenAI API 密钥（仅在本地使用，不要存储在代码或产品中）：sk-a1b2c3d4…</i></p></blockquote>
+<blockquote><p><i>请在浏览器中逐帧检查，确认你的成果看起来没问题。</i></p></blockquote>
+<p><b>Claude Opus 5（前后对比）：</b></p>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7e2a6925-7451-4abe-aaa8-bc92823dd69a_1456x399.gif" alt="" loading="lazy" decoding="async"></figure>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff4ae7b09-1555-4ade-850c-212cb0d089b2_1456x399.gif" alt="" loading="lazy" decoding="async"></figure>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7cd81d80-09c1-4244-9651-43bba85771a4_1456x399.gif" alt="" loading="lazy" decoding="async"></figure>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc02123f6-00f8-4063-8463-5050d2649647_1456x399.gif" alt="" loading="lazy" decoding="async"></figure>
+<p>这样的图像和效果可以迅速增添许多个性，让设计不那么明显地带有 AI 生成的痕迹，因为它们体现出的用心不止停留在表面。</p>
+<p>根据你的环境，有几种不同的方式可以把智能体接入图像生成工具：</p>
+<ul><li><b>如果你使用 Codex、Antigravity 或 Grok Build：</b></li><li class="depth-1">告诉智能体使用其内置的图像生成功能。智能体本来就知道怎么做，只是不明确指示就很少使用。</li><li><b>如果你使用 Claude Code 或其他智能体，同时拥有 ChatGPT 订阅：</b></li><li class="depth-1">告诉智能体：“用 Codex CLI 生成图像。如果还没安装，请帮我安装。确保计费走我的订阅，而不是 API 密钥。”这样你就能用 ChatGPT 订阅生成图像，无需额外付费。</li><li><b>如果你只使用 Claude 或其他单一工具：</b></li><li class="depth-1">最简单的做法，是给你的智能体一个 OpenAI 或 Gemini 的 API 密钥，让它来生成图片。我建议专门为智能体创建一个单独的 API 密钥，并设置严格的消费上限。这样即使密钥泄露或被智能体滥用，成本也在可控范围内，而且你可以随时撤销该密钥，不影响其他工作。</li><li class="depth-1">如果你经常要把密钥粘贴到对话里，不妨把它们放进一个文件，并在项目中让智能体去读取。你可以这样告诉它：“创建一个被 gitignore 忽略的文件 .env.agents，把这个 API 密钥存进去，并在 AGENTS.md/CLAUDE.md 中给自己留一条备注：这些密钥仅供你在开发期间使用（但不得随产品一起发布）。”</li></ul>
+<h2 id="section-6">技巧 5：想要更高级的动效，就用视频生成</h2>
+<p>如今的视频生成模型已经强大得惊人，但大多数人只把它们当作生成 UGC 广告，或者“威尔·史密斯吃意大利面”短片的工具。其实它们在日常设计工作中同样能创造奇迹。</p>
+<p>市面上的视频模型很多，而且最佳选择变化频繁，所以我喜欢使用 <a href="http://fal.ai/">fal.ai</a> 这样的聚合平台。这样只需给智能体一个 API 密钥，它就能自行评估不同选项并选出最合适的一个，无需对接多个服务。</p>
+<p>下面是我在设计中使用视频模型的两种方式：</p>
+<h4 id="">创作惊艳的动画图形</h4>
+<p>诀窍是生成一段纯色背景的循环片段，然后通过色键抠像（就像绿幕）去掉背景；在更复杂的情况下，则使用视频抠像模型来移除背景。这样你就得到一段可以叠放在界面任意位置的动画，看起来完全不像一段视频。</p>
+<p>例如，我拿了一个之前的设计，并运行了这条提示词：</p>
+<p><b>提示词：</b></p>
+<blockquote><p><i>你能把这个页面上的图片替换成一段循环视频，做出更有趣的效果吗？让水晶碎裂开来并缓慢旋转。它应当有出色的玻璃质感，能折射页面背景，并在周围投射阴影和光线。</i></p></blockquote>
+<blockquote><p><i>为了获得逼真的玻璃折射效果，先把玻璃渲染在页面背景色之上（这样折射效果就被烘焙进去了），然后用视频抠像模型移除背景。</i></p></blockquote>
+<blockquote><p><i>使用这个 fal.ai API 密钥：sk-a1b2c3d4…</i></p></blockquote>
+<blockquote><p><i>为视频生成和背景移除找到合适的近期模型。</i></p></blockquote>
+<p><b>GPT-5.6 Sol（前后对比）：</b></p>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Faa994e2f-caec-40bf-8cc5-8a1ef101dd21_1456x399.gif" alt="" loading="lazy" decoding="async"></figure>
+<p>这比代码能做出的效果丰富得多：有趣的焦散反射、玻璃般的折射效果，以及复杂的物理动效。</p>
+<h4 id="">在不同状态之间创建流畅的过渡</h4>
+<p>这是视频模型一个被严重低估的用法。除了根据文字生成视频，许多视频模型还能在关键帧图像之间做插值。这样你就可以拿两张产品静态图，生成它们之间的过渡片段。你可以在用户执行某个操作时（比如跳转到应用的另一个界面）播放这段片段，也可以根据手势（比如滚动或滑动）逐帧拖动播放。</p>
+<p>这是一个展示滚动效果的演示页面。我在 Codex 中用 GPT-5.6 Sol，只用一条提示词就做出来了：</p>
+<p><b>提示词：</b></p>
+<blockquote><p><i>为一个行李箱制作一个演示页面，使用视频模型在几个界面之间创建交互式过渡。每个界面展示行李箱的不同状态，并带有适合滚动的纵向动效：</i></p></blockquote>
+<ul><li><i>起初，让行李箱漂浮在半空高处</i></li><li><i>然后让它落到地面并弹开</i></li><li><i>最后，让它的物品从上方整齐地落入箱中</i></li></ul>
+<blockquote><p><i>使用你的图像生成技能生成初始帧。然后生成一段从该帧开始、并过渡到下一个状态的视频片段。用该视频的最后一帧作为下一段过渡的起点，使其无缝衔接。随着用户滚动，逐段拖动播放这些过渡。</i></p></blockquote>
+<blockquote><p><i>使用这个 fal.ai API 密钥：sk-a1b2c3d4…</i></p></blockquote>
+<blockquote><p><i>使用物理表现和一致性都很强的视频模型，比如 Seedance 2.5。</i></p></blockquote>
+<p><b>GPT-5.6 Sol：</b></p>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_lossy/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2f3bb583-375b-4a12-aa57-64a10bf2d9e7_960x540.gif" alt="" loading="lazy" decoding="async"></figure>
+<p>页面之间的过渡会随用户的滚动流畅地拖动播放，玩起来很有趣。这样的设计会让用户<i>想要</i>继续滚动，进一步了解你的产品。而这只用了一条提示词！</p>
+<h2 id="">交付：把设计打磨成用户会喜爱的作品</h2>
+<p>当我们得到独特而出众的设计后，最后一步是清理细节，让它为生产环境使用做好准备。AI 可以做出惊艳夺目的视觉效果，但要确保设计合理、流畅自然，并切实满足用户的实际需求，关键仍在于你的判断。</p>
+<h2 id="section-7">技巧 6：删掉没有价值的元素</h2>
+<p>AI 喜欢做加法，却很少做减法。设计一眼看上去像 AI 生成的最大特征之一，就是什么都解释一遍，或者包含没有实际用途的元素。相比之下，懂得克制的设计会立刻显得高级而有品位。</p>
+<p>打磨 AI 设计时，我的大部分精力都花在删东西上。示例：在做热量追踪应用时，这是 Claude 给我的初版设计：</p>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fdc9186ef-2b04-42a0-a460-8898b0590797_1456x964.png" alt="" loading="lazy" decoding="async"></figure>
+<p>我描述了应用的功能，并特别要求“简洁、极简的设计”。结果还不错，作为完全由 AI 生成的成果甚至相当惊艳。但尽管我要求极简，设计中仍有不少元素没有增加价值：</p>
+<ul><li>背景和进度条上的粉色发光效果</li><li>文字上随意使用的颜色和高亮</li><li>展示某一天的所有食物时，多余的标签和留白，而图片本身已经传达了这些信息</li><li>自定义的按钮和文本框，看起来还不如 iOS 内置组件</li></ul>
+<p>我让 Claude 收敛一些：</p>
+<ul><li>将布局简化为以图片为中心的网格</li><li>去掉渐变、发光和不必要的容器</li><li>追求真正极简、有 Apple 原生感的美学</li></ul>
+<p>结果如下：</p>
+<figure><img src="https://www.lennysnewsletter.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ffdf80ee5-9f43-44e9-93cf-c477a9e49128_1456x964.png" alt="" loading="lazy" decoding="async"></figure>
+<p>以我训练有素的眼光来看，结果<i>好得多</i>。它有鲜明的态度，让视觉内容自己说话。它使用了 iOS 原生组件，过多的颜色和渐变也不见了。文字更小、更简洁、更紧凑。这才是好设计。</p>
+<p>如今的 AI 模型绝不会自己做出这些选择。记住，AI 不喜欢冒险，而精简设计、删除代码恰恰有风险。模型需要你推一把。审视你的设计，问问自己哪些东西真正有必要存在。往往屏幕上放得越少，传达的反而<i>越多</i>，因为你既能抓住用户的注意力，又不会用杂乱的内容让他们应接不暇。</p>
+<h2 id="section-8">技巧 7：去除 AI 痕迹</h2>
+<table><tbody><tr><td>本文由<a href="https://substack.com/@anshuc?utm_campaign=guest_post_bio&amp;amp;utm_medium=web">Anshu Chimala</a>撰写，他分享各种工作流与心得，把 AI 推向极限。曾任 YC 创始人，以及 Apple 的 UI/UX 与 AI 工程师</td></tr></tbody></table>
 <p style="margin-top:3em"><a class="readorig" href="https://www.lennysnewsletter.com/p/how-to-turn-your-ai-into-a-world" target="_blank" rel="noopener">阅读原文 →</a></p>
 </article>
-<footer class="mono">原文 © Anshu Chimala / Lenny's Newsletter · 本页为编者原创的深度精讲与点评</footer>
+<footer class="mono">原文 © Anshu Chimala · 本页为自动生成的中文译文，仅供学习参考</footer>
+<script>
+(function () {
+  function play(frame) {
+    var embed = frame.getAttribute('data-embed');
+    var direct = frame.getAttribute('data-direct') === '1';
+    var url = frame.getAttribute('data-video-url') || '';
+    var title = frame.getAttribute('data-title') || '视频';
+    if (direct && url) {
+      var video = document.createElement('video');
+      video.src = url;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      var poster = frame.getAttribute('data-poster');
+      if (poster) video.poster = poster;
+      frame.innerHTML = '';
+      frame.appendChild(video);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (embed) {
+      var iframe = document.createElement('iframe');
+      iframe.src = embed;
+      iframe.title = title;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('loading', 'eager');
+      frame.innerHTML = '';
+      frame.appendChild(iframe);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (url) window.open(url, '_blank', 'noopener');
+  }
+  document.querySelectorAll('.video-frame[data-video-url]').forEach(function (frame) {
+    frame.addEventListener('click', function () { play(frame); });
+    frame.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); play(frame); }
+    });
+  });
+})();
+</script>
 </body></html>

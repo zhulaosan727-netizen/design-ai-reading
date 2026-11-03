@@ -1,113 +1,189 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>用 Skills 改进前端设计 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#F1E5E2">
-<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 01 · 审美 / Skills / 提示词</div><h1>用 Skills 改进前端设计</h1><div class="en">Improving frontend design through Skills</div></div>
-<dl class="meta mono"><dt>作者</dt><dd>Anthropic Applied AI 团队</dd><dt>署名</dt><dd>Prithvi Rajasekaran, Justin Wei, Alexander Bricken 等</dd><dt>日期</dt><dd>2025（原页未标具体日期）</dd><dt>原文</dt><dd><a href="https://claude.com/blog/improving-frontend-design-through-skills">claude.com/blog ↗</a></dd></dl><a class="readorig" href="https://claude.com/blog/improving-frontend-design-through-skills" target="_blank" rel="noopener">阅读原文 →</a></div>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>用 Skills 改进前端设计 · 读本</title><link rel="stylesheet" href="../assets/style.css"><style>.video-card{margin:1.8em 0}.video-frame{position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--rule);background:#CFCFCF;cursor:pointer}.video-frame img,.video-frame iframe,.video-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block}.video-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#7A1E2B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px}.video-card figcaption{margin-top:10px;font-size:14px;opacity:.8}.video-index{margin:2em 0;padding:16px 18px;border:1px solid var(--rule)}article.body figure img{width:100%;height:auto;display:block}article.body figcaption{margin-top:8px;font-size:14px;opacity:.75}</style></head><body class="article" style="--tint:#F1E5E2">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 01 · 独特审美 / 审美 / Skills / 提示词</div><h1>用 Skills 改进前端设计</h1><div class="en">Improving frontend design through Skills</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Anthropic Applied AI 团队</dd><dt>署名</dt><dd>Prithvi Rajasekaran、Justin Wei、Alexander Bricken 等</dd><dt>日期</dt><dd>2025（原文页面未标注具体日期）</dd><dt>原文</dt><dd><a href="https://claude.com/blog/improving-frontend-design-through-skills">claude.com ↗</a></dd></dl><a class="readorig" href="https://claude.com/blog/improving-frontend-design-through-skills" target="_blank" rel="noopener">阅读原文 →</a></div>
 <figure class="cover"><img src="../covers/improving-frontend-design-through-skills.svg" alt="Improving frontend design through Skills 封面"></figure></section>
 <article class="body">
-<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解，结构、例子、表格和模板都是编者自己的。想看原始论述，请点上方「阅读原文」。</p>
+<p class="notice">中文全文译文：由「译文工坊」根据英文原文自动翻译生成，供学习参考。结构与措辞以译文为准；想看原始论述，请点上方「阅读原文」。</p>
 <nav class="toc"><div class="mono">本篇目录</div><ol>
-<li>先给结论：三句话读懂这篇</li><li>病因：为什么 AI 界面长得一样</li><li>为什么“好看一点”没用</li><li>Skill 是什么，跟系统提示词有什么区别</li><li>四个可以落地的审美维度</li><li>对照表：默认 AI 选择 vs 推荐做法</li><li>防“换个俗套”：黑名单的陷阱</li><li>不只审美：工具链也会限制设计</li><li>可直接用的提示词模板</li><li>交付前自查清单</li></ol></nav>
+<li><a href="#section-2">Skills：动态加载上下文</a></li><li><a href="#section-3">用提示词设计提升前端输出</a></li><li><a href="#section-8">通过 Skills 提升 claude.ai 中 artifact 的质量</a></li><li><a href="#section-9">通过 Skills 优化 Claude 的前端设计能力</a></li><li><a href="#section-10">相关文章</a></li></ol></nav>
 
-<h2>01 先给结论：三句话读懂这篇</h2>
-<p><b>第一，AI 味是统计现象，不是品味问题。</b>模型生成界面时，总会选出现频率最高的方案。网络上最多的是安全、中庸的 SaaS 模板，所以输出自然往那里靠。</p>
-<p><b>第二，模型其实很听话，缺的是具体指令。</b>只要明确说出要避开什么、偏向什么，输出马上改善。难的是审美涉及的维度太多，每次都手写不现实。</p>
-<p><b>第三，把审美写成 Skill，按需加载。</b>Skill 就是一份可复用的设计说明书。需要做界面时模型自己去读，不需要时它不占上下文。它也是团队沉淀设计知识的新载体。</p>
+<p>使用 Claude 和 Skills 构建更丰富、更具个性的前端设计的最佳实践。</p>
+<p>你可能已经注意到，如果不加引导地让大语言模型（LLM）构建一个落地页，它几乎总是千篇一律：Inter 字体、白底紫色渐变，再配上极简的动画。</p>
+<p>问题出在哪？<a href="https://en.wikipedia.org/wiki/Convergence_of_random_variables">分布收敛（Distributional convergence）。</a>在采样过程中，模型会根据训练数据中的统计规律预测 Token。那些放之四海而皆准、不得罪任何人的安全设计选择，在网页训练数据中占据主导。没有方向引导时，Claude 就会从这个高概率的中心区域采样。</p>
+<p>对于开发面向客户产品的开发者来说，这种千篇一律的审美会削弱<a href="https://claude.com/resources/articles/claude-design-stays-on-brand-for-daily-work">品牌形象</a>，让 AI 生成的界面一眼就能被认出来，也很容易被忽视。</p>
+<h3 id="section-1">可引导性的挑战</h3>
+<p>好消息是，只要有<a href="https://claude.com/resources/articles/best-practices-for-prompt-engineering">恰当的提示词设计</a>，Claude 的可引导性很强。告诉 Claude“避免使用 Inter 和 Roboto”，或“使用有氛围感的背景，而不是纯色背景”，效果会立刻改善。这种对引导的敏感是一项优势：它意味着 Claude 能适应不同的设计上下文、约束和审美偏好。</p>
+<p>但这也带来一个现实挑战：任务越专业，需要提供的上下文就越多。对于前端设计，有效的引导涵盖排版原则、色彩理论、动画模式和背景处理。你需要在多个维度上明确指出要避开哪些默认选择，以及更倾向哪些替代方案。</p>
+<p>你可以把这些内容全部塞进系统提示词，但这样一来，每个请求，无论是调试 Python、分析数据还是写邮件，都得带上前端设计的上下文。问题就变成了：如何只在需要的时候为 Claude 提供特定领域的指引，而不让无关任务背负永久的上下文开销？</p>
+<h2 id="section-2"><b>Skills：动态加载上下文</b></h2>
+<p>这正是 <a href="https://www.anthropic.com/news/skills">Skills</a> 的设计初衷：按需提供专业上下文，而没有永久开销。<a href="https://claude.com/resources/articles/skills-explained">一个 skill</a> 是一份文档（通常是 markdown），包含指令、约束和领域知识，存放在指定目录中，Claude 可以通过简单的文件读取工具访问。Claude 可以借助这些 skills 在运行时动态加载所需信息，逐步丰富自己的上下文，而不是一开始就全部加载。</p>
+<p>当 Claude 配备了这些 skills 以及读取它们所需的工具后，就能根据手头的任务自主识别并加载相关的 skills。例如，当被要求构建落地页或创建 React 组件时，Claude 可以加载前端设计 skill，并即时应用其中的指令。这正是理解 skills 的关键心智模型：skills 是按需激活的提示词和上下文资源，能为特定类型的任务提供专门指导，而不会带来永久性的上下文开销。</p>
+<p>这样，开发者既能享受 Claude 良好的可引导性，又不必把各种任务的零散指令都塞进系统提示词，从而避免上下文窗口过载。正如我们<a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">之前所解释的，</a>上下文窗口中的 Token 过多会导致性能下降，因此保持上下文窗口内容精简而聚焦，对于让模型发挥最佳表现极为重要。Skills 通过让有效的提示词可复用、可按上下文调用，解决了这个问题。</p>
+<h2 id="section-3"><b>用提示词设计提升前端输出</b></h2>
+<p>通过创建前端设计 skill，我们可以在不增加永久性上下文开销的情况下，显著提升 Claude 生成的 UI 质量。其核心思路是像前端工程师那样思考前端设计：越能把美学上的改进映射为可实现的前端代码，Claude 执行得就越好。</p>
+<p>基于这一思路，我们找到了几个针对性提示词效果很好的方向：排版、动画、背景效果和主题。它们都能顺畅地转化为 Claude 可以编写的代码。在提示词中实现这一点并不需要详尽的技术指令，只需用有针对性的语言，引导模型在这些设计维度上更深入地思考，就足以获得更出色的输出。这与我们在<a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">上下文工程</a>博文中给出的建议高度一致：以恰当的“高度”向模型发出提示，避开两个极端——一端是像指定精确十六进制色值这样的低层级硬编码逻辑，另一端是假定双方共享上下文的含糊的高层级指引。</p>
+<h3 id="section-4"><b>排版</b></h3>
+<p>为了直观地说明这一点，我们先从排版入手，把它视为可以通过提示词设计来影响的一个维度。下面的提示词专门引导 Claude 使用更有趣的字体：</p>
+<pre><code class="language-text">&lt;use_interesting_fonts&gt;
+Typography instantly signals quality. Avoid using boring, generic fonts.
 
-<h2>02 病因：为什么 AI 界面长得一样</h2>
-<p>原文给这个现象起了个名字：分布收敛（distributional convergence）。可以这样理解：你让一百个从没见过你品牌的实习生，每人凭印象画一个“科技公司落地页”，再取他们的平均值。结果一定是白底、无衬线字体、蓝紫色按钮、居中大标题加三张功能卡片。这个平均值谁也不得罪，也谁都记不住。</p>
-<p>大模型就是这个“平均实习生”。它见过的网页里，Inter 字体、紫色渐变、圆角卡片的组合出现得最多，所以在没有其他信号时，它在概率最高的地方取样。原文还指出一个后果：对面向用户的产品来说，这种通用外观会削弱品牌识别（brand identity），用户一眼认出是 AI 做的，随即降低信任。</p>
-<div class="note"><p>对资深设计师来说，这个解释最大的价值是换了提问方式：不要问“AI 为什么没品味”，而要问“我给了它什么信号，让它离开平均值”。品牌故事、目标用户、参考物、反例，都是信号。信号越少，结果越接近平均。</p><p>这和带新人很像：你说“做得高级一点”，新人只会去抄 Dribbble 热门；你说“像一本 70 年代瑞士建筑杂志，网格严格，只用一种强调色”，他才有方向。</p></div>
+Never use: Inter, Roboto, Open Sans, Lato, default system fonts
 
-<h2>03 为什么“好看一点”没用</h2>
-<p>原文观察到，Claude 对具体审美指令非常敏感，比如明确禁用某几种常见字体，或者要求背景要有氛围感而不是纯色，效果立竿见影。但“更好看”“更高级”这类形容词本身就是平均值：模型理解的“高级”就是它见过最多的“高级”。</p>
-<p>原文提出“合适的高度（altitude）”这一概念，编者用一张表来说明：</p>
-<table><tr><th>指令高度</th><th>例子</th><th>问题</th></tr>
-<tr><td>太高（太虚）</td><td>“做得现代、简洁、高级”</td><td>假设双方有共识，模型只能回到平均值</td></tr>
-<tr><td>太低（太死）</td><td>“主色 #2B4C7E，标题 48px，间距 24px”</td><td>只能复刻，换个页面就失效，也没给模型发挥空间</td></tr>
-<tr><td>刚好</td><td>“一个主导色加一个锐利点缀色；标题与正文字号差三倍以上；字重用极端对比”</td><td>给原则和方向，模型能在任何页面上推导出具体值</td></tr></table>
-<p>“刚好”这一层，其实就是设计师平时写设计原则（design principles）的那一层。区别只是，这次读者是模型。</p>
+Here are some examples of good, impactful choices:
+- Code aesthetic: JetBrains Mono, Fira Code, Space Grotesk
+- Editorial: Playfair Display, Crimson Pro
+- Technical: IBM Plex family, Source Sans 3
+- Distinctive: Bricolage Grotesque, Newsreader
 
-<h2>04 Skill 是什么，跟系统提示词有什么区别</h2>
-<p>审美指令要覆盖字体、色彩、动效、背景等多个维度，写全了很长。如果放进系统提示词（system prompt），模型每做一件事都背着它，哪怕是在修 Python bug 或写邮件。原文提到，上下文里无关的 token 越多，模型表现越容易下降。</p>
-<p>Skill 的做法是把这份说明书单独放成一个文件（通常是 Markdown），放在模型能读取的目录。模型判断当前任务需要时才去读，比如要做落地页、写 React 组件时。原文称之为渐进式加载上下文。</p>
-<table><tr><th>方式</th><th>何时生效</th><th>适合放什么</th></tr>
-<tr><td>系统提示词</td><td>每次对话都在</td><td>身份、语言、通用规则</td></tr>
-<tr><td>每次手写提示词</td><td>只对这一次</td><td>这一页的具体需求</td></tr>
-<tr><td>Skill</td><td>任务相关时自动加载</td><td>可复用的专业知识：审美规则、设计系统、组件规范</td></tr></table>
-<div class="note"><p>把 Skill 理解成“给 AI 看的设计系统文档”最贴切。你们团队已有的 design tokens、组件使用规范、品牌指南，本来就是在给人类写 Skill。现在要做的是改写成模型能执行的版本：少写形容词，多写可判断的规则和理由。</p></div>
+Pairing principle: High contrast = interesting. Display + monospace, serif + geometric sans, variable font across weights.
 
-<h2>05 四个可以落地的审美维度</h2>
-<p>原文的核心方法是：像前端工程师那样思考审美。能被翻译成代码的审美要求，模型执行得最好。所以原文挑了四个最容易落到 CSS 的维度。</p>
-<h3>① 字体（Typography）</h3>
-<p>原文认为字体是质感最直接的信号。做法有三层：先明确禁用最常见的几款无衬线字体；再按气质给出替代方向，比如代码感、编辑感、技术感、个性展示型；最后讲搭配原则：对比越强越有意思，比如展示字体配等宽字体、衬线配几何无衬线。另外两条非常具体：字重用极端值（细到 100–200 对粗到 800–900，而不是 400 对 600），字号跳跃三倍以上。</p>
-<p>原文还有一个有趣的发现：只改字体这一项，模型在其他方面的设计也跟着变好了。编者的理解是，一个果断的字体选择会把整页的“性格”定下来，模型会顺着这个性格去配色和排版。</p>
-<p><b>编者例子：</b>同一个咖啡订阅品牌，“衬线大标题 + 等宽小字标签”会读成独立杂志；“粗黑窄体 + 超大字号”会读成街头潮牌。字体一换，整个品牌就换了。</p>
-<h3>② 主题与色彩（Theme &amp; Color）</h3>
-<p>模型熟悉大量已有美学：某个年代的平面设计、某种 IDE 配色、某种文化视觉。直接点名一个主题，比列一堆形容词有效得多。原文用一个奇幻角色扮演游戏风格做演示：饱和而戏剧化的色调、装饰性边框、纸张与皮革质感、带装饰的衬线标题，生成的界面立刻有了完整的世界观。</p>
-<p>色彩上原文有一句很好记的原则：</p>
-<blockquote>“Dominant colors with sharp accents outperform timid, evenly-distributed palettes.” — Anthropic</blockquote>
-<p>意思是：一个主导色铺满大面积，再用一个锐利的点缀色，比五六个颜色平均分配更有力量。实现上要用 CSS 变量（CSS variables）统一管理，保证一致。</p>
-<h3>③ 动效（Motion）</h3>
-<p>原文的建议是集中火力：与其每个按钮都加悬停动画，不如精心编排一次页面加载，让元素错峰（staggered）依次出现。普通 HTML 用纯 CSS，React 项目可以用 Motion 库。</p>
-<p><b>编者补充：</b>“错峰入场”本身现在也快成了新的 AI 套路，每个区块都淡入上滑。真正的原则是“一处高光”：整页只设计一个让人记住的动效时刻，其余保持安静。</p>
-<h3>④ 背景（Background）</h3>
-<p>默认的纯白或纯色背景最没性格。原文建议营造氛围和纵深（atmosphere and depth）：叠加渐变、几何图案，或与主题相关的效果。</p>
-<p><b>编者例子：</b>一个天文类产品可以用极淡的星图网格；一个建筑事务所网站可以用蓝图坐标线。背景要和内容讲同一个故事，而不是装饰。</p>
+Use extremes: 100/200 weight vs 800/900, not 400 vs 600. Size jumps of 3x+, not 1.5x.
 
-<h2>06 对照表：默认 AI 选择 vs 推荐做法</h2>
-<table><tr><th>维度</th><th>默认 AI 选择</th><th>推荐做法</th></tr>
-<tr><td>字体</td><td>Inter / Roboto / 系统字体，一种字重</td><td>一款有个性的主字体坚决使用；高对比搭配；极端字重</td></tr>
-<tr><td>字号层级</td><td>标题是正文的 1.5 倍左右</td><td>3 倍以上的跳跃，制造清晰焦点</td></tr>
-<tr><td>色彩</td><td>白底 + 紫/蓝渐变，颜色平均分配</td><td>一个主导色 + 一个锐利点缀；CSS 变量统一管理</td></tr>
-<tr><td>主题</td><td>“现代简洁 SaaS”</td><td>点名具体美学：年代、媒介、文化、IDE 配色</td></tr>
-<tr><td>动效</td><td>极少，或每处都有小动画</td><td>一次精心编排的高光时刻</td></tr>
-<tr><td>背景</td><td>纯白 / 纯色</td><td>有氛围与纵深的层次，与内容主题一致</td></tr>
-<tr><td>布局</td><td>居中大标题 + 三张等宽卡片</td><td>从内容出发：不对称网格、编辑式排版、明确焦点</td></tr>
-<tr><td>明暗</td><td>每次都是浅色</td><td>按语境在浅色、深色主题之间选择</td></tr></table>
+Pick one distinctive font, use it decisively. Load from Google Fonts.
+&lt;/use_interesting_fonts&gt;</code></pre>
+<p><b>使用基础提示词生成的输出：</b></p>
+<figure><img src="../figures/improving-frontend-design-through-skills/01-c15689d28929def7281398d254b1692b67ba34f2.png" alt="" loading="lazy" decoding="async"></figure>
+<p><b>使用基础提示词加排版部分生成的输出</b></p>
+<figure><img src="../figures/improving-frontend-design-through-skills/02-899bf3293083a42ded028aa4daa0a4c505ffc561.png" alt="" loading="lazy" decoding="async"></figure>
+<p>有意思的是，要求使用更有趣的字体，似乎也促使模型改进了设计的其他方面。</p>
+<p>仅靠排版就能带来显著提升，但字体只是其中一个维度。那么整个界面的整体美学呢？</p>
+<h3 id="section-5"><b>主题</b></h3>
+<p>我们还可以通过提示词引导另一个维度：参考知名主题和美学风格的设计。Claude 对流行主题有丰富的理解，我们可以借此传达希望前端呈现的具体美学。下面是一个示例：</p>
+<pre><code class="language-javascript">&lt;always_use_rpg_theme&gt;
+Always design with RPG aesthetic:
+- Fantasy-inspired color palettes with rich, dramatic tones
+- Ornate borders and decorative frame elements
+- Parchment textures, leather-bound styling, and weathered materials
+- Epic, adventurous atmosphere with dramatic lighting
+- Medieval-inspired serif typography with embellished headers
+&lt;/always_use_rpg_theme&gt;</code></pre>
+<p>这会生成如下 RPG 主题的 UI：</p>
+<figure><img src="../figures/improving-frontend-design-through-skills/03-9e5014bce3c6502c734fb668b77bfe7126861d8e.png" alt="" loading="lazy" decoding="async"></figure>
+<p>排版和主题证明了针对性的提示词设计行之有效。但逐个手动指定每个维度太繁琐了。如果能把这些改进整合成一个可复用的资产呢？</p>
+<h3 id="section-6"><b>通用提示词</b></h3>
+<p>同样的原则也适用于其他设计维度：针对动效（动画和微交互）进行提示词设计，能增添静态设计所缺乏的精致感；引导模型做出更有趣的背景选择，则能带来层次感和视觉趣味。这正是一个完整 Skill 大显身手的地方。</p>
+<p>综合以上思路，我们编写了一个约 400 个 Token 的提示词。它足够精简，即使作为 Skill 加载也不会撑大上下文，却能显著提升前端在排版、色彩、动效和背景方面的输出：</p>
+<pre><code class="language-text">&lt;frontend_aesthetics&gt;
+You tend to converge toward generic, "on distribution" outputs. In frontend design,this creates what users call the "AI slop" aesthetic. Avoid this: make creative,distinctive frontends that surprise and delight. 
 
-<h2>07 防“换个俗套”：黑名单的陷阱</h2>
-<p>原文坦白了一个现象：禁掉 Inter 之后，模型在多次生成中又集体收敛到另一款字体（原文举的是 Space Grotesk）。黑名单只是把平均值挪了个位置。所以原文在提示词结尾特意加了提醒：要在浅色和深色、不同字体、不同美学之间变化，别总落在同样的选择上。</p>
-<div class="note"><p>这点值得每个设计师警惕。Anthropic 后来更新的 frontend-design skill 已经承认，AI 设计又聚到几种“新套路”：米白底配高对比衬线和赤陶色点缀、黑底配一个荧光色、细线分栏的报纸式排版。它们一年前看起来还很“有品味”。</p><p>结论是：长期解药不是更长的黑名单，而是给模型一个审美来源，也就是你的品牌、你的用户、你的参考物。有来源的选择才不会被复制成新俗套。</p></div>
+Focus on:
+- Typography: Choose fonts that are beautiful, unique, and interesting. Avoid generic fonts like Arial and Inter; opt instead for distinctive choices that elevate the frontend's aesthetics.
+- Color &amp; Theme: Commit to a cohesive aesthetic. Use CSS variables for consistency. Dominant colors with sharp accents outperform timid, evenly-distributed palettes. Draw from IDE themes and cultural aesthetics for inspiration.
+- Motion: Use animations for effects and micro-interactions. Prioritize CSS-only solutions for HTML. Use Motion library for React when available. Focus on high-impact moments: one well-orchestrated page load with staggered reveals (animation-delay) creates more delight than scattered micro-interactions.
+- Backgrounds: Create atmosphere and depth rather than defaulting to solid colors. Layer CSS gradients, use geometric patterns, or add contextual effects that match the overall aesthetic.
 
-<h2>08 不只审美：工具链也会限制设计</h2>
-<p>原文后半段讲了另一个限制：在 claude.ai 里，模型知道 Artifact 必须是单个 HTML 文件，所以默认把所有东西塞进一个文件，做出来的界面就很简陋，就像让一个前端工程师只准写单文件。Anthropic 为此做了 web-artifacts-builder 这个 skill：让模型用 React、Tailwind CSS 和 shadcn/ui 多文件开发，最后用脚本打包成单文件。原文的白板应用、任务管理应用示例，用了这个 skill 后功能明显更完整。</p>
-<p>这里还有一个关于 Skill 的通用价值：Skill 不只是文字，还可以附带脚本。重复的样板工作交给脚本，模型省下 token，结果也更稳定。</p>
-<div class="note"><p>有个耐人寻味的矛盾：解决 AI 味的文章，推荐的组件库恰恰是 shadcn/ui，而未经改造的 shadcn 正是社区公认最明显的 AI 痕迹之一。编者的读法是：组件库解决可用性和结构，审美要你在 token 层（字体、色彩、圆角、阴影、间距）彻底重写。用 shadcn 不是问题，用它的默认皮肤才是。</p></div>
+Avoid generic AI-generated aesthetics:
+- Overused font families (Inter, Roboto, Arial, system fonts)
+- Clichéd color schemes (particularly purple gradients on white backgrounds)
+- Predictable layouts and component patterns
+- Cookie-cutter design that lacks context-specific character
 
-<h2>09 可直接用的提示词模板（编者原创）</h2>
-<p>下面这份模板可以直接存成自己的 SKILL.md，也可以每次贴在需求前面。方括号里换成你的项目信息。</p>
-<pre>## 设计方向（先写方案，再写代码）
-项目：[产品是什么，给谁用，用户此刻的情绪]
-审美来源：[1–2 个具体参照：某本杂志 / 某个年代的海报 / 某个实体空间]
-一句话气质：[例如：冷静、精确、带一点幽默]
-
-## 规则
-- 字体：选 1 款有个性的主字体，配 1 款对比强烈的辅助字体（衬线×等宽 等）。
-  禁止 Inter、Roboto、Arial、系统默认字体，也不要用你最近常用的字体。
-- 层级：标题与正文字号比 ≥ 3；字重用极端对比。
-- 色彩：1 个主导色占大面积，1 个锐利点缀色只用于关键操作；全部用 CSS 变量。
-  不要紫色渐变，不要米白+赤陶，不要黑底+荧光，除非审美来源要求。
-- 布局：根据内容决定结构；不要“居中大标题 + 三张等宽卡片”。
-- 背景：要有与主题一致的纵深或纹理，不要纯白纯色。
-- 动效：全页只设计 1 个高光时刻；其余交互只做状态反馈。
-
-## 自查（写代码前）
-写出你的设计方案后问自己：换一个同类需求，我会不会给出几乎一样的方案？
-如果会，改掉那部分，并说明改了什么、为什么。</pre>
-
-<h2>10 交付前自查清单</h2>
-<ol class="check">
-<li>遮住 logo，这个页面能不能被认出是你的品牌，而不是任何一家 SaaS？</li>
-<li>字体是否是“有理由的选择”，而不是默认值或最近流行的新默认值？</li>
-<li>标题和正文之间有没有明显的尺度落差，让视线一眼落到焦点？</li>
-<li>颜色是“一主一点缀”，还是五六个颜色平均出场？</li>
-<li>有没有出现紫色渐变、三张等宽卡片、emoji 当图标、到处都有的悬停上浮？</li>
-<li>背景是在讲故事，还是只是空白？</li>
-<li>动效是否只有一处高光，其余都安静？</li>
-<li>把同一需求再生成两次：三版是否明显不同？如果相同，说明 Skill 还不够具体。</li>
-<li>审美规则是否已沉淀进 SKILL.md 或 design tokens，下次可以直接复用？</li>
-</ol>
-<div class="note"><p>给 Zhu 的练习：挑你过去一年最满意的三个界面，逐个问“为什么这里这样做”，把答案写成规则，形成你自己的 SKILL.md。然后用同一个需求分别跑你的 skill 和 Anthropic 官方的 frontend-design skill，并排对比。两版的差异，就是你个人审美的“签名”。这部分值得持续打磨，因为它是 AI 最难替代的。</p></div>
+Interpret creatively and make unexpected choices that feel genuinely designed for the context. Vary between light and dark themes, different fonts, different aesthetics. You still tend to converge on common choices (Space Grotesk, for example) across generations. Avoid this: it is critical that you think outside the box!
+&lt;/frontend_aesthetics&gt;</code></pre>
+<p>在上面的示例中，我们首先向 Claude 提供问题的总体上下文，以及我们想要解决的目标。我们发现，给模型提供这类高层次的上下文，是校准输出的有效提示词技巧。接着，我们列出前面讨论过的设计改进方向，并给出有针对性的建议，鼓励模型在所有这些维度上更有创意地思考。</p>
+<p>我们还在末尾加入了额外的指引，防止 Claude 收敛到另一个局部最优。即使明确要求避开某些模式，模型也可能默认选择其他常见方案（比如排版上选用 Space Grotesk）。最后那句“跳出思维定式”的提醒，则强化了创意上的多样性。</p>
+<h3 id="section-7"><b>对前端设计的影响</b></h3>
+<p>启用这个 Skill 后，Claude 在多种前端设计上的输出都有所提升，包括：</p>
+<p><b>示例 1：SaaS 落地页</b></p>
+<figure><img src="../figures/improving-frontend-design-through-skills/04-5096e4e90054d8456dce2c8caa8c39e55e912119.png" alt="" loading="lazy" decoding="async"><figcaption>图注：AI 生成的 SaaS 落地页，使用通用的 Inter 字体、紫色渐变和标准布局。未使用任何 Skill。</figcaption></figure>
+<figure><img src="../figures/improving-frontend-design-through-skills/05-0b9a125ecab8f3a75aaf877ac838dc371185ed5e.png" alt="" loading="lazy" decoding="async"><figcaption>图注：在使用与上图相同的提示词的基础上加入前端 skill 后，AI 生成的前端拥有了独特的排版、统一的配色和分层的背景。</figcaption></figure>
+<p><b>示例 2：博客布局</b></p>
+<figure><img src="../figures/improving-frontend-design-through-skills/06-9d54f9ef7943105e514ec63f9d609684a895f46d.png" alt="" loading="lazy" decoding="async"><figcaption>AI 生成的博客布局，使用默认系统字体和扁平的白色背景。未使用任何 skill。</figcaption></figure>
+<figure><img src="../figures/improving-frontend-design-through-skills/07-c55b327ad4e7242889786067087a907c5ccf386c.png" alt="" loading="lazy" decoding="async"><figcaption>AI 生成的博客布局，使用相同的提示词并加入前端 skill，呈现出杂志风格的字体、富有氛围感的纵深以及精致的间距。</figcaption></figure>
+<p><b>示例 3：管理后台仪表盘</b></p>
+<figure><img src="../figures/improving-frontend-design-through-skills/08-94101c4bbc2457c4a1bdcb2423243e568e8fc2c5.png" alt="" loading="lazy" decoding="async"><figcaption>AI 生成的管理后台仪表盘，使用标准 UI 组件，视觉层级极弱。未使用任何 skill。</figcaption></figure>
+<figure><img src="../figures/improving-frontend-design-through-skills/09-6161fc3a14335a4aa90d96d62ee4682637837ff1.png" alt="" loading="lazy" decoding="async"><figcaption>AI 生成的管理后台仪表盘，使用相同的提示词并加入前端 skill，拥有醒目的排版、统一的深色主题和有目的的动效。</figcaption></figure>
+<h2 id="section-8"><b>通过 Skills 提升 <a href="http://claude.ai/">claude.ai</a> 中 artifact 的质量</b></h2>
+<p>设计品味并不是唯一的限制。Claude 在构建 artifact 时还面临架构上的约束。<a href="https://support.claude.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them">Artifacts</a> 是 Claude 创建的、显示在对话旁边的可交互、可编辑内容（例如代码或文档）。</p>
+<p>除了上文探讨的设计品味问题之外，Claude 还有另一种默认行为，限制了它在 <a href="http://claude.ai/">claude.ai</a> 中生成出色前端 artifact 的能力。目前，当被要求创建前端时，Claude 只会构建一个包含 CSS 和 JS 的单个 HTML 文件。这是因为 Claude 知道，前端必须是单个 HTML 文件，才能作为 artifact 被正确渲染。</p>
+<p>就像一位人类开发者如果只能在单个文件里编写 HTML/CSS/JS，就只能做出非常基础的前端一样，我们假设：如果指示 Claude 使用更丰富的工具链，它就能生成更出色的前端 artifact。</p>
+<p>于是我们创建了 <a href="https://github.com/anthropics/skills/blob/main/web-artifacts-builder/SKILL.md">web-artifacts-builder skill</a>。它利用 Claude <a href="https://claude.com/resources/articles/create-files">使用计算机</a>的能力，引导 Claude 使用多个文件和 <a href="https://react.dev/">React</a>、<a href="https://tailwindcss.com/">Tailwind CSS</a>、<a href="https://ui.shadcn.com/">shadcn/ui</a> 等现代 Web 技术来构建 artifact。在底层，这个 skill 提供了脚本：(1) 帮助 Claude 高效搭建基础的 React 仓库；(2) 在编辑完成后使用 <a href="https://parceljs.org/">Parcel</a> 将所有内容打包成单个文件，以满足单个 HTML 文件的要求。这正是 skills 的核心优势之一：通过让 Claude 调用脚本来执行样板代码操作，Claude 可以在减少 Token 用量的同时，提升可靠性和性能。</p>
+<p>借助 web-artifacts-builder skill，Claude 可以利用 shadcn/ui 的表单组件和 Tailwind 的响应式网格系统，生成更完整的 artifact。</p>
+<p><b>示例 1：白板应用</b></p>
+<p>例如，在没有 web-artifacts-builder skill 的情况下，要求 Claude 创建一个白板应用，它输出的界面非常基础：</p>
+<figure><img src="../figures/improving-frontend-design-through-skills/10-0553a5bd3ed0bca40fe71351ae0ccc359d1638cd.png" alt="" loading="lazy" decoding="async"></figure>
+<p>而使用新的 web-artifacts-builder skill 后，Claude 开箱即用地生成了一个更简洁、功能更丰富的应用，支持绘制不同的形状和文字：</p>
+<figure><img src="../figures/improving-frontend-design-through-skills/11-734a801bdaca9d200e1950b248474183ab93a6b7.png" alt="" loading="lazy" decoding="async"></figure>
+<p><b>示例 2：任务管理应用</b></p>
+<p>同样，在要求创建任务管理应用时，没有 skill，Claude 生成的应用可以用，但极为简陋：</p>
+<figure><img src="../figures/improving-frontend-design-through-skills/12-35724eea470619dc0db7f196c3b70be31fa6e814.png" alt="" loading="lazy" decoding="async"></figure>
+<p>有了 skill，Claude 生成的应用开箱即用，功能更丰富。例如，Claude 加入了“新建任务”表单组件，用户可以为任务设置所属分类和截止日期：</p>
+<figure><img src="../figures/improving-frontend-design-through-skills/13-24a5a4064a18040973beeb319bd0b9bfac72608a.png" alt="" loading="lazy" decoding="async"></figure>
+<figure><img src="../figures/improving-frontend-design-through-skills/14-c58efe59554ca0e60a17d2dc1512b4b897d3694e.png" alt="" loading="lazy" decoding="async"></figure>
+<p>想在 <a href="http://claude.ai/">Claude.ai</a> 中试用这个新 skill，只需启用该 skill，然后在构建 artifact 时让 Claude“使用 web-artifacts-builder skill”即可。</p>
+<h2 id="section-9"><b>通过 Skills 优化 Claude 的前端设计能力</b></h2>
+<p>这个前端设计 skill 体现了关于语言模型能力的一个更普遍的原则：模型往往能做到的比它默认表现出来的更多。Claude 拥有出色的设计理解力，但在缺乏引导时，分布收敛（distributional convergence）会掩盖这种能力。你固然可以把这些指令加入系统提示词，但这意味着每次请求都会携带前端设计上下文，即使这些知识与当前任务无关。相比之下，使用 Skills 能让 Claude 从一个需要不断指导的工具，转变为在每项任务中都能带来领域专长的助手。</p>
+<p>Skills 也具有高度的可定制性：你可以根据自身需求创建专属的 Skill。这样，你就能定义想要固化进 skill 的基础要素，无论是公司的设计系统、特定的组件模式，还是行业特有的 UI 惯例。把这些决策编码进 Skill，就是把智能体思考过程中的组成部分变成可复用的资产，供整个开发团队使用。这个 skill 会成为持续存在、可扩展的组织知识，确保各个项目的质量保持一致。</p>
+<p>这一模式并不局限于前端工作。只要 Claude 在拥有更广泛认知的情况下仍然输出千篇一律的结果，该领域就适合开发 Skill。方法始终一致：找出趋同的默认选择，提供具体的替代方案，在恰当的抽象层级上组织指引，并通过 Skills 让它可以复用。</p>
+<p>对前端开发而言，这意味着 Claude 无需在每次请求中依赖提示词工程，就能生成风格鲜明的界面。想要上手，可以查看我们的 <a href="https://github.com/anthropics/claude-cookbooks/blob/main/coding/prompting_for_frontend_aesthetics.ipynb">frontend design cookbook</a>，或试用我们在 Claude Code 中的<a href="https://github.com/anthropics/claude-code/tree/main/plugins/frontend-design">全新 frontend design 插件</a>。</p>
+<p><b>受到启发了吗？想创建你自己的前端 Skill，请查看 <a href="https://github.com/anthropics/skills/tree/main/skill-creator">skill-creator</a>。</b></p>
+<p><b>致谢</b><br>本文由 Anthropic 应用 AI 团队撰写：Prithvi Rajasekaran、Justin Wei 和 Alexander Bricken，市场合作伙伴为 Molly Vorwerck 和 Ryan Whitehead。</p>
+<h2 id="section-10">相关文章</h2>
+<p>探索更多产品动态，以及使用 Claude 进行构建的团队最佳实践。</p>
+<p>文章</p>
+<p>2026 年 10 月 27 日</p>
+<h3 id="section-11">在 Google Cloud 上管理 Claude Code 的成本并证明投资回报</h3>
+<p>在 Google Cloud 上管理 Claude Code 成本并衡量投资回报的最佳实践。</p>
+<p>Claude Code</p>
+<p>文章</p>
+<p>2026 年 10 月 22 日</p>
+<h3 id="section-12">构建智能体：何时将子智能体并入主智能体循环</h3>
+<p>在 Claude Platform 中构建智能体时，减少子智能体数量，转而采用渐进式披露的上下文和工具，可以在提升质量的同时降低成本和延迟。以下是迁移的时机与方法。</p>
+<p>Claude Platform</p>
+<p>文章</p>
+<p>2026年10月19日</p>
+<h3 id="section-13">重新设计 Anthropic 的源代码管理</h3>
+<p>随着 Anthropic monorepo 的每日合并次数从约 2,500 次增长到超过 30,000 次，源代码管理成了开发中最大的瓶颈。本文介绍团队如何构建 Scion（一套专为始终在线的智能体设计的内部版本控制系统），并在五个月内完成从 git 的迁移。</p>
+<p>Claude Code</p>
+<p>（在新标签页中打开）</p>
+<p>文章</p>
+<p>2026年10月16日</p>
+<h3 id="section-14">日本的一位 Anthropic BDR 如何借助 Claude Managed Agents 安排一天的工作</h3>
+<p>一位商务拓展代表如何借助 Claude Managed Agents 和 Claude Tag 清理收件队列，并起草双语客户邮件。</p>
+<p>Claude Managed Agents</p>
 <p style="margin-top:3em"><a class="readorig" href="https://claude.com/blog/improving-frontend-design-through-skills" target="_blank" rel="noopener">阅读原文 →</a></p>
 </article>
-<footer class="mono">原文 © Anthropic · 本页为编者原创的深度精讲与点评</footer>
+<footer class="mono">原文 © Anthropic Applied AI 团队 · 本页为自动生成的中文译文，仅供学习参考</footer>
+<script>
+(function () {
+  function play(frame) {
+    var embed = frame.getAttribute('data-embed');
+    var direct = frame.getAttribute('data-direct') === '1';
+    var url = frame.getAttribute('data-video-url') || '';
+    var title = frame.getAttribute('data-title') || '视频';
+    if (direct && url) {
+      var video = document.createElement('video');
+      video.src = url;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      var poster = frame.getAttribute('data-poster');
+      if (poster) video.poster = poster;
+      frame.innerHTML = '';
+      frame.appendChild(video);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (embed) {
+      var iframe = document.createElement('iframe');
+      iframe.src = embed;
+      iframe.title = title;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('loading', 'eager');
+      frame.innerHTML = '';
+      frame.appendChild(iframe);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (url) window.open(url, '_blank', 'noopener');
+  }
+  document.querySelectorAll('.video-frame[data-video-url]').forEach(function (frame) {
+    frame.addEventListener('click', function () { play(frame); });
+    frame.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); play(frame); }
+    });
+  });
+})();
+</script>
 </body></html>

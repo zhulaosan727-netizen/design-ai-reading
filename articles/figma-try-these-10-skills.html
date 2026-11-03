@@ -1,177 +1,136 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>先抄这 10 个 Skill：Figma Agent 的可复用观点 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#F0E5E0">
-<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 21 · 提示词与 Skill / Skills / 动效 / 评审</div><h1>先抄这 10 个 Skill：Figma Agent 的可复用观点</h1><div class="en">Try these 10 skills—and show off your own</div></div>
-<dl class="meta mono"><dt>作者</dt><dd>Miggi Cardona</dd><dt>身份</dt><dd>Designer Advocate, Figma</dd><dt>日期</dt><dd>2026-08-13</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/try-these-10-skills-and-show-off-your-own/">figma.com/blog ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/try-these-10-skills-and-show-off-your-own/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>先抄这 10 个 Skill：Figma Agent 的可复用观点 · 读本</title><link rel="stylesheet" href="../assets/style.css"><style>.video-card{margin:1.8em 0}.video-frame{position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--rule);background:#CFCFCF;cursor:pointer}.video-frame img,.video-frame iframe,.video-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block}.video-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#7A1E2B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px}.video-card figcaption{margin-top:10px;font-size:14px;opacity:.8}.video-index{margin:2em 0;padding:16px 18px;border:1px solid var(--rule)}article.body figure img{width:100%;height:auto;display:block}article.body figcaption{margin-top:8px;font-size:14px;opacity:.75}</style></head><body class="article" style="--tint:#F0E5E0">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 21 · 提示词与 Skill / Skills / Figma / 动效 / 评审</div><h1>先抄这 10 个 Skill：Figma Agent 的可复用观点</h1><div class="en">Try these 10 skills—and show off your own</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Miggi Cardona</dd><dt>署名</dt><dd>Designer Advocate, Figma</dd><dt>日期</dt><dd>2026-08-13</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/try-these-10-skills-and-show-off-your-own/">figma.com ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/try-these-10-skills-and-show-off-your-own/" target="_blank" rel="noopener">阅读原文 →</a></div>
 <figure class="cover"><img src="../covers/figma-try-these-10-skills.svg" alt="Try these 10 skills—and show off your own 封面"></figure></section>
 <article class="body">
-<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解。原文是 Figma Designer Advocate Miggi Cardona 的社区 Skills 导览（2026-08-13）；读本 No.18「Got Skills」讲的是 Skill 与设计系统如何分工、仪式如何写成斜杠命令。本篇往下钻一层：先建立「Skill = 把观点写成可触发指令」的心智，再把十个社区 Skill 做成对照表，最后给你一份「如何发明自己的」模板。功能边界以原文与 Figma 帮助中心为准；与 No.02 Agents with Taste、No.07 / No.11（Emil / Jakub）互为补充，不重复产品面介绍。</p>
+<p class="notice">中文全文译文：由「译文工坊」根据英文原文自动翻译生成，供学习参考。结构与措辞以译文为准；想看原始论述，请点上方「阅读原文」。</p>
 <nav class="toc"><div class="mono">本篇目录</div><ol>
-<li>三句话结论</li>
-<li>Skill 是什么：纯文本里的设计师观点</li>
-<li>Miggi 的顿悟：<code>/ease-like-miggi</code></li>
-<li>怎么写：从画板或步骤生成，再迭代</li>
-<li>十个社区 Skill 对照表</li>
-<li>按工作流归类：何时调用哪一类</li>
-<li>Skill vs 设计系统：再钉一次钉子</li>
-<li>模板：发明你自己的 Skill</li>
-<li>自查清单 + 和读本其他篇对照</li>
-<li>编者点评</li>
-</ol></nav>
+<li><a href="#section-1">分享 试试这 10 个技能，再秀出你自己的</a></li><li><a href="#section-2">1. 为图片添加 X 光效果</a></li><li><a href="#section-3">2. 找出缺失动效的地方</a></li><li><a href="#section-4">3. 为静态构图加入动效</a></li><li><a href="#section-5">4. 找出界面中缺失的细节</a></li><li><a href="#section-6">5. 自动生成组件文档</a></li><li><a href="#section-7">6. 将颜色匹配到 Token</a></li><li><a href="#section-8">7. 一次性审查你的组件</a></li><li><a href="#section-9">8. 为每种状态而设计</a></li><li><a href="#section-10">9. 为你的设计做一次评审（crit）</a></li><li><a href="#section-11">10. 为可用性测试创建讨论指南</a></li><li><a href="#section-12">相关文章</a></li><li><a href="#section-13">使用 Figma 进行创作与协作</a></li></ol></nav>
 
-<h2>01 三句话结论</h2>
-<p><b>第一，Skill 是按顺序写好的纯文本（markdown）指令，用来捕获设计师的观点与判断。</b>不是工程师专属；你在 Figma 里用 Agent 就能写，许多 Skill 还能经 Figma MCP 在第三方 Agent 里跑，GitHub 上也有 MCP skills 仓库。</p>
-<p><b>第二，真正可传播的是「你的品味被别人斜杠调用」。</b>Miggi 的 <code>/ease-like-miggi</code> 让团队动效开始按他的缓动曲线走——这才是 Skill 相对普通提示词的跃迁：观点从个人习惯变成可触发资产。</p>
-<p><b>第三，先抄十个社区 Skill，再发明你的。</b>对照表覆盖影像、动效机会、镜头、手艺规则、交付文档、色 token、组件审计、状态展开、启发式评审、可用性讨论纲——几乎覆盖设计日常的关键镜头；抄的目的是学会「观点如何被切成斜杠命令」。</p>
-
-<h2>02 Skill 是什么：纯文本里的设计师观点</h2>
-<p>Miggi 把 Skill 说得很朴素：ordered instructions in plain-text markdown。关键不在文件格式，而在它捕获的是什么——设计师对「该怎么动、该怎么评、该怎么展开状态」的意见（opinion / judgment），而不是又一份组件 API。</p>
-<table>
-<tr><th>层</th><th>载体</th><th>捕获什么</th><th>触发方式</th></tr>
-<tr><td>设计系统</td><td>组件 / token / 文档站</td><td>用什么（what）</td><td>拖拽 / 查阅</td></tr>
-<tr><td>Skill</td><td>Markdown 指令集</td><td>怎么想、怎么评、怎么动（how）</td><td>对话里 <code>/</code></td></tr>
-<tr><td>一次性提示词</td><td>聊天框临时文字</td><td>当场意图</td><td>不可复用</td></tr>
-</table>
-<p>原文还强调：你可以在 Figma 里直接让 Agent 帮你写 Skill；许多 Skill 通过 Figma MCP 在第三方 Agent 里同样可用。对团队这意味着——写一次观点，摊销到画布内与画布外。</p>
-<div class="note"><p>若你读过 No.18，把本篇当成「案例货架」：No.18 给骨架与分工，本篇给十个已验证的斜杠命令标本，以及 Miggi 自己的「观点被调用」故事。</p></div>
-
-<h2>03 Miggi 的顿悟：<code>/ease-like-miggi</code></h2>
-<p>Miggi 的 aha moment 很具体：他写了一个关于 easing curves 的 Skill，命名为 <code>/ease-like-miggi</code>。效果是——团队里的 motion 开始像他的手感。这不是「分享了一篇动效文章」，而是<strong>别人不用理解他的全部理论，只要斜杠一下，就能借用他的判断</strong>。</p>
-<p>他还自己做了例如：</p>
-<ul>
-<li><code>/image-audit</code>——图像质量 / 问题审计；</li>
-<li><code>/shader-starter</code>——着色器起步脚手架；</li>
-<li><code>/make-a-type-scale</code>——生成字阶。</li>
-</ul>
-<p>共同点：名字短、可念、指向一个清晰观点；输出是可执行结果，不是又一篇博客。</p>
-<blockquote>精神摘要：Skill 不是工程师专属——把你的观点写成斜杠命令，别人也能「ease like you」。—— 据 Miggi Cardona / Figma Blog</blockquote>
-
-<h2>04 怎么写：从画板或步骤生成，再迭代</h2>
-<p>原文给出的创作路径很轻：</p>
-<ol>
-<li>让 Agent 从某个 frame 或你描述的步骤生成 Skill；</li>
-<li>预览（preview）它实际会怎么跑；</li>
-<li>不满意就改——可以直接进 markdown 编辑器打磨措辞与边界；</li>
-<li>发布到需要的范围（个人 / 团队）。</li>
-</ol>
-<table>
-<tr><th>步骤</th><th>你该盯什么</th><th>常见翻车</th></tr>
-<tr><td>从 frame / 步骤生成</td><td>是否抓住了「观点」而不只是操作录像</td><td>生成一长串菜单点击路径，换版本即失效</td></tr>
-<tr><td>预览</td><td>输出结构是否稳定、可扫读</td><td>每次跑出来格式都不同</td></tr>
-<tr><td>Markdown 迭代</td><td>何时用 / 何时不用、边界、输出表头</td><td>没有「不用」段，Agent 过度热情</td></tr>
-<tr><td>发布</td><td>名字是否可念、会不会撞车</td><td><code>/helper</code>、<code>/fix</code> 这类无法检索的名字</td></tr>
-</table>
-<div class="note"><p>写 Skill 时把「工具相关落点」和「工具无关意图」拆开：意图段写「按我的缓动哲学选曲线」；落点段写「在 Figma 里改哪些属性」。MCP 换到别的 Agent 时，你只换落点段。</p></div>
-
-<h2>05 十个社区 Skill 对照表</h2>
-<p>下面按原文介绍的十个社区 Skill 整理。抄之前先看「观点是什么」那一列——那才是你要偷师的，不是斜杠名字本身。</p>
-<table>
-<tr><th>#</th><th>作者</th><th>命令</th><th>观点 / 做什么</th><th>适合何时</th></tr>
-<tr><td>1</td><td>Adele Ix</td><td><code>/xray-scan</code></td><td>放射影像拼贴感（radiograph collage）</td><td>概念探索、视觉实验、需要非常规材质时</td></tr>
-<tr><td>2</td><td>Emil Kowalski（Linear）</td><td><code>/find-animation-opportunities</code></td><td>标出该动 / 不该动的地方；需 persona 上下文；避免 over-animating</td><td>动效评审前；信息架构已定、开始加 motion 时</td></tr>
-<tr><td>3</td><td>Mallory Dean（Figma）</td><td><code>/camera-pan-and-zoom</code></td><td>镜头机位（camera rig），不直接改 frames</td><td>演示叙事、走查录屏、需要「镜头语言」时</td></tr>
-<tr><td>4</td><td>Jakub Krehel（Interfere）</td><td><code>/better-interface</code></td><td>手艺规则书：字体 / 布局 / a11y / motion / copy</td><td>综合打磨；与 No.11「Less is more」同族品味</td></tr>
-<tr><td>5</td><td>Mauro Berteri</td><td><code>/component-handoff</code></td><td>自动文档：页眉、预览、变体、dos/donts、状态、解剖</td><td>组件交付前夜；减少手写 DS 文档</td></tr>
-<tr><td>6</td><td>Ian Guisard（Uber）</td><td><code>/create-color</code></td><td>把填充 / 描边 / 阴影映射到 tokens；含渐变叠加</td><td>从探索色收到 token；设计系统接入期</td></tr>
-<tr><td>7</td><td>Amy Ha（Walmart）</td><td><code>/analyze-components</code></td><td>孤儿 / 重复 / 命名问题；可 clone &amp; swap；产出审计文档</td><td>设计系统减肥；大文件治理</td></tr>
-<tr><td>8</td><td>Linda Ojo（Paystack）</td><td><code>/ui-state-expander</code></td><td>loading / empty / error / disabled / partial / edge；含触发与注释</td><td>主路径做完、补状态时；评审前自查</td></tr>
-<tr><td>9</td><td>Joey Primiani</td><td><code>/superfuture-design-review</code></td><td>启发式评审；按影响标红 / 黄 / 绿</td><td>正式评审前的机器初检；分诊严重级别</td></tr>
-<tr><td>10</td><td>Neha Kodi（Figma）</td><td><code>/usability-test-guide</code></td><td>在画布上生成讨论纲；开放式追问（probes）</td><td>可用性测试前；避免只会问「你喜欢吗」</td></tr>
-</table>
-<div class="note"><p>Emil 那条特别值得钉住：Skill 需要 persona 上下文，并且明确「哪里不该动」。没有「禁止项」的动效 Skill，往往会变成 over-animation 发生器——和 No.07 Agents with Taste 的提醒一致：生成是杠杆，克制才是品味。</p></div>
-
-<h2>06 按工作流归类：何时调用哪一类</h2>
-<table>
-<tr><th>工作流阶段</th><th>优先 Skill</th><th>你要的输出</th></tr>
-<tr><td>视觉探索</td><td><code>/xray-scan</code>、<code>/shader-starter</code>（Miggi）</td><td>非常规材质与起点，不是终稿</td></tr>
-<tr><td>收进系统</td><td><code>/create-color</code>、<code>/analyze-components</code>、<code>/make-a-type-scale</code></td><td>token / 审计 / 字阶，可维护</td></tr>
-<tr><td>补全状态</td><td><code>/ui-state-expander</code></td><td>状态矩阵 + 触发说明</td></tr>
-<tr><td>动效与演示</td><td><code>/find-animation-opportunities</code>、<code>/camera-pan-and-zoom</code>、<code>/ease-like-miggi</code></td><td>该动何处、镜头怎么走、曲线像谁</td></tr>
-<tr><td>交付与文档</td><td><code>/component-handoff</code></td><td>变体 / dos-donts / 解剖页</td></tr>
-<tr><td>评审与研究</td><td><code>/better-interface</code>、<code>/superfuture-design-review</code>、<code>/usability-test-guide</code></td><td>问题清单、影响分级、讨论纲</td></tr>
-</table>
-<p>实操建议：不要在一个对话里串十个 Skill。选一个阶段、一个镜头，跑完再决定要不要换镜头——否则输出会互相覆盖，你也不知道是谁的观点在说话。</p>
-
-<h2>07 Skill vs 设计系统：再钉一次钉子</h2>
-<p>和 No.18 同一根钉子，本篇用社区例子钉死：</p>
-<table>
-<tr><th>信号</th><th>更像 Skill</th><th>更像设计系统</th></tr>
-<tr><td><code>/better-interface</code> 的规则书</td><td>如何检查字体层级与文案语气</td><td>具体的 type style 与组件 API</td></tr>
-<tr><td><code>/create-color</code></td><td>如何把现有色映射到 token 的步骤</td><td>色板本身与语义命名表</td></tr>
-<tr><td><code>/component-handoff</code></td><td>文档页该有哪些区块、什么顺序</td><td>组件源文件与代码绑定</td></tr>
-<tr><td><code>/ui-state-expander</code></td><td>要覆盖哪些状态与注释格式</td><td>各状态的官方视觉规范</td></tr>
-</table>
-<p>一句话：<strong>系统 = 组件；Skill = 你如何思考、评审、做动效、补状态。</strong>两者叠用，不要互相替代。
-
-</p>
-
-<h2>08 模板：发明你自己的 Skill</h2>
-<p>把方括号换成你的观点。名字要像 <code>/ease-like-miggi</code> 一样可念、可归属。</p>
-<pre><code>---
-name: ease-like-[yourname]
-description: 按 [你的名字] 的动效哲学为选中界面建议缓动曲线与时长；在动效评审或加 micro-interaction 时使用。
-trigger: /ease-like-[yourname]
-audience: 设计与前端；发布范围 = 本团队
----
-
-## 观点（Point of view）
-用 3–5 条写下「我相信什么」：
-- 例：功能反馈用短 snappy；空间转场用稍长的 ease-out；装饰动效默认不加。
-- 例：同一层级的元素共享曲线家族，不各自炫技。
-
-## 何时用 / 何时不用
-- 用：主路径已定，开始加 motion；或评审里争论「这个该不该动」。
-- 不用：信息架构未定；或正在做无感 / 无障碍优先的静态稿。
-
-## 输入
-1. 询问 persona 与场景（谁在什么设备上完成什么任务）。
-2. 请用户框选要评估的 frames / 组件。
-3. 若上下文不足，先问 3 个问题再继续，禁止瞎猜。
-
-## 步骤
-1. 列出候选「可动点」，每个标注：触发、属性、建议时长、曲线。
-2. 明确列出「不该动」的点及理由（防 over-animation）。
-3. 按你的观点过滤：删掉违反观点的建议。
-4. 输出表；若在 Figma，只改用户确认过的属性。
-
-## 输出格式
-| 元素 | 动？ | 属性 | 时长 | 曲线 | 理由 |
-| ... | Y/N | ... | ... | ... | ... |
-
-## 边界
-- 不发明品牌里不存在的弹性夸张曲线，除非用户明确要求「好玩向」。
-- 不把装饰动效标成高优先级。
-- 规则盖不住时列为「待你决定」。
-</code></pre>
-<pre><code># 换一个镜头：状态展开版（可另存为 /states-like-[team]）
-## 观点
-我们默认主路径之外至少覆盖：loading / empty / error / disabled / partial / edge。
-每条状态必须写：如何触发、用户第一眼看到什么、恢复路径。
-
-## 步骤
-1. 识别主路径帧。
-2. 为每个关键组件展开上列状态；缺数据时用诚实占位，不编造业务文案。
-3. 输出画布上的状态矩阵 + 注释。
-</code></pre>
-
-<h2>09 自查清单 + 和读本其他篇对照</h2>
-<ul>
-<li>斜杠名是否包含观点归属（like-miggi / like-team），而不是空洞的 <code>/helper</code>？</li>
-<li>有没有「何时不用」与「不该动 / 不做」段？</li>
-<li>输出是否强制表格或分级（红黄绿），方便人 10 秒扫完？</li>
-<li>是否需要 persona / 场景上下文？缺了是否会先问？</li>
-<li>和设计系统是否抢地盘——色值表有没有误塞进 Skill？</li>
-<li>是否在真实文件里跑通两次再发布到团队？</li>
-<li>经 MCP 外发时，是否默认草稿 + 人工确认？</li>
-</ul>
-<table>
-<tr><th>读本篇目</th><th>侧重点</th><th>和本篇的关系</th></tr>
-<tr><td>No.18 Got Skills</td><td>Skill 与 DS 分工、仪式 Skill、骨架模板</td><td>本篇是社区标本货架 + Miggi 观点故事</td></tr>
-<tr><td>No.02 / No.07 Agents with Taste</td><td>品味、评审、克制</td><td>与 Emil「哪里不该动」、启发式评审同族</td></tr>
-<tr><td>No.11 Less is more（Jakub）</td><td>手艺与克制</td><td><code>/better-interface</code> 可视为可调用的 Jakub 镜头</td></tr>
-<tr><td>No.04 / No.15 Figma Agent 产品面</td><td>工具、上下文、画布守门</td><td>本篇假设你已会用 Agent，专注「写哪类观点」</td></tr>
-<tr><td>No.20 Sierra 系统杠杆</td><td>共享地基 vs 手工手感</td><td>互补：Sierra 建组件地基；本篇把判断写成 Skill</td></tr>
-</table>
-
-<h2>10 编者点评</h2>
-<div class="note"><p><b>编者点评：</b>Miggi 这篇最好的贡献不是「又推荐了十个插件」，而是把 Skill 从工程师话术里拽回设计桌：你的缓动、你的评审苛刻度、你的状态覆盖强迫症——都可以变成别人能 <code>/</code> 出来的东西。先抄表里的十个，不是为了堆斜杠，而是为了看见「观点如何被切成命令」。抄完之后，真正的作业只有一道：写出一个带你名字的 <code>/…-like-you</code>，让下周入职的人不用读你的长文，也能借用你的判断。和 No.18 一起读：一篇给理论与骨架，一篇给货架与勇气。</p></div>
+<figure><img src="../figures/figma-try-these-10-skills/01-regionalized-0cc09f3d99e8789504f2333ebb5.avif" alt="" loading="lazy" decoding="async"></figure>
+<p>Miggi CardonaFigma 设计布道师</p>
+<ul><li><a href="https://www.figma.com/blog/inside-figma/">走进 Figma</a></li><li><a href="https://www.figma.com/blog/product-updates/">产品更新</a></li><li><a href="https://www.figma.com/blog/figma-agent/">Figma 智能体</a></li><li><a href="https://www.figma.com/blog/figma-design/">Figma Design</a></li><li><a href="https://www.figma.com/blog/news/">新闻</a></li></ul>
+<figure><img src="../figures/figma-try-these-10-skills/02-regionalized-71558fc0ae54ae69b156a69dd9b.avif" alt="深红色背景上的抽象几何艺术作品，由醒目的橙色、绿色、黑色、蓝色、黄色和洋红色图形组成，包括弯曲的丝带、花朵状图形、层叠的圆形和条纹圆环。" loading="lazy" decoding="async"></figure>
+<p>现在，你可以直接在 Figma 中为我们的智能体编写技能，让你的观点真正派上用场。这里精选了 10 个我们最喜欢的技能，助你上手。</p>
+<h2 id="section-1">分享 试试这 10 个技能，再秀出你自己的</h2>
+<p>对于还不了解的人来说，技能（skill）是帮助你与智能体协作的纯文本 markdown 文件。由于它们采用<a href="https://www.figma.com/blog/got-skills-make-the-figma-agent-a-better-collaborator/">有序指令或引导式提示词Got skills? Make the Figma agent a better collaboratorFrom sharing your best thinking to learning from your team’s go-to prompts, here’s what skills unlock in the Figma agent.</a>的形式，乍一看，它们似乎更像是为工程师而非设计师打造的。但实际上，它们非常适合记录每位设计师心中的主见与判断。</p>
+<h4 id="">我构建的其他技能</h4>
+<p>• <a href="https://www.figma.com/community/skill/64144/image-audit?q_id=d63ed9d8-493b-40cd-a189-84c0a127afaa"><code>/image-audit</code></a>：检查文件中每张图片的可导出性，并将报告直接放在画布上</p>
+<p>• <a href="https://www.figma.com/community/skill/64012/shader-starter?q_id=b7dab0c1-dd87-49fc-801e-b17e59b8fcaa"><code>/shader-starter</code></a>：帮助用户用更少的细节来编写 shader 提示词</p>
+<p>• <a href="https://www.figma.com/community/skill/62736/make-a-type-scale?q_id=2d65baf8-6e82-4467-89ac-360a50b4ecfd"><code>/make-a-type-scale</code></a>：基于选中的文本构建字号阶梯，并生成对应的字体变量</p>
+<p>有时，一个技能就足以开启全新的工作流。我的“顿悟”时刻出现在制作一个动效教程时：我为<a href="https://www.figma.com/blog/agent-custom-tools-context-skills/">the Figma agentFigma’s design agent, now with custom tools and greater contextPrompting gets you started. Custom tools, real context, and skills take the design agent further—so what ends up on the canvas actually looks like you.</a>写了一个技能，把我常用的缓动曲线应用到正在制作的关键帧上，并将其命名为 <a href="https://www.figma.com/community/skill/66826/ease-like-miggi"><code>/ease-like-miggi</code></a>。当我的团队在各自的工作流中使用它时，他们的动效设计也有了和我一样的缓动效果，我彻底被说服了。</p>
+<p>从今天起，你可以在 Figma 中与智能体协作编写 skill。步骤如下：</p>
+<ul><li>让智能体以某个设计画框为参考创建 skill，或按照你提供的具体步骤或指南来创建。</li><li>智能体生成草稿后，先预览该 skill，再在对话中投入使用。</li><li>测试时持续迭代：编辑步骤、调整格式、请它给出建议，或直接打开 markdown 编辑器手动修改。</li></ul>
+<p>其中许多 skill 也可以配合第三方智能体中的 <a href="https://www.figma.com/blog/4-ways-were-using-our-mcp-server-at-figma/">Figma MCP 服务器</a>使用。专为 Figma MCP 服务器打造的 skill，可以在我们的 <a href="https://github.com/figma/mcp-server-guide/tree/main/skills">GitHub 仓库</a>中找到。</p>
+<p>我很好奇其他设计师在使用 Figma 智能体时是如何运用 skill 的，于是翻遍了 <a href="https://www.figma.com/community/ai-skills?resource_type=skills">Figma 社区</a>。以下是我最喜欢的 10 个 skill，涵盖从统一美学风格到应用设计系统原则等方面。</p>
+<h2 id="section-2"><a href="https://www.figma.com/blog/try-these-10-skills-and-show-off-your-own/#_1-apply-an-x-ray-effect-to-your-images">1. 为图片添加 X 光效果</a></h2>
+<p><b>创作者：</b>Adele Ix，自由职业者</p>
+<p><b>Skill：</b><a href="https://www.figma.com/community/skill/64791/xray-scan?q_id=18828a49-051a-4b23-8020-00fd035893b1"><code>/xray-scan</code></a></p>
+<p><b>功能：</b>将照片或文字描述转换为逼真的 X 光片，呈现物体的内部细节。它会立即生成两种效果：黑底发光白色，以及白底柔和深色调。</p>
+<p><b>Adele 的自述：</b>“我喜欢做拼贴，这一点在这个 skill 里体现得很明显。我最喜欢的部分是把多张 X 光片层层叠加。它们是单色的，边缘发光，叠在一起就成了非常酷的拼贴，而且每一张单独看很出彩，混合在一起同样美妙。”</p>
+<h2 id="section-3"><a href="https://www.figma.com/blog/try-these-10-skills-and-show-off-your-own/#_2-find-where-motion-is-missing">2. 找出缺失动效的地方</a></h2>
+<p><b>创作者：</b>Emil Kowalski，Linear</p>
+<p><b>Skill：</b><a href="https://www.figma.com/community/skill/68151"><code>/find-animation-opportunities</code></a></p>
+<p><b>功能：</b>扫描设计稿，找出该有动画却没有的地方，反之亦然。这个 skill 能回答“这里可以加什么动画？”或“怎样让它更有生命力？”等问题。它会提出该添加什么动效、加在哪里，并给出精确数值。你可以自己在 <a href="https://www.figma.com/motion/">Figma Motion</a> 中实现这些改动，也可以让智能体代为应用。</p>
+<p><b>Emil 的自述：</b>“把这个 skill 指向某一个画框并补充额外上下文（例如页面的目标用户画像）时，效果最好。你也可以用它来避免过度动画，比如问它：‘有没有哪些地方完全不该加动画？’”</p>
+<h2 id="section-4"><a href="https://www.figma.com/blog/try-these-10-skills-and-show-off-your-own/#_3-bring-motion-to-a-static-composition">3. 为静态构图加入动效</a></h2>
+<p><b>作者：</b>Mallory Dean，Figma</p>
+<p><b>Skill：</b><a href="https://www.figma.com/community/skill/65256/camera-pan-and-zoom?q_id=0d17df9b-ac4c-4f09-b265-98bf7d5b4afc"><code>/camera-pan-and-zoom</code></a></p>
+<p><b>功能：</b>围绕所选内容搭建一套 camera rig（一种模拟真实摄像机运动的嵌套图层结构），然后像动效导演设计镜头取景一样，为平移、缩放或翻滚添加动画。例如，它可以先在一组卡片之间做网格巡游，再缩放回完整视图。</p>
+<p><b>Mallory 的原话：</b>“这是一个非常小众的 Skill，但它能在不改动设计中任何画框的情况下，实现镜头的缩放和平移效果。”</p>
+<h2 id="section-5"><a href="https://www.figma.com/blog/try-these-10-skills-and-show-off-your-own/#_4-catch-the-details-your-interface-is-missing">4. 找出界面中缺失的细节</a></h2>
+<p><b>作者：</b>Jakub Krehel，Interfere</p>
+<p><b>Skill：</b><a href="https://www.figma.com/community/skill/61238/better-interface"><code>/better-interface</code></a></p>
+<p><b>功能：</b>为智能体提供 Jakub 自己总结的界面工艺规则手册，涵盖排版、布局、可访问性、动效和产品文案等方面的具体标准。</p>
+<p><b>Jakub 的原话：</b>“从用好一款产品到用上一款卓越的产品，你能明显感受到其中的差别。这通常不是某一件事造成的，而是许多小细节累积的结果。这个 Skill 收录了这些常被忽视、或者并不显而易见的细节和最佳实践。”</p>
+<h2 id="section-6"><a href="https://www.figma.com/blog/try-these-10-skills-and-show-off-your-own/#_5-document-components-automatically">5. 自动生成组件文档</a></h2>
+<p><b>作者：</b>Mauro Berteri，Itti Digital</p>
+<p><b>Skill：</b><a href="https://www.figma.com/community/skill/67998/component-handoff?q_id=6a288747-4c48-4d0e-a1c7-fc3f6c04aa8c"><code>/component-handoff</code></a></p>
+<p><b>功能：</b>将单个组件或组件集转换为画布上可直接分享的文档画框。选中一个组件后，它会生成：</p>
+<ul><li>包含名称、版本、负责人和描述的页眉</li><li>实时预览</li><li>变体网格</li><li>注意事项（Do’s and Don’ts）部分</li><li>交互与状态拆解</li><li>组件的完整结构（anatomy）</li></ul>
+<p><b>Mauro 的原话：</b>“我的理念很简单——把过去要花我几个小时的重复性工作自动化，这样我就能专注于真正的创意工作。借助这个 skill，我把多年经验中验证最有效的设计交付结构打包起来，让任何设计师都能一键适配到自己的设计系统。它具备可扩展、可预测的特点，并且可以直接在 Figma 画布上 100% 编辑。”</p>
+<h2 id="section-7"><a href="https://www.figma.com/blog/try-these-10-skills-and-show-off-your-own/#_6-match-colors-to-tokens">6. 将颜色匹配到 Token</a></h2>
+<p><b>作者：</b>Ian Guisard，Uber</p>
+<p><b>Skill：</b><a href="https://www.figma.com/community/skill/71317/create-color"><code>/create-color</code></a></p>
+<p><b>功能：</b>将选中的 Figma 组件转化为完整的颜色规格说明。它会把每一处可见的填充、描边和阴影映射到对应的设计令牌（design token）或样式，标记硬编码的颜色，并在各个变体和状态中记录结果。</p>
+<p><b>Ian 的原话：</b>“我最喜欢的示例之一是一个包含多种类型、状态和颜色模式的按钮。当组件使用多层填充或渐变时，它会按叠放顺序列出每一层填充，以及每个渐变节点的位置、颜色和绑定的变量。工程师可以直接根据标注还原这种处理效果，无需逐层手动检查。”</p>
+<figure><img src="../figures/figma-try-these-10-skills/03-pfc47fckhtckovhf4xju4ephxklqmlnqmlhbxu-f.png" alt="滑动按钮组件的设计规格说明，展示 Primary black 和 Accent blue 两种样式，以及静止、拖动、加载和完成状态。每个示例都配有规格表，详细列出容器、标签、滑块、图标、加载指示器、渐变、阴影和颜色 Token 的处理方式。" loading="lazy" decoding="async"></figure>
+<figure><img src="../figures/figma-try-these-10-skills/04-regionalized-efe4f75c324a81587d2bda37df7.avif" alt="滑动按钮组件的设计规格说明，展示 Primary black 和 Accent blue 两种样式，以及静止、拖动、加载和完成状态。每个示例都配有规格表，详细列出容器、标签、滑块、图标、加载指示器、渐变、阴影和颜色 Token 的处理方式。" loading="lazy" decoding="async"></figure>
+<h2 id="section-8"><a href="https://www.figma.com/blog/try-these-10-skills-and-show-off-your-own/#_7-audit-your-components-in-one-pass">7. 一次性审查你的组件</a></h2>
+<p><b>作者：</b>Amy Ha，Walmart</p>
+<p><b>Skill：</b><a href="https://www.figma.com/community/skill/61009/analyze-components?q_id=119b6462-e475-4255-8a80-46598f880ff1"><code>/analyze-components</code></a></p>
+<p><b>功能：</b>遍历一个页面并清理发现的问题，然后为每个组件建立带实时预览的目录，并且：</p>
+<ul><li>标记孤立组件、重复项和命名错误</li><li>自动修复问题：克隆孤立组件，并将所有实例替换为修复后的版本</li><li>将完整结果写入画布上带样式的审计文档</li></ul>
+<p><b>Amy 的原话：</b>“这真的能省下不少时间。以前我得右键进入主文件，手动把组件复制过来，或者处理幽灵 Token，再手动重新设置所有样式。现在这类批量编辑可以一次完成。”</p>
+<h2 id="section-9"><a href="https://www.figma.com/blog/try-these-10-skills-and-show-off-your-own/#_8-design-for-every-state">8. 为每种状态而设计</a></h2>
+<p><b>创建者：</b>Linda Ojo，Paystack</p>
+<p><b>Skill：</b><a href="https://www.figma.com/community/skill/60839/ui-state-expander"><code>/ui-state-expander</code></a></p>
+<p><b>功能介绍：</b>将任意屏幕、组件或流程展开为完整的状态集合。这个 Skill 能确保每种状态在交付工程团队发布之前都已设计到位，涵盖：</p>
+<ul><li>加载态</li><li>空状态</li><li>错误态</li><li>禁用状态</li><li>部分数据状态</li><li>边缘情况</li></ul>
+<p>它会给出触发条件、文案、过渡和实现备注，让一份精美的理想路径视觉稿变成工程师可以直接开发的内容。</p>
+<p><b>Linda 的原话：</b>“每次设计交付，我都会看到同样的评审意见：‘失败了会怎样？’‘空状态长什么样？’后来我意识到，我脑子里的那份检查清单，应该做成一个任何人（无论是人还是智能体）都能运行的 Skill。”</p>
+<h2 id="section-10"><a href="https://www.figma.com/blog/try-these-10-skills-and-show-off-your-own/#_9-give-your-design-a-crit">9. 为你的设计做一次评审（crit）</a></h2>
+<p><b>创建者：</b>Joey Primiani，Superfuture</p>
+<p><b>Skill：</b><a href="https://www.figma.com/community/skill/65434/crit?fuid=254408835079701174"><code>/superfuture-design-review</code></a></p>
+<p><b>功能：</b>依据 UX 启发式原则、可访问性标准、视觉层级、交互设计和产品思维对文件进行评审，然后将每条备注按红绿灯体系分类：</p>
+<ul><li>红色：阻碍项</li><li>黄色：建议修复项</li><li>绿色：已经做得好的部分</li></ul>
+<p><b>Joey 的原话：</b>“这个 Skill 体现了我个人的评审流程：在平衡可用性、可访问性、产品策略、视觉设计和商业目标的同时，按对用户的影响来排定反馈的优先级。”</p>
+<h2 id="section-11"><a href="https://www.figma.com/blog/try-these-10-skills-and-show-off-your-own/#_10-create-a-discussion-guide-for-usability">10. 为可用性测试创建讨论指南</a></h2>
+<p><b>创建者：</b>Neha Kodi，Figma</p>
+<p><b>Skill：</b><a href="https://www.figma.com/community/skill/71690/usability-test-guide"><code>/usability-test-guide</code></a></p>
+<p><b>功能：</b>基于 Neha 作为研究员的最佳实践，为可用性测试提供一份可直接使用的讨论指南。这个 Skill 会审视准备用于可用性测试的设计流程，然后在画布上每个画框旁直接添加贴合上下文的引导提问。</p>
+<p><b>Neha 的原话：</b>“测试与学习是我在 Figma 工作的核心，这个 Skill 运用了几条我绝不妥协的做法：让任务围绕参与者的目标展开，保持追问的开放性，并根据设计流程的繁简来调整问题数量。”</p>
+<p>想了解如何为 Figma 智能体创建 Skill，请查看<a href="https://help.figma.com/hc/en-us/articles/40283639496599-Custom-skills-for-the-Figma-agent-and-Figma-Make">帮助中心</a>。<a href="https://www.figma.com/blog/the-figma-agent-is-here/">Figma design agentThe Figma design agent is hereStarting today, work with an agent that is built for Figma—directly on the canvas.</a>现已面向 Professional、Organization 和 Enterprise 方案的 Full 席位用户开放公测。Collab、Dev 和 View 席位可在自己的草稿中使用该智能体。公测期间，智能体可免费使用。</p>
+<figure><img src="../figures/figma-try-these-10-skills/01-regionalized-0cc09f3d99e8789504f2333ebb5.avif" alt="" loading="lazy" decoding="async"></figure>
+<p>Miggi 是 Figma 的教育方向设计布道师。他骨子里是一位教育者，痴迷于网格、色彩理论、图像性能和动效设计。他把屏幕录制视频当作一门精致的艺术来对待，并在社交媒体上记录设计提示。空闲时，他会在咖啡馆用 Copic 马克笔在咖啡杯上画画，还收藏了各式各样的合成器和鼓机。</p>
+<p><a href="https://x.com/miggi">X</a><a href="https://www.linkedin.com/in/miggi-from-figgi/">LinkedIn</a><a href="https://www.instagram.com/instamiggi">Instagram</a></p>
+<h2 id="section-12">相关文章</h2>
+<ul><li><a href="https://www.figma.com/blog/got-skills-make-the-figma-agent-a-better-collaborator/">有了 skills 吗？让 Figma 智能体成为更好的协作伙伴</a><a href="https://www.figma.com/blog/working-well/">Working Well</a><a href="https://www.figma.com/blog/figma-agent/">Figma 智能体</a><a href="https://www.figma.com/blog/figma-design/">Figma Design</a><a href="https://www.figma.com/blog/figma-make/">Figma Make</a><a href="https://www.figma.com/blog/figma-mcp/">Figma MCP</a><a href="https://www.figma.com/blog/ai/">AI</a><a href="https://www.figma.com/blog/tips-and-inspiration/">提示与灵感</a></li><li><a href="https://www.figma.com/blog/agent-custom-tools-context-skills/">Figma 的设计智能体，现已支持自定义工具和更丰富的上下文</a><a href="https://www.figma.com/blog/inside-figma/">Inside Figma</a><a href="https://www.figma.com/blog/product-updates/">产品更新</a><a href="https://www.figma.com/blog/figma-agent/">Figma 智能体</a><a href="https://www.figma.com/blog/figma-design/">Figma Design</a><a href="https://www.figma.com/blog/config/">Config</a><a href="https://www.figma.com/blog/ai/">AI</a><a href="https://www.figma.com/blog/news/">新闻</a></li><li><a href="https://www.figma.com/blog/the-figma-agent-is-here/">Figma 设计智能体来了</a><a href="https://www.figma.com/blog/inside-figma/">走进 Figma</a><a href="https://www.figma.com/blog/product-updates/">产品更新</a><a href="https://www.figma.com/blog/figma-agent/">Figma 智能体</a><a href="https://www.figma.com/blog/figma-design/">Figma Design</a><a href="https://www.figma.com/blog/ai/">AI</a><a href="https://www.figma.com/blog/design-systems/">设计系统</a><a href="https://www.figma.com/blog/design/">设计</a><a href="https://www.figma.com/blog/news/">新闻</a></li></ul>
+<h2 id="section-13">使用 Figma 进行创作与协作</h2>
+<p>免费开始使用</p>
+<p style="margin-top:3em"><a class="readorig" href="https://www.figma.com/blog/try-these-10-skills-and-show-off-your-own/" target="_blank" rel="noopener">阅读原文 →</a></p>
 </article>
+<footer class="mono">原文 © Miggi Cardona · 本页为自动生成的中文译文，仅供学习参考</footer>
+<script>
+(function () {
+  function play(frame) {
+    var embed = frame.getAttribute('data-embed');
+    var direct = frame.getAttribute('data-direct') === '1';
+    var url = frame.getAttribute('data-video-url') || '';
+    var title = frame.getAttribute('data-title') || '视频';
+    if (direct && url) {
+      var video = document.createElement('video');
+      video.src = url;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      var poster = frame.getAttribute('data-poster');
+      if (poster) video.poster = poster;
+      frame.innerHTML = '';
+      frame.appendChild(video);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (embed) {
+      var iframe = document.createElement('iframe');
+      iframe.src = embed;
+      iframe.title = title;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('loading', 'eager');
+      frame.innerHTML = '';
+      frame.appendChild(iframe);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (url) window.open(url, '_blank', 'noopener');
+  }
+  document.querySelectorAll('.video-frame[data-video-url]').forEach(function (frame) {
+    frame.addEventListener('click', function () { play(frame); });
+    frame.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); play(frame); }
+    });
+  });
+})();
+</script>
 </body></html>

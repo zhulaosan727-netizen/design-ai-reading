@@ -1,109 +1,112 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>设计与代码之间：用 Agent 保持两边同步 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#F0E4E7">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>设计与代码之间：用 Agent 保持两边同步 · 读本</title><link rel="stylesheet" href="../assets/style.css"><style>.video-card{margin:1.8em 0}.video-frame{position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--rule);background:#CFCFCF;cursor:pointer}.video-frame img,.video-frame iframe,.video-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block}.video-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#7A1E2B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px}.video-card figcaption{margin-top:10px;font-size:14px;opacity:.8}.video-index{margin:2em 0;padding:16px 18px;border:1px solid var(--rule)}article.body figure img{width:100%;height:auto;display:block}article.body figcaption{margin-top:8px;font-size:14px;opacity:.75}</style></head><body class="article" style="--tint:#F0E4E7">
 <section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 35 · AI 设计工作流 / Figma / MCP / Code Connect / Agent / 工作流</div><h1>设计与代码之间：用 Agent 保持两边同步</h1><div class="en">Workflow lab: Moving between design and code with agents</div></div>
-<dl class="meta mono"><dt>作者</dt><dd>Riccardo Erra</dd><dt>身份</dt><dd>Developer Advocate, Figma（工程 / 设计系统 / AI 辅助产品开发交叉方向）</dd><dt>日期</dt><dd>2026-08-26</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/workflow-lab-moving-between-design-and-code-with-agents/">figma.com/blog ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/workflow-lab-moving-between-design-and-code-with-agents/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<dl class="meta mono"><dt>作者</dt><dd>Riccardo Erra</dd><dt>署名</dt><dd>Developer Advocate, Figma（工程 / 设计系统 / AI 辅助产品开发交叉方向）</dd><dt>日期</dt><dd>2026-08-26</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/workflow-lab-moving-between-design-and-code-with-agents/">figma.com ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/workflow-lab-moving-between-design-and-code-with-agents/" target="_blank" rel="noopener">阅读原文 →</a></div>
 <figure class="cover"><img src="../covers/workflow-lab-design-code-agents.svg" alt="Workflow lab: Moving between design and code with agents 封面"></figure></section>
 <article class="body">
-<p class="notice">深度精讲：这不是译文，而是编者按「设计↔代码 lockstep」视角重写的讲解。原文是 Figma Developer Advocate Riccardo Erra 在 2026-08-26 的 Workflow Lab——虚构产品 <b>Radicle</b>（STEM 学习应用）如何用 FigJam 流程图 + Figma MCP + Code Connect，让编码 Agent 的第一版更接近可上线，而不是靠截图喂出来再整下午返工。读本里其他 Workflow Lab / Figma Agent 篇偏画布内协作；<b>本篇偏工程侧：上下文如何让 code 与 canvas 同频</b>。工具清单见正文。细节请点上方「阅读原文」。</p>
+<p class="notice">中文全文译文：由「译文工坊」根据英文原文自动翻译生成，供学习参考。结构与措辞以译文为准；想看原始论述，请点上方「阅读原文」。</p>
 <nav class="toc"><div class="mono">本篇目录</div><ol>
-<li>先给结论：三句话读懂这篇</li>
-<li>问题：截图 + 工单喂 Agent，为什么总会跑偏</li>
-<li>场景：收件箱批量更新（toolbar → modal → toast）</li>
-<li>先计划再 prompt：PRD + 现有代码 → FigJam 流程图</li>
-<li>用 MCP 给 Agent「系统」而不是「截图」</li>
-<li>Code Connect：库与 GitHub 的属性映射</li>
-<li>新状态：search_design_system 改编而非发明</li>
-<li>漂移检查：get_variable_defs 对齐 token</li>
-<li>只在代码里的 toast：use_figma 拉回画布</li>
-<li>工具一览与个人站 / B 端清单</li>
-<li>自查清单</li>
-</ol></nav>
+<li><a href="#section-1">分享 Workflow Lab：借助智能体在设计与代码之间自由切换</a></li><li><a href="#section-2">问题所在</a></li><li><a href="#section-3">先规划，再写提示词</a></li><li><a href="#section-4">为智能体提供可用于构建的系统</a></li><li><a href="#section-5">将设计系统连接到代码</a></li><li><a href="#section-6">防患于未然，提前发现偏差</a></li><li><a href="#section-7">通往生产环境之路</a></li><li><a href="#section-8">相关文章</a></li><li><a href="#section-9">使用 Figma 创作与协作</a></li></ol></nav>
 
-<h2>01 先给结论：三句话读懂这篇</h2>
-<p><b>第一，编码 Agent 再快，也只等于你给它的输入。</b>只喂截图和工单，图标会错、间距会飘、失败态会缺——速度变成整下午返工。</p>
-<p><b>第二，先计划再 prompt：</b>把行为大纲 + PRD + 现有 inbox 代码交给 Agent，用 <code>generate_diagram</code>（经 Figma MCP）生成可编辑 FigJam，让设计师与 DS lead 在流程图上留言，而不是在 Slack 里对空。</p>
-<p><b>第三，系统上下文三件套：</b>MCP 暴露组件 / token / layout；Code Connect 把 Figma 属性映射到真实实现；漂移用 <code>get_variable_defs</code> 抓；缺的 UI 用 <code>use_figma</code> 拉回画布补全。更好的上下文 → 更少返工循环 → 时间留给真正影响体验的细节。</p>
-
-<h2>02 问题：截图 + 工单喂 Agent，为什么总会跑偏</h2>
-<p>Radicle 工程侧已经「周变天、天变小时」，但 AI 生成的代码常偏离设计规格。团队给编码 Agent 截图和开发工单——不够。典型翻车：图标不对、modal 间距不匀、toast 缺 failure state。开发者本可以下午改到吐；这篇选的路径是：停下来，用 Figma 开发工具重开一局。</p>
-<blockquote>What if your coding agent’s output could be production-ready sooner? — Workflow Lab 设问（大意：若编码 Agent 的输出能更早接近可上线呢？）</blockquote>
-<div class="note"><p>Zhu 若用 Cursor / Claude 之类写个人站：只贴一张 Figma 导出 PNG，几乎必然「看起来像、细节全错」。本篇的解药不是更长 prompt，而是 <b>结构化上下文管道</b>（流程图 + MCP + Code Connect）。</p></div>
-
-<h2>03 场景：收件箱批量更新（toolbar → modal → toast）</h2>
-<p>学生收件箱要加 <b>bulk-update flow</b>，三块表面：</p>
-<table><tr><th>表面</th><th>行为</th><th>容易被 AI 搞砸的点</th></tr>
-<tr><td>Toolbar</td><td>全选 / 删除 / 标为未读</td><td>图标集不一致、选中态自创</td></tr>
-<tr><td>Confirm modal</td><td>确认或取消</td><td>间距 token 错、按钮变体用错</td></tr>
-<tr><td>Toast</td><td>成功提示 + Undo；还应有失败态</td><td>只做成功、缺 failure + retry</td></tr></table>
-<p>设计师在 Figma Design 出屏 → 开发者扔给编码 Agent → 快，但 UI 偏。下面从「计划」重新开始。</p>
-
-<h2>04 先计划再 prompt：PRD + 现有代码 → FigJam 流程图</h2>
-<p>写代码前，开发者先列清屏、状态、转场行为，把大纲 + PRD + 当前 inbox 相关代码一起交给 Agent。经 Figma MCP 调用 <code>generate_diagram</code>，得到可编辑 FigJam：</p>
-<ul>
-<li>Toolbar「全选」勾上每条消息</li>
-<li>「删除」打开确认 modal</li>
-<li>Toast「Undo」把仪表盘恢复到前一状态</li>
-</ul>
-<p>流程图既是 Agent 后续的上下文，也是给人看的：设计师与设计系统负责人直接在 FigJam 上留反馈，而不是另开 Slack 长线程。</p>
-<div class="note"><p>可迁移习惯：任何「截图开写」之前，先强迫自己有一张三节点流程图（入口 → 确认 → 反馈）。个人站改定价页同理：价卡 → 结账 modal → 成功 / 失败 toast，先 FigJam 再生成。</p></div>
-
-<h2>05 用 MCP 给 Agent「系统」而不是「截图」</h2>
-<p>签过字之后，开发者把 FigJam 经 <b>Figma MCP server</b> 喂给编码 Agent——Agent 因而拿到 Radicle 设计系统里的组件、token、layout。</p>
-<p>若只有截图：人要自己翻代码找对组件、问设计师「12px 是不是 spacing token」「这是 secondary 按钮还是新花样」「modal 是新模式还是已上线模式」。这些问题在文件里已有答案；MCP 让 Agent 直接读到。</p>
-<pre><code># 给编码 Agent 的上下文优先级（建议）
-1. FigJam 行为图（状态与转场）
-2. 已发布 Figma library（组件 / 变量 / layout）
-3. 相关现有代码（inbox 已实现部分）
-4. 截图 —— 仅作补充，不作唯一真相
-</code></pre>
-
-<h2>06 Code Connect：库与 GitHub 的属性映射</h2>
-<p>「知道用哪个组件」≠「知道它怎么实现」。后者来自 <b>Code Connect</b>：DS lead 把 Figma 库接到团队 GitHub，让每个组件指向实现文件；再为 button / icon / modal 等写 template，映射 Figma properties → code properties。</p>
-<p>开发者提示「从当前 Figma 选区构建」时，Code Connect 告诉 Agent 该 import 哪个真实组件——省掉烧额度从零手写，从已有 blueprint 起步。</p>
-
-<h2>07 新状态：search_design_system 改编而非发明</h2>
-<p>批量选择态是新的，Code Connect 映射不到。别急着发明：先 <code>search_design_system</code>，在库里找类似过去功能的 selection 组件；Agent 找到几个月前上线的近亲，再在代码库里定位并改编。结果 on-brand、与 Radicle 其余部分一致，且没有再造一套模式。</p>
-<table><tr><th>策略</th><th>何时用</th><th>风险</th></tr>
-<tr><td>Code Connect 直映</td><td>库里已有、GitHub 已挂</td><td>映射过期要维护</td></tr>
-<tr><td>search_design_system 改编</td><td>新交互但有近亲</td><td>改编时漏掉 a11y / 状态</td></tr>
-<tr><td>从零发明</td><td>真·新品类</td><td>最易 off-brand；最后才用</td></tr></table>
-
-<h2>08 漂移检查：get_variable_defs 对齐 token</h2>
-<p>开发者在写确认 modal 时，设计侧改了两处：modal 要更深品牌色、按钮新圆角。设计师发布库并开票。开发者不手改，而是让 Agent 查漂移：<code>get_variable_defs</code> 返回 modal 现用变量（已含设计更新）；Agent 对比代码 token，立刻抓到两处不匹配并修正。</p>
-<div class="note"><p>漂移检查应变成 PR 习惯：改品牌色 / radius / spacing 后，对相关屏跑一次变量对比，而不是靠视觉 QA 碰运气。个人站 token 文件与 Figma variables 也应有同一条「对账」命令。</p></div>
-
-<h2>09 只在代码里的 toast：use_figma 拉回画布</h2>
-<p>Toolbar、选中态、modal 都来自团队维护的组件；toast 却是构建中才出现、目前只存在于代码，还缺 failure 态。开发者用 <code>use_figma</code> 把 toast 放到画布成可编辑层；设计师补 failure + retry；DS lead 发布组件并用 Code Connect 映射回代码。之后 toast 与库里其他东西一样工作。</p>
-<p>收尾像普通发布：开 PR，diff 大多是功能逻辑；工程师审代码，设计师看预览构建。</p>
-
-<h2>10 工具一览与个人站 / B 端清单</h2>
-<table><tr><th>工具</th><th>角色</th></tr>
-<tr><td>Figma MCP</td><td>把设计决策送进写代码的工具</td></tr>
-<tr><td>Code Connect</td><td>库组件 ↔ GitHub 实现 + 属性模板</td></tr>
-<tr><td><code>generate_diagram</code></td><td>PRD / 行为 → 可编辑 FigJam</td></tr>
-<tr><td><code>search_design_system</code></td><td>找近亲组件，改编而非发明</td></tr>
-<tr><td><code>get_variable_defs</code></td><td>变量对账，抓设计↔代码漂移</td></tr>
-<tr><td><code>use_figma</code></td><td>代码侧新生 UI 拉回画布补全</td></tr>
-<tr><td><code>generate_figma_design</code></td><td>（工具链一环）设计生成相关</td></tr></table>
-<pre><code># 个人站 / 小 B 端最小 lockstep（周末可起）
-[ ] 安装 Figma MCP，接到你的编码 Agent
-[ ] 主按钮 / 输入框 / Modal 做 Code Connect（哪怕 3 个）
-[ ] 新功能先写 5 行行为大纲 → generate_diagram
-[ ] 生成前：MCP 附库；禁止「只贴截图开写」
-[ ] 新交互先 search_design_system
-[ ] 合并前：get_variable_defs 对账色与圆角
-[ ] 代码先长出来的 UI：use_figma 回画布，补齐空/错态
-</code></pre>
-
-<h2>11 自查清单</h2>
-<ul>
-<li>编码 Agent 的第一输入是流程图 + 库，还是一张 PNG？</li>
-<li>FigJam 是否在写码前给设计师 / DS lead 看过？</li>
-<li>高频组件有没有 Code Connect，而不是每次靠 Agent「猜」import 路径？</li>
-<li>新状态是搜索近亲改编，还是默认从零发明？</li>
-<li>品牌色 / radius 变更后有没有跑变量漂移检查？</li>
-<li>仅存在于代码的 UI 有没有拉回画布补 failure / empty / loading？</li>
-<li>返工时间是在减「对不齐设计」，好把精力用到 UX 细节上吗？</li>
-</ul>
-<div class="note"><p>收束给 Zhu：Workflow Lab 的命题很朴素——<b>更好的上下文，更少的返工循环</b>。截图喂 Agent 会跑偏；FigJam 行为图 + MCP 系统上下文 + Code Connect 映射，让第一版更接近可上线。个人站同样适用：先接通 3 个组件的 Code Connect 与一条漂移检查，再谈「AI 写页面有多快」。快，应该来自 lockstep，而不是来自忽略设计系统。</p></div>
+<figure><img src="../figures/workflow-lab-design-code-agents/01-regionalized-1bcfd2bdf71c993505e5cf5760b.avif" alt="" loading="lazy" decoding="async"></figure>
+<p>Riccardo Erra，Figma 开发者布道师</p>
+<ul><li><a href="https://www.figma.com/blog/working-well/">高效工作</a></li><li><a href="https://www.figma.com/blog/figma-mcp/">Figma MCP</a></li><li><a href="https://www.figma.com/blog/figjam/">FigJam</a></li><li><a href="https://www.figma.com/blog/ai/">AI</a></li><li><a href="https://www.figma.com/blog/engineering/">工程</a></li><li><a href="https://www.figma.com/blog/design-systems/">设计系统</a></li></ul>
+<p>编码智能体正在重塑开发者的构建方式，但它们的表现取决于获得的输入。这套工作流探讨了如何借助上下文，让代码与画布保持同步。</p>
+<h2 id="section-1">分享 Workflow Lab：借助智能体在设计与代码之间自由切换</h2>
+<p>首屏插图：Marine Buffard</p>
+<p><i>欢迎来到 Workflow Lab，我们将在这里展示使用 Figma 产品和工具的<a href="https://www.figma.com/blog/workflow-lab-deploying-designs-directly-with-figma-make/">示例工作流Workflow Lab：用 Figma Make 直接部署设计从设计到代码的设计交付不必是一条单行道。这套工作流展示了设计师如何将代码库连接到 Figma Make、直接进行修改，并让整个团队参与评审，一直到 PR（拉取请求）。</a>。</i></p>
+<h4 id="">工作流概览：</h4>
+<p><b>Figma 产品：</b>Figma Design、FigJam</p>
+<p><b>工具：</b>Figma MCP（模型上下文协议）服务器、Code Connect、<code>use_figma</code>、<code>generate_diagram</code>、<code>search_design_system</code>、<code>generate_figma_design</code>、<code>get_variable_defs</code></p>
+<p><b>团队：</b>产品设计师、设计系统负责人、软件工程师</p>
+<p><b>待解决的问题：</b>如果编码智能体的产出能更早达到可上线水准，会怎样？</p>
+<p>Radicle 是一款虚构的 STEM 学习应用，它的工程团队比以往任何时候都更快。过去需要数周的工作，现在只要几天，甚至几小时。然而，这样的速度并没有让他们走得多远：AI 生成的代码常常偏离设计规格说明。团队把截图和开发工单交给编码智能体，但这还不足以得到正确的结果，团队只能陷入反复返工。</p>
+<p>如果 AI 的第一版产出更接近可上线水准，会怎样？只要有更多设计上下文可依据，比如在 Figma 中记录的已批准组件和 Token，编码智能体就能用更少的提示词达到你的意图。在这个示例工作流中，Radicle 的一位开发者借助 <a href="https://www.figma.com/engineers/">Figma 开发工具</a>，为编码智能体提供更好的上下文，让它生成更好的代码。请跟随我们一起看看，这位开发者如何让新功能的设计与代码从第一版线框图到最终评审始终保持同步。</p>
+<h2 id="section-2"><a href="https://www.figma.com/blog/workflow-lab-moving-between-design-and-code-with-agents/#the-problem">问题所在</a></h2>
+<p>Radicle 团队想要翻新收件箱，学生可以在这里给导师和其他同学发消息。首先，他们计划新增一个批量更新流程，包含三个界面：工具栏、模态框和轻提示（toast，一种临时通知）。用户可以通过工具栏全选消息、删除消息或将其标记为未读；模态框会请用户确认或取消操作；最后，轻提示会显示操作是否成功，并提供撤销选项。</p>
+<p>团队的设计师在 Figma Design 中创建了每个界面，项目开发者则把这些设计交给编码智能体。代码很快就返回了，但 UI 并不对：图标不匹配，模态框的间距不均匀，轻提示还缺少失败状态。开发者本可以花一下午来返工，但他们选择退一步，借助 Figma 的开发工具重新开始。</p>
+<figure><img src="../figures/workflow-lab-design-code-agents/02-pnbb6kzhzobco0it3nr6vg3wsepqcah-iffyoguq.png" alt="深色模式下的会话收件箱，消息列表上方的工具栏包含全选、未读、删除和排序控件。" loading="lazy" decoding="async"><figcaption>Radicle 全新的收件箱工具栏可让用户全选消息、标记为未读或删除。</figcaption></figure>
+<figure><img src="../figures/workflow-lab-design-code-agents/03-regionalized-62780457957c344884778b098d9.avif" alt="深色模式下的会话收件箱，消息列表上方的工具栏包含全选、未读、删除和排序控件。" loading="lazy" decoding="async"></figure>
+<h2 id="section-3"><a href="https://www.figma.com/blog/workflow-lab-moving-between-design-and-code-with-agents/#planning-before-prompting">先规划，再写提示词</a></h2>
+<p>在编写任何代码之前，开发者先梳理出各个屏幕、状态和过渡的预期行为，这些共同定义了新的批量更新流程。他们把这份大纲连同 PRD（产品需求文档）以及目前构成收件箱的组件代码一起交给智能体。随后，开发者借助 <a href="https://developers.figma.com/docs/figma-mcp-server/tools-and-prompts/#generate_diagram"><code>generate_diagram</code> 工具</a>和 <a href="https://developers.figma.com/docs/figma-mcp-server/"><b>Figma 的 MCP server</b></a>，在 <a href="https://www.figma.com/blog/figjam-your-coding-agents-whiteboard/"><b>FigJam</b>FigJam is now your coding agent’s whiteboard tooAgents are changing your code faster than your team can follow. Now you can close that gap with new MCP skills, architecture layouts, and more in FigJam.</a> 中创建一张可编辑的图表，展示贯穿三个界面的流程：</p>
+<ul><li>工具栏的“全选”选项会勾选所有邮件</li><li>“删除”选项会打开确认模态框</li><li>轻提示（toast）中的“撤销”按钮会把仪表盘刷新回之前的状态</li></ul>
+<p>这张图表为智能体提供了可据以构建的额外上下文，也让团队在开发开始前有东西可以讨论。开发者把这份 FigJam 分享给对应的设计师和设计系统负责人，两人都直接在图表上留下反馈，而不是在 Slack 的讨论串里。</p>
+<p>智能体根据 PRD 生成可编辑的 FigJam 流程图，设计师可以在实现开始前进行评审。</p>
+<h2 id="section-4"><a href="https://www.figma.com/blog/workflow-lab-moving-between-design-and-code-with-agents/#giving-the-agent-a-system-to-build-from">为智能体提供可用于构建的系统</a></h2>
+<p>所有人确认之后，开发者通过 <a href="https://www.figma.com/blog/the-tldr-on-mcp/">Figma’s MCP serverThe TL;DR on MCP: Why context matters and how to put it to workFigma’s MCP server brings your design decisions into the tools where code gets written—so what gets built actually matches what was designed. Here’s what that unlocks for everyone who builds products.</a> 把 FigJam 图表交给编码智能体，使其能够访问 Radicle 设计系统中的组件、Token 和布局。</p>
+<p>如果开发者手里只有一张截图，就得在代码库里翻找合适的组件，或者去找设计师确认细节：那 12 px 的间隙是否用对了间距 Token，按钮是不是仓库里已有的次级按钮，模态框是新的模式还是团队已经上线过的。而现在，这些答案都在文件里，Figma 的 MCP server 会把智能体所需的全部设计上下文提供给它。</p>
+<figure><img src="../figures/workflow-lab-design-code-agents/04-zfv-mm3mfhn4h2onq8aq-byzaaaaaelftksuqmcc.png" alt="流程图展示批量会话操作：标记为未读或删除，包含确认路径和设计评审备注。" loading="lazy" decoding="async"><figcaption>开发者把 FigJam 图表连同 Radicle 的 Figma 库一起交给智能体，让它能够使用正确的组件、变量和布局。</figcaption></figure>
+<figure><img src="../figures/workflow-lab-design-code-agents/05-regionalized-40a7948603a0bf3d91bf3694f1c.avif" alt="流程图展示批量会话操作：标记为未读或删除，包含确认路径和设计评审备注。" loading="lazy" decoding="async"></figure>
+<figure><img src="../figures/workflow-lab-design-code-agents/06-fbrnl93efxcmztevcv81r9pvf8zjsv3gd15gdela.png" alt="Radicle 学习应用的三个移动端界面：品牌启动页、登录与注册页，以及课程仪表盘。" loading="lazy" decoding="async"></figure>
+<figure><img src="../figures/workflow-lab-design-code-agents/07-regionalized-3b1fa1157c28aa908f2b6bd384b.avif" alt="Radicle 学习应用的三个移动端界面：品牌启动页、登录与注册页，以及课程仪表盘。" loading="lazy" decoding="async"></figure>
+<h2 id="section-5"><a href="https://www.figma.com/blog/workflow-lab-moving-between-design-and-code-with-agents/#connecting-the-design-system-to-code">将设计系统连接到代码</a></h2>
+<p>知道该用哪个组件，并不等于知道它是如何构建的。这部分要靠 <a href="https://developers.figma.com/docs/code-connect/quickstart-guide/"><b>Code Connect</b></a>，由 Radicle 的设计系统负责人来搭建。他们先在 Figma 中将组件库连接到团队的 GitHub 仓库，让每个组件都指向实现它的文件。然后，他们在代码库中为按钮、图标和模态框等组件编写模板文件，把 Figma 属性映射到代码属性。</p>
+<p>现在，开发者提示智能体根据其在 Figma 中的选区进行构建，由 Code Connect 判断该导入哪个组件。智能体不必再耗费时间和额度去编写新代码，而是从已有的实现蓝图出发。</p>
+<figure><img src="../figures/workflow-lab-design-code-agents/08-0ylbfm27weccyhe6qs451jkxpjjoiptzpa1w2hg8.png" alt="Figma 设计文件，展示 Radicle 仪表盘组件，以及检查详情、组件行为和已关联的 React 代码。" loading="lazy" decoding="async"><figcaption>Code Connect 将所选的 Figma 变体与其 React 实现关联起来，为智能体提供可用于构建的组件。</figcaption></figure>
+<figure><img src="../figures/workflow-lab-design-code-agents/09-regionalized-75a410c0c97c35b54ee99a49411.avif" alt="Figma 设计文件，展示 Radicle 仪表盘组件，以及检查详情、组件行为和已关联的 React 代码。" loading="lazy" decoding="async"></figure>
+<p>但批量更新的选中状态是全新的，因此这是 Code Connect 唯一无法映射的部分。在从零开始构建之前，开发者先用提示词调用 <a href="https://developers.figma.com/docs/figma-mcp-server/tools-and-prompts/#search_design_system"><code>search_design_system</code></a>，它会在团队的 Figma 组件库中查找现有的选择组件。智能体找到了团队几个月前上线的某个功能中的类似组件。随后，智能体在代码库中定位该组件，并针对批量更新流程加以调整。最终成果既符合品牌调性，又与 Radicle 应用的其余部分保持一致，智能体也无需重新发明团队已经构建过的模式。</p>
+<p>开发者使用 search_design_system 查找现有的批量选择组件，这样智能体就不必从零开始构建。</p>
+<h2 id="section-6"><a href="https://www.figma.com/blog/workflow-lab-moving-between-design-and-code-with-agents/#catching-drift-before-it-happens">防患于未然，提前发现偏差</a></h2>
+<p>开发者接着开始编写确认模态框。但就在开发期间，设计团队做了两处修改：模态框需要换成更深的品牌色，其按钮的圆角半径也有了新的数值。设计师在 Radicle 的组件库中发布了更新，并在工单里标注了这些变更。开发者没有手动修改，而是让智能体检查是否存在偏差（drift）。</p>
+<p>他们在编码智能体中调用 <a href="https://developers.figma.com/docs/figma-mcp-server/tools-and-prompts/#get_variable_defs"><code>get_variable_defs</code></a>，它会返回模态框中使用的变量，这些变量已经反映了设计师的修改。智能体将它们与代码中的 Token 进行比对，立刻发现了两处不一致，并更新了模态框。</p>
+<figure><img src="../figures/workflow-lab-design-code-agents/10-nwdkvhcxiwbj-q5iwelaqdiiixlqlyu6pqdurdej.png" alt="代码 diff：在 CSS 和 TypeScript 文件中，将 Radicle 红色 Token 从 #FF7A45 更新为 #E95000。" loading="lazy" decoding="async"><figcaption>智能体检查偏差，发现代码仓库中已过时的 Token，并将其替换为正确的颜色。</figcaption></figure>
+<figure><img src="../figures/workflow-lab-design-code-agents/11-regionalized-5077c6268db5f84188c91c9ed2a.avif" alt="代码 diff：在 CSS 和 TypeScript 文件中，将 Radicle 红色 Token 从 #FF7A45 更新为 #E95000。" loading="lazy" decoding="async"></figure>
+<figure><img src="../figures/workflow-lab-design-code-agents/12-yz5hmmzoaqld2fwt1r-lrduybb04uzfjcceehip5.png" alt="Figma 检查视图：一个橙色的“Sign up. Start learning.”按钮，显示间距、布局和颜色 Token 的详细信息。" loading="lazy" decoding="async"></figure>
+<figure><img src="../figures/workflow-lab-design-code-agents/13-regionalized-c849b8688a6e79733fdc24fe7b8.avif" alt="Figma 检查视图：一个橙色的“Sign up. Start learning.”按钮，显示间距、布局和颜色 Token 的详细信息。" loading="lazy" decoding="async"></figure>
+<h2 id="section-7"><a href="https://www.figma.com/blog/workflow-lab-moving-between-design-and-code-with-agents/#the-path-to-production">通往生产环境之路</a></h2>
+<p>开发者已经完成了工具栏、消息选中状态和确认模态框，这三者都来自团队维护的组件。剩下的是轻提示（toast）：它是在构建过程中创建的，目前只存在于代码中，还缺少失败状态。开发者通过提示词调用 <a href="https://developers.figma.com/docs/figma-mcp-server/write-to-canvas/"><code>use_figma</code></a>，把轻提示（toast）以可编辑图层的形式放到画布上，设计师则补上带有“重试”操作的缺失状态。随后，设计系统负责人发布这个新组件，并通过 Code Connect 将其映射到代码。现在，这个轻提示（toast）与 Radicle 组件库中的其他组件用法一致。</p>
+<p>之后的流程就和其他发布没什么两样。开发者发起拉取请求，diff 里大多是功能逻辑。工程师评审代码，设计师检查预览构建。</p>
+<p>Figma 的 MCP 服务器和 Code Connect 让智能体能够访问所有人共同使用的同一套系统，因此团队可以把精力放在打磨影响用户体验的细节上，而不是反复修改 AI 生成的代码。更多的时间用于构建，意味着更好的成果，而不只是更快的速度。</p>
+<p>安装 <a href="https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server">Figma MCP 服务器</a>并将其连接到你常用的编码智能体，就能为智能体提供更好的上下文。为团队复用最多的组件<a href="https://developers.figma.com/docs/code-connect/quickstart-guide/">设置 Code Connect</a>。</p>
+<p>阅读我们 <a href="https://www.figma.com/blog/working-well/">Workflow Lab 系列</a>的所有博客文章，探索在 Figma 中工作的更多方式。</p>
+<figure><img src="../figures/workflow-lab-design-code-agents/01-regionalized-1bcfd2bdf71c993505e5cf5760b.avif" alt="" loading="lazy" decoding="async"></figure>
+<p>Riccardo Erra 是 Figma 的开发者布道师（developer advocate）。他专注于工程、设计系统与 AI 辅助产品开发的交汇领域，帮助团队建立更可靠的方式，把设计意图转化为生产环境代码。</p>
+<h2 id="section-8">相关文章</h2>
+<ul><li><a href="https://www.figma.com/blog/workflow-lab-deploying-designs-directly-with-figma-make/">Workflow Lab：用 Figma Make 直接部署设计</a><a href="https://www.figma.com/blog/working-well/">Working Well</a><a href="https://www.figma.com/blog/figma-make/">Figma Make</a><a href="https://www.figma.com/blog/figma-agent/">Figma 智能体</a><a href="https://www.figma.com/blog/figma-design/">Figma Design</a><a href="https://www.figma.com/blog/ai/">AI</a><a href="https://www.figma.com/blog/tips-and-inspiration/">提示与灵感</a></li><li><a href="https://www.figma.com/blog/workflow-lab-expanding-the-canvas-with-figma-mcp/">Workflow Lab：用 Figma MCP 拓展画布</a><a href="https://www.figma.com/blog/working-well/">Working Well</a><a href="https://www.figma.com/blog/figma-mcp/">Figma MCP</a><a href="https://www.figma.com/blog/ai/">AI</a><a href="https://www.figma.com/blog/figma-design/">Figma Design</a><a href="https://www.figma.com/blog/dev-mode/">Dev Mode</a><a href="https://www.figma.com/blog/tips-and-inspiration/">提示与灵感</a></li><li><a href="https://www.figma.com/blog/workflow-lab-ai-image-tooling/">Workflow Lab：Figma 中的 AI 图像工具与交互式原型</a><a href="https://www.figma.com/blog/working-well/">Working Well</a><a href="https://www.figma.com/blog/ai/">AI</a><a href="https://www.figma.com/blog/figjam/">FigJam</a><a href="https://www.figma.com/blog/figma-design/">Figma Design</a><a href="https://www.figma.com/blog/figma-make/">Figma Make</a><a href="https://www.figma.com/blog/prototyping/">原型设计</a><a href="https://www.figma.com/blog/tips-and-inspiration/">提示与灵感</a></li></ul>
+<h2 id="section-9">使用 Figma 创作与协作</h2>
+<p>免费开始使用</p>
+<p style="margin-top:3em"><a class="readorig" href="https://www.figma.com/blog/workflow-lab-moving-between-design-and-code-with-agents/" target="_blank" rel="noopener">阅读原文 →</a></p>
 </article>
+<footer class="mono">原文 © Riccardo Erra · 本页为自动生成的中文译文，仅供学习参考</footer>
+<script>
+(function () {
+  function play(frame) {
+    var embed = frame.getAttribute('data-embed');
+    var direct = frame.getAttribute('data-direct') === '1';
+    var url = frame.getAttribute('data-video-url') || '';
+    var title = frame.getAttribute('data-title') || '视频';
+    if (direct && url) {
+      var video = document.createElement('video');
+      video.src = url;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      var poster = frame.getAttribute('data-poster');
+      if (poster) video.poster = poster;
+      frame.innerHTML = '';
+      frame.appendChild(video);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (embed) {
+      var iframe = document.createElement('iframe');
+      iframe.src = embed;
+      iframe.title = title;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('loading', 'eager');
+      frame.innerHTML = '';
+      frame.appendChild(iframe);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (url) window.open(url, '_blank', 'noopener');
+  }
+  document.querySelectorAll('.video-frame[data-video-url]').forEach(function (frame) {
+    frame.addEventListener('click', function () { play(frame); });
+    frame.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); play(frame); }
+    });
+  });
+})();
+</script>
 </body></html>

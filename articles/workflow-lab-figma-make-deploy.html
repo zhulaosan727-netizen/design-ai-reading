@@ -1,125 +1,118 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>设计师直接改代码、推 PR：Figma Make 的反向交接 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E2E9EF">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>设计师直接改代码、推 PR：Figma Make 的反向交接 · 读本</title><link rel="stylesheet" href="../assets/style.css"><style>.video-card{margin:1.8em 0}.video-frame{position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--rule);background:#CFCFCF;cursor:pointer}.video-frame img,.video-frame iframe,.video-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block}.video-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#7A1E2B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px}.video-card figcaption{margin-top:10px;font-size:14px;opacity:.8}.video-index{margin:2em 0;padding:16px 18px;border:1px solid var(--rule)}article.body figure img{width:100%;height:auto;display:block}article.body figcaption{margin-top:8px;font-size:14px;opacity:.75}</style></head><body class="article" style="--tint:#E2E9EF">
 <section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 28 · AI 设计工作流 / Figma Make / 交接 / 无障碍 / PR</div><h1>设计师直接改代码、推 PR：Figma Make 的反向交接</h1><div class="en">Workflow lab: Deploying designs directly with Figma Make</div></div>
-<dl class="meta mono"><dt>作者</dt><dd>Laura Fehre</dd><dt>身份</dt><dd>Designer Advocate, Figma</dd><dt>日期</dt><dd>2026-07-16</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/workflow-lab-deploying-designs-directly-with-figma-make/">figma.com ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/workflow-lab-deploying-designs-directly-with-figma-make/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<dl class="meta mono"><dt>作者</dt><dd>Laura Fehre</dd><dt>署名</dt><dd>Designer Advocate, Figma</dd><dt>日期</dt><dd>2026-07-16</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/workflow-lab-deploying-designs-directly-with-figma-make/">figma.com ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/workflow-lab-deploying-designs-directly-with-figma-make/" target="_blank" rel="noopener">阅读原文 →</a></div>
 <figure class="cover"><img src="../covers/workflow-lab-figma-make-deploy.svg" alt="Workflow lab: Deploying designs directly with Figma Make 封面"></figure></section>
 <article class="body">
-<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解。原文是 Figma「Workflow Lab」系列：虚构博物馆站点 MOSF 在架构重写期间，设计师如何用 Figma Make 连上生产代码，自己把小修、无障碍（accessibility / a11y）与「最后 20%」推成 PR，工程师负责审代码。流程顺序、共享组件发现、a11y 注解与角色倒置，均按原文事实整理；对照表与清单面向个人站与小团队场景。想看原流程图与截图，请点上方「阅读原文」。</p>
+<p class="notice">中文全文译文：由「译文工坊」根据英文原文自动翻译生成，供学习参考。结构与措辞以译文为准；想看原始论述，请点上方「阅读原文」。</p>
 <nav class="toc"><div class="mono">本篇目录</div><ol>
-<li>先给结论：三句话读懂这篇</li>
-<li>传统路径如何把手艺埋进 backlog</li>
-<li>场景：MOSF 重写期，谁该做「轻活」</li>
-<li>先用合成人设压测，再动手改</li>
-<li>交接倒置：设计师构建，工程师评审</li>
-<li>共享组件：票单看不见、代码里一眼见</li>
-<li>把 a11y 注在改动现场</li>
-<li>PR 本身成了决策档案</li>
-<li>不是「设计师变工程师」</li>
-<li>给小团队的反向交接清单</li>
-<li>自查清单</li>
-</ol></nav>
+<li><a href="#section-1">分享「工作流实验室：用 Figma Make 直接部署设计」</a></li><li><a href="#section-2">问题</a></li><li><a href="#section-3">在画布上收集反馈</a></li><li><a href="#section-4">直接上手代码，跳过待办积压</a></li><li><a href="#section-5">与整个团队一起评审</a></li><li><a href="#section-6">推送 PR（拉取请求）</a></li><li><a href="#section-7">通往生产环境之路：另一种设计交付</a></li><li><a href="#section-8">相关文章</a></li><li><a href="#section-9">使用 Figma 创作与协作</a></li></ol></nav>
 
-<h2>01 先给结论：三句话读懂这篇</h2>
-<p><b>第一，小修小补最容易死在 backlog 里。</b>设计师发现标签含糊、CTA 太弱、日期选择器难读、空搜索没退路——若只能写成票单描述，工程师变成「翻译器」， nuance（细微意图）在转述里蒸发，季度票永远排不上。</p>
-<p><b>第二，把交接（handoff）方向反过来。</b>重活（架构重写）仍归工程师；低成本的手艺与 a11y，让设计师连上生产代码，用 Figma Make 自己改、自己推 PR；工程师改审代码，而不是再翻译一票「请把日期选择器改好看」。</p>
-<p><b>第三，代码真相比票单描述更诚实。</b>一个「展览页日期选择器」在仓库里可能是三处共用的共享组件（shared component）。设计师进代码后一次修全；写在票里则很容易只修一屏，留下不一致。</p>
-<table><tr><th>默认交接</th><th>反向交接</th><th>结果差异</th></tr>
-<tr><td>设计师写票 → 进 backlog → 工程师某天翻译实现</td><td>设计师改代码推 PR → 工程师评审合并</td><td>季度积压可能一天落地</td></tr>
-<tr><td>票写「修展览页日期选择器」</td><td>进仓库发现是共享组件，一处改三处受益</td><td>一致性随实现一起到</td></tr>
-<tr><td>a11y 意图散落在评论与文档</td><td>aria-label、焦点顺序、空状态播报注在改动现场</td><td>评审看得见设计意图</td></tr>
-<tr><td>PR 只记「改了什么」</td><td>PR 也记「怎么想到、试过什么人设」</td><td>决策可追溯，票单可蒸发</td></tr></table>
-
-<h2>02 传统路径如何把手艺埋进 backlog</h2>
-<p>路径几乎人人熟悉：浏览线上站点，发现一小处手艺或 a11y 问题 → 开票 → 进 backlog → 被大功能挤掉。设计师只能写描述；工程师读描述再猜意图。描述越「完整」，越像第二份规格书；描述越短，越容易漏掉焦点顺序、空状态语气、标签与控件的对应关系。</p>
-<p>问题不在工程师「不听话」，而在角色被定成翻译器：设计师的判断力停在票面，实现判断力停在另一边，中间没有共享的可运行真相。</p>
-<div class="note"><p>读本 No.26「判断留给你，杂活交给 Agent」谈的是画布侧分工；这篇把同一问题推到交付侧：判断不该停在票单，而应落到可审的代码变更上——前提是工具真能让设计师安全地碰到生产边界。</p></div>
-
-<h2>03 场景：MOSF 重写期，谁该做「轻活」</h2>
-<p>原文用虚构的 <b>MOSF</b> 博物馆站点：团队正在做架构重写，带宽紧张。PM 给了一个干净分工——工程师继续扛重写；设计师端到端拥有「低抬升」（low-lift）的手艺与 a11y：连上生产代码，用 Figma Make 做完小改，再交给工程评审。</p>
-<p>这不是「设计师去写微服务」。边界写得很清楚：重架构仍是工程主业；最后 20%——更清楚的标签、更醒目的 CTA、更友好的空状态、共享日期选择器的可读性与无障碍——由更接近问题的人直接推进。</p>
-
-<h2>04 先用合成人设压测，再动手改</h2>
-<p>动手前，设计师用 Figma agent 生成合成人设（synthetic personas）压测站点：首次访客、回访会员、屏幕阅读器（screen reader）用户。反馈聚成几类可动手的缺口：</p>
-<ul>
-<li>标签含糊，不知道控件在问什么</li>
-<li>主 CTA 容易被扫视漏掉</li>
-<li>日期选择器难解析（对视觉与辅助技术都不友好）</li>
-<li>搜索无结果时是死胡同，没有下一步</li></ul>
-<p>团队做了 gut-check（直觉核对）后同意：这些都是「改了立刻可感」、又不该拖进季度规划的活。于是交接倒置成立——不是再开四张票，而是设计师构建、工程师评审。</p>
-<table><tr><th>人设压力</th><th>暴露的问题</th><th>若不进代码会怎样</th></tr>
-<tr><td>首次访客</td><td>标签 / CTA 可发现性</td><td>票写「优化文案」，语气与层级仍靠猜</td></tr>
-<tr><td>回访会员</td><td>日期选择器与流程效率</td><td>可能只修展览页，会员注册仍旧</td></tr>
-<tr><td>屏幕阅读器用户</td><td>名称、焦点、空状态播报</td><td>a11y 变成另开的「专项」，永远专项</td></tr></table>
-
-<h2>05 交接倒置：设计师构建，工程师评审</h2>
-<p>操作面：把 GitHub 仓库连到 Make，开新分支。设计师在接近生产的环境里改；工程师的职责从「按描述实现」变成「带着设计意图审代码」——意图、评论、a11y 注解都附着在同一条变更上。</p>
-<blockquote>Handoff inverts: the designer builds, the engineer reviews. — Laura Fehre / Figma（大意：交接倒置——设计师构建，工程师评审）</blockquote>
-<p>「构建」在这里不是从零写框架，而是在已有组件与页面上做可合并的变更；「评审」也不是礼貌性 LGTM，而是工程判断：共享依赖是否碰对、回归风险、命名与可维护性是否过关。</p>
-
-<h2>06 共享组件：票单看不见、代码里一眼见</h2>
-<p>日期选择器看起来像「修一屏」，进仓库才发现它是共享组件——展览页、活动日历、会员注册都在用。若票单写「修展览页日期选择器」，实现很容易只改那一处，另外两处继续不一致；代码路径则逼你看到依赖，<b>修一次，三处一起好</b>。</p>
-<p>同一批次还顺手做了：更清楚的标签、更可见的 CTA、更友好的空状态——正是通常永远排不到的「最后 20%」（the last 20%）。</p>
-<table><tr><th>只看票单</th><th>连上代码</th></tr>
-<tr><td>按页面拆票，修一处漏两处</td><td>按组件边界修，一致性免费附送</td></tr>
-<tr><td>「空状态」写成附件截图</td><td>空状态与主路径在同一次 PR 里可点可审</td></tr>
-<tr><td>工程师猜「好看一点」指什么</td><td>diff 里直接看到结构与文案变更</td></tr></table>
-<div class="note"><p>对 Zhu 自己的站：很多「这一页按钮太弱」其实是全局按钮样式或共享模块。能进仓库看依赖，比再写一张设计说明更不容易制造新的不一致。</p></div>
-
-<h2>07 把 a11y 注在改动现场</h2>
-<p>团队不把无障碍另开长文档，而是在改动处注解：共享日期选择器的 <code>aria-label</code>、屏幕阅读器标签、焦点顺序导向 CTA、空状态的可感知播报（announcement）。工程师评审时，设计意图与实现补丁在同一视野——不必再问「这票的 a11y 验收标准在哪」。 </p>
-<ul>
-<li>名称：控件被读出来时，人能否明白用途</li>
-<li>焦点顺序：键盘用户是否先到主操作</li>
-<li>空状态：无结果时是否有可听见的说明与出路</li>
-<li>共享点：一处组件的 a11y 修复是否覆盖所有调用页</li>
-</ul>
-
-<h2>08 PR 本身成了决策档案</h2>
-<p>设计师从 Make 推 PR；工程师带着设计意图、评论与 a11y 注解审完合并。原本可能挂一季度的 backlog 项，在一天内上船。</p>
-<p>Zoom out：PR 不只记录「改了什么」，也记录「怎么改到这一步」——试过哪些人设、为何动共享组件、空状态为什么这样写。票单里蒸发的决策，在 PR 里留下痕迹。团队甚至可以让更多「小手艺」不再开票，直接以可审变更存在。</p>
-
-<h2>09 不是「设计师变工程师」</h2>
-<p>原文明确：这不要求设计师成为工程师，也不要求工程师成为设计师——各自把判断用在最值钱的地方。工程师继续对架构与代码健康负责；设计师对体验意图与最后 20% 的可感质量负责。工具（Make + 连仓库）降低的是「碰代码」的门槛，不是取消评审门禁。</p>
-<table><tr><th>角色</th><th>仍拥有的判断</th><th>不再被迫做的事</th></tr>
-<tr><td>设计师</td><td>体验优先级、文案与 a11y 意图、最后 20% 是否够格</td><td>把意图压缩成易丢 nuance 的长票</td></tr>
-<tr><td>工程师</td><td>共享依赖、回归、可维护性、是否合并</td><td>从模糊描述「翻译」出视觉与无障碍细节</td></tr>
-<tr><td>PM</td><td>重写期带宽与范围边界</td><td>把小修强行塞进大里程碑谈判</td></tr></table>
-
-<h2>10 给小团队的反向交接清单</h2>
-<p>你未必有 MOSF 式博物馆站，但同构条件很常见：正在大改、小修永远排不上、设计师又离问题最近。</p>
-<pre><code># 反向交接 · 最小可行协议（可贴进团队约定）
-适用：低抬升手艺 / a11y / 空状态 / 文案与可发现性；不含架构与数据模型变更。
-
-1. 范围门禁
-   - 设计师先列出「可感缺口」≤5 条，团队 gut-check 一次
-   - 任何触及路由、权限、数据契约的项 → 仍走工程主导
-
-2. 环境
-   - 连上目标仓库；从新分支开始；禁止直推 main
-   - 改前用 2–3 个合成人设（含键盘 / 屏幕阅读器）压一版
-
-3. 实现偏好
-   - 先搜共享组件，再改页面特例
-   - a11y 注在 diff 旁或 PR 描述固定小节（名称 / 焦点 / 空状态）
-
-4. 评审
-   - 工程师只审代码与风险；设计意图以 PR 附件为准，不再另开「翻译会」
-   - 合并后关闭对应票（若有）；无票也可，以 PR 为档案
-
-5. 退出条件
-   - 一天内可合并的才算「轻活」；否则拆回工程排期
-</code></pre>
-
-<h2>11 自查清单</h2>
-<ul>
-<li>这张票是真需要工程排期，还是「最后 20%」被流程埋葬？</li>
-<li>我有没有在动手前用至少一种辅助技术或键盘路径压测？</li>
-<li>准备改的「一屏」会不会其实是共享组件？</li>
-<li>a11y 是写在改动现场，还是又丢进了另开的文档？</li>
-<li>工程师这次是在评审代码，还是仍在翻译我的描述？</li>
-<li>PR 描述能否让三个月后的人看懂「为什么这样改」？</li>
-<li>我有没有越界去动架构 / 数据契约，却仍自称「小修」？</li>
-<li>角色倒置后，各自的判断是否用在更值钱的地方？</li>
-</ul>
-<div class="note"><p>读本里 Stripe Harbor、Figma Agent 工作流、Vercel design.md 都在谈「如何让设计意图更靠近可运行物」。这篇把靠近推到极致：意图直接变成 PR。对个人站，你可以把自己同时当成「构建的设计师」与「评审的工程师」——分支、小步 diff、把空状态与 a11y 写进同一提交，比再开一张永远不会做的待办更诚实。</p></div>
+<figure><img src="../figures/workflow-lab-figma-make-deploy/01-regionalized-10471946c84d3a43322e54a3d6c.avif" alt="" loading="lazy" decoding="async"></figure>
+<p>Laura Fehre，Figma 设计布道师</p>
+<ul><li><a href="https://www.figma.com/blog/working-well/">高效工作</a></li><li><a href="https://www.figma.com/blog/figma-make/">Figma Make</a></li><li><a href="https://www.figma.com/blog/figma-agent/">Figma 智能体</a></li><li><a href="https://www.figma.com/blog/figma-design/">Figma Design</a></li><li><a href="https://www.figma.com/blog/ai/">AI</a></li><li><a href="https://www.figma.com/blog/tips-and-inspiration/">提示与灵感</a></li></ul>
+<p>从设计到代码的设计交付，不必是一条单行道。这套工作流展示了设计师如何将代码库连接到 Figma Make，直接进行修改，并让整个团队参与评审，一直到 PR（拉取请求）环节。</p>
+<h2 id="section-1">分享「工作流实验室：用 Figma Make 直接部署设计」</h2>
+<p>首屏插图由 Marine Buffard 创作</p>
+<h4 id="">工作流概览：</h4>
+<p><b>Figma 产品：</b>Figma Design、Figma Make</p>
+<p><b>工具：</b>Figma 智能体、GitHub 集成、基于生产代码的 Make、标注</p>
+<p><b>团队：</b>设计师、工程师和产品经理</p>
+<p><b>要解决的问题：</b>如果让网站更具包容性的那些小修复，不必再在待办列表里排队等待，会怎样？</p>
+<p><i>欢迎来到 Workflow Lab，我们将在这里使用 Figma 产品和工具，呈现一个<a href="https://www.figma.com/blog/workflow-lab-expanding-the-canvas-with-figma-mcp/">示例工作流Workflow Lab：借助 Figma MCP（模型上下文协议）扩展画布团队开发越快，设计与代码就越容易同样迅速地脱节。这个工作流展示了如何弥合这道鸿沟：把真实的产品状态带到画布上，让设计师能够塑造最终发布的内容。</a>。</i></p>
+<p>传统上，从“我注意到一个小问题”到“它发布了”，中间要经过一张工单。设计师把问题写清楚，它进入待办列表，随后被工程团队已经承诺的所有事项淹没。对于细小而精细的修复，这个队列就是良好意愿的坟场：这类工作太琐碎，排不上优先级，又太重要，不能放弃，只好一直拖着。</p>
+<p>还有第二重代价。设计师交付的是一段书面描述，细微之处就会丢失。“把间距收紧一点”或“屏幕阅读器这里读错了”，会变成一轮又一轮的截图和澄清，工程师则成了设计决策的“翻译”，而这些决策本可以由设计师直接做出。但如果这个工作流还有另一种解法呢？</p>
+<h2 id="section-2"><a href="https://www.figma.com/blog/workflow-lab-deploying-designs-directly-with-figma-make/#the-problem">问题</a></h2>
+<p>以虚构的博物馆 Museum of Speculative Futures（MOSF）为示例，这家博物馆探索文化如何想象未来。他们正在改进网站的可访问性，同时对整体架构进行重写。优先级相互冲突，这个项目的资源配置成了一大难题。设计师想弥补可访问性方面的缺口，而工程师则需要埋头完成同样重要的重写工作。为了兼顾两个目标，PM 提出了另一条路径：繁重的工作仍由工程师负责，而设计师借助<a href="https://www.figma.com/blog/figma-make-now-on-your-local-code/"><b>在生产代码上使用 Figma Make</b>Figma Make 现已支持本地代码从可视化编辑到上下文提示词设计与协作，Figma Make 正在拓展团队用代码进行设计的方式。</a>，端到端地负责那些工作量小、注重工艺的改动。最后那 20% 恰恰是区分“技术上能用”的网站与真正可访问的网站的关键，因此团队对这个方案达成了一致。请跟随设计师扭转局面，把工作从画布带到评审，再到合并拉取请求，全程无需提交一张工单。</p>
+<figure><img src="../figures/workflow-lab-figma-make-deploy/02-9yw1vztwmms8auhxolj5ejuxttpoq4pnizbffglk.png" alt="Figma 文件展示了一个移动端网站改版，包含完整用户旅程的各个界面，上面布满评论和评审备注，并以虚线相连。" loading="lazy" decoding="async"><figcaption>MOSF 网站在 Figma 画布上打开，上面标出了几处细小的可用性问题：含义不清的导航标签、对比度偏低的日期选择器，以及难以发现的行动号召。</figcaption></figure>
+<figure><img src="../figures/workflow-lab-figma-make-deploy/03-regionalized-109e9f7c7d82c472f812ee14861.avif" alt="Figma 文件展示了一个移动端网站改版，包含完整用户旅程的各个界面，上面布满评论和评审备注，并以虚线相连。" loading="lazy" decoding="async"></figure>
+<h2 id="section-3"><a href="https://www.figma.com/blog/workflow-lab-deploying-designs-directly-with-figma-make/#gathering-feedback-on-the-canvas">在画布上收集反馈</a></h2>
+<h4 id="">拉远视角</h4>
+<p>合成用户画像无法取代真实的用户研究，但能尽早暴露明显的摩擦点，让面对面的访谈得以挖得更深。</p>
+<p>在动手修改之前，设计师想先对现有体验做一次压力测试。他们在 Figma Design 中使用<b><a href="https://www.figma.com/blog/agent-custom-tools-context-skills/">the agentFigma’s design agent, now with custom tools and greater contextPrompting gets you started. Custom tools, real context, and skills take the design agent further—so what ends up on the canvas actually looks like you.</a> </b>生成一组合成用户画像——计划行程的首次访客、回访的会员、使用屏幕阅读器浏览的用户——并让每个画像浏览网站，以收集反馈。</p>
+<p>反馈很具体，而且大多是小问题：展览页面上含义容易混淆的标签、容易被忽略的行动号召、一眼难以看懂的日期选择器，以及藏品搜索无结果时停在空白屏幕的死胡同。这些改动都不大，但合在一起，就能让网站更易用。</p>
+<p>Figma 智能体生成的三个合成用户画像在画布上浏览 MOSF 网站，并留下一份反馈报告。</p>
+<p>设计师处理完这些反馈后，把设计改动带回团队做一次直觉检验。设计师、工程师和 PM 一起逐项过一遍：参观页面上更清晰的标签、更醒目的行动号召，以及更友好的日期选择器。大家一致认为，这些改动服务于共同的目标——无论用户以何种方式使用网络，都能顺畅浏览并乐在其中的网站。</p>
+<h2 id="section-4"><a href="https://www.figma.com/blog/workflow-lab-deploying-designs-directly-with-figma-make/#working-with-code-directly-to-skip-the-backlog">直接上手代码，跳过待办积压</a></h2>
+<h4 id="">拉远视角</h4>
+<p>设计交付被颠倒过来。不再是设计师描述改动、由工程师来实现，而是设计师自己动手实现，工程师负责评审。这与通常的方向相反，工程师的判断体现在评审环节，而不是实现环节。</p>
+<p>双方商定的改动都很小，而且大家理解一致。设计师没有写工单再等待，而是请工程师授予代码库的访问权限——不是要接手重写，而是直接处理这几处具体的修复。</p>
+<p>工程师授予了权限，设计师将项目的 <a href="https://www.figma.com/blog/figma-make-now-on-your-local-code/"><b>GitHub repository</b>Figma Make, now on your local codeFrom visual editing to contextual prompting and collaboration, Figma Make is expanding how teams can design with code.</a> 连接到 Make。生产环境的代码库现在已在 Figma 中就绪，设计师基于当前站点创建了一个新分支，从清单上看起来最简单的修复入手：展览页面的日期选择器，Figma 智能体的用户画像认为它很难看懂。</p>
+<p>Figma Make 已连接到 MOSF 代码库，正在应用中逐页浏览，来到预订页面的日历日期选择器。</p>
+<p>在静态设计稿中，这只是五分钟的改动。但直接基于代码工作时，Make 呈现出了画布看不到的信息：这个日期选择器并非孤例，而是一个共享组件——活动日历和会员注册流程里用的是同一个。看似单点的小调整，实际上需要同时在三个地方修改。</p>
+<h4 id="">拉远视角</h4>
+<p>工单上可能只写着“修复展览页面的日期选择器”——一个页面，一处修复。但日期选择器其实是一个在三处渲染的共享组件，即使工单没有说明，代码也清楚这一点。</p>
+<p>基于工单的工作流可能只会修复展览页面的日期选择器，让活动日历和会员流程继续沿用旧版本——这种不一致很晚才会有人注意到，甚至永远没人发现。而设计师身处代码之中，这个共享依赖现在就一目了然，修复只需在正确的位置做一次。</p>
+<p>完成之后，设计师继续处理清单上的其余事项：更清晰的标签、更醒目的行动号召、更友好的空状态。每一项单独看都不起眼，但合在一起，就能让一个“只是能用”的网站变成一个“用心打磨过”的网站——这正是通常永远走不出待办清单的最后 20%。</p>
+<h2 id="section-5"><a href="https://www.figma.com/blog/workflow-lab-deploying-designs-directly-with-figma-make/#reviewing-with-the-whole-team">与整个团队一起评审</a></h2>
+<h4 id="">拉远视角</h4>
+<p>日期选择器的屏幕阅读器体验与它在屏幕上的外观在同一次评审中确定，可访问性与设计同步成形，而不是事后补救。</p>
+<p>修改就位后，设计师将成果发给团队做最终评审。可访问性目标正是在这一步变得具体。看得见的修复已经完成，现在团队要<b>标注</b>每一处在辅助技术下应如何工作，并且就标注在对应位置。内容包括：共享日期选择器应朗读的 aria-label，让它不仅看得清，也听得懂；与屏幕上显示内容一致的屏幕阅读器标签；能够抵达行动号召而不是直接跳过它的焦点顺序；以及带有屏幕阅读器可播报文案的空状态，这样搜索无结果时就不会是一片沉默。</p>
+<p>Figma Make 中已纳入团队评审意见的 MOSF 更新版本：可访问性标注中说明了日期选择器的 aria-label、展览日期的屏幕阅读器文本，以及导航栏。</p>
+<p>PM 确认这一切仍然服务于可访问性目标，工程师就哪些内容应在代码中处理给出意见，设计师则加入最后的微调。</p>
+<h2 id="section-6"><a href="https://www.figma.com/blog/workflow-lab-deploying-designs-directly-with-figma-make/#pushing-the-pr">推送 PR（拉取请求）</a></h2>
+<p>最后的标注处理完毕后，设计师直接从 Make 向代码库推送拉取请求。工程师审查代码（此时更新后的设计意图、团队评论和可访问性标注都附在同一次改动上），批准并合并分支。那些原本要在待办列表里躺一个季度的修复，一天就发布了。</p>
+<p>在从 Figma Make 向 GitHub 触发提交之前，先检查这些改动。</p>
+<h4 id="">放眼全局</h4>
+<p>PR（拉取请求）不只记录改了什么，也记录了改动是如何发生的。</p>
+<p>这种工作方式改动不大，回报却很长远。工单关闭后就消失了，藏在其中的决策也随之烟消云散。而合并后的改动会把它们保留下来：评论、可访问性标注，以及将日期选择器改为共享的推理过程。六个月后，当有人重新审视这个日期选择器时，通向今天的这条路径就留在团队的共享历史里。</p>
+<figure><img src="../figures/workflow-lab-figma-make-deploy/04-vwfc39l7-nu3hrg09dxfgdfzzmgbflcbaaaaabjr.png" alt="GitHub 拉取请求页面，显示一次已合并的可访问性更新，包含对日期选择器、导航标签和屏幕阅读器支持的改进。" loading="lazy" decoding="async"><figcaption>合并后的拉取请求保留了完整历史，包括所有评审评论和可访问性标注。</figcaption></figure>
+<figure><img src="../figures/workflow-lab-figma-make-deploy/05-regionalized-628c4e0be22c0b09849c1f76966.avif" alt="GitHub 拉取请求页面，显示一次已合并的可访问性更新，包含对日期选择器、导航标签和屏幕阅读器支持的改进。" loading="lazy" decoding="async"></figure>
+<h2 id="section-7"><a href="https://www.figma.com/blog/workflow-lab-deploying-designs-directly-with-figma-make/#path-to-production-a-different-kind-of-handoff">通往生产环境之路：另一种设计交付</a></h2>
+<p>传统的设计交付模式把设计师和工程师当作流水线上的两个工位。对于大型、定义清晰的功能，这种方式行之有效。但更精细的收尾、可访问性改进，以及决定完整产品体验的打磨工作，需要另一种设计交付方式：设计师直接在代码中工作。</p>
+<p>这种工作方式不要求设计师变成工程师，也不要求工程师变成设计师，而是让各方把判断力用在<a href="https://www.figma.com/blog/what-the-design-to-code-loop-unlocks/">最关键之处设计到代码的循环解锁了什么随着工作在代码与画布之间更流畅地流转，工作流不只是在变化，而是在融合。</a>：工程师继续专注于架构改造，设计师全程负责细节优化，PM 则确保整个项目始终朝着目标推进。这条分支承载了每个人的贡献：可见的设计、书面反馈，以及屏幕阅读器会朗读的标签，全部从画布一路进入已合并的 PR（拉取请求）。</p>
+<p>有了这套工作流，最后那 20% 没有被砍掉，而是被发布了。</p>
+<p>想了解更多如何将 Make 项目直接推送到 GitHub，请查看我们的<a href="https://help.figma.com/hc/en-us/articles/35463818346647-Push-from-Figma-Make-to-GitHub">帮助中心</a>，或观看我们最新的 Config 演讲：<a href="https://www.youtube.com/watch?v=Q3BkuQRBg-w">在代码中设计</a>，以及如何使用 <a href="https://www.youtube.com/watch?v=0HqSSIPZkbI&amp;amp;list=PLfe_xoh6xHLk&amp;amp;index=4">Figma 设计智能体</a>。</p>
+<figure><img src="../figures/workflow-lab-figma-make-deploy/01-regionalized-10471946c84d3a43322e54a3d6c.avif" alt="" loading="lazy" decoding="async"></figure>
+<p>Laura 擅长折腾设计系统、材料，有时还折腾自己（经常是倒立着）。她喜欢说自己住在一块岩石下面，那是她远离喧嚣的创意避世之所。她的创作流程靠的是清晨遛狗、一个兼任心理咨询师的第二大脑，以及拒绝去做所有人都在做的东西。</p>
+<p><a href="https://x.com/wargewesen">X</a><a href="https://www.instagram.com/thecraftdraft_____/">Instagram</a></p>
+<h2 id="section-8">相关文章</h2>
+<ul><li><a href="https://www.figma.com/blog/figma-make-now-on-your-local-code/">Figma Make，现已支持你的本地代码</a><a href="https://www.figma.com/blog/inside-figma/">Inside Figma</a><a href="https://www.figma.com/blog/product-updates/">产品更新</a><a href="https://www.figma.com/blog/figma-make/">Figma Make</a><a href="https://www.figma.com/blog/design/">设计</a><a href="https://www.figma.com/blog/ai/">AI</a><a href="https://www.figma.com/blog/prototyping/">原型设计</a><a href="https://www.figma.com/blog/news/">新闻</a></li><li><a href="https://www.figma.com/blog/workflow-lab-expanding-the-canvas-with-figma-mcp/">工作流实验室：用 Figma MCP 拓展画布</a><a href="https://www.figma.com/blog/working-well/">Working Well</a><a href="https://www.figma.com/blog/figma-mcp/">Figma MCP</a><a href="https://www.figma.com/blog/ai/">AI</a><a href="https://www.figma.com/blog/figma-design/">Figma Design</a><a href="https://www.figma.com/blog/dev-mode/">Dev Mode</a><a href="https://www.figma.com/blog/tips-and-inspiration/">提示与灵感</a></li><li><a href="https://www.figma.com/blog/workflow-lab-ai-image-tooling/">工作流实验室：Figma 中的 AI 图像工具与交互式原型设计</a><a href="https://www.figma.com/blog/working-well/">Working Well</a><a href="https://www.figma.com/blog/ai/">AI</a><a href="https://www.figma.com/blog/figjam/">FigJam</a><a href="https://www.figma.com/blog/figma-design/">Figma Design</a><a href="https://www.figma.com/blog/figma-make/">Figma Make</a><a href="https://www.figma.com/blog/prototyping/">原型设计</a><a href="https://www.figma.com/blog/tips-and-inspiration/">提示与灵感</a></li></ul>
+<h2 id="section-9">使用 Figma 创作与协作</h2>
+<p>免费开始使用</p>
+<section class="video-index"><h3>文章中的视频</h3><ul><li><a href="https://www.youtube.com/watch?v=Q3BkuQRBg-w" target="_blank" rel="noreferrer">designing in code</a><span class="video-provider">YouTube</span></li><li><a href="https://www.youtube.com/watch?v=0HqSSIPZkbI" target="_blank" rel="noreferrer">Figma design agent</a><span class="video-provider">YouTube</span></li></ul></section>
+<p style="margin-top:3em"><a class="readorig" href="https://www.figma.com/blog/workflow-lab-deploying-designs-directly-with-figma-make/" target="_blank" rel="noopener">阅读原文 →</a></p>
 </article>
+<footer class="mono">原文 © Laura Fehre · 本页为自动生成的中文译文，仅供学习参考</footer>
+<script>
+(function () {
+  function play(frame) {
+    var embed = frame.getAttribute('data-embed');
+    var direct = frame.getAttribute('data-direct') === '1';
+    var url = frame.getAttribute('data-video-url') || '';
+    var title = frame.getAttribute('data-title') || '视频';
+    if (direct && url) {
+      var video = document.createElement('video');
+      video.src = url;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      var poster = frame.getAttribute('data-poster');
+      if (poster) video.poster = poster;
+      frame.innerHTML = '';
+      frame.appendChild(video);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (embed) {
+      var iframe = document.createElement('iframe');
+      iframe.src = embed;
+      iframe.title = title;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('loading', 'eager');
+      frame.innerHTML = '';
+      frame.appendChild(iframe);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (url) window.open(url, '_blank', 'noopener');
+  }
+  document.querySelectorAll('.video-frame[data-video-url]').forEach(function (frame) {
+    frame.addEventListener('click', function () { play(frame); });
+    frame.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); play(frame); }
+    });
+  });
+})();
+</script>
 </body></html>

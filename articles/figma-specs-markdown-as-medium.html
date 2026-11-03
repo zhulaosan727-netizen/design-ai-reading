@@ -1,144 +1,121 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Specs：把 Markdown 做成画布上的协作容器 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E4E8F2">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Specs：把 Markdown 做成画布上的协作容器 · 读本</title><link rel="stylesheet" href="../assets/style.css"><style>.video-card{margin:1.8em 0}.video-frame{position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--rule);background:#CFCFCF;cursor:pointer}.video-frame img,.video-frame iframe,.video-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block}.video-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#7A1E2B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px}.video-card figcaption{margin-top:10px;font-size:14px;opacity:.8}.video-index{margin:2em 0;padding:16px 18px;border:1px solid var(--rule)}article.body figure img{width:100%;height:auto;display:block}article.body figcaption{margin-top:8px;font-size:14px;opacity:.75}</style></head><body class="article" style="--tint:#E4E8F2">
 <section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 38 · AI 设计工作流 / Specs / Markdown / MCP / Figma agent / context / PRD</div><h1>Specs：把 Markdown 做成画布上的协作容器</h1><div class="en">Introducing Specs: Markdown as a medium</div></div>
-<dl class="meta mono"><dt>作者</dt><dd>Luke Zhang / Johnny Dallas / Aosheng Ran</dd><dt>身份</dt><dd>Product Manager / Software Engineer / Product Designer, Figma</dd><dt>日期</dt><dd>2026-10-15</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/introducing-figma-specs/">figma.com/blog ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/introducing-figma-specs/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<dl class="meta mono"><dt>作者</dt><dd>Luke Zhang / Johnny Dallas / Aosheng Ran</dd><dt>署名</dt><dd>Product Manager / Software Engineer / Product Designer, Figma</dd><dt>日期</dt><dd>2026-10-15</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/introducing-figma-specs/">figma.com ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/introducing-figma-specs/" target="_blank" rel="noopener">阅读原文 →</a></div>
 <figure class="cover"><img src="../covers/figma-specs-markdown-as-medium.svg" alt="Introducing Specs: Markdown as a medium 封面"></figure></section>
 <article class="body">
-<p class="notice">深度精讲：这不是译文，而是编者按「意图的持久住所」视角重写并扩写的讲解。Figma 于 2026-10-15 推出 Specs——把 Markdown 从本地单人文件抬成画布上的多人容器，让文字意图与图、代码层、FigJam 同屏，再经 MCP 交给编码 Agent。读本已有多篇谈 Figma Agent、design.md、Skill（No.33–35）；<b>本篇补上缺的一环：当 Agent 进场后，设计意图应该住在哪里</b>。下文用对照表、Zhu 清单与提示词模板把 Specs 讲透。细节请点上方「阅读原文」。</p>
+<p class="notice">中文全文译文：由「译文工坊」根据英文原文自动翻译生成，供学习参考。结构与措辞以译文为准；想看原始论述，请点上方「阅读原文」。</p>
 <nav class="toc"><div class="mono">本篇目录</div><ol>
-<li>先给结论：三句话读懂 Specs</li>
-<li>为什么本地 .md 不够用了</li>
-<li>Specs 是什么：画布上的多人上下文容器</li>
-<li>怎么建、怎么嵌、Agent 怎么参与</li>
-<li>一条真实工作流：Noah Finer 造 Specs 本身</li>
-<li>连接器：GitHub 与 Hex 把外部真相拉进意图</li>
-<li>材料之间怎么流动：PRD ↔ 设计 ↔ 代码层</li>
-<li>定方向与飞轮：探索 → 沉淀 → 再探索</li>
-<li>交给编码 Agent：MCP + 链接即上下文</li>
-<li>本地 AGENTS.md / design.md vs 画布 Specs</li>
-<li>Zhu 清单：何时放进 Specs</li>
-<li>提示词模板：FigJam + frames → 可交付技术规格</li>
-</ol></nav>
+<li><a href="#section-1">分享《Specs 发布：以 Markdown 为媒介》</a></li><li><a href="#section-2">在画布上的各种素材间自由切换</a></li><li><a href="#section-3">把方向固化下来</a></li><li><a href="#section-4">发布到生产环境</a></li><li><a href="#section-5">相关文章</a></li><li><a href="#section-6">使用 Figma 创作与协作</a></li></ol></nav>
 
-<h2>01 先给结论：三句话读懂 Specs</h2>
-<p><b>第一，Markdown 已是和 Agent 协作的默认格式，但本地 .md 是单人、脆的、和项目弱绑定的。</b>多数上下文是短暂的；少数会演化成需要反复打磨、多人共写的关键输入——后者需要新容器。</p>
-<p><b>第二，Specs = 住在 Figma / FigJam 画布上的多人容器：</b>承载共享决策，并能引用 / 嵌入画布上的图、代码层、设计、frame、FigJam 节点，让文字与视觉并排，而不是截图或过期链接。</p>
-<p><b>第三，工作流闭环是：</b>用 Agent 拉入外部上下文 →  refinement 成详细 Spec → 经 Figma MCP 送给编码 Agent（或在画布上建 code layer 边学边改）。对 Zhu：Specs 是「意图的持久家」，本地 AGENTS.md / design.md 仍管仓库规则；两者互补，不是替换。</p>
-
-<h2>02 为什么本地 .md 不够用了</h2>
-<p>越来越多产品建造者用 Markdown 和 Agent 协作——它几乎是分享上下文的事实标准。但原文点破：Markdown 帮助表达的上下文之外，它也缺很多上下文。本地 .md 往往是 single-player、文件之间关系脆、和「生出它的那个项目」几乎没什么硬绑定。</p>
-<p>短暂上下文可以扔进聊天；会演化成关键输入、需要 refinement 与协作的那些——才值得 Specs。这和读本谈过的「durable context」同一问题：Agent 越强，意图越需要一个不会丢、可评论、可嵌入真材实料的住所。</p>
-<div class="note"><p>Zhu 的对照：个人站仓库里的 <code>AGENTS.md</code> / <code>design.md</code> 很好——但它们看不见你 FigJam 里刚定的信息架构，也嵌不进那组已标 ready for dev 的 frame。Specs 要解决的正是「文字意图」和「画布真相」分裂的那条缝。</p></div>
-
-<h2>03 Specs 是什么：画布上的多人上下文容器</h2>
-<p>Specs 装的是共享决策（shared decisions），并引用你在画布上的工作——diagrams、code layers、designs 等等。它带有 Figma 独有的协作能力：可以把 FigJam 文件、frame、或画布上任意节点嵌进 Spec，于是文本与设计并排，而不是截图或 stale links。</p>
-<p>因为 Figma agent 能读、能回评论，你可以像跟人协作一样和 Agent 协作——同一份 Spec 上开多条评论线程并行。</p>
-<table><tr><th></th><th>本地 .md / PRD 文档</th><th>画布 Specs</th></tr>
-<tr><td>玩家</td><td>多为单人；评论靠外链工具</td><td>多人 + Agent 同屏评论</td></tr>
-<tr><td>与设计的关系</td><td>截图 / 链接，易过期</td><td>嵌入 frame / FigJam / 节点，可拖出再拖回</td></tr>
-<tr><td>与代码的关系</td><td>口头对齐或另开 ticket</td><td>经 MCP 整包上下文；可旁挂 code layer</td></tr>
-<tr><td>演化</td><td>文件分叉、版本难对齐</td><td>画布上的 durable 落点；可复制多版再收敛</td></tr>
-<tr><td>适合</td><td>仓库常驻规则、CI 约定</td><td>仍在成形的意图、跨角色决策</td></tr></table>
-
-<h2>04 怎么建、怎么嵌、Agent 怎么参与</h2>
-<p>创建：键盘 <b>D</b>，或点工具栏里的 Specs 图标（Figma / FigJam 皆可）。现有 Markdown：把任意 <code>.md</code> 拖进画布即可变成 Spec。</p>
-<p>原文演示路径包括：把一份 PRD Spec 拖上画布，再让 Agent 结合 FigJam 脑暴里的新想法去扩展与 refine；Agent 可直接在 Spec 里回复评论。嵌入不是装饰——拖进画布内容（探索稿、用户流图）后，再拖出去仍可保留 Figma 属性。</p>
-<pre><code># Specs 最小上手
-1. D / 工具栏 Specs → 空白 Spec
-2. 或：把 PRD.md / tech-spec.md 拖上画布
-3. 从画布拖入 frame / FigJam 节点嵌入正文旁
-4. @Agent 或评论区：请按 FigJam 结论补「开放问题」一节
-5. 定稿后复制 Spec 链接 → 贴进编码 Agent 的 prompt（经 MCP）
-</code></pre>
-
-<h2>05 一条真实工作流：Noah Finer 造 Specs 本身</h2>
-<p>Figma 工程师 Noah Finer 在做 Specs 功能时，用 Spec 给自己的编码 Agent 提供上下文：先写 guiding principles 覆盖边界情况，嵌入 FigJam 流程图，再分享给同事评论。</p>
-<blockquote>After the spec was finalized, I provided it along with my coworkers’ comments as context to my agent via the Figma MCP server. — Noah Finer（Figma eng，原文）</blockquote>
-<p>代码推进时，他用 MCP 回写画布上的原 Spec；并持续让 Agent 经 MCP 在 FigJam 画新图、嵌回 Spec、发给做 code review 的同事。这是「意图 ↔ 实现」双向更新，而不是一次性丢给 Agent 的死文档。</p>
-<div class="note"><p>可抄的节奏：原则 + 图 → 人评 → MCP 给编码 Agent → 实现反哺 Spec → 新图嵌回给 reviewer。Specs 不是写完就归档的 PRD，而是活在画布上的工作内存。</p></div>
-
-<h2>06 连接器：GitHub 与 Hex 把外部真相拉进意图</h2>
-<p>Connectors 把外部上下文拉进 Specs。起草技术规格时，可用 <b>GitHub connector</b> 从代码库拉上下文；若团队用 <b>Hex</b> 做产品用量分析，而 PRD 里还留着开放问题——选中问题、挂上 Hex connector，让 Agent 跑分析并把结论以评论形式写回 Spec，「答案落在提问的位置」。</p>
-<table><tr><th>连接器</th><th>典型用法</th><th>落点</th></tr>
-<tr><td>GitHub</td><td>技术 Spec 对齐现有代码结构 / 约定</td><td>Spec 正文或附注</td></tr>
-<tr><td>Hex</td><td>用数据回答 PRD 开放问题</td><td>对该问题的评论</td></tr>
-<tr><td>（画布本体）</td><td>设计探索、用户流图</td><td>嵌入节点，可拖出编辑</td></tr></table>
-
-<h2>07 材料之间怎么流动：PRD ↔ 设计 ↔ 代码层</h2>
-<p>Specs 住在协作画布旁，紧挨它所描述的工作。可复制多份，让每人先改自己的版本再对齐方向。</p>
-<p>Intuit Staff PD <b>Mark Harvey</b> 做图标系统时，把 Spec 放在图标旁边：每条记 filename、category、search tags、description——设计文件对非设计师也更好读。原文引用他的话大意：用一致格式的结构化文档，文件对非设计师更 accessible、更好 follow。</p>
-<p>材料之间可以流体移动：Agent 把 PRD → designs / prototypes / code；也可把 designs / code → Spec。若在用 open beta 的 <b>code layers</b>（画布上的可运行代码），可选 <b>Extract designs</b>，按单屏 / 某状态 / 完整流程抽回可编辑设计层；在意图上加注释，工程师标 ready for dev 后，frame 继续挨着 Spec，双方对齐「到底要 ship 什么」。</p>
-
-<h2>08 定方向与飞轮：探索 → 沉淀 → 再探索</h2>
-<p>上下文一多，很难合成清晰下一步。无论是工程师在屏幕上的批注、描述新 DS 模式的 code layer、还是 crit 里的反馈，都可以合成一份可编辑文档，和相关上下文并排——任何人 zoom out 都能看到结构化文字 + 材料。</p>
-<p>研究员 <b>Mike Blight</b>：探索时用 stickies / comments / annotations 推拉方案；反馈齐了，把决策与仍开放的问题收进 Spec；下一轮探索就有上一轮的 jumping-off point。他的飞轮：Explore together → consolidate → keep moving；Specs 给思考一个 durable place to land。</p>
-<p>工程师 <b>Kat Busch</b>：准备广而告知时，把工作收进 Spec；Agent 当 Markdown 读。例如功能改名，可提示 Agent 直接改 Spec——「和 Agent 协作、又要广而分享」时最省事的方式。</p>
-
-<h2>09 交给编码 Agent：MCP + 链接即上下文</h2>
-<p>经 Figma MCP，像 Codex 这样的 Agent 可以读一份 Spec，并看到它链接的全部上下文：Markdown、frames、diagrams、code layers、Code Connect snippets。团队方向对齐后：复制 Spec 链接，贴进编码 Agent 的 prompt——上下文整包带走。</p>
-<p>Specs 现为 open beta，全计划可用（web / desktop / mobile）。对 Zhu：这比「导出一堆截图 + 口头讲 PRD」稳定得多；也比只丢一个 GitHub 里的 <code>spec.md</code> 更贴近设计真相。</p>
-<table><tr><th>交接方式</th><th>编码 Agent 看到什么</th><th>风险</th></tr>
-<tr><td>截图 + 聊天口述</td><td>碎片、易过期</td><td>漏状态、漏注释</td></tr>
-<tr><td>仅仓库 Markdown</td><td>文字完整，缺画布节点</td><td>和最新 frame 漂移</td></tr>
-<tr><td>Specs 链接 + MCP</td><td>文 + 嵌图 + 代码层 + Code Connect</td><td>需 Spec 本身维护得当</td></tr></table>
-
-<h2>10 本地 AGENTS.md / design.md vs 画布 Specs</h2>
-<p>不要二选一。仓库 Markdown 管「永远生效的规则」；Specs 管「这个方向正在成形的意图与证据」。</p>
-<table><tr><th></th><th>AGENTS.md / design.md（仓库）</th><th>Specs（画布）</th></tr>
-<tr><td>生命周期</td><td>长；跨任务常驻</td><td>中；随功能 / 探索轮次</td></tr>
-<tr><td>读者</td><td>编码 Agent、CI、未来的你</td><td>PM / 设计 / 工程 / Figma Agent</td></tr>
-<tr><td>内容</td><td>口味硬规则、目录约定、禁止事项</td><td>PRD、决策、开放问题、嵌图、数据评论</td></tr>
-<tr><td>多人</td><td>靠 PR</td><td>画布原生 + 评论线程</td></tr>
-<tr><td>和视觉</td><td>弱（除非再嵌链接）</td><td>强（嵌入节点）</td></tr>
-<tr><td>交给编码 Agent</td><td>默认进上下文</td><td>复制链接 / MCP 显式附上</td></tr></table>
-<div class="note"><p>跨篇：读本谈过 Atlassian DESIGN.md、Figma Agent Skills、Uber/Granola 用法——那些是「怎么让 Agent 懂你的系统」。Specs 补的是「系统之上、这一单功能的意图住哪」。先有仓库规则，再有画布 Spec；顺序反了容易把一次性 PRD 写进 AGENTS.md，污染全局。</p></div>
-
-<h2>11 Zhu 清单：何时放进 Specs</h2>
-<pre><code># 放进 Specs（画布）的信号
-[ ] 决策还在变，需要评论线程与 Agent 同屏改
-[ ] 必须并排看到 frame / FigJam / 流程图，截图会过期
-[ ] 开放问题要用 GitHub / Hex 等连接器回答并落回原文
-[ ] 准备把同一包上下文经 MCP 交给 Codex 等编码 Agent
-[ ] 多角色（PM / 设计 / 工程）要对齐「到底 ship 什么」
-[ ] 图标 / DS 条目等需结构化说明紧挨视觉稿（Harvey 模式）
-
-# 留在仓库 Markdown 的信号
-[ ] 口味与硬禁令（如禁止卡片左侧色条）——应进 AGENTS.md / skill
-[ ] 目录结构、部署、测试命令——每次对话都该在
-[ ] 与某一功能无关的长期约定
-
-# 不要做的
-[ ] 把仍在脑暴的粘滞便签直接当最终 Spec 丢给编码 Agent
-[ ] Spec 定稿后不再回写（Noah 的反例：实现要反哺 Spec）
-[ ] 只用 Specs 替代 design.md——全局规则会丢
-</code></pre>
-
-<h2>12 提示词模板：FigJam + frames → 可交付技术规格</h2>
-<pre><code>你在 Figma 画布上操作。当前已有：
-- FigJam：&lt;脑暴 / 流程板名称&gt;
-- Frames：&lt;关键屏 / 状态，已标或未标 ready for dev&gt;
-- （可选）现有 PRD.md 已拖成 Spec
-
-请生成 / 更新一份 Spec，结构如下：
-1. 目标与非目标（各 3–5 条）
-2. 用户流程（嵌入相关 FigJam 节点，勿截图）
-3. 界面范围（嵌入 frames；注明哪些状态未覆盖）
-4. 共享决策（已定）与开放问题（未定）
-5. 工程约束（若有 GitHub connector，先拉代码库约定）
-6. 验收标准（可测试、可演示）
-7. 给编码 Agent 的交接摘要（≤15 行）
-
-约束：
-- 不确定处写成开放问题，不要编造答案
-- 保留同事已有评论；对开放评论给出建议回复草稿
-- 完成后给出 Spec 链接，供我粘贴进编码 Agent（MCP）
-</code></pre>
-<ul>
-<li>你最近一份「给 Agent 的说明」是仓库 md，还是和 frame 脱节的聊天？</li>
-<li>开放问题是留在 Notion 里腐烂，还是能在提问处被数据评论回答？</li>
-<li>编码 Agent 拿到的是链接整包上下文，还是一堆过期截图？</li>
-<li>实现推进时，Spec 有没有被 MCP 回写？</li>
-<li>全局口味规则是否误塞进了某次功能 Spec？（应回到 AGENTS.md / Skill）</li>
-</ul>
-<div class="note"><p>收束给 Zhu：Specs 的真正命题不是「又一个文档类型」，而是——<b>当 Agent 进入设计与工程循环，意图需要一个多人的、可嵌入真相的、能经 MCP 整包交接的家</b>。本地 Markdown 仍管常驻规则；画布 Specs 管正在成形的方向。下一周做功能前先问：这份上下文会过期吗？需要和图并排吗？要交给编码 Agent 吗？三个「是」，就按 D，开一份 Spec。</p></div>
+<figure><img src="../figures/figma-specs-markdown-as-medium/01-regionalized-a85c83e9695e83505704515425d.avif" alt="" loading="lazy" decoding="async"></figure>
+<p>Luke Zhang，Figma 产品经理</p>
+<figure><img src="../figures/figma-specs-markdown-as-medium/02-regionalized-cd07278409c7dde6161b239b571.avif" alt="" loading="lazy" decoding="async"></figure>
+<p>Johnny Dallas，Figma 软件工程师</p>
+<figure><img src="../figures/figma-specs-markdown-as-medium/03-regionalized-6ef410fd9136724d7451b57fc8b.avif" alt="" loading="lazy" decoding="async"></figure>
+<p>Aosheng Ran，Figma 产品设计师</p>
+<ul><li><a href="https://www.figma.com/blog/inside-figma/">Figma 内部</a></li><li><a href="https://www.figma.com/blog/product-updates/">产品更新</a></li><li><a href="https://www.figma.com/blog/config/">Config</a></li><li><a href="https://www.figma.com/blog/news/">新闻</a></li></ul>
+<p>我们推出了 Specs：一个存放上下文的容器，直接位于 Figma 画布之上。</p>
+<h2 id="section-1">分享《Specs 发布：以 Markdown 为媒介》</h2>
+<p>将任意 .md 文件拖放到画布上，即可把现有的 Markdown 变成规格说明。</p>
+<p>如今，随着与智能体协作逐渐成为常态，越来越多的产品构建者开始使用 Markdown 工作。它已成为共享上下文的事实标准格式。但 Markdown 虽然能帮我们表达大量上下文，也缺失了不少上下文。Markdown 文件往往是本地电脑上的“单人游戏”，文件之间的关联脆弱，也很少与催生它们的项目挂钩。大多数上下文转瞬即逝，但有些上下文会演变为关键输入，需要随时间推移不断打磨，并经过协作完善。因此我们打造了 Specs：一个支持多人协作的容器，让上下文得以充分表达，并能流入、流出 Figma，以及在其中流转。</p>
+<p>Specs 承载你们共同做出的决策，并引用你在画布上的工作成果，包括图表、代码图层、设计稿等。它具备 Figma 独有的协作功能，例如可以直接在规格说明中嵌入 FigJam 文件、画框或画布上的任意节点，让文字与设计并排呈现，而不是散落在截图或过期链接里。而且由于 <a href="https://www.figma.com/blog/3-ways-product-designers-use-the-figma-agent/">the Figma agent3 ways product designers use the Figma agent for craft, speed, and creative expressionHere’s how teams at Uber, Granola, and Atlassian support high-quality, fast-moving work with the Figma agent, now generally available.</a> 可以阅读并回复评论，你可以像与真人协作者合作一样与智能体协作。</p>
+<p>借助 Figma 中的 Specs，团队和智能体可以把书面意图、视觉探索与技术细节汇集成一份共享计划，引导智能体从原型走向正式产品。</p>
+<p>Figma 的智能体可以直接在规格说明中回复评论。</p>
+<p>将 PRD 规格说明拖到画布上，然后让智能体根据 FigJam 头脑风暴中的新想法对其进行扩展和完善。</p>
+<figure><a href="https://www.figma.com/blog/build-by-design/" target="_blank" rel="noreferrer"><img src="../figures/figma-specs-markdown-as-medium/04-i-ysu2d6xblwkaaaaasuvork5cyii.png" alt="Config India 发布回顾：展示协作式应用设计、“Build this with code”选项，以及用于添加书签功能的 AI 提示词。" loading="lazy" decoding="async"></a></figure>
+<figure><a href="https://www.figma.com/blog/build-by-design/" target="_blank" rel="noreferrer"><img src="../figures/figma-specs-markdown-as-medium/05-regionalized-6fb8bfd609660ecc0fc8729137a.avif" alt="Config India 发布回顾：展示协作式应用设计、“Build this with code”选项，以及用于添加书签功能的 AI 提示词。" loading="lazy" decoding="async"></a></figure>
+<p>了解本周<a href="https://www.figma.com/blog/build-by-design/">所有发布内容</a>。</p>
+<h4 id="">Figma MCP 的新变化</h4>
+<p>→ MCP 现在能减少错误和 Token 用量，让团队更快、更高效。</p>
+<p>→ 智能体可以生成图像、创建代码图层，并运行 Weave 工作流。</p>
+<p>→ <a href="https://www.figma.com/mcp-catalog/">20 个新集成</a>将 Figma 的上下文和能力带入你更多的工具。</p>
+<p>要创建规格说明，只需在键盘上按“D”，或点击 Figma 或 FigJam 工具栏中的 Specs 图标。</p>
+<p>Specs 是设计意图成形的地方。你可以借助智能体引入外部上下文，一起把粗略的想法打磨成详尽的规格说明，再通过 <a href="https://www.figma.com/blog/the-tldr-on-mcp/">Figma 的 MCP 服务器关于 MCP 的简明解读：为什么上下文很重要，以及如何用好它Figma 的 MCP 服务器把你的设计决策带入编写代码的工具中，让最终构建出来的产品与设计保持一致。以下是它能为每一位产品构建者带来的改变。</a>发送给你的编程智能体，或者在上面构建代码图层，并随着认知的深入不断完善规格说明。</p>
+<p>例如，Figma 软件工程师 Noah Finer 在构建 Specs 功能时，创建了一份规格说明，为他的编程智能体提供上下文。他先写下规格说明，梳理处理边缘情况的指导原则，嵌入 FigJam 中的图表来展示流程，然后分享给同事评论。“规格说明定稿后，我通过 Figma MCP 服务器，把它连同同事们的评论一起作为上下文提供给智能体，”他说。“随着代码不断推进，我用 MCP 在画布上更新最初的规格说明。我还持续让智能体通过 MCP 在 FigJam 中创建新图表，嵌入 Specs，再发送给负责代码评审的同事。”</p>
+<figure><img src="../figures/figma-specs-markdown-as-medium/06-lnkz8kvapix3isxo0oqnvw7swmtk4dlo5xcn7sog.png" alt="使用 GitHub 编写打包交付技术规格说明的提示词，旁边是生成的规格说明文档。" loading="lazy" decoding="async"><figcaption>使用 GitHub 连接器，基于你的代码库起草技术规格说明。</figcaption></figure>
+<figure><img src="../figures/figma-specs-markdown-as-medium/07-regionalized-bbbca76b8e9aa644e38e72e1eb4.avif" alt="使用 GitHub 编写打包交付技术规格说明的提示词，旁边是生成的规格说明文档。" loading="lazy" decoding="async"></figure>
+<figure><img src="../figures/figma-specs-markdown-as-medium/08-fx2zmiqgc-l6p-xyomaxlxswwwk3xmewmulgp9te.png" alt="使用 Hex 分析交付指标表并将结果留在评论中的提示词。" loading="lazy" decoding="async"><figcaption>提示智能体使用 Hex 连接器运行分析，并将结果留在评论中。</figcaption></figure>
+<figure><img src="../figures/figma-specs-markdown-as-medium/09-regionalized-55441e5a560346ce7e34eb77d75.avif" alt="用于通过 Hex 分析交付指标表，并将结果以评论形式留下的提示词。" loading="lazy" decoding="async"></figure>
+<p>连接器还能把外部上下文带进 Specs。例如在撰写技术规格说明时，你可以通过 GitHub 连接器，直接从代码库中提取上下文。再比如，你的团队用 Hex 查看产品使用数据，而 PRD 里有个悬而未决的问题，恰好可以用这些数据来回答。选中这个问题，添加 Hex 连接器，让智能体运行分析，并把结论作为评论留在规格说明上。答案就落在文档里，正是提出问题的地方。</p>
+<p>你也可以把 Figma 画布上的内容拖进来，比如和团队一起头脑风暴出的设计探索，或是某个拟议用户流程的示意图。之后再把它们拖出去时，Figma 属性依然会保留。</p>
+<p>和团队一起迭代画布上的规格说明：把元素拖出去编辑，再把修改后的内容和新元素拖回来。</p>
+<h2 id="section-2"><a href="https://www.figma.com/blog/introducing-figma-specs/#move-between-materials-on-the-canvas">在画布上的各种素材间自由切换</a></h2>
+<p>你的规格说明就放在 Figma 的协作画布上，紧挨着它所描述的作品。你可以把现有的 Markdown 文件拖到画布上，也可以让 Figma 的智能体在设计和代码旁边起草规格说明。你还可以在画布上复制规格说明，让团队成员各自同时处理自己的版本，再统一方向。</p>
+<p>Intuit 的资深产品设计师 Mark Harvey 使用 Intuit Design System，正在设计一套新图标。为了记录这些图标，Mark 在 Figma 画布上图标的旁边添加了一份规格说明。每个条目都记录了图标的文件名、类别、搜索标签和描述，团队可以在同一个地方查看图标及其详细信息。“用排版清晰的方式记录下来非常有帮助，”Mark 说。“有了 Specs，引入一份结构清晰、格式统一、在每个文件里都保持一致的文档，设计文件对非设计师来说就更易于理解，也更容易跟进。”</p>
+<figure><img src="../figures/figma-specs-markdown-as-medium/10-omb-fd5j-yn87aeuitnbjjo9u-4xcecfz3nz8g27.png" alt="在 Specs 中使用智能体创建组件" loading="lazy" decoding="async"><figcaption>查看设计系统组件，并让 Figma 的智能体把使用上下文记录到规格说明中，在画布上并排呈现。</figcaption></figure>
+<figure><img src="../figures/figma-specs-markdown-as-medium/11-regionalized-d89a510a2d9768f462349e33558.avif" alt="在 Specs 中使用智能体创建组件" loading="lazy" decoding="async"></figure>
+<blockquote><p>有了 Specs，引入一份结构清晰、格式统一、在每个文件里都保持一致的文档，设计文件对非设计师来说就更易于理解，也更容易跟进。</p></blockquote>
+<blockquote><p>“有了 Specs，把结构清晰、格式统一的文档带进每个文件，非设计师也能更轻松地看懂、跟上设计文件。”</p></blockquote>
+<p>Mark Harvey，Intuit 资深产品设计师</p>
+<p>在与团队头脑风暴时，你可以在不同的基础元素之间自如切换。用 Figma 智能体把 PRD 变成设计、原型和代码，也可以把设计和代码反过来整理成规格说明。如果你的团队正在用<a href="https://www.figma.com/blog/design-together-with-code-layers/">代码图层在画布上与代码一同设计今天，代码图层进入公开测试版。现在团队可以在画布上探索并构建由代码支撑的原型。</a>进行探索，把可运行的代码带到画布上，选择 <code>Extract designs</code> 就能把它当前的状态转换回可编辑的设计图层。带回哪些内容由你决定：单个界面、某个特定状态，或完整的流程。为设计意图添加标注；工程师给出意见并把画框标记为可供开发之后，把它们和规格说明放在一起，这样设计师和工程师对最终要发布的内容就能保持一致。</p>
+<p>把规格说明变成代码图层，或把设计和代码整理成技术规格说明。</p>
+<h2 id="section-3"><a href="https://www.figma.com/blog/introducing-figma-specs/#codify-a-direction">把方向固化下来</a></h2>
+<p>上下文太多时，很难把它们提炼成清晰的下一步。无论你是想梳理工程师在界面上的标注、一个描述新设计系统模式的代码图层，还是设计评审中的反馈，都可以把这些输入整合成一份可编辑的文档，与你正在规划的内容放在一起。这样，任何人都可以缩小视野，在所有相关上下文旁边看到结构化的书面产出。</p>
+<p>Figma 研究员 Mike Blight 在探索产品方向时，协作者会用便签、评论和标注来反复推敲各个选项。大家的反馈都收齐之后，他会把决定汇总到一份规格说明里，其中也包括团队仍在思考的问题。等团队准备开启下一轮探索时，上一次头脑风暴的上下文就成了现成的起点。“对我来说，这就是飞轮：一起探索，把成果沉淀下来，让工作持续向前，”Mike 说。“画布上有了 Specs，我们的思考就有了一个可以长久留存的落脚点，也有了下一步的起点。”</p>
+<figure><img src="../figures/figma-specs-markdown-as-medium/12-lfjqoc70qvevae7smrtqktbsam5xqbn5bh6idekj.png" alt="TK" loading="lazy" decoding="async"><figcaption>在 FigJam 中使用 Specs 进行头脑风暴，并与团队协作。</figcaption></figure>
+<figure><img src="../figures/figma-specs-markdown-as-medium/13-regionalized-0d1d3358cc87c9238ea116581c7.avif" alt="TK" loading="lazy" decoding="async"></figure>
+<p>Figma 的智能体也可以参与协作。由于它能够读取和撰写 Specs 中的评论，你可以让它为规格说明上每一条未解决的评论回复一个建议的修复方案，同时团队成员也在同一份文档中发表意见。每场讨论都在各自的线程里进行，因此你可以像与真人协作一样，并行处理多个线程。</p>
+<p>当 Figma 软件工程师 Kat Busch 准备好广泛分享自己的工作时，她会把内容整理成一份规格说明，之后她的智能体就可以将其作为 Markdown 读取。例如，如果某个功能的名称发生变化，她可以通过提示词让智能体直接更新规格说明。“对于我想广泛分享的内容，这是与智能体协作最简单的方式，”Kat 说。</p>
+<h2 id="section-4"><a href="https://www.figma.com/blog/introducing-figma-specs/#ship-it-to-production">发布到生产环境</a></h2>
+<p>通过 <a href="https://www.figma.com/blog/4-ways-were-using-our-mcp-server-at-figma/">Figma MCP（模型上下文协议）服务器</a>，Codex 等智能体可以读取规格说明，并查看其中链接的所有上下文。</p>
+<p>团队就方向达成一致后，你可以把技术规格说明交给编码智能体去实现。只需复制规格说明的链接，并将其添加到你在编码智能体中的提示词里，所有上下文都会随之带上，包括 Markdown、对画框的引用、图表、代码图层以及 <a href="https://help.figma.com/hc/en-us/articles/23920389749655-Code-Connect">Code Connect</a> 代码片段。</p>
+<p>从最初的想法到最终的构建，Specs 为你的团队和智能体提供了一个共同的地方来打磨计划，并提供据此行动所需的上下文。</p>
+<p>无论你是撰写 PRD 的 PM、记录决策的设计师，还是在规划架构变更的工程师，Specs 都能让团队中的每个人在完整上下文下探索、规划和实现。</p>
+<p>Specs 支持网页端、桌面端和移动端，目前正面向所有套餐逐步开放公测。<a href="https://www.figma.com/specs/">从这里开始使用</a>，并在<a href="https://help.figma.com/hc/en-us/articles/44049066011671">帮助中心</a>了解更多。</p>
+<figure><img src="../figures/figma-specs-markdown-as-medium/01-regionalized-a85c83e9695e83505704515425d.avif" alt="" loading="lazy" decoding="async"></figure>
+<p>Luke Zhang 是 FigJam 和 Specs 的产品经理。他与伴侣和两只猫住在美国加利福尼亚州旧金山。</p>
+<figure><img src="../figures/figma-specs-markdown-as-medium/02-regionalized-cd07278409c7dde6161b239b571.avif" alt="" loading="lazy" decoding="async"></figure>
+<p>Johnny Dallas 是 Specs 的技术负责人，常驻纽约。他于 2026 年初作为 Gather.town 团队的一员加入 Figma。</p>
+<figure><img src="../figures/figma-specs-markdown-as-medium/03-regionalized-6ef410fd9136724d7451b57fc8b.avif" alt="" loading="lazy" decoding="async"></figure>
+<p>Aosheng 负责 Specs 的产品设计，常驻美国加利福尼亚州旧金山。</p>
+<p><a href="https://twitter.com/aoshengran">X</a><a href="https://www.linkedin.com/in/aoshengran">Linkedin</a></p>
+<h2 id="section-5">相关文章</h2>
+<ul><li><a href="https://www.figma.com/blog/build-by-design/">以设计驱动构建：面向新构建方式的新工作流</a><a href="https://www.figma.com/blog/inside-figma/">Inside Figma</a><a href="https://www.figma.com/blog/product-updates/">产品更新</a><a href="https://www.figma.com/blog/config/">Config</a><a href="https://www.figma.com/blog/news/">新闻</a></li><li><a href="https://www.figma.com/blog/design-together-with-code-layers/">在画布上与代码图层一起设计</a><a href="https://www.figma.com/blog/inside-figma/">Inside Figma</a><a href="https://www.figma.com/blog/product-updates/">产品更新</a><a href="https://www.figma.com/blog/config/">Config</a><a href="https://www.figma.com/blog/news/">新闻</a></li><li><a href="https://www.figma.com/blog/websites-with-payload-in-figma/">在 Figma 中借助 Payload 创建、发布和管理数据驱动的网站</a><a href="https://www.figma.com/blog/inside-figma/">Inside Figma</a><a href="https://www.figma.com/blog/product-updates/">产品更新</a><a href="https://www.figma.com/blog/figma-make/">Figma Make</a><a href="https://www.figma.com/blog/config/">Config</a><a href="https://www.figma.com/blog/news/">新闻</a></li></ul>
+<h2 id="section-6">使用 Figma 创作与协作</h2>
+<p>免费开始</p>
+<p style="margin-top:3em"><a class="readorig" href="https://www.figma.com/blog/introducing-figma-specs/" target="_blank" rel="noopener">阅读原文 →</a></p>
 </article>
+<footer class="mono">原文 © Luke Zhang / Johnny Dallas / Aosheng Ran · 本页为自动生成的中文译文，仅供学习参考</footer>
+<script>
+(function () {
+  function play(frame) {
+    var embed = frame.getAttribute('data-embed');
+    var direct = frame.getAttribute('data-direct') === '1';
+    var url = frame.getAttribute('data-video-url') || '';
+    var title = frame.getAttribute('data-title') || '视频';
+    if (direct && url) {
+      var video = document.createElement('video');
+      video.src = url;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      var poster = frame.getAttribute('data-poster');
+      if (poster) video.poster = poster;
+      frame.innerHTML = '';
+      frame.appendChild(video);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (embed) {
+      var iframe = document.createElement('iframe');
+      iframe.src = embed;
+      iframe.title = title;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('loading', 'eager');
+      frame.innerHTML = '';
+      frame.appendChild(iframe);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (url) window.open(url, '_blank', 'noopener');
+  }
+  document.querySelectorAll('.video-frame[data-video-url]').forEach(function (frame) {
+    frame.addEventListener('click', function () { play(frame); });
+    frame.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); play(frame); }
+    });
+  });
+})();
+</script>
 </body></html>

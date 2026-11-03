@@ -1,121 +1,96 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>躲开 AI 审美默认值 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#EDE7DE">
-<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 05 · 独特审美 / 发散探索 / 对抗式评审</div><h1>躲开 AI 审美默认值</h1><div class="en">Avoid the AI Aesthetic</div></div>
-<dl class="meta mono"><dt>作者</dt><dd>Salman Ansari</dd><dt>身份</dt><dd>资深全栈工程师、作家与独立创作者（salman.io）</dd><dt>日期</dt><dd>2026-10-06</dd><dt>原文</dt><dd><a href="https://salman.io/tech/avoid-the-ai-aesthetic/">salman.io ↗</a></dd></dl><a class="readorig" href="https://salman.io/tech/avoid-the-ai-aesthetic/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>躲开 AI 审美默认值 · 读本</title><link rel="stylesheet" href="../assets/style.css"><style>.video-card{margin:1.8em 0}.video-frame{position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--rule);background:#CFCFCF;cursor:pointer}.video-frame img,.video-frame iframe,.video-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block}.video-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#7A1E2B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px}.video-card figcaption{margin-top:10px;font-size:14px;opacity:.8}.video-index{margin:2em 0;padding:16px 18px;border:1px solid var(--rule)}article.body figure img{width:100%;height:auto;display:block}article.body figcaption{margin-top:8px;font-size:14px;opacity:.75}</style></head><body class="article" style="--tint:#EDE7DE">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 05 · 独特审美 / 审美 / 发散 / 对抗评审 / 默认值</div><h1>躲开 AI 审美默认值</h1><div class="en">Avoid the AI Aesthetic</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Salman Ansari</dd><dt>署名</dt><dd>资深全栈工程师、作家与独立创作者（salman.io）</dd><dt>日期</dt><dd>2026-10-06</dd><dt>原文</dt><dd><a href="https://salman.io/tech/avoid-the-ai-aesthetic/">salman.io ↗</a></dd></dl><a class="readorig" href="https://salman.io/tech/avoid-the-ai-aesthetic/" target="_blank" rel="noopener">阅读原文 →</a></div>
 <figure class="cover"><img src="../covers/avoid-the-ai-aesthetic.svg" alt="Avoid the AI Aesthetic 封面"></figure></section>
 <article class="body">
-<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解，结构、例子、表格和模板都是编者自己的。原文以作者自己的 AutoQA 原型为例，配有方案对比；下文用文字还原流程，并补上可直接套用的提示词。想看原始论述，请点上方「阅读原文」。</p>
+<p class="notice">中文全文译文：由「译文工坊」根据英文原文自动翻译生成，供学习参考。结构与措辞以译文为准；想看原始论述，请点上方「阅读原文」。</p>
 <nav class="toc"><div class="mono">本篇目录</div><ol>
-<li>先给结论：三句话读懂这篇</li><li>那个「一眼 AI」从哪来</li><li>默认值会换装，但不会自动消失</li><li>四步流程：发散 → 定标准 → 对抗评审 →（可选）设计系统</li><li>案例：AutoQA 为什么第一版「好看但错」</li><li>第一轮：先比结构，再比配色</li><li>第二轮：先分清「任务约束」和「实现惯性」</li><li>第三轮：让新上下文来攻击你的方向</li><li>可直接用的提示词模板</li><li>自查清单</li></ol></nav>
+<li><a href="#section-1">设计迭代：推动智能体更进一步</a></li><li><a href="#section-2">一个探索示例</a></li><li><a href="#section-3">第一轮：发散式探索</a></li><li><a href="#section-4">第二轮：厘清标准</a></li><li><a href="#section-5">第三轮：对抗式评审</a></li><li><a href="#section-6">亲自试试</a></li></ol></nav>
 
-<h2>01 先给结论：三句话读懂这篇</h2>
-<p><b>第一，AI 默认审美不是工具的锅，是路径依赖。</b>你让 Agent 直接「做个产品页」，它会走到训练数据里最常见的那条路：Indigo 强调色、Inter、居中大标题加两个按钮、「Elevate your workflow」这类空话。细节会变，气质几乎不变。</p>
-<p><b>第二，模型其实很听指挥（steerable），但你必须主动推开默认值。</b>Salman 的核心主张不是换一个更贵的设计工具，而是用一套和写代码类似的迭代：先发散出真正不同的方向，再按产品标准收敛，再用对抗式评审（adversarial review）把方向里藏着的弱点逼出来。</p>
-<p><b>第三，设计系统不该一上来就写。</b>很多人一开口就让 AI 出 DESIGN.md、定色板、定字阶。原文建议反过来：先把产品任务和信息结构谈清楚，设计系统放在后面——甚至产品需求还糊着时，可以先不做。</p>
-<table><tr><th>常见做法</th><th>原文建议</th><th>结果差异</th></tr>
-<tr><td>一次提示出整站</td><td>先出 3–5 个结构真正不同的方向</td><td>从「换皮」变成「换思路」</td></tr>
-<tr><td>先定品牌色和字体</td><td>先定任务清晰度、层级、密度等标准</td><td>颜色服务意义，而不是装饰</td></tr>
-<tr><td>同一对话里反复「再改改」</td><td>用全新上下文做多视角攻击式评审</td><td>发现被自己锁死的假设</td></tr>
-<tr><td>一上来写 DESIGN.md</td><td>方向定了再写，或先不写</td><td>系统服务于已验证的方向</td></tr></table>
-
-<h2>02 那个「一眼 AI」从哪来</h2>
-<p>原文开头的画面很熟：你兴冲冲让 Agent 给新产品出设计，等它吐出来的一刻肩膀塌下去——Indigo、Inter、居中 hero、两个按钮、一句模棱两可的承诺。换模型、换措辞，还是同一种产品。</p>
-<p>Salman 半开玩笑地把锅甩给 Tailwind UI：训练语料里这类模板太多，模型一开口就往那儿靠。Tailwind 作者 Adam Wathan 甚至公开为「把 AI 生成的站都染成紫色」道过歉。但紫色只是表象。你禁止紫色、禁止 Inter，模型就会滑向下一组集体默认：奶油底配陶土色、黑底荧光绿、报纸排版……用户烦了，开发者也不想做，可默认行为成本最低，大多数人就不再费劲躲开。</p>
-<div class="note"><p>这和 Anthropic 那篇「分布收敛」是同一现象的不同说法：模型不是「不会做独特」，而是「没有额外压力时，概率最高的那个输出」正好就是大家最常见的那套。你的工作不是祈祷模型突然有品味，而是设计一套流程，让「不走默认」变成默认步骤。</p></div>
-
-<h2>03 默认值会换装，但不会自动消失</h2>
-<p>原文有一个很重要的提醒：禁令只能赶走当前默认，赶不走「默认机制」本身。模型会换一套同样常见的替代默认。所以真正要改的是工作方式，不是黑名单里的颜色名。</p>
-<p>另一条边界也写得很清楚：像 Claude Design 这类专门的设计工具，灵活度和控制力更强；但这篇文章写给「只想待在终端里」的人——不想为出第一版设计再开一整套设计 App。对 Zhu 这类一边用 AI 搭站、一边在意独特审美的人，这条路径特别贴：你已经在代码 Agent 里工作了，缺的是一套设计侧的迭代纪律，不是再装一个工具。</p>
-
-<h2>04 四步流程：发散 → 定标准 → 对抗评审 →（可选）设计系统</h2>
-<p>Salman 把设计迭代写成和写代码一样的节奏：生成选项、批判地看、再收窄。编者把它整理成四步：</p>
-<table><tr><th>步骤</th><th>做什么</th><th>刻意避免</th></tr>
-<tr><td>1. 发散（go wide）</td><td>要 3–5 个方案；结构、层级、字体、密度、个性必须真不同；至少带一个会质疑工作流本身的 wildcard</td><td>只换配色；一上来丢参考图说「做成这样」</td></tr>
-<tr><td>2. 定标准（clarify criteria）</td><td>对照产品目标，写下任务清晰度、层级、密度、无访问、响应式、实现成本里什么最重要；并排看，选一个并记录理由</td><td>凭「好看」拍板；标准事后补</td></tr>
-<tr><td>3. 对抗评审（adversarial review）</td><td>用全新上下文、不同视角攻击已选方向：用户任务、视觉层级、可访问性、怀疑的首次使用、实现约束；每人只抓最致命的弱点并给出具体改法</td><td>同一对话里让模型「夸夸再改改」</td></tr>
-<tr><td>4.（可选）设计系统</td><td>方向稳了再迭代色板、字阶、DESIGN.md</td><td>产品任务还糊着就先锁系统</td></tr></table>
-<div class="note"><p>第四步点名了 DESIGN.md，并提到 styles.refero.design 这类参考库。这和读本里 Vercel 那篇可以连着看：Vercel 是「品牌判断已经成熟，再蒸馏成文件」；Salman 是「产品方向还没验证时，别急着把系统写死」。顺序反了，系统会变成给错误方向镀金。</p></div>
-
-<h2>05 案例：AutoQA 为什么第一版「好看但错」</h2>
-<p>作者用自己的原型 AutoQA（启动 QA 运行、监控结果）走了一遍流程。第一版主要靠「dark and sleek」几轮提示，近黑底、一个亮强调色、全大写标签、疏朗大标题、圆角套圆角、发光点和状态胶囊——看起来很「完成」，但视觉选择和 QA 工具的任务几乎无关。同一套皮可以贴到任何开发者 SaaS 仪表盘上。</p>
-<p>一个具体的失误：绿色被花在按钮、装饰光晕和通用 chrome 上。对 QA 工具来说，绿应该留给「通过」（passed）。把语义色当装饰花掉，页面上最重要的信号就被稀释了。</p>
-<table><tr><th>第一版特征</th><th>看起来像</th><th>对 QA 任务的问题</th></tr>
-<tr><td>近黑 + 单一亮强调色</td><td>通用「酷」仪表盘</td><td>强调色不承载状态意义</td></tr>
-<tr><td>绿色用在按钮和装饰</td><td>活泼、现代</td><td>「通过」信号被抢走</td></tr>
-<tr><td>疏朗大标题 + 胶囊状态</td><td>精致、完成度高</td><td>证据（运行结果）没有成为主角</td></tr>
-<tr><td>圆角容器层层嵌套</td><td>模板感强</td><td>结构可套到任何产品</td></tr></table>
-
-<h2>06 第一轮：先比结构，再比配色</h2>
-<p>作者生成了四个方向：偏运维（operational）、偏证据（evidence-oriented）、冷静编辑感（calm and editorial）、以及一个尝试性的 wildcard。关键动作是：<b>先在灰度下比较</b>——结构、密度、层级必须自己站得住，颜色后补。</p>
-<p>并排一看，几条判断变得很硬：</p>
-<ul>
-<li><b>颜色留给意义。</b>失败红和通过绿要在眯眼时仍然主导。有一个方向把红装饰放在已通过的运行旁边，立刻出局。其余界面保持中性，状态还要用文字和形状兜底。</li>
-<li><b>给工作留够空间。</b>另一个方向把「Run Tests」钉在永久侧栏，把每一行运行结果挤瘦了。动作重要，但结果才是主证据面（evidence surface）。</li>
-<li><b>能塞进窄屏 ≠ 移动友好。</b>每个方案都能在手机宽度放下，但「开始一次运行」和「打开上一次结果」是否仍然清楚，是另一回事。</li>
-<li><b>产品逻辑压过视觉新鲜感。</b>这些判断并不玄：它们直接来自工具做什么。</li>
-</ul>
-<div class="note"><p>「先灰度」是设计师老招数，但对 AI 工作流特别管用。模型最爱用颜色制造虚假层级；去掉颜色，你才能看清它有没有真的组织信息。建议在提示词里写死：每个方向先交一版灰度结构稿，再上色。</p></div>
-
-<h2>07 第二轮：先分清「任务约束」和「实现惯性」</h2>
-<p>四个方向的内容和交互模型几乎一样——这不算有意义的收敛。原因是作者的 brief 要求保留现有仓库头、动作和运行列表。其中一部分「约束」其实来自更早的 LLM 实现决定，不是验证过的用户需求。把它们冻住，wildcard 就没法质疑体验本身。</p>
-<p>再开一轮之前，他先澄清了标准：</p>
-<ul>
-<li>哪些约束反映真实用户任务？</li>
-<li>哪些只是描述当前实现？</li>
-<li>wildcard 允许改什么——视觉、信息层级，还是工作流本身？</li>
-</ul>
-<p>后来的 wildcard 把页面改成围绕「最近一次结果」组织，而不是运行列表。那是真正的 UX 替代方案；执行上把 PASS 做得夸张地大，所以没有胜出，但有价值——它标出了边界。带进对抗评审的，是中性、全宽的运行历史 + 语义化状态。</p>
-
-<h2>08 第三轮：让新上下文来攻击你的方向</h2>
-<p>方向有了，下一风险是锁死在里面。作者跑了五路并行的新鲜上下文评审，三角色大致是：看 QA 工作流与 wildcard 的、看交互/可访问性/实现的、看层级与设计逻辑的。小改动修了当前方向；更有后果的是 wildcard 批评：它提议按「未解决的问题」而不是按时间线组织产品。</p>
-<p>作者没有采纳那个模型——它依赖「如何给失败分组、如何知道后续运行是否解决了问题」等未验证假设——但它改变了他对布局的想法：主单元将来也许是「需要关注的问题」，而不是「发生过的一次运行」。</p>
-<blockquote>“Functional or UX-divergent ideas are especially valuable.” — Salman Ansari</blockquote>
-<p>也就是说：别只在字体和颜色上打转；要在方向够具体、又还没锁死的窗口里，审查产品解题方式本身。否则人和模型都会在后续迭代里互相加固同一套假设。</p>
-<div class="note"><p>「新鲜上下文」很关键。同一条长对话里模型会讨好你、继承你的措辞。新开对话、指定单一视角、要求只提一个最致命弱点并给出改法，比「整体再优化一下」有效得多。这和 Anshu Chimala 那篇里的「独立评论家」是同一类纪律。</p></div>
-
-<h2>09 可直接用的提示词模板</h2>
-<p>下面三块可以直接贴进你的代码 Agent。按顺序用，不要合成一条超长提示。</p>
-<pre><code># 1) 发散：要真正不同的方向（灰度优先）
-你是产品设计师，不是模板生成器。为「[产品一句话]」提出 4 个界面方向。
-
-硬性要求：
-- 结构、信息层级、字体气质、密度、个性必须彼此真正不同（不是换色）
-- 其中 1 个是 wildcard：允许质疑当前工作流本身
-- 先给出每个方向的灰度结构说明（区块、主证据面、主操作），再给配色建议
-- 明确禁止：居中 hero + 双按钮、Inter/系统默认无、Indigo/紫渐变、「elevate your workflow」类空文案
-
-对每个方向用同一表格输出：
-| 方向名 | 结构一句话 | 主证据面是什么 | 主操作在哪 | 个性关键词 | 故意不做的默认套路 |
-</code></pre>
-<pre><code># 2) 定标准并选型
-产品目标：[谁在什么情境下要完成什么]
-评估维度（按重要性排序，可改）：任务清晰度 / 视觉层级 / 密度 / 可访问性 / 响应式可用性 / 实现成本
-
-请并排比较上一轮的 4 个方向，只选 1 个进入细化：
-- 写出每个维度的胜负与理由
-- 区分「来自真实用户任务的约束」vs「只是当前实现遗留的约束」
-- 记录落选方向里仍值得保留的一条想法
-- 不要因为「好看」或「更像成品」而加分
-</code></pre>
-<pre><code># 3) 对抗式评审（请新开对话，每次只扮演一个角色）
-角色：[用户任务苛刻评审 / 视觉层级评审 / 可访问性评审 / 怀疑的首次使用者 / 实现约束评审]
-你看不到我之前的偏好。针对附件中的界面方案：
-1. 只指出你视角下「最致命的一个弱点」
-2. 给出一条可执行的具体改法（改结构或交互，不只是改颜色）
-3. 如果存在值得考虑的 UX 分叉（换工作流而不是换皮），单独用一段说明假设是什么
-禁止恭维；禁止列一长串次要问题。
-</code></pre>
-
-<h2>10 自查清单</h2>
-<ul>
-<li>我有没有至少一次要求「结构不同」而不是「换一套色」？</li>
-<li>有没有在灰度下比较过方案？</li>
-<li>选型标准是写下来的，还是事后编的？</li>
-<li>我冻住的「产品约束」，有几条其实只是旧实现？</li>
-<li>对抗评审是新开的上下文，还是同一条对话里的「再优化」？</li>
-<li>语义色（成功/失败/警告）有没有被拿去当装饰？</li>
-<li>DESIGN.md / 设计系统是在方向验证之后才写的吗？</li>
-<li>wildcard 有没有真正碰到工作流，而不只是换布局皮肤？</li>
-</ul>
-<div class="note"><p>原文收尾很轻：每次迭代你会摸到一点自己的流程变体；一点一点，你会找到自己的审美。对私人读本来说，这篇的价值不在「再骂一遍 AI 丑」，而在把躲开默认值拆成可重复的三轮实验。下次 Agent 交来居中双按钮时，你已经有下一句该说什么了。</p></div>
+<p>salman.io</p>
+<p>你让自己最喜欢的智能体为令人兴奋的新产品生成一版设计。它运转了好一阵，结果一出来，你的肩膀不由得垮了下来——又是那种一眼就能认出的 AI 设计，和地球上其他网站如出一辙。靛蓝色点缀、满屏的 Inter、居中的首屏配两个按钮，还有“Elevate your workflow”这类空泛的承诺。细节各有不同，但它们看上去都像同一个产品。</p>
+<p>这到底为什么成了默认的样子？怪 Tailwind UI 吧。好吧，我开玩笑的。不过也不完全是玩笑。Tailwind 的作者 Adam Wathan 甚至还为 AI 生成的网站清一色变紫<a href="https://prg.sh/ramblings/Why-Your-AI-Keeps-Building-the-Same-Purple-Gradient-Website">道过歉</a>。不过问题不只是紫色——就算你跳过这一步，告诉智能体“不要紫色”或“不要 Inter”，它也往往会转向另一套默认选择，而其他智能体同样会照着来：奶油色配赤陶色、黑底酸性绿、报纸式版面，等等。</p>
+<p>用户已经厌倦了这些设计。开发者其实也不想做出这样的东西（有人甚至<a href="https://www.reddit.com/r/ClaudeCode/comments/1w6fwbs/if_you_use_claude_code_to_design_uis_how_do_you/">翻遍 Reddit 寻找避免的办法</a>），但智能体总会一头扎进同样的模板化领地。这是默认行为，要避开需要花力气，所以大多数人懒得去管。</p>
+<p><b>好消息是，模型的可引导性很强。</b>想让设计效果大幅提升，所需的功夫比你想象的要少。只要稍加引导，就能让设计摆脱令人生畏的默认样式，转向既独特又适合产品的方向。</p>
+<p>在继续之前，我得先说明：像 Claude Design 这样成熟的设计工具提供了更多的灵活性和控制力，也正是为此而生。但很多开发者觉得它们小题大做。他们不想为了给产品生成一版初始设计，就把整个设计应用走一遍。他们想待在终端里。如果你也是这样，这篇文章就是写给你的。</p>
+<h2 id="section-1">设计迭代：推动智能体更进一步</h2>
+<p>对待设计，就像你已经习惯的对待代码那样：生成多个方案，审慎地审视，然后打磨优化。</p>
+<ol><li><b>放开思路，大胆探索。</b>提示词让智能体给出 3-5 种不同的产品设计方案。要求它们在结构、层级、排版、信息密度和个性上真正不同，而不是简单换个配色，并让它<b>加入一个“野路子”方案</b>，甚至可以质疑工作流本身。在这个阶段，你要尽可能开放、有创意，所以别忍不住直接丢给它一个设计，然后说“照这个来”。你要做的是发散式探索，而不是狭隘的照单听写。</li><li><b>明确关键标准。</b>看到几个方案后，你可能会更倾向其中某种结构。想想原因：产品目标里有没有能帮你做决定的依据？先定义最重要的是什么：任务清晰度、层级、信息密度、可访问性、响应式表现，以及与实现的契合度。然后把各个方向并排渲染出来，依据这些标准选出一个，记录它为何合适，并在其中继续迭代。</li><li><b>对抗式评审。</b>确定设计的大方向后，让全新上下文的评审者从不同角度对它发起“攻击”：用户任务、视觉层级、可访问性、持怀疑态度的首次使用，以及实现约束。每位评审者都应指出最致命的一个弱点，并提出具体的修正方案。</li><li><b>（可选）设计系统。</b>现在你已经有了一个起点，也大致知道还能往哪些方向发展。如果想更进一步，可以花些时间在设计系统、品牌、配色等方面迭代。人们通常一上来就做这些，但其实应该放到最后（或者在产品需求更明确之前干脆不做）。一种做法是建立一个 DESIGN.md 文件。（你可能会觉得这个 DESIGN.md 系统库很有用：<a href="https://styles.refero.design/">styles.refero.design</a>。）</li></ol>
+<h2 id="section-2">一个探索示例</h2>
+<p>下面我来演示如何用这套流程迭代我正在做原型的产品 AutoQA 的设计。它是一个简单的应用，用来发起 QA 运行并监控结果。它现有的设计只来自我最初构建时的几次基础迭代，主要是要求做出“深色、精致”的效果，所以近乎纯黑的处理多少也反映了我自己的提示词。根本问题依然存在：我接受了一个看似合理的视觉方案，然后就继续往下做了。</p>
+<figure><img src="../figures/avoid-the-ai-aesthetic/01-avoid-the-ai-aesthetic-autoqa-baseline-d.jpg" alt="AutoQA" loading="lazy" decoding="async"></figure>
+<p>基线版本看起来很精致，但它的视觉选择与 QA 工具的需求并无实质关联。它们只是泛泛的“平均水准的好看”：近黑底色配一个亮色强调色、全大写标签、大而空的标题、圆角容器里套圆角容器、发光圆点，以及状态胶囊。同样的处理几乎可以套用到任何开发者 SaaS 仪表盘上。</p>
+<p><b>以这次一次性生成的设计出错之处为例</b>：绿色并不适合作为 QA 工具的强调色。<b>绿色应当代表通过。</b>把它用在按钮、装饰性发光和各种界面外壳上，会削弱页面上最重要的信号。其余一切都可以保持中性。</p>
+<h2 id="section-3">第一轮：发散式探索</h2>
+<p>我生成了四个视觉立场各异的方向：运营导向、证据导向、平静且偏编辑风格，以及一个尝试性的“百搭牌”方案。</p>
+<figure><img src="../figures/avoid-the-ai-aesthetic/02-avoid-the-ai-aesthetic-autoqa-directions.jpg" alt="方向" loading="lazy" decoding="async"></figure>
+<p>重点不是挑出最好看的配色，所以我先用灰度来比较——结构、密度和层级必须独立撑起设计。</p>
+<figure><img src="../figures/avoid-the-ai-aesthetic/03-avoid-the-ai-aesthetic-autoqa-directions.jpg" alt="灰度" loading="lazy" decoding="async"></figure>
+<p>当这些方案摆在眼前后，有几个决定变得显而易见：</p>
+<ul><li><b>把颜色留给含义。</b>这是一个 QA 工具。失败的红色和通过的绿色应当一眼就最醒目——即使眯起眼睛看也是如此。有一个方向在已通过的运行旁使用了红色装饰，因此立刻被否决。界面的其余部分应保持中性，并且状态仍须通过文字和形状清楚表达。</li><li><b>给工作内容足够的空间。</b>另一个方向把“运行测试”操作放在一个常驻的侧边栏中，压缩了每一行运行记录。这个操作固然重要，但结果才是主要的证据展示区域。</li><li><b>响应式不等于堆叠。</b>每个方案在移动端宽度下都能放得下，但这本身并不意味着对移动端友好。在小屏幕上，发起一次运行和打开以往的结果仍然需要清晰易用。</li><li><b>朴素的产品逻辑胜过视觉新奇。</b>这些判断并不是什么深奥的设计洞见，它们直接来自这个工具本身的用途。</li></ul>
+<p>具体的方案让这些想法更容易被看见和解释。Adam Wathan 和 Steve Schoger 的 <a href="https://refactoringui.com/"><i>Refactoring UI</i></a> 等书籍能帮助开发者建立词汇体系——层级、间距、对比和色彩——但对比方案能让这些知识有具体的东西可供回应。</p>
+<h2 id="section-4">第二轮：厘清标准</h2>
+<p>四个设计的内容和交互模型仍然几乎完全相同。这算不上有意义的收敛。我的需求说明要求每个方案都保留现有的仓库页头、操作和运行列表。</p>
+<p>其中一些约束来自此前由大语言模型（LLM）主导的实现决策，而不是经过验证的用户需求。把它们冻结之后，我也就让 wildcard 无法质疑体验本身。</p>
+<p>在生成下一轮之前，我先厘清了判断标准：</p>
+<ul><li>哪些约束反映了真实的用户任务？</li><li>哪些只是在描述当前的实现？</li><li>wildcard 可以改变什么——视觉处理、信息层级，还是工作流本身？</li></ul>
+<p>后来的一个 wildcard 方案围绕最新结果而不是运行列表来组织页面。这是一个真正的 UX 替代方案，但执行上把 <code>PASS</code> 放得大到滑稽。它的价值在于划出了一条边界，而不是因为它应该胜出。</p>
+<figure><img src="../figures/avoid-the-ai-aesthetic/04-avoid-the-ai-aesthetic-autoqa-latest-out.jpg" alt="Wildcard" loading="lazy" decoding="async"></figure>
+<p>我没有采用这个执行方案。我带入对抗式评审的方向，是一个中性的全宽运行历史，并配以语义化状态。</p>
+<figure><img src="../figures/avoid-the-ai-aesthetic/05-avoid-the-ai-aesthetic-autoqa-evidence-r.jpg" alt="选定方案" loading="lazy" decoding="async"></figure>
+<h2 id="section-5">第三轮：对抗式评审</h2>
+<p>确定大方向之后，下一个风险是被困在这个方向里。我并行运行了五次全新上下文的评审，去发现当前方向可能掩盖的机会。三个模型分工：<code>gpt-5.6-sol:high</code> 检查 QA 工作流和 wildcard 替代方案；<code>claude-sonnet-5:low</code> 负责交互、可访问性和实现；<code>gpt-6-luna:high</code> 评审层级、设计逻辑和主题。它们提出了几处小改动，改进了这个方向。</p>
+<p><b>wildcard 的评审意见影响更大。</b>它提出围绕互不相同的未解决问题，而不是按时间顺序的运行来组织产品。我没有采纳这个模型，因为它依赖未经验证的假设：如何对失败分组，以及如何判断后续运行已将其解决。但它改变了我对布局的思考：主要单元最终可能是一个需要关注的问题，而不是一次已发生的运行。</p>
+<p><b>功能层面或 UX 层面存在分歧的想法尤其有价值。</b>我们不应只在字体、颜色这类小选择上迭代，而应审视产品解决问题的不同方式。现在正是做这件事的合适阶段——方向已经足够具体，可以被批评，但设计尚未锁定。否则，人和模型都会在之后的每一次迭代中不断强化同样的假设。</p>
+<figure><img src="../figures/avoid-the-ai-aesthetic/06-avoid-the-ai-aesthetic-autoqa-evidence-r.jpg" alt="结果" loading="lazy" decoding="async"></figure>
+<figure><img src="../figures/avoid-the-ai-aesthetic/07-avoid-the-ai-aesthetic-autoqa-evidence-r.png" alt="移动端" loading="lazy" decoding="async"></figure>
+<h2 id="section-6">亲自试试</h2>
+<p>下次让智能体为你生成设计时，别在初稿就停下。花点时间迭代，一点点投入就能带来很大改变。</p>
+<p>每次这样做，你都会发现流程中那些细微的差异，找到最适合自己的方式。</p>
+<p>一点一点地，你会找到属于<i>你自己</i>的美学。</p>
+<p style="margin-top:3em"><a class="readorig" href="https://salman.io/tech/avoid-the-ai-aesthetic/" target="_blank" rel="noopener">阅读原文 →</a></p>
 </article>
+<footer class="mono">原文 © Salman Ansari · 本页为自动生成的中文译文，仅供学习参考</footer>
+<script>
+(function () {
+  function play(frame) {
+    var embed = frame.getAttribute('data-embed');
+    var direct = frame.getAttribute('data-direct') === '1';
+    var url = frame.getAttribute('data-video-url') || '';
+    var title = frame.getAttribute('data-title') || '视频';
+    if (direct && url) {
+      var video = document.createElement('video');
+      video.src = url;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      var poster = frame.getAttribute('data-poster');
+      if (poster) video.poster = poster;
+      frame.innerHTML = '';
+      frame.appendChild(video);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (embed) {
+      var iframe = document.createElement('iframe');
+      iframe.src = embed;
+      iframe.title = title;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('loading', 'eager');
+      frame.innerHTML = '';
+      frame.appendChild(iframe);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (url) window.open(url, '_blank', 'noopener');
+  }
+  document.querySelectorAll('.video-frame[data-video-url]').forEach(function (frame) {
+    frame.addEventListener('click', function () { play(frame); });
+    frame.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); play(frame); }
+    });
+  });
+})();
+</script>
 </body></html>

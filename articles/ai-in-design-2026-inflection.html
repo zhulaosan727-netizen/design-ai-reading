@@ -1,107 +1,105 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>AI 设计 2026：拐点已至 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#F1E5E2">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>AI 设计 2026：拐点已至 · 读本</title><link rel="stylesheet" href="../assets/style.css"><style>.video-card{margin:1.8em 0}.video-frame{position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--rule);background:#CFCFCF;cursor:pointer}.video-frame img,.video-frame iframe,.video-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block}.video-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#7A1E2B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px}.video-card figcaption{margin-top:10px;font-size:14px;opacity:.8}.video-index{margin:2em 0;padding:16px 18px;border:1px solid var(--rule)}article.body figure img{width:100%;height:auto;display:block}article.body figcaption{margin-top:8px;font-size:14px;opacity:.75}</style></head><body class="article" style="--tint:#F1E5E2">
 <section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 32 · AI 设计工作流 / 调研 / 工作流 / 组织 / 招聘 / 原型</div><h1>AI 设计 2026：拐点已至</h1><div class="en">AI in Design 2026: The inflection point is here</div></div>
-<dl class="meta mono"><dt>作者</dt><dd>Robyn Park</dd><dt>身份</dt><dd>Designer Fund（与 Foundation Capital 联合发布 AI in Design 2026 报告）</dd><dt>日期</dt><dd>2026-05-20</dd><dt>原文</dt><dd><a href="https://designerfund.com/blog/ai-in-design-2026">designerfund.com/blog ↗</a></dd></dl><a class="readorig" href="https://designerfund.com/blog/ai-in-design-2026" target="_blank" rel="noopener">阅读原文 →</a></div>
+<dl class="meta mono"><dt>作者</dt><dd>Robyn Park</dd><dt>署名</dt><dd>Designer Fund（与 Foundation Capital 联合发布 AI in Design 2026 报告）</dd><dt>日期</dt><dd>2026-05-20</dd><dt>原文</dt><dd><a href="https://designerfund.com/blog/ai-in-design-2026">designerfund.com ↗</a></dd></dl><a class="readorig" href="https://designerfund.com/blog/ai-in-design-2026" target="_blank" rel="noopener">阅读原文 →</a></div>
 <figure class="cover"><img src="../covers/ai-in-design-2026-inflection.svg" alt="AI in Design 2026: The inflection point is here 封面"></figure></section>
 <article class="body">
-<p class="notice">深度精讲：这不是译文，而是编者按「组织级拐点」视角重写的讲解。原文是 Designer Fund 与 Foundation Capital 第二年《AI in Design 2026》报告的公开摘要——900+ 设计师、60+ 国家、25+ 访谈，并配 Anthropic、Framer、Linear、Notion、Shopify、Sierra、Stripe 案例。读本已收过其中若干团队深潜（Linear、Stripe、Shopify、Anthropic、Sierra 等）；<b>本篇是那组案例的调研总框</b>：用量、角色合并、招聘信号、政策滞后、以及「设计师变成 builder」的定性变化。细节与完整报告请点上方「阅读原文」。</p>
+<p class="notice">中文全文译文：由「译文工坊」根据英文原文自动翻译生成，供学习参考。结构与措辞以译文为准；想看原始论述，请点上方「阅读原文」。</p>
 <nav class="toc"><div class="mono">本篇目录</div><ol>
-<li>先给结论：三句话读懂这篇</li>
-<li>拐点长什么样：从「要不要用」到「怎么建」</li>
-<li>设计师在变成 builder：代码、原型、微工具</li>
-<li>工具栈膨胀又碎片化：3 → 7，质量是闸门</li>
-<li>角色在合并，协作却未必更近</li>
-<li>招聘在要什么：AI 流畅度 + 系统思维 + 品味</li>
-<li>期望涨得比政策快：73% vs 28%</li>
-<li>玩味文化（tinkering）是领先团队的共同底色</li>
-<li>和读本案例怎么串：总框 vs 深潜</li>
-<li>可落地：个人站 / 小团队一周动作表</li>
-<li>自查清单</li>
-</ol></nav>
+<li><a href="#section-1">设计师正在成为构建者</a></li><li><a href="#section-2">工具栈在扩张，也在碎片化</a></li><li><a href="#section-3">角色持续融合</a></li><li><a href="#section-4">设计负责人在招什么样的人</a></li><li><a href="#section-5">期望的变化快过公司政策</a></li><li><a href="#section-6">设计师的位置</a></li><li><a href="#section-7">最新文章</a></li></ol></nav>
 
-<h2>01 先给结论：三句话读懂这篇</h2>
-<p><b>第一，用量已经过了拐点。</b>设计任务的周使用率从 54% 跳到 91%，日使用 75%。去年还是早期实验；今年 AI 渗进设计全流程，并把设计师推进代码、原型、业务数据决策等高门槛地带。</p>
-<p><b>第二，角色在合并，但「好用」不等于「组织跟上」。</b>半数受访设计师（含产品与品牌，不只 design engineer）已把 AI 生成代码推进生产；65% 承担更多 PM / 工程工作。与此同时，73% 感到期望上升，只有 28% 领导者说公司正式更新了评估 / 薪酬 / 招聘——政策明显落后。</p>
-<p><b>第三，越容易做出「够用」的界面，品味与判断越贵。</b>报告的核心辩题不是「设计师会被挤掉」，而是：设计师带来同理心、品味、以及「什么不该做」的判断；AI 让界面变便宜，判断反而更值钱。</p>
-<table><tr><th>信号</th><th>2025 → 2026</th><th>对你意味着什么</th></tr>
-<tr><td>周使用率</td><td>54% → 91%</td><td>「要不要用」已过时；问题变成工具与质量闸门</td></tr>
-<tr><td>人均 AI 工具数</td><td>3 → 7</td><td>别等标准栈；先定个人可复跑流水线</td></tr>
-<tr><td>协作因 AI 下降</td><td>5% → 20%</td><td>solo prompting / 终端变多；要主动补评审节奏</td></tr>
-<tr><td>同侪学习</td><td>24% → 80%</td><td>向上听领导推荐在下降；向下建分享机制更有效</td></tr></table>
-
-<h2>02 拐点长什么样：从「要不要用」到「怎么建」</h2>
-<p>公共叙事常说：软件谁都能做，设计师会被挤掉。报告给的画面更拧一点——设计师在拥有更多、交付更多，同时上移一层抽象，变成 <b>builder</b>：不只产交付物，还在发明产交付物的工具；还在搭系统，让非设计师也能用预置组件做出品牌内工作。</p>
-<p>样本结构值得记住：900+ 设计师、60+ 国家、25+ 深度访谈，外加七家前沿团队案例。作者提醒：态度与行为因公司和人差异很大——同一张表，有人惊讶，有人只是点头。目标不是给行业盖棺，而是帮领导问对问题、帮设计师看清「先进 builder 在造什么、经理在招什么」。</p>
-<div class="note"><p>读本此前的企业深潜（Linear 的 craft、Stripe 的好主意扩散、Shopify 的成长、Anthropic 设计团队、Sierra 的杠杆）都是「点」；本篇是「面」。读完本篇再回点，会更容易分辨：哪些做法是个别团队文化，哪些是行业级趋势。</p></div>
-
-<h2>03 设计师在变成 builder：代码、原型、微工具</h2>
-<p>最刺眼的一笔：<b>一半受访者已把 AI 生成代码推进生产</b>——覆盖产品与品牌设计，不只是自封 design engineer 的人。辩论从「设计师该不该写代码」滑到「何时写、怎么写」。</p>
-<p>更意外的是：领导与经理发代码的频率不亚于（有时高于）IC。他们用 AI 快速原型、测流程、在工程带宽不够时把项目往前推。静态 mockup 继续让位：原型成为更中心的设计产出，有的团队几乎用原型替换 mockup。</p>
-<p>企业侧还出现一类动作：设计师自建 <b>microtools</b>（微工具）自动化脏活；造「一直想要却买不到」的设计软件；编排 <b>agentic workflows</b>，让非设计同事用预置设计系统组件产出品牌内作品。这已经不是「多画两屏」，而是「给组织加杠杆」。</p>
-<table><tr><th>旧默认</th><th>拐点后更常见</th><th>个人可试的最小步</th></tr>
-<tr><td>交付静态稿等工程</td><td>可点可测的原型先跑通</td><td>下一需求先出可交互原型再定视觉</td></tr>
-<tr><td>「设计师不碰生产代码」</td><td>小范围 AI 代码进生产，有人审</td><td>先从个人站 / 内部工具试，写清边界</td></tr>
-<tr><td>等设计工具厂商更新</td><td>自建微工具 + agent 流水线</td><td>把重复 3 次的脏活写成 skill / 脚本</td></tr></table>
-
-<h2>04 工具栈膨胀又碎片化：3 → 7，质量是闸门</h2>
-<p>人均常规使用的现成 AI 工具从 3 个涨到 7 个（还不计内部自建）。行业没有收敛到单一「标准工作流」——栈在个性化、流体化：不同模型、原型工具、编码环境按任务拼接。</p>
-<p>问到「用 AI 的最大挑战」时，最高票是 <b>unreliable output quality（输出质量不可靠）</b>。它同时也是「这工具会不会变成日常」的第一道闸。换句话说：功能再炫，质量不稳就进不了主流程。</p>
-<div class="note"><p>对 Zhu 这种「用 AI 建站约一年」的设计师：别追求工具数打满 7。更划算的是定一条「质量闸门」——例如每次生成后固定跑审美 / a11y / 品牌对照三问（可读本 No.01、No.29、No.27 的 harness 思路），过闸才进主分支。</p></div>
-
-<h2>05 角色在合并，协作却未必更近</h2>
-<p>65% 设计师说自己承担更多产品或工程职责；40% 说反过来也在发生——PM / 工程师更多参与设计。边界继续糊，产品开发更像跨职能共担。</p>
-<p>但重叠≠更亲密协作。去年仅 5% 说「因 AI 协作下降」；今年升到 20%（约 4 倍）。多人描述工作更 solo：更多时间在 prompting 与终端，更少现场来回。速度快了，协作的结缔组织没跟上。</p>
-<blockquote>We’re now moving from “should designers code” to “when and how should designers code?” — Robyn Park / Designer Fund（大意：问题从「该不该写代码」变成「何时与如何写」）</blockquote>
-
-<h2>06 招聘在要什么：AI 流畅度 + 系统思维 + 品味</h2>
-<p>50% 领导者说招聘更强调 <b>AI fluency（AI 流畅度）</b>，紧随其后是系统思维与战略能力。相对几年前，窄专项变少，更能在模糊里导航、连结学科、塑方向的人更吃香。若干领导把设计师描述成 <b>orchestrators（编排者）</b>：引导工作流，把想法译成结果。</p>
-<p>关键反直觉点：工具变强，执行质量的门槛没有放水——只有 5% 领导者说自己降低了对 execution quality 的强调。多数人认为：当「够好」人人能生成，品味、判断、守住高标准反而更重要。</p>
-<table><tr><th>招聘强调</th><th>报告信号</th><th>作品集可展示什么</th></tr>
-<tr><td>AI 流畅度</td><td>约一半领导加重</td><td>可复跑工作流、skill、质量闸门，而非「我用过某某模型」</td></tr>
-<tr><td>系统思维 / 战略</td><td>紧随其后</td><td>跨设计—工程—产品的取舍故事</td></tr>
-<tr><td>执行质量 / 品味</td><td>几乎没人放水</td><td>「否决了什么」与「为何不做成平均脸」</td></tr></table>
-
-<h2>07 期望涨得比政策快：73% vs 28%</h2>
-<p>73% 设计师感到产出、质量、速度的期望在升。但只有 28% 领导者说公司正式更新了评估、薪酬或招聘；改绩效指标的仅 8%；调薪酬结构的仅 4%。组织仪表盘落后于真实工作。</p>
-<p>学习仍是自下而上：同侪学习从 24% 飙到 80%；来自领导层的推荐从 32% 降到 16%。设计师主要在彼此那里搞清楚怎么干，而不是等上面发手册。</p>
-
-<h2>08 玩味文化（tinkering）是领先团队的共同底色</h2>
-<p>跑在前面的团队，领导接受「底下先跑」这一事实，并为之建条件：保护 tinkering 空间、在公司论坛 spotlight 员工自建工具、办 hackathon、保护分享工作流的时间。回报直接写在满意度上：有玩味文化的公司，设计师感到更有创意、更有能力的概率约是 2 倍——即便他们面对的标准也更高。</p>
-<div class="note"><p>政策滞后时，个人能控的是「可见的玩味」：把微工具、skill、失败复盘写成可读短文或内部 demo。读本里 Stripe「给好主意留房间」、Shopify「AI 时代怎么成长」都是同一文化的不同切面。</p></div>
-
-<h2>09 和读本案例怎么串：总框 vs 深潜</h2>
-<ol>
-<li><b>本篇（总框）：</b>行业用量、角色、招聘、政策、文化——用来校准自己的焦虑是否「行业级」。</li>
-<li><b>Linear / Stripe / Shopify / Anthropic / Sierra 等深潜：</b>看具体团队如何在 craft、扩散、成长、杠杆上落地；不要把某一家的工具选择误当成行业标准。</li>
-<li><b>建议阅读顺序：</b>先本篇建立坐标系 → 选 1–2 个与自己规模接近的案例深读 → 把「质量闸门 + 同侪分享」带回自己的站与工作流。</li>
-</ol>
-
-<h2>10 可落地：个人站 / 小团队一周动作表</h2>
-<pre><code># 个人（Zhu 式：AI 建站 / 读本类项目）
-Day 1  盘点：你真正每周用的 AI 工具 ≤5；砍掉只「尝过」的
-Day 2  定质量闸门：生成后必跑 审美偏离 / 品牌词 / a11y 三问
-Day 3  选一条主路径改成「原型优先」：可点再精视觉
-Day 4  把重复脏活写成 1 个 skill 或脚本（命名、替换、检查）
-Day 5  写半页「什么不该做」——你的判断清单，比又一个组件重要
-Day 6  同侪或公开：把本周微工具 / 失败点贴出来（玩味可见化）
-Day 7  回顾：期望是否自我通胀？有没有用闸门换回睡眠与品味
-
-# 小团队（若你带人或跨职能）
-[ ] 公开默认：鼓励自建微工具，设每月 1 次 spotlight
-[ ] 招聘 JD 写清：AI 流畅度 = 能设计闸门与编排，而非堆工具名
-[ ] 协作补丁：solo 加速可以，但关键决策保留同步评审槽
-[ ] 政策最小步：即使不能改薪酬，也先改「演示日 / 分享」仪式
-</code></pre>
-
-<h2>11 自查清单</h2>
-<ul>
-<li>我还在争论「该不该用 AI」，还是已经在设计「何时写代码、如何过闸」？</li>
-<li>我的工具数是在服务一条可复跑流水线，还是在收藏潮玩？</li>
-<li>输出质量不可靠时，我有没有可执行的拒绝标准，而不是再试一次好运？</li>
-<li>角色合并之后，我有没有补上被 solo 吃掉的协作结缔组织？</li>
-<li>作品集能否展示 orchestrator 能力（编排、判断、否决），而不只是生成图？</li>
-<li>我所在环境是否有 tinkering 空间？若没有，我能否自己造一个最小可见版本？</li>
-<li>期望上升时，我有没有把「什么不该做」写进自己的设计原则？</li>
-</ul>
-<div class="note"><p>收束给 Zhu：拐点不是口号，是用量、角色、招聘同时弯折的那一刻。你已经在用 AI 建站——下一步不是再多一个模型，而是把 builder 身份写清楚：原型优先、质量闸门、可见的玩味、以及守住「什么不做」的品味。界面会越来越便宜；判断不会。</p></div>
+<figure><img src="../figures/ai-in-design-2026-inflection/01-images-kpsspif7yeyyvvvitxxkpebhg.avif" alt="" loading="lazy" decoding="async"></figure>
+<p>Robyn Park</p>
+<p>科技行业关于 AI 与设计的一种说法是：设计师正被挤出局——随着任何人都能更轻松地构建软件，设计师变得不再那么重要。</p>
+<p>我们在第二届年度 <a href="https://stateofaidesign.com/">AI in Design</a> 报告中发现的数据，指向一种更微妙的转变。设计师承担的职责更多，发布的成果也更多。但他们同时也上升了一个抽象层级，成为构建者。他们不只是产出交付物，还会亲手搭建新的设计工具来完成这些工作。他们在创造各种体系，帮助公司释放非设计师和设计师双方更大的创造潜力。</p>
+<p>我们相信，这是工作方式以及公司看待员工方式发生根本性转变的开端，而且来得很快。自 2025 年报告发布以来的一年里，设计任务中每周使用 AI 的比例从 54% 跃升至 91%，75% 的人每天都在使用。但最显著的变化体现在质的层面。去年还处于早期探索阶段，如今 AI 已渗透到设计流程的方方面面，并把设计师带进了大多数人此前未曾涉足的领域，比如编写代码、制作原型，以及大规模获取业务数据来影响决策。</p>
+<p>我们在由 Designer Fund 和 Foundation Capital 联合推出的 <a href="https://www.stateofaidesign.com/"><b>AI in Design 2026</b></a> 中探讨了这些主题及更多内容。报告基于对 60 多个国家 900 多位设计师的调查、25 场以上的深度访谈，以及对 Anthropic、Framer、Linear、Notion、Shopify、Sierra 和 Stripe 设计团队的案例研究。每段视频都会深入呈现他们的工作流、他们在权衡取舍时面临的难题，以及他们如今与以往有何不同的工作方式。如果你希望在视频上线时收到通知，请<a href="http://stateofaidesign.com/">在此订阅</a>。</p>
+<p>对于想了解同行如何管理团队的设计负责人，我们希望提供一份参照，帮助你为未来的道路提出正确的问题。对于设计师，我们会分享高阶构建者正在做什么，以及管理者如今在候选人身上看重什么。</p>
+<p>尽管我们梳理出了一些规律，但也发现不同公司、不同个人的态度和行为差异很大。根据你在行业中所处的位置，这些发现可能让你意外、让你觉得得到印证，或者介于两者之间。我们做这项研究的目标，是让这场演变极快的讨论变得更清晰。</p>
+<p>以下是我们想重点介绍的几项<a href="http://stateofaidesign.com/">完整报告</a>中的发现。你也可以阅读 Fast Company 对这项研究的<a href="https://www.fastcompany.com/91543989/ai-in-design-design-jobs-2026">报道</a>。</p>
+<h2 id="section-1">设计师正在成为构建者</h2>
+<p><b>在我们调查的设计师中（涵盖产品设计和品牌设计，而不仅是设计工程师），有一半表示已将 AI 生成的代码发布到生产环境。</b></p>
+<p>我们正在从“设计师该不该写代码”转向“设计师何时、如何写代码”。AI 工具降低了设计师自己制作原型、构建和发布想法的门槛。</p>
+<p>其中一个更出人意料的发现是：领导者和管理者发布代码的频率与一线执行者相当（有时甚至更高！）。许多人表示，他们用 AI 工具快速制作想法原型、测试工作流，或在无需等待工程资源的情况下推进项目。</p>
+<p>我们还看到设计交付持续摆脱静态产出。原型正成为更核心的设计产出，在一些团队中甚至完全取代了视觉稿。</p>
+<p>越来越多的设计师，尤其是在大型企业中，正在构建自己的<b>定制工具</b>。他们发明微型工具来自动化手工工作，打造自己一直希望拥有的设计软件，并编排智能体化的工作流，让非设计师的同事也能使用预先构建的设计系统组件，产出符合品牌规范的作品。</p>
+<figure><img src="../figures/ai-in-design-2026-inflection/02-images-rwfmyamdksoxbvz5dp1ikbxe8.avif" alt="" loading="lazy" decoding="async"></figure>
+<h2 id="section-2">工具栈在扩张，也在碎片化</h2>
+<p><b>在我们的调查中，普通设计师现在经常使用 7 款现成的 AI 工具</b>，是去年平均数 3 款的两倍多。这还不包括许多团队自己构建的内部工具。</p>
+<p>设计工具栈没有趋向于某种单一的“标准”工作流，反而变得更加个性化、更加灵活。团队会根据任务和各自的工作习惯，把不同的模型、原型工具和编码环境组合在一起。</p>
+<p>当我们询问设计师在工作流中使用 AI 面临哪些挑战时，最常见的回答是“输出质量不稳定”。输出质量也是决定一款 AI 工具能否成为设计师日常工作流一部分的最重要因素。</p>
+<figure><img src="../figures/ai-in-design-2026-inflection/03-images-ojcybu8ihhljrs8tkls4851mug.avif" alt="" loading="lazy" decoding="async"></figure>
+<h2 id="section-3">角色持续融合</h2>
+<p><b>65% 的设计师表示，他们正在承担更多产品或工程方面的职责，</b>40% 的人则表示反向的情况也在发生：产品经理和工程师正越来越多地参与设计工作。随着设计师更靠近代码和原型，传统的角色边界持续模糊，产品开发也变得更多由各个职能共同承担。</p>
+<p>但职责重叠的增加并不总能带来更紧密的协作，无论是在设计团队内部，还是在整个产品组织之间。去年，只有 5% 的受访者表示 AI 导致协作减少。今年，这一比例上升了 4 倍，达到 20%。</p>
+<p>多位设计师描述了向独自工作转变的趋势：花更多时间在提示词设计和终端里，与团队成员实时来回讨论的时间则变少了。工作推进得更快了，但协作中的一些连接纽带没有跟上节奏。</p>
+<h2 id="section-4">设计负责人在招什么样的人</h2>
+<p><b>在我们调研的负责人中，50% 表示在招聘时更看重 AI 运用能力，其次是系统思维和战略能力。</b>与几年前相比，人们不再那么强调狭窄的专业分工，而是更需要能够应对不确定性、连接不同学科并把握方向的设计师。</p>
+<p>这种转变的一部分原因在于 AI 正在改变设计流程。随着工具越来越深入地融入产品开发，设计师越来越被期望贯穿整个创作过程，从战略到原型再到落地执行，衔接得更加流畅。多位负责人将设计师形容为“编排者”：能够引导工作流，并把想法转化为成果的人。</p>
+<p>与此同时，更强大的工具并没有降低对质量的要求。只有 5% 的受访负责人表示，他们不再那么强调执行质量。恰恰相反，许多人认为，既然 AI 让任何人都能轻松生成“够用”的产出，品味、判断力以及坚守高标准的能力就比以往更加重要。</p>
+<figure><img src="../figures/ai-in-design-2026-inflection/04-images-mdstcftkfcbtqirmjx68gb2e9g.avif" alt="" loading="lazy" decoding="async"></figure>
+<h2 id="section-5">期望的变化快过公司政策</h2>
+<p>73% 的设计师表示，他们感到对产出、质量和速度的期望在不断提高。<b>然而只有 28% 的负责人表示，公司已正式更新了考核、薪酬或招聘方面的制度。</b>仅 8% 调整了绩效指标，只有 4% 调整了薪酬结构。</p>
+<p>学习依然是自下而上发生的：同伴学习同比增长了三倍多（从 24% 升至 80%），而采纳领导层建议的比例则从 32% 降至 16%。设计师们是在彼此之间摸索出门道，而不是从上层获得指引。</p>
+<p>那些正在拉开差距的团队，其领导者接受了这一点，并据此搭建环境：营造鼓励折腾的氛围，在公司论坛上展示员工自建的工具，举办黑客松，并为分享工作流留出空间。这也直接体现在员工满意度上：<b>在有折腾文化的公司里，设计师表示自己更有创造力、更有能力的可能性是其他公司的 2 倍，尽管他们面对的标准也更高。</b></p>
+<figure><img src="../figures/ai-in-design-2026-inflection/05-images-axw3qw8ctdwykq9kigen1sx6y.avif" alt="" loading="lazy" decoding="async"></figure>
+<h2 id="section-6">设计师的位置</h2>
+<p>我们认为，设计师继续参与软件构建至关重要。设计师带来了独特的价值：对用户的同理心、品味、对该做什么和不该做什么的天然判断力、愉悦感，以及关注积极成果而不只是堆砌更多软件的自律。随着 AI 让任何人都能更轻松地生成界面，这种判断力只会更有价值，而不是更没价值。</p>
+<p>无论你是负责工具选型与招聘决策的设计负责人、思考自身技艺该如何演进的设计师、想了解 AI 如何改变设计方式的创始人，还是正为未来做准备的学生，我们都希望这份报告能为你提供有用的参考。</p>
+<p>我们很想听听你的看法。</p>
+<p>我们还同步推出了一系列案例研究，涉及站在这场变革最前沿的团队：Anthropic、Framer、Linear、Notion、Shopify、Sierra 和 Stripe。每篇案例都展示了一支团队在实践中如何应对这些变化。<a href="https://stateofaidesign.com/"><b>在此订阅</b></a>，即可在案例发布时第一时间收到。</p>
+<figure><img src="../figures/ai-in-design-2026-inflection/06-images-gwd5ek0bzgo8lgve95rigo2teck.avif" alt="" loading="lazy" decoding="async"></figure>
+<p><a href="https://stateofaidesign.com/"><i>AI in Design 2026</i></a><i> 是由 </i><a href="https://designerfund.com/"><i>Designer Fund</i></a><i> 与 </i><a href="https://foundationcapital.com/"><i>Foundation Capital</i></a><i> 共同开展的研究项目。我们联合制作这份报告，是为了更好地理解 AI 如何重塑设计、产品开发以及构建软件的人。如果你是创始人、设计师或研究者，正在做我们应该了解的事情，欢迎联系 </i><i>hello@designerfund.com</i><i>。</i></p>
+<p>AI in Design 2026：拐点已至</p>
+<p>构建智能网络：Jonathan Arena 谈 AI 前沿的设计</p>
+<p>下一篇</p>
+<h2 id="section-7">最新文章</h2>
+<figure><a href="https://designerfund.com/blog/ai-design-anthropic" target="_blank" rel="noreferrer"><img src="../figures/ai-in-design-2026-inflection/07-images-3jbxv6rnzjwerxfdkkkgwht3ipy.avif" alt="" loading="lazy" decoding="async"></a></figure>
+<figure><a href="https://designerfund.com/blog/ai-design-stripe" target="_blank" rel="noreferrer"><img src="../figures/ai-in-design-2026-inflection/08-images-d6walre8t2wjkoebzguboncjxd8.avif" alt="" loading="lazy" decoding="async"></a></figure>
+<figure><a href="https://designerfund.com/blog/ai-design-shopify" target="_blank" rel="noreferrer"><img src="../figures/ai-in-design-2026-inflection/09-images-ouppxnmbgmczwqesotee63wd2g.avif" alt="" loading="lazy" decoding="async"></a></figure>
+<figure><a href="https://designerfund.com/blog/ai-design-linear" target="_blank" rel="noreferrer"><img src="../figures/ai-in-design-2026-inflection/10-images-crmzcz0wxfjhqdz4mfmdikiu9s.avif" alt="" loading="lazy" decoding="async"></a></figure>
+<p style="margin-top:3em"><a class="readorig" href="https://designerfund.com/blog/ai-in-design-2026" target="_blank" rel="noopener">阅读原文 →</a></p>
 </article>
+<footer class="mono">原文 © Robyn Park · 本页为自动生成的中文译文，仅供学习参考</footer>
+<script>
+(function () {
+  function play(frame) {
+    var embed = frame.getAttribute('data-embed');
+    var direct = frame.getAttribute('data-direct') === '1';
+    var url = frame.getAttribute('data-video-url') || '';
+    var title = frame.getAttribute('data-title') || '视频';
+    if (direct && url) {
+      var video = document.createElement('video');
+      video.src = url;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      var poster = frame.getAttribute('data-poster');
+      if (poster) video.poster = poster;
+      frame.innerHTML = '';
+      frame.appendChild(video);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (embed) {
+      var iframe = document.createElement('iframe');
+      iframe.src = embed;
+      iframe.title = title;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('loading', 'eager');
+      frame.innerHTML = '';
+      frame.appendChild(iframe);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (url) window.open(url, '_blank', 'noopener');
+  }
+  document.querySelectorAll('.video-frame[data-video-url]').forEach(function (frame) {
+    frame.addEventListener('click', function () { play(frame); });
+    frame.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); play(frame); }
+    });
+  });
+})();
+</script>
 </body></html>

@@ -1,135 +1,148 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>一张图胜过千个 token：把 AI 拉出默认审美 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#DEEBED">
-<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 17 · 独特审美 / 参考图 / 默认风格 / 提示词实验</div><h1>一张图胜过千个 token：把 AI 拉出默认审美</h1><div class="en">A Picture Is Worth a Thousand Tokens</div></div>
-<dl class="meta mono"><dt>作者</dt><dd>Ben Shumaker</dd><dt>身份</dt><dd>Repaint 联合创始人兼 CEO（YC 孵化的 AI 建站工具）</dd><dt>日期</dt><dd>2026-04-09</dd><dt>原文</dt><dd><a href="https://repaint.com/blog/picture-is-worth-a-thousand-tokens">repaint.com/blog ↗</a></dd></dl><a class="readorig" href="https://repaint.com/blog/picture-is-worth-a-thousand-tokens" target="_blank" rel="noopener">阅读原文 →</a></div>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>一张图胜过千个 token：把 AI 拉出默认审美 · 读本</title><link rel="stylesheet" href="../assets/style.css"><style>.video-card{margin:1.8em 0}.video-frame{position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--rule);background:#CFCFCF;cursor:pointer}.video-frame img,.video-frame iframe,.video-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block}.video-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#7A1E2B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px}.video-card figcaption{margin-top:10px;font-size:14px;opacity:.8}.video-index{margin:2em 0;padding:16px 18px;border:1px solid var(--rule)}article.body figure img{width:100%;height:auto;display:block}article.body figcaption{margin-top:8px;font-size:14px;opacity:.75}</style></head><body class="article" style="--tint:#DEEBED">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 17 · 独特审美 / 参考图 / 默认风格 / 提示词 / AI 建站</div><h1>一张图胜过千个 token：把 AI 拉出默认审美</h1><div class="en">A Picture Is Worth a Thousand Tokens</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Ben Shumaker</dd><dt>署名</dt><dd>Repaint 联合创始人兼 CEO（YC 孵化的 AI 建站工具）</dd><dt>日期</dt><dd>2026-04-09</dd><dt>原文</dt><dd><a href="https://repaint.com/blog/picture-is-worth-a-thousand-tokens">repaint.com ↗</a></dd></dl><a class="readorig" href="https://repaint.com/blog/picture-is-worth-a-thousand-tokens" target="_blank" rel="noopener">阅读原文 →</a></div>
 <figure class="cover"><img src="../covers/picture-is-worth-a-thousand-tokens.svg" alt="A Picture Is Worth a Thousand Tokens 封面"></figure></section>
 <article class="body">
-<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解，结构、例子、表格和模板大多是编者自己的。原文作者 Ben Shumaker 是 AI 建站工具 Repaint 的联合创始人，他的日常工作就是「让 AI 生成的网站别长得像 AI 做的」。这篇文章的价值在于它像一份<strong>对照实验报告</strong>：同一句极简提示，分别套上设计系统 (design system)、教练式长提示 / Skill、参考图 (reference image)、代码模板 (code template)、自我迭代 (self-iteration) 五种打法，看谁真能改变结果。结论很硬：<strong>文字几乎拉不动模型，图像和代码才拉得动</strong>。读本 No.01 收录的 Anthropic frontend-design Skill，正是本文拿来做对照的那一份——两篇放在一起读，正好是一正一反。</p>
+<p class="notice">中文全文译文：由「译文工坊」根据英文原文自动翻译生成，供学习参考。结构与措辞以译文为准；想看原始论述，请点上方「阅读原文」。</p>
 <nav class="toc"><div class="mono">本篇目录</div><ol>
-<li>先给结论：三句话读懂这篇</li><li>实验怎么做：为什么故意只给一句话</li><li>五种打法逐一拆解</li><li>总对照表：每种打法改变了什么、没改变什么</li><li>三条底层规律</li><li>为什么「禁止 Inter」反而会翻车</li><li>编者延伸：参考图到底怎么喂才不变成抄袭</li><li>和读本其他篇的对照</li><li>模板：参考图驱动的风格提示</li><li>自查清单</li></ol></nav>
+<li><a href="#section-1">如何改进 AI 生成的网站？</a></li><li><a href="#section-2">我们对 AI 模型的认识</a></li><li><a href="#section-3">如何借助 AI 做出更好的设计</a></li></ol></nav>
 
-<h2>01 先给结论：三句话读懂这篇</h2>
-<p><b>第一，AI 网站「一眼 AI」不是偶然，而是模型内置了一套默认审美 (default aesthetic)。</b>它大致相当于训练数据里「平均网站」的样子：居中大标题、三张特性卡片、绿色或紫色按钮、偏稀的内容密度。模型每做一个决定，只要没有明确理由，就回到这套默认值。</p>
-<p><b>第二，用文字形容风格，几乎是徒劳的。</b>写一段「干净、现代、留白充足」，结果仍是默认风格；把「禁止 Inter」写进规则，模型只是换一款字体继续重复。真正能让它「离轨」的，是信息量更大的输入：<strong>参考图</strong>和<strong>代码样例</strong>。</p>
-<p><b>第三，所有改进手段本质上都是「替 AI 预先做决定」，而这是一条取舍曲线 (tradeoff curve)。</b>预先决定得越多，质量上限越高、灵活性越低。做平台要权衡；但如果只是为自己做项目，作者的建议很直接：尽量多给具体参考，把视觉质量拉满。</p>
+<p>我们尝试让 AI 设计出不像“流水线货色”的网站，由此学到了什么</p>
+<figure><img src="../figures/picture-is-worth-a-thousand-tokens/01-next-image.webp" alt="一图胜千 Token" loading="lazy" decoding="async"></figure>
+<p>Ben Shumaker · 2026 年 4 月 9 日</p>
+<p>我在 Repaint 的工作之一，是让 AI 生成真正好看的网站。这出人意料地难。AI 模型总是一再落入同样的视觉套路，而且一致性之高，让“AI 网站”正在成为一种一眼可辨的审美。</p>
+<p>我们测试了几十种打破这种模式的方法。在这个过程中，我们对模型有了更深入的理解，想在此与大家分享。</p>
+<figure><img src="../figures/picture-is-worth-a-thousand-tokens/02-next-image.webp" alt="在 Claude Code 中输入提示词“Make a landing page for a data analytics startup called Lighthouse Analytics”" loading="lazy" decoding="async"><figcaption>在 Claude Code 中输入提示词“Make a landing page for a data analytics startup called Lighthouse Analytics”</figcaption></figure>
+<p>这是一个相当典型的开箱即用 AI 网站：风格千篇一律，内容寥寥无几，布局被用滥。当然，偶尔还会冒出一个看不清字的按钮。</p>
+<p>我只给了它极少的指引。这看起来可能不公平，但我认为这是个很好的测试。显然，如果你不断追加提示词，是可以一步步把它改成一个很棒的网站的。可那样一来，设计全是你在做，模型只是在写代码。而大多数人并不懂怎么做设计。真正的突破在于 AI 能够<i>在无需人类指定每个细节的情况下</i>完成设计。</p>
+<figure><img src="../figures/picture-is-worth-a-thousand-tokens/03-next-image.webp" alt="在 Claude Code 中输入提示词“Make a therapist website”" loading="lazy" decoding="async"><figcaption>在 Claude Code（配合图像生成工具）中输入提示词“Make a therapist website”</figcaption></figure>
+<p>AI 的默认风格基本上是个普遍问题。这是它做出的心理咨询师网站。你可能以为心理咨询师网站会有截然不同的样子，但并没有，它只是做出了大致相同的网站，再配上绿色按钮。</p>
+<h2 id="section-1">如何改进 AI 生成的网站？</h2>
+<h4 id="">设计系统</h4>
+<p>一个显而易见的做法是：预先构建好颜色、字体、圆角和阴影。只看代码的时候，这些决策很难做对。让 AI 从一套优秀的方案起步，出错的空间就会小得多。</p>
+<figure><img src="../figures/picture-is-worth-a-thousand-tokens/04-next-image.webp" alt="在 Lovable 中输入提示词 &quot;Make a therapist website&quot;" loading="lazy" decoding="async"><figcaption>在 Lovable（使用设计系统）中输入提示词 "Make a therapist website"</figcaption></figure>
+<p>有一点帮助。明显的配色错误少了，这里还用了图片背景。但整体的布局、内容密度和结构基本没变。设计系统给了模型一套调色板，却没有教会它如何做构图。</p>
+<h4 id="">指导</h4>
+<p>另一种做法：给模型一大套设计指令，用提示词让它做它通常不会做的事。Claude AI 的主聊天机器人就有一个专门这样做的 skill：</p>
+<pre><code>This skill guides creation of distinctive, production-grade frontend interfaces that avoid generic "AI slop" aesthetics. Implement real working code with exceptional attention to aesthetic details and creative choices.
+The user provides frontend requirements: a component, page, application, or interface to build. They may include context about the purpose, audience, or technical constraints.
+Design Thinking
+Before coding, understand the context and commit to a BOLD aesthetic direction:
 
-<h2>02 实验怎么做：为什么故意只给一句话</h2>
-<p>作者的测试提示只有一句，例如「给一家叫 Lighthouse Analytics 的数据分析创业公司做个落地页」或「做一个心理咨询师网站」，放进 Claude Code、Lovable、Claude 网页版等工具里跑。</p>
-<p>有人会觉得这不公平——多提几轮当然能改好。但作者的立场是：<strong>如果你得一轮轮指定每个细节，那做设计的是你，模型只是在打字</strong>。真正的突破是 AI 能在人不逐项指定的情况下自己做出像样的设计决策。所以「一句话基准测试」测的正是模型的默认判断力。</p>
-<p>第一个观察就很扎心：心理咨询师网站和数据分析公司网站，按理说气质应该天差地别，结果模型做出来的是<strong>几乎同一个站，只是按钮换成了绿色</strong>。行业语境 (context) 只改动了最表层的颜色，没有改动版式、密度和结构。</p>
-<div class="note"><p>这个「一句话基准」值得设计团队直接借用：选 3 个气质反差很大的行业（例如殡葬服务、儿童乐园、律所），各用一句话让工具生成首页，把三张截图并排。如果你一眼能看出「同一个骨架」，说明这个工具 / 这套提示在<strong>构图</strong>层面没有任何主见——后面再怎么调颜色字体都是在装修同一套毛坯房。</p></div>
+Purpose: What problem does this interface solve? Who uses it?
+Tone: Pick an extreme: brutally minimal, maximalist chaos, retro-futuristic, organic/natural, luxury/refined, playful/toy-like, editorial/magazine, brutalist/raw, art deco/geometric, soft/pastel, industrial/utilitarian, etc. There are so many flavors to choose from. Use these for inspiration but design one that is true to the aesthetic direction.
+Constraints: Technical requirements (framework, performance, accessibility).
+Differentiation: What makes this UNFORGETTABLE? What's the one thing someone will remember?
 
-<h2>03 五种打法逐一拆解</h2>
-<h3>打法一：预置设计系统</h3>
-<p>最直觉的做法：先把颜色、字体、圆角、阴影这些 tokens 定好再交给 AI。这些决定在只看代码时确实很难做对，预置之后能少犯很多错——作者在 Lovable 上测试，明显的配色事故少了，甚至用上了图片背景。</p>
-<p>但版式、内容密度、整体结构基本没变。作者有一句很精准的话：</p>
-<blockquote>“A design system gives the model a palette; it doesn't teach it how to compose.” — Ben Shumaker</blockquote>
-<p>设计系统给的是<b>调色板</b>，不是<b>构图能力</b>。tokens 管的是「用什么」，不管「怎么排」。</p>
+CRITICAL: Choose a clear conceptual direction and execute it with precision. Bold maximalism and refined minimalism both work - the key is intentionality, not intensity.
+Then implement working code (HTML/CSS/JS, React, Vue, etc.) that is:
 
-<h3>打法二：教练式长提示 / Skill</h3>
-<p>第二招是给模型一大段「如何做设计」的指导，逼它做平时不会做的事。作者直接拿 Claude 的 frontend-design Skill 做对照（就是要求先选一个极端的美学方向、避开 Inter / Roboto / 紫色渐变、追求不对称和打破网格的那一份）。</p>
-<p>效果：<strong>确实变好了</strong>。心理咨询师网站终于像个心理咨询师网站，字体更柔和，按钮有了自己的样式，换上真实照片就能上线。<strong>但重复问题没解决</strong>：整体布局和之前差不多，模型依旧伸手去拿同样的几种模式——作者形容为「标准 AI 网站的一个漂亮得多的版本」。</p>
+Production-grade and functional
+Visually striking and memorable
+Cohesive with a clear aesthetic point-of-view
+Meticulously refined in every detail
 
-<h3>打法三：参考图</h3>
-<p>跳过文字，直接丢一张你喜欢的网站截图，让它做个「类似的」。这是<strong>唯一一个让模型做出新版式</strong>的打法——比如半屏大图 (half-screen image) 的首屏，模型自己永远不会主动这样排。</p>
-<p>原因在于截图一次性携带了布局、间距、色彩关系、密度等成百上千个微决策，很多是你根本想不到要用文字描述的。但它也很脆弱：复杂布局和动效还原不了；一旦需要生成参考图之外的内容（比如参考图只有首屏，你还要做定价区），模型就<strong>弹回默认风格</strong>。</p>
+Frontend Aesthetics Guidelines
+Focus on:
 
-<h3>打法四：代码与风格模板</h3>
-<p>最暴力的一招：直接给代码。作者提到 ChatGPT 建站时就用了模板库。质量当然大幅提升——你等于直接给了答案。但大多数人手上并没有现成的理想代码，所以这更像是<strong>平台方</strong>的手段。</p>
-<p>而且有一个隐藏陷阱：给了样例之后，心理咨询师、水管工、面包店三个网站长得惊人地相似，模型只做「与语境匹配所需的最小改动」。于是 ChatGPT 做出来的站，不管你要什么，都像同一家科技创业公司。作者自嘲：用了这么多招，还不确定做出的东西有没有比一个普通 Wix 模板好。</p>
+Typography: Choose fonts that are beautiful, unique, and interesting. Avoid generic fonts like Arial and Inter; opt instead for distinctive choices that elevate the frontend's aesthetics; unexpected, characterful font choices. Pair a distinctive display font with a refined body font.
+Color &amp; Theme: Commit to a cohesive aesthetic. Use CSS variables for consistency. Dominant colors with sharp accents outperform timid, evenly-distributed palettes.
+Motion: Use animations for effects and micro-interactions. Prioritize CSS-only solutions for HTML. Use Motion library for React when available. Focus on high-impact moments: one well-orchestrated page load with staggered reveals (animation-delay) creates more delight than scattered micro-interactions. Use scroll-triggering and hover states that surprise.
+Spatial Composition: Unexpected layouts. Asymmetry. Overlap. Diagonal flow. Grid-breaking elements. Generous negative space OR controlled density.
+Backgrounds &amp; Visual Details: Create atmosphere and depth rather than defaulting to solid colors. Add contextual effects and textures that match the overall aesthetic. Apply creative forms like gradient meshes, noise textures, geometric patterns, layered transparencies, dramatic shadows, decorative borders, custom cursors, and grain overlays.
 
-<h3>打法五：自我迭代</h3>
-<p>让模型看自己产出的截图再改——毕竟人类设计师也是靠多轮迭代。理论上能解决一切；实际上跑 20 分钟、花掉约 10 美元 token，然后很快进入平台期 (plateau)。在 Lighthouse 那个例子里，它甚至没发现那个字看不清的按钮。作者的判断：自我迭代大概是未来，但今天的模型还没准备好。</p>
-<div class="note"><p>自我迭代失败的原因，作者在后文一句话点破了：模型「改进」的方向是<strong>朝默认风格收敛</strong>，而不是朝独特收敛。这意味着让 AI 自评时，评审标准必须外置——给它一张目标参考图或一份具体的检查清单，让它对照「差距」去改，而不是笼统地问「怎么更好」。读本 No.07 Emil Kowalski 把动效判断写成 Skill，本质上也是把评审标准外置。</p></div>
-
-<h2>04 总对照表：每种打法改变了什么、没改变什么</h2>
-<table><tr><th>打法</th><th>改变了</th><th>没改变</th><th>成本 / 门槛</th><th>编者建议用法</th></tr>
-<tr><td>设计系统 tokens</td><td>配色事故减少，基础质感更稳</td><td>版式、密度、结构</td><td>中：需先有成熟系统</td><td>当「地基」，必须搭配下面某一招</td></tr>
-<tr><td>教练式提示 / Skill</td><td>字体、按钮、气质更贴行业</td><td>布局仍是那 2–3 种；禁令只会让习惯「搬家」</td><td>低</td><td>用正向描述代替禁令；当「审美底线」而非「风格来源」</td></tr>
-<tr><td>参考图</td><td><strong>唯一</strong>能产生新版式的手段</td><td>复杂布局与动效还原差；超出参考范围就回弹</td><td>低–中：要会挑图</td><td>为每类页面 / 区块各配一张参考，覆盖要生成的全部范围</td></tr>
-<tr><td>代码模板</td><td>质量跳升最多</td><td>不同语境之间趋同，只做最小适配</td><td>高：要先有好代码</td><td>适合做自己的作品集 / 品牌站「母版」</td></tr>
-<tr><td>自我迭代</td><td>理论上全能</td><td>朝默认收敛、漏看明显问题</td><td>高：时间与 token</td><td>只在有外置标准（参考图 / 清单）时使用</td></tr></table>
-
-<h2>05 三条底层规律</h2>
-<h3>规律一：模型真的很喜欢默认风格</h3>
-<p>把模型想象成一个手边永远放着「平均网站」的实习生：每次做决定，只要你没给理由，他就照着平均值来。这解释了两件事——为什么 AI 网站这么好认；为什么自我迭代没用（它改着改着又回到平均值）。<strong>要打破这种模式，你得给它一个「离开默认值的理由」</strong>，而最有效的理由是图像和代码。</p>
-<h3>规律二：图像的带宽远高于文字</h3>
-<p>一张截图里编码了几百个关于间距、颜色和布局的微决策，用文字根本写不完。作者的原话很干脆：</p>
-<blockquote>“Images are higher bandwidth than words.” — Ben Shumaker</blockquote>
-<p>用设计师熟悉的话说：文字描述的是<b>形容词</b>（「高级」「克制」「温暖」），而形容词对模型来说是高度多义的；截图给的是<b>具体值</b>——标题占屏宽多少、正文行距多少、图文比例是多少。模型擅长「照着具体值做」，不擅长「把形容词翻译成具体值」。</p>
-<h3>规律三：预先做决定是一条取舍曲线</h3>
-<p>五种打法都可以归为一类：<b>替 AI 预先做决定</b>。决定做得越多（从 tokens → 指导 → 参考图 → 代码），上限越高，但灵活性越低。Repaint 这类通用平台必须照顾各种用例，所以要在曲线上找平衡；而个人项目没这个负担，应该大胆把决定做足。</p>
-<div class="note"><p>这条取舍曲线对 Zhu 的启发是：<strong>个人项目别学平台的「克制」</strong>。平台怕的是给太多参考导致千站一面，而你只做一个站，恰恰应该把参考给到「过拟合」——首屏、列表、文章页、页脚各一张参考，甚至直接提供你写好的一个区块的 HTML/CSS 当母版。独特性来自你挑选参考的品味，而不是来自模型的「创造力」。</p></div>
-
-<h2>06 为什么「禁止 Inter」反而会翻车</h2>
-<p>这是全文最有意思的一个细节。frontend-design Skill 写了「永远不要用 Inter、Roboto、Arial、系统字体这类被用烂的字体」。结果呢？模型转而反复使用 Jost 和 Cormorant Garamond——<strong>坏习惯没有消失，只是搬了家</strong>。更糟的是，当 Inter 恰好是正确选择时（比如一个需要高可读性的数据密集型后台），模型反而不敢用了。</p>
-<p>这背后是提示设计的一个通用原理：负向禁令 (negative constraint) 只删掉了分布里的一个峰，模型会滑向旁边的下一个峰；正向锚点 (positive anchor) 才能把它拉到你想要的位置。</p>
-<table><tr><th>写法</th><th>示例</th><th>典型结果</th></tr>
-<tr><td>负向禁令</td><td>「不要用 Inter，不要紫色渐变」</td><td>换成下一个高频选项（Jost / Cormorant / 青绿渐变）</td></tr>
-<tr><td>形容词</td><td>「用一款有个性的、优雅的衬线字体」</td><td>模型心中「有个性的衬线」也是高频款</td></tr>
-<tr><td>正向锚点</td><td>「标题用 Fraunces 96px、字重 300、字距 -2%，正文 IBM Plex Sans 17/1.7」</td><td>可预期，但需要你自己有判断</td></tr>
-<tr><td>参考锚点</td><td>附截图：「标题与正文的字号比例、字重对比照这张」</td><td>把比例关系迁移过来，而不是字体本身</td></tr></table>
-<div class="note"><p>编者建议把「禁令清单」改写成「理由清单」：与其写「不要用 Inter」，不如写「这是一个面向独立书店的站，需要书卷气和手工感，字体要能体现纸质印刷的温度；数据表格部分仍可用中性无衬线保证可读」。给出<strong>语境和取舍理由</strong>，模型才不会在禁令之间乱跳。这与读本 No.05「Avoid the AI Aesthetic」的建议方向一致：先定观点，再谈风格。</p></div>
-
-<h2>07 编者延伸：参考图到底怎么喂才不变成抄袭</h2>
-<p>原文把参考图列为最有效的手段，但没细讲怎么用。对专业设计师来说，直接丢一张别人的网站截图说「做个类似的」，既有抄袭风险，也会把对方的品牌语言照搬过来。编者的做法是把参考拆成三层，每层可以来自不同来源：</p>
-<table><tr><th>层</th><th>要从参考中借的东西</th><th>适合的来源</th><th>告诉模型的方式</th></tr>
-<tr><td>构图层 (composition)</td><td>网格、图文比例、首屏结构、留白节奏</td><td>杂志版面、海报、建筑摄影、你喜欢的网站</td><td>「只借版式比例，不借颜色和字体」</td></tr>
-<tr><td>字体层 (typography)</td><td>字号阶梯、字重对比、行距与字距</td><td>书籍内页、展览画册、字体厂商样张</td><td>「只借标题 / 正文的比例关系」</td></tr>
-<tr><td>质感层 (texture)</td><td>颜色关系、线条、纹理、边框语言</td><td>面料、建筑材料、老包装、自己拍的照片</td><td>「只借色彩关系，换成我的品牌色」</td></tr></table>
-<p>三层来自三个毫不相干的出处，混合后的结果天然不像任何一个现成网站——这正是「独特审美」最可靠的来源。另外两个实用技巧：</p>
-<ul>
-<li><b>覆盖完整范围</b>：原文指出超出参考范围就会回弹默认，所以要为每种区块（首屏、列表、卡片、表单、页脚）都准备参考，或者先让 AI 按参考做一个区块，再把这个做好的区块截图当作后续区块的参考，形成「自我参考链」。</li>
-<li><b>非网页参考往往更有效</b>：网站截图会把模型拉回「网站常见模式」；一张书籍版面或展览海报，能给出它在网页训练数据里很少见到的构图。</li></ul>
-<div class="note"><p>需要提醒的是，这篇文章出自一家 AI 建站公司，结尾自然推荐了自家的「风格库 + 代码样例」。但它的核心结论并不依赖这款产品：<strong>任何工具里，多给截图和样例都比反复用文字说「再高级一点」有效得多</strong>——作者自己也说这条适用于 App 设计、图像和视频生成。实验样本有限、没有量化指标，可以把它当作一线从业者的经验报告，而不是严格研究。</p></div>
-
-<h2>08 和读本其他篇的对照</h2>
-<table><tr><th>读本篇目</th><th>核心手段</th><th>与本篇的关系</th></tr>
-<tr><td>No.01 Anthropic「用 Skills 改进前端设计」</td><td>教练式 Skill</td><td>本篇直接测试了这份 Skill：有用，但解决不了重复</td></tr>
-<tr><td>No.03 Vercel design.md</td><td>把品牌规则写成文件</td><td>相当于「设计系统 + 指导」，需要再配视觉锚点才能管住构图</td></tr>
-<tr><td>No.05 Avoid the AI Aesthetic</td><td>先有观点再有风格</td><td>互补：观点决定该挑什么参考</td></tr>
-<tr><td>No.11 Less is more</td><td>做减法的品味</td><td>参考图把模型拉离默认后，仍需人做减法收尾</td></tr>
-<tr><td>No.16 Stripe Protodash</td><td>把真设计系统烤进工具</td><td>即「代码模板」打法的组织级版本：质量稳，但同样要警惕千篇一律</td></tr></table>
-
-<h2>09 模板：参考图驱动的风格提示</h2>
-<p>下面这份模板把本文的结论落成可直接用的提示结构：用参考图承担「风格」，用文字只承担「语境与取舍理由」，并给模型一个外置的自查标准。</p>
-<pre><code># 任务
-为【项目名：例如「独立书店·夜读」】做【页面：首页首屏 + 新书列表】。
-
-# 语境（只写理由，不写形容词）
-- 用户：【谁】在【什么场景】使用，最在意【什么】
-- 品牌取舍：我们宁可【牺牲 X】，也要【保住 Y】
-  例：宁可信息密度低一点，也要让每本书的封面像在实体书架上被单独陈列
-
-# 参考（附图，每张只借一层）
-- ref-1.png【构图层】：只借首屏左文右图 5:7 的比例、上方大留白；不要借它的颜色和字体
-- ref-2.png【字体层】：只借标题与正文约 5:1 的字号比、标题细字重 + 正文常规字重
-- ref-3.png【质感层】：只借暖灰底 + 单一强调色的关系；强调色换成 #1F8C9A
-- 参考里没有覆盖的区块（例如列表），先沿用 ref-1 的网格与 ref-2 的字体比例推导，
-  不要回到「居中大标题 + 三张卡片」
-
-# 确定的值（正向锚点）
-- 字体：标题【字体名 / 字号 / 字重】，正文【字体名 / 字号 / 行高】
-- 网格：【12 栏 / 最大宽度 / 外边距】
-- 圆角与阴影：【例如 0 圆角、无阴影，用 1px 线分隔】
-
-# 交付后自查（对照参考逐条回答，再改一轮）
-1. 首屏图文比例是否与 ref-1 一致？偏差多少？
-2. 标题 / 正文字号比是否接近 ref-2？
-3. 页面中强调色是否只出现在一个最关键的元素上？
-4. 有没有出现我没要求的元素（徽章、渐变、统计数字条、三张特性卡）？有则删除。
-5. 截图并列出与参考差距最大的 3 处，然后修改。</code></pre>
-<div class="note"><p>模板里第 4 条自查是专门针对「模型过度主动」的。读本外的另一位作者 Maler Chen 最近也提出了类似看法：AI 交出来的 UI 往往过度复杂，设计师的工作更像雕刻——从大理石块上删减，直到剩下的部分带有你的品味。参考图负责把石块选对，自查清单负责动刀。</p></div>
-
-<h2>10 自查清单</h2>
-<ol class="check">
-<li>我是不是还在用形容词（「高级」「干净」「现代」）描述风格？能否换成一张参考图或一组具体数值？</li>
-<li>我的规则里有多少条是「不要 X」？每条能否改写成「因为 Y，所以用 Z」？</li>
-<li>参考图有没有覆盖我要生成的全部区块？没覆盖的部分，模型是不是回弹成了默认样式？</li>
-<li>参考是不是全部来自网站截图？能否加入书籍、海报、材料等非网页来源？</li>
-<li>每张参考是否标明了「只借哪一层」（构图 / 字体 / 质感），避免整体照搬他人品牌？</li>
-<li>做三个反差很大的语境测试时，结果是否仍是同一副骨架？</li>
-<li>让 AI 自我迭代时，有没有给它外置标准（参考图 + 检查清单），还是只问了「怎么更好」？</li>
-<li>做出的第一个满意区块，有没有截图存档，作为后续区块的「自我参考」？</li></ol>
-<div class="note"><p>一句话总结：模型的「审美」是一股朝向平均值的引力，文字太轻，拉不动它；图像和代码够重，才能把它拽离轨道。对 Zhu 而言，最值得马上做的一件事是建一个自己的<strong>分层参考库</strong>——构图、字体、质感三个文件夹，平时看到好的书页、海报、材料就截图归档。以后每次让 AI 做页面，从三个文件夹各挑一张，独特性就从你的收藏里来，而不是从模型那里讨。</p></div>
+NEVER use generic AI-generated aesthetics like overused font families (Inter, Roboto, Arial, system fonts), cliched color schemes (particularly purple gradients on white backgrounds), predictable layouts and component patterns, and cookie-cutter design that lacks context-specific character.
+Interpret creatively and make unexpected choices that feel genuinely designed for the context. No design should be the same. Vary between light and dark themes, different fonts, different aesthetics. NEVER converge on common choices (Space Grotesk, for example) across generations.
+IMPORTANT: Match implementation complexity to the aesthetic vision. Maximalist designs need elaborate code with extensive animations and effects. Minimalist or refined designs need restraint, precision, and careful attention to spacing, typography, and subtle details. Elegance comes from executing the vision well.
+Remember: Claude is capable of extraordinary creative work. Don't hold back, show what can truly be created when thinking outside the box and committing fully to a distinctive vision.</code></pre>
+<figure><img src="../figures/picture-is-worth-a-thousand-tokens/05-next-image.webp" alt="在 Claude AI 中输入提示词 &quot;Make a therapist website&quot;" loading="lazy" decoding="async"><figcaption>在 Claude AI（带设计 skill）中输入提示词 "Make a therapist website"</figcaption></figure>
+<p>这是实实在在的进步。整体布局和之前相似，但它终于像一个真正的心理咨询师网站了：字体更柔和，按钮样式也很独特。换上你自己的图片，完全可以直接发布。</p>
+<p>在我们的测试中发现，自定义指令解决不了重复问题。模型仍然会套用同样的模式，所以看起来依旧基本是标准的 AI 网站，只是更精致了一些。</p>
+<p>而且，要避开被滥用的模式，比 Claude 的提示词所暗示的更难。它们写道：</p>
+<blockquote><p>NEVER use generic AI-generated aesthetics like overused font families (Inter, Roboto, Arial, system fonts)</p></blockquote>
+<p>结果，模型转而滥用其他字体，比如 Jost 和 Cormorant Garamond。而且在 Inter 才是正确选择的场景里，它也束手无策了。所以说，你可以强行去掉它的坏习惯，但无论如何，它还是会一再重复同样的做法。</p>
+<h4 id="">参考图</h4>
+<p>如果完全不用文字，直接把想要的效果展示给模型呢？给它一张你喜欢的设计截图，让它做出类似的东西。</p>
+<figure><img src="../figures/picture-is-worth-a-thousand-tokens/06-next-image.webp" alt="在 Claude Code 中输入提示词 &quot;Make a therapist website&quot;，并附上参考网站的截图" loading="lazy" decoding="async"><figcaption>在 Claude Code 中输入提示词 "Make a therapist website"，并提供参考网站和图像生成工具</figcaption></figure>
+<p>这是第一个能让模型跳出它惯用的那 2-3 种布局、做出新布局的方法。它自己从来不会生成半屏图片的布局。</p>
+<p>图片是传递大量信息的超高效方式。模型能一次性捕捉布局、间距、色彩关系和信息密度：这些你根本想不到要在提示词里描述的东西。但它也很脆弱：无法复现复杂的布局或动画。而且一旦模型需要补充参考图之外的更多内容，就会退回默认风格。</p>
+<h4 id="">代码与样式模板</h4>
+<p>这大概是最简单粗暴的办法：直接给它代码。ChatGPT 现在就是这么做的，它在生成网站时会使用模板库。</p>
+<p>这样做，质量显然会大幅提升，因为你等于直接把答案交给了 AI。但大多数人手上并没有现成的代码。所以这主要是平台开发者的方法，用来为其他人打造工具。</p>
+<p>不过有一个问题：</p>
+<figure><img src="../figures/picture-is-worth-a-thousand-tokens/07-next-image.webp" alt="ChatGPT 生成的心理咨询师网站" loading="lazy" decoding="async"></figure>
+<p>"做一个心理咨询师网站"</p>
+<figure><img src="../figures/picture-is-worth-a-thousand-tokens/08-next-image.webp" alt="ChatGPT 生成的律师网站" loading="lazy" decoding="async"></figure>
+<p>"做一个律师网站"</p>
+<figure><img src="../figures/picture-is-worth-a-thousand-tokens/09-next-image.webp" alt="ChatGPT 生成的水管工网站" loading="lazy" decoding="async"></figure>
+<p>"做一个水管工网站"</p>
+<figure><img src="../figures/picture-is-worth-a-thousand-tokens/10-next-image.webp" alt="ChatGPT 生成的面包店网站" loading="lazy" decoding="async"></figure>
+<p>"做一个面包店网站"</p>
+<p>如果你给 AI 提供示例，它生成的网站会惊人地相似，只做匹配上下文所需的最小调整。所以现在 ChatGPT 生成网站时，无论提示词是什么，看起来都像同一家科技创业公司。</p>
+<p>遗憾的是，即便用上所有这些方法，我也不确定我们做出的东西是否比一个通用的 Wix 模板更好。</p>
+<figure><img src="../figures/picture-is-worth-a-thousand-tokens/11-next-image.webp" alt="Wix 的一个心理咨询师模板" loading="lazy" decoding="async"><figcaption>Wix 的一个心理咨询师模板</figcaption></figure>
+<h4 id="">自我迭代</h4>
+<p>为什么不让模型看看自己的输出并加以改进呢？毕竟 Wix 的设计师也是经过大量迭代才完成设计的。</p>
+<p>理论上，这能解决所有问题。实际上，它要跑 20 分钟，花掉 10 美元的 Token，而且很快就停滞不前。例如，我让它对前面的灯塔网站进行迭代，它甚至没有注意到那个根本看不清的按钮。</p>
+<figure><img src="../figures/picture-is-worth-a-thousand-tokens/12-next-image.webp" alt="Claude Code 迭代自己的设计" loading="lazy" decoding="async"><figcaption>在 Claude Code 中使用提示词 "Can you make an improved version of this" + 截图</figcaption></figure>
+<p>自我迭代很可能是未来的方向，但今天的模型还没准备好。</p>
+<p>探索完所有这些方法后，我们得到了几个切实可行的风格改进方案。不仅如此，我们对 AI 模型的工作方式也有了深入得多的理解。</p>
+<h2 id="section-2">我们对 AI 模型的认识</h2>
+<h4 id="">模型非常偏爱默认风格</h4>
+<p>模型里内置了一种默认审美，就像训练数据中的“平均网站”。每次做决策时，除非有明确的理由，否则它都会采用默认风格。这就是 AI 生成的网站如此容易辨认的原因，也是自我迭代其实没有任何成效的原因：模型不会朝着独特的设计收敛，而是收敛到默认风格。如果想让 AI 打破这种模式，就得给它一些能让它跳出默认的东西，比如图片参考或代码示例。</p>
+<h4 id="">图片的带宽比文字更高</h4>
+<p>用文字很难引导模型。你可以写一整段话，要求“简洁、现代、留白充足”，但这几乎没有意义，最后得到的永远是默认风格。图片能让模型做出独特的设计，因为它承载了更多信息。一张截图包含了数百个关于间距、颜色和布局的微小决策，这些是文字无法定义的。所以，除非你有代码示例，否则参考图片就是引导 AI 的最佳方式。</p>
+<h4 id="">预先构建是一条权衡曲线</h4>
+<p>我们尝试的每一种策略，本质上都是替 AI 预先做出决策。给它的越多，质量上限就越高，但灵活性也越低。不过，只有像 Repaint 这样的通用平台，才需要为每一种潜在用例做好准备。如果只是为了自己用，你可以（也应该）给 AI 提供具体的参考，把视觉质量拉到最高。</p>
+<figure><img src="../figures/picture-is-worth-a-thousand-tokens/13-next-image.webp" alt="为 AI 预先构建时，灵活性与质量之间的取舍" loading="lazy" decoding="async"></figure>
+<h2 id="section-3">如何借助 AI 做出更好的设计</h2>
+<p>避免 slop（低质量 AI 产出）最简单的办法，是给 AI 提供独特的视觉参考，比如你喜欢的网站截图、代码示例，或者两者兼备。风格确立之后，AI 就能生成更多风格一致的区块。这比反复调整提示词有效得多，而大多数人用的恰恰是后一种做法。</p>
+<p>如果你觉得寻找参考、建立风格有些望而生畏，可以试试 <a href="https://repaint.com/">Repaint</a>。我们构建了一个庞大的风格库，包含代码示例和设计变量。因为选择丰富，AI 不会被限制在单一风格里。</p>
+<p>更广泛地说，无论是哪种视觉类 AI 工具，不管是应用设计、图像生成还是视频生成，与其说“让它看起来更高级”，不如给它更多截图和示例。效果会好得多。</p>
+<hr>
+<p style="margin-top:3em"><a class="readorig" href="https://repaint.com/blog/picture-is-worth-a-thousand-tokens" target="_blank" rel="noopener">阅读原文 →</a></p>
 </article>
+<footer class="mono">原文 © Ben Shumaker · 本页为自动生成的中文译文，仅供学习参考</footer>
+<script>
+(function () {
+  function play(frame) {
+    var embed = frame.getAttribute('data-embed');
+    var direct = frame.getAttribute('data-direct') === '1';
+    var url = frame.getAttribute('data-video-url') || '';
+    var title = frame.getAttribute('data-title') || '视频';
+    if (direct && url) {
+      var video = document.createElement('video');
+      video.src = url;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      var poster = frame.getAttribute('data-poster');
+      if (poster) video.poster = poster;
+      frame.innerHTML = '';
+      frame.appendChild(video);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (embed) {
+      var iframe = document.createElement('iframe');
+      iframe.src = embed;
+      iframe.title = title;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('loading', 'eager');
+      frame.innerHTML = '';
+      frame.appendChild(iframe);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (url) window.open(url, '_blank', 'noopener');
+  }
+  document.querySelectorAll('.video-frame[data-video-url]').forEach(function (frame) {
+    frame.addEventListener('click', function () { play(frame); });
+    frame.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); play(frame); }
+    });
+  });
+})();
+</script>
 </body></html>

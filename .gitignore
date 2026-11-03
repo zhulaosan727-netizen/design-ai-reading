@@ -1,0 +1,4 @@
+
+# Translator working packages (site uses figures/<slug>/ copies)
+article-translations/
+!article-translations/.batch_summary.json

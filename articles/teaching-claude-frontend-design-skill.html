@@ -1,120 +1,115 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>教 Claude 设计得更好：改写 Frontend Design Skill 的方法 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#F1E5E2">
-<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 44 · 提示词与 Skill / frontend-design / eval / theory of mind</div><h1>教 Claude 设计得更好：改写 Frontend Design Skill 的方法</h1><div class="en">Teaching Claude to Design Better: Improving Anthropic's Frontend Design Skill</div></div>
-<dl class="meta mono"><dt>作者</dt><dd>Justin Wetch</dd><dt>身份</dt><dd>独立作者（向 anthropics/skills 提交 Frontend Design Skill PR）</dd><dt>日期</dt><dd>2026-01-05</dd><dt>原文</dt><dd><a href="https://www.justinwetch.com/blog/improvingclaudefrontend/">justinwetch.com ↗</a></dd></dl><a class="readorig" href="https://www.justinwetch.com/blog/improvingclaudefrontend/" target="_blank" rel="noopener">阅读原文 →</a></div>
-<figure class="cover"><img src="../covers/teaching-claude-frontend-design-skill.svg" alt="Teaching Claude to Design Better: Improving Anthropic's Frontend Design Skill 封面"></figure></section>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>教 Claude 设计得更好：改写 Frontend Design Skill 的方法 · 读本</title><link rel="stylesheet" href="../assets/style.css"><style>.video-card{margin:1.8em 0}.video-frame{position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--rule);background:#CFCFCF;cursor:pointer}.video-frame img,.video-frame iframe,.video-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block}.video-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#7A1E2B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px}.video-card figcaption{margin-top:10px;font-size:14px;opacity:.8}.video-index{margin:2em 0;padding:16px 18px;border:1px solid var(--rule)}article.body figure img{width:100%;height:auto;display:block}article.body figcaption{margin-top:8px;font-size:14px;opacity:.75}</style></head><body class="article" style="--tint:#F1E5E2">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 44 · 提示词与 Skill / Skill / frontend-design / eval / model theory of mind / Anthropic</div><h1>教 Claude 设计得更好：改写 Frontend Design Skill 的方法</h1><div class="en">Teaching Claude to Design Better: Improving Anthropic&#x27;s Frontend Design Skill</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Justin Wetch</dd><dt>署名</dt><dd>独立作者（向 anthropics/skills 提交 Frontend Design Skill PR）</dd><dt>日期</dt><dd>2026-01-05</dd><dt>原文</dt><dd><a href="https://www.justinwetch.com/blog/improvingclaudefrontend/">justinwetch.com ↗</a></dd></dl><a class="readorig" href="https://www.justinwetch.com/blog/improvingclaudefrontend/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/teaching-claude-frontend-design-skill.svg" alt="Teaching Claude to Design Better: Improving Anthropic&#x27;s Frontend Design Skill 封面"></figure></section>
 <article class="body">
-<p class="notice">深度精讲：这不是译文，而是编者按「模型心智理论 (model theory of mind) + Skill 可执行性」视角重写并扩写的讲解。原文讲述 Justin 如何审读 Anthropic 开源的 frontend-design skill、把不可执行的指令改成可执行指令，并用盲测 A/B + Opus 评审拿到 75% 胜率。读本已有 Anthropic 官方「Improving frontend design through Skills」；本篇讲的是<strong>如何改 Skill 本身</strong>。细节与评测图表请点上方「阅读原文」。</p>
+<p class="notice">中文全文译文：由「译文工坊」根据英文原文自动翻译生成，供学习参考。结构与措辞以译文为准；想看原始论述，请点上方「阅读原文」。</p>
 <nav class="toc"><div class="mono">本篇目录</div><ol>
-<li>先给结论：好听的指令不等于可执行</li>
-<li>模型心智理论：先问「它知不知道」</li>
-<li>改写策略：清晰、祈使、扩潜空间、NEVER/INSTEAD</li>
-<li>排版与色彩：把形容词换成方向</li>
-<li>从 vibe 到数据：50 prompt × 盲测评审</li>
-<li>意外发现：小模型吃 Skill 红利更大</li>
-<li>给 Zhu 的改 Skill 清单与模板</li>
-</ol></nav>
+<li><a href="#section-1">ANTHROPIC 默认前端 SKILL</a></li><li><a href="#section-2">重写后的前端 SKILL</a></li><li><a href="#section-3">查看 PR（拉取请求）</a></li><li><a href="#section-4">什么是 Skills？</a></li><li><a href="#section-5">“不要在多次生成之间趋同”的问题</a></li><li><a href="#section-6">模型心智理论</a></li><li><a href="#section-7">从第一性原理出发</a></li><li><a href="#section-8">具体修改</a></li><li><a href="#section-9">从凭感觉到看数据</a></li><li><a href="#section-10">结果</a></li><li><a href="#section-11">Opus、Sonnet 和 Haiku 共计 30 次评测</a></li><li><a href="#section-12">一个有趣的规律</a></li><li><a href="#section-13">结语</a></li></ol></nav>
 
-<h2>01 先给结论：好听的指令不等于可执行</h2>
-<p>Anthropic 的 Skills 仓库里有一份 frontend-design skill：目标是让 Claude 做出有辨识度、生产级的前端，避开「AI slop」审美。Justin 读到一句看似正确的话：<b>「NEVER converge on common choices (Space Grotesk, for example) across generations.」</b>再配上「No design should be the same」。</p>
-<p>意图很好——别次次都挤向同一套安全字体与版式。问题是：<b>Claude 看不到自己的其他会话。</b>每一次对话都是第一次。叫它「别跨 generation 收敛」，等于叫人别重复梦话里说过的句子——它根本没有那份记忆可参照。</p>
-<p>这篇的主线因此不是「多写一点审美形容词」，而是：<b>写 Skill 之前，先搞清模型的认识边界；再把意图改写成单次生成内可执行的动作；最后用评测证明改动有效。</b></p>
-<div class="note"><p>与读本 No.01 / 官方 frontend Skills 文对照：官方文教你「用 Skill 抬升审美轴」；Justin 教你「Skill 文本本身如何避免不可执行的拟人化指令」。两者叠用：官方定主题，Justin 定写法标准。</p></div>
-
-<h2>02 模型心智理论：先问「它知不知道」</h2>
-<p>Justin 称之为 <b>model theory of mind</b>：推理模型当下能知道什么、能感知什么、能记住什么、如何解析指令。没有这层，你会写出「对人听着很对、对模型却不可操作」的脚手架。</p>
-<table>
-<tr><th>人类直觉写法</th><th>模型实际状态</th><th>可执行改写</th></tr>
-<tr><td>别跨次生成收敛到同一字体</td><td>无跨会话记忆</td><td>若第一反应是常见默认，主动探索替代</td></tr>
-<tr><td>做出「美丽、独特、有趣」的字</td><td>形容词无判据</td><td>展示字体要有个性；正文要可读；用字号/字重/大小写/字距建层级</td></tr>
-<tr><td>选一个极端审美</td><td>与后文「关键是意图不是强度」打架</td><td>承诺一个清晰方向，细节都为它服务</td></tr>
-</table>
-<p>他把「跨 generation 不收敛」改成大意如下的句子：<b>永远不要满足于脑中第一个常见选项；若某字体、颜色或布局像「显而易见的答案」，就刻意探索替代方案。</b>目标不变，但动作落在单次生成之内。</p>
-
-<h2>03 改写策略：清晰、祈使、扩潜空间、NEVER/INSTEAD</h2>
-<p>Justin 先写了一份约 1800 词的「我相信什么叫好前端」备忘，作为改写锚，再逐行审原 Skill。改动落在几类：</p>
-<p><b>清晰与自洽。</b>原文一处说「pick an extreme」，另一处又说关键是 intentionality 不是 intensity——指令互殴。他改成「commit to a distinct direction」，并强调终稿应 singular：每个细节服务于同一方向。</p>
-<p><b>祈使语气 (imperative voice)。</b>原文有的段落像口号（「Unexpected layouts. Asymmetry.」），有的含糊得不知道要模型做什么。统一成清晰命令：告诉它做什么，而不只是「考虑什么」。</p>
-<p><b>扩展潜空间 (latent space)。</b>原列表偏「brutally minimal / maximalist chaos」等，缺暗色情绪、手作感、lo-fi zine 等领地。扩展不是为了穷尽，而是给模型「允许探索」的许可证。</p>
-<p><b>NEVER / INSTEAD 成对出现。</b>只说「别用 Inter / 紫渐变 / 可预期布局」不够——模型还需要伸手可及的正向目标。他补上 INSTEAD：有辨识度的字体、大胆且有承诺的色板、会让人一愣的布局、贴合上下文的 bespoke 细节。</p>
-<pre><code>## NEVER
-- 默认 Inter / Roboto / 系统字体全家桶
-- 白底紫渐变 + 三张同构功能卡
-- 无上下文的模板构图
-
-## INSTEAD
-- 有立场的字体配对（展示 vs 正文分工明确）
-- 主色主导 + 锐利强调色，而不是平均撒色
-- 布局服务于内容叙事，允许不对称与重叠
-- 每个选择能说回「这个产品的具体语境」
-</code></pre>
-
-<h2>04 排版与色彩：把形容词换成方向</h2>
-<p><b>Typography。</b>原文用「beautiful, unique, and interesting」——好听，但模型无法落地。改写后的骨架更像工程师说明书：默认字体 = 默认思考；字体承载设计的 singular voice；展示字体可表达，正文必须可读；动用完整 typographic range（size / weight / case / spacing）建立层级。</p>
-<p><b>Color with conviction。</b>「commit to a cohesive aesthetic」太空。他改成可挑选的方向盘：bold &amp; saturated / moody &amp; restrained / high-contrast &amp; minimal；主色领先，强调色点破。目的不是装自信，而是<strong>扩大可能性空间</strong>，让模型知道选项存在。</p>
-<table>
-<tr><th>轴</th><th>弱指令</th><th>强指令</th></tr>
-<tr><td>字体</td><td>美丽、独特</td><td>展示有性格；正文可读；用字阶与字重建层级</td></tr>
-<tr><td>色彩</td><td>有凝聚力</td><td>选一种态度（饱和 / 克制 / 高对比）；主色 + 锐利强调</td></tr>
-<tr><td>方向</td><td>极端一点</td><td>选定方向后，细节不得分裂叙事</td></tr>
-</table>
-<div class="note"><p>这与 Emil「Agents with Taste」、uiscanner「taste = context」同构：品味不是情绪词，是可执行的约束与正向示例。Justin 的贡献是把「改 Skill 文案」本身变成一门可检查的手艺。</p></div>
-
-<h2>05 从 vibe 到数据：50 prompt × 盲测评审</h2>
-<p>「我觉得更好」不能开 PR。他搭了一套评测：</p>
-<ol>
-<li>50 个代表性 prompt（落地页、仪表盘、作品集、菜单、注册流、乐队页等）。</li>
-<li>每次随机抽题，API 各跑原 Skill / 新 Skill 一次。</li>
-<li>Puppeteer 全页截图。</li>
-<li>把用户题 + 匿名 A/B 截图交给 Claude Opus 4.5，按五维打分：Prompt Adherence、Aesthetic Fit、Visual Polish &amp; Coherence、UX &amp; Usability、Creative Distinction。</li>
-</ol>
-<p>结果（Claude 4.5 家族）：Haiku 8/10 胜；Sonnet 7/10；Opus 6/10。去掉平局后，28 次决胜里新 Skill 赢 21 次（约 75%），二项检验显著。Creative Distinction 与 Visual Polish 是常见增益项。</p>
-<table>
-<tr><th>模型</th><th>新 Skill 胜场</th><th>相对收益直觉</th></tr>
-<tr><td>Haiku 4.5</td><td>8 / 10</td><td>最大——更依赖明确指令</td></tr>
-<tr><td>Sonnet 4.5</td><td>7 / 10</td><td>居中</td></tr>
-<tr><td>Opus 4.5</td><td>6 / 10</td><td>仍赢，但天花板更高，Skill 边际更小</td></tr>
-</table>
-
-<h2>06 意外发现：小模型吃 Skill 红利更大</h2>
-<p>Justin 的假设：Opus 本身前端已强，模糊处能靠能力补全；Haiku 更需要显式脚手架。若成立，对提示词工程有直接含义——<b>越强的模型，在其能力圈内对 prompt 越不敏感；越便宜的模型，越吃精确 Skill。</b>对要控成本的设计/前端流水线，这比「一律上最强模型」更实用：把 Skill 写清楚，让小模型追上一段差距。</p>
-
-<h2>07 给 Zhu 的改 Skill 清单与模板</h2>
-<p><b>审一行 Skill 时的四问</b></p>
-<ol>
-<li>模型在单次上下文里有没有执行所需的信息？</li>
-<li>指令是否可观察、可违反（因而可检查）？</li>
-<li>是否与同文档其他句子互殴？</li>
-<li>NEVER 有没有配对的 INSTEAD？</li>
-</ol>
-<p><b>改写模板（可粘贴进自己的 frontend / 读本 Skill）</b></p>
-<pre><code>## 方向
-先选一个清晰方向（例如：editorial quiet / dense tool UI / dark atelier）。
-整页细节必须服务这一方向；不要同时「极简又最大主义」。
-
-## Typography
-- 展示字体：允许个性；正文：优先可读。
-- 用 size / weight / case / tracking 建层级，而不是靠颜色喊话。
-- 若第一反应是 Inter / Space Grotesk / 系统字体，列出 2 个更贴语境的替代再选。
-
-## Color
-- 选一种态度：saturated / moody / high-contrast。
-- 主色占地，强调色点破；避免平均撒一圈柔和色。
-
-## NEVER / INSTEAD
-NEVER: 紫渐变白底默认套餐；无参考的三同构卡片；左侧竖向色条做状态。
-INSTEAD: 具名参考或 tokens；状态用标签/图标/表面色温/顶边或全框；布局叙事优先。
-
-## 自检（生成后）
-- 能否用一句话说明「这页为什么长这样」？
-- 删掉 30% 装饰文案后是否更清晰？
-- 是否出现训练分布中心的默认套餐而无理由？
-</code></pre>
-<p><b>轻量 eval（不必上 50 题也能开始）</b></p>
-<ul>
-<li>固定 5 个你常做的页面类型各 1 题。</li>
-<li>旧 Skill / 新 Skill 各出一版，匿名给同事或另一个模型按五维打分。</li>
-<li>只合并「胜场稳定」的句子，拒绝凭感觉整文件重写。</li>
-</ul>
-<div class="note"><p>一句话总结：改 Skill 不是润色文案，而是对模型做可用性设计——去掉它无法知道的要求，补上它能执行的动作，再用盲测证明你没有自我感动。官方 Skill 给你起点；Justin 的方法让你有资格维护自己的品味文件。</p></div>
+<p>上个月我为 Anthropic 的 Bloom 框架做了一个 GUI（最近还提出了十种它可以测试的新行为），之后我想更深入地了解他们的生态。Bloom 项目让我对 Anthropic 处理工具和评测的方式很敬佩，也让我好奇他们还开源了什么。</p>
+<figure><img src="../figures/teaching-claude-frontend-design-skill/01-extra-images-ab53c939da705416-501c2e90e0.jpg" alt="教 Claude 做出更好的设计：改进 Anthropic 的前端设计 Skill" loading="lazy" decoding="async"></figure>
+<p>作者：Justin Wetch</p>
+<h2 id="section-1">ANTHROPIC 默认前端 SKILL</h2>
+<h2 id="section-2">重写后的前端 SKILL</h2>
+<h2 id="section-3">查看 PR（拉取请求）</h2>
+<p>上个月我为 Anthropic 的 Bloom 框架做了一个 GUI（最近还提出了十种它可以测试的新行为），之后我想更深入地了解他们的生态。Bloom 项目让我对 Anthropic 处理工具和评测的方式很敬佩，也让我好奇他们还开源了什么。</p>
+<p>就在那时，我发现了他们的 Skills 仓库。</p>
+<h2 id="section-4">什么是 Skills？</h2>
+<p>Skills 本质上是一种专门的系统提示词，赋予 Claude 特定领域的能力。有用于创建 Word 文档的 skill，有用于电子表格的，有用于 PDF 的，还有一个引起了我的注意：前端设计 skill。这个 skill 旨在帮助 Claude 生成有辨识度、达到生产级水准的网页界面，避免千篇一律的“AI 垃圾”审美。</p>
+<p>我开始通读它，几乎立刻就发现了一个问题。</p>
+<h2 id="section-5">“不要在多次生成之间趋同”的问题</h2>
+<p>原始 skill 文件中有这样一句指令：“NEVER converge on common choices (Space Grotesk, for example) across generations.”（绝不要在多次生成之间趋向常见选择，例如 Space Grotesk。）几行之前，还写着“No design should be the same.”（没有任何两个设计应该相同。）</p>
+<p>意图很明确。作者希望 Claude 避免落入重复的套路，不要每次有人要网站时都去选同样保险的字体和布局。这确实是个值得解决的问题。</p>
+<p>但这里有个症结：Claude 看不到它的其他次生成。每次对话都是完全隔离的。Claude 不记得自己给上一位用户、或者再上一位用户生成过什么。要求它“不要在多次生成之间趋同”或“没有任何两个设计应该相同”，就像要求一个人不要重复自己梦话里说过的话。他们根本无从获取那些信息。</p>
+<p>这类现象让我着迷，因为它揭示了我们直觉上如何看待 AI 与这些系统实际运作方式之间的落差。我们很自然地将其拟人化，把 Claude 想象成一个持续存在、积累了各种习惯的单一实体。但从 Claude 的视角看，每一次对话都是第一次对话。</p>
+<h2 id="section-6">模型心智理论</h2>
+<p>我之前写过所谓的元认知脚手架（metacognitive scaffolding），即通过为模型提供结构化的思考框架，可以大幅提升其输出质量。但写好脚手架有一个前提：你必须了解模型究竟能知道什么。</p>
+<p>这就是模型心智理论（model theory of mind）。它指的是去推理模型的认知状态：它能获取哪些信息、能感知什么、能记住什么，以及它如何处理指令。缺少这一步，你写出的提示词读起来对人类很顺耳，对模型却可能让人困惑或无从执行。</p>
+<p>"don't converge"（不要趋同）这条指令就是一个绝佳的示例。它出发点是好的，却无法执行。更好的表述或许是："Never settle on the first common choice that comes to mind. If a font, color, or layout feels like an obvious solution, deliberately explore alternatives."（不要满足于脑海中浮现的第一个常见选择。如果某种字体、颜色或布局看起来是显而易见的方案，就有意去探索其他可能。）</p>
+<p>目标不变，但现在这是 Claude 在单次生成中真正能够做到的事。</p>
+<h2 id="section-7">从第一性原理出发</h2>
+<p>注意到这个问题后，我好奇还有哪些地方可以改进。我决定先梳理自己的想法，写了一份 1800 字的文档，记录我对前端设计的全部认知：什么让界面与众不同，如何思考排版、色彩和动效，以及是什么将令人难忘的作品与转瞬即忘的作品区分开来。这份文档成了我的参照点，确保我是在一个自洽的基础上构建，而不只是对原有 skill 做出反应。</p>
+<p>然后我逐行审视了现有的 skill，不断自问：这句话清晰吗？可执行吗？Claude 是否拥有遵循这条指令所需的信息？它与文档其余部分在逻辑上自洽吗？它是否契合周围文字的语气与意图？</p>
+<p>我认为这个 skill 整体上还有相当大的改进空间，但我想先做一个有针对性修改的版本，因为相比从头重写，它被真正合并的可能性要大得多。</p>
+<h2 id="section-8">具体修改</h2>
+<p>这些改动大致分为几类。</p>
+<p>清晰与连贯。除了“在多次生成中趋于雷同”的问题，还有一些地方措辞含糊，或者 skill 自相矛盾。有一节在选择美学方向时写的是“选一个极端”，后面却又提醒“关键在于有意为之，而非强度”。这两条指令互相冲突。我把前一句改成“确定一个鲜明的方向”，既保留了原意，又消除了矛盾。同样，“设计一个忠于美学方向的作品”改成了“最终的设计应当独一无二，每个细节都服务于同一个统一的方向”。更具体，也更可执行。</p>
+<p>祈使语气。原版 skill 的指令语气混杂。有些部分简短有力、直截了当（“出人意料的布局。不对称。重叠。”），另一些则含混模糊，让人不太清楚到底要 Claude 做什么。我统一了语气：用明确的命令告诉 Claude 该做什么，而不只是该考虑什么。</p>
+<p>拓展潜空间。skill 里列出了“极致极简”和“极繁混乱”之类的美学方向，但整片整片的领域都缺失了：暗黑、情绪化的美学，手工、匠人质感，lo-fi 独立杂志（zine）的能量。我扩充这份清单并不是为了穷尽所有风格，而是为了让 Claude 获得向更多方向探索的权限。</p>
+<p>NEVER/INSTEAD 结构。原版有一段讲不该做什么（通用字体、陈词滥调的配色、可预测的布局），却没有配上正面的替代方案。我加了一个 INSTEAD 部分：“有辨识度的字体。大胆、笃定的配色。出人意料的布局。量身定制的细节。每个选择都植根于丰富的上下文。”现在 Claude 既知道该避开什么，也知道该追求什么。</p>
+<p>排版大改。这一部分需要下的功夫最多。原版用了“美观、独特、有趣”这类形容词，读起来顺耳，却没有真正告诉模型该怎么做。谁眼中的美观？和什么相比算独特？这些都是审美判断，而不是可执行的指令。新版本聚焦于具体的指导：默认字体意味着默认思维，排版承载着设计独一无二的声音，展示字体应富有表现力，正文字体则应易读，并且要充分运用整个排版范围（字号、字重、大小写、间距）来建立层级。</p>
+<p>大胆用色。原先关于色彩的指引很含糊，只让 Claude “确立统一的美学风格”，却没说明这意味着什么。我把它改写成了几个具体方向供 Claude 参考：大胆饱和、沉稳克制，或高对比极简。以一种主色调为主导，再用鲜明的强调色点缀。这不只是为了让 Claude 更有底气，而是要拓宽可能性空间，让它知道有哪些选项。</p>
+<h2 id="section-9">从凭感觉到看数据</h2>
+<p>我先手动测试了修改后的 skill 一段时间：用相同的提示词分别跑两个版本，再对比输出。我个人觉得结果更好，但“感觉更好”并不是能提交到代码仓库的贡献。如果真想提 PR（拉取请求），我就需要数据。</p>
+<p>于是我搭建了一套评测系统。</p>
+<p>整体设置如下：准备一个包含 50 条代表性提示词的题库，覆盖不同的设计上下文（落地页、仪表盘、作品集、菜单、注册流程、乐队页面等）。每轮评测随机抽取提示词，通过 API 各执行两次，一次使用原版 skill，一次使用修订版 skill。再由 Puppeteer 服务器对两份输出分别截取整页截图。</p>
+<p>接下来是打分。用户的提示词和两张截图（匿名标为 A 和 B）会一起发送给 Claude Opus 4.5，由它按五项标准分别打分：提示词遵循度、美学契合度、视觉精致度与一致性、用户体验与可用性，以及创意独特性。评委并不知道哪份输出出自哪个 skill。</p>
+<p>我在 Claude 4.5 系列模型上分别运行了独立的评测套件。</p>
+<h2 id="section-10">结果</h2>
+<p>Haiku 4.5：修订版 skill 在 10 次评测中赢了 8 次。提升最明显的是创意独特性（7 胜 2 平 1 负）和视觉精致度（4 胜 5 平 1 负）。</p>
+<p>Sonnet 4.5：10 次赢了 7 次。美学契合度的提升最为明显（7 胜 1 平 2 负），视觉精致度紧随其后（6 胜 2 平 2 负）。</p>
+<p>Opus 4.5：10 次赢了 6 次。提示词遵循度（6 胜 4 平 0 负）和视觉精致度（7 胜 3 平 0 负）表现突出。</p>
+<p>在三个模型层级中，修订版 skill 在 28 次有明确胜负的对比（不含平局）中赢了 21 次，胜率 75%。精确二项检验证实这一结果具有统计显著性（单侧 p = 0.0063，双侧 p = 0.0125），也就是说，我们可以确信这一提升并非噪声。</p>
+<h2 id="section-11">Opus、Sonnet 和 Haiku 共计 30 次评测</h2>
+<h2 id="section-12">一个有趣的规律</h2>
+<p>有件事出乎我的意料：修订后的 skill 对小模型的帮助比对大模型更大。Haiku 的提升最明显，Sonnet 居中，Opus 受益最少。</p>
+<p>我的假设是，这反映了一种天花板效应。即使指令不那么具体，Opus 在前端设计上本来就已经相当出色。当提示词含糊不清时，它有更强的能力去补全空白、推断意图并做出合理的选择。而 Haiku 的原始能力较弱，从明确的指引中获益更多。指令越清晰、越可执行，对那些无法自行弥补的模型帮助就越大。</p>
+<p>如果这个判断成立，对提示词工程整体来说就有一些有意思的启示：模型越强，你的提示词就越不重要，至少在它能力范围内的任务上是这样。但对于更小、更快、更便宜的模型，精心设计提示词可以弥合相当一部分能力差距。</p>
+<h2 id="section-13">结语</h2>
+<p>我已经把修订后的 skill 作为 PR（拉取请求）提交到了 Anthropic 的仓库。无论最终是否被合并，这个过程本身都很有价值。</p>
+<p>这类工作有一种深深的满足感：拆解一份系统提示词，理解它的意图，找出它表达不清的地方，再以更高的精度把它重建起来。这需要一种特别的同理心，不是对用户，而是对模型。你得在脑中时刻装着：Claude 能知道什么、不能知道什么，能遵循什么样的指令、不能遵循什么样的指令，以及它理解语言的方式与人类理解同样文字的方式有何不同。</p>
+<p>我是真心喜欢这类问题。清晰的沟通、设计思维与模型认知的交汇处，正是我想投入时间的地方。如果你也在处理类似的挑战，我很乐意听听。</p>
+<p>感谢 Anthropic 开源了他们的 Skills 仓库，也感谢他们为提升 Claude 的能力所做的用心工作。能参与贡献，哪怕只是微小的一份，也是一种荣幸。</p>
+<p>关于上文提到的 Bloom GUI 项目，详见：Building a GUI for Anthropic's Bloom</p>
+<p>关于我想为 Bloom 新增的十种行为，详见：Ten Behaviors I'd Add to Anthropic's Bloom</p>
+<p>关于元认知脚手架与模型认知的更多内容，详见：Metacognitive Scaffolding</p>
+<figure><a href="https://www.justinwetch.com/assets/media/images/16d771f5d72ad730-de6e723110-1600-q85.jpg" target="_blank" rel="noreferrer"><img src="../figures/teaching-claude-frontend-design-skill/02-images-16d771f5d72ad730-de6e723110-1600-.jpg" alt="Teaching Claude to Design Better: Improving Anthropic's Frontend Design Skill 图 1" loading="lazy" decoding="async"></a></figure>
+<figure><a href="https://www.justinwetch.com/assets/sq/phase3-5aa35916e1-853e9598-a97a-4751-9b96-45a4c916a03e-67becf5274__scr3.png" target="_blank" rel="noreferrer"><img src="../figures/teaching-claude-frontend-design-skill/03-sq-phase3-5aa35916e1-853e9598-a97a-4751-.png" alt="Teaching Claude to Design Better: Improving Anthropic's Frontend Design Skill 图 2" loading="lazy" decoding="async"></a></figure>
+<figure><a href="https://www.justinwetch.com/assets/sq/phase3-ab05069c92-01c633fd-278b-4ffe-bde9-7a606007276a-3cb400ad55__GRAPH.png" target="_blank" rel="noreferrer"><img src="../figures/teaching-claude-frontend-design-skill/04-sq-phase3-ab05069c92-01c633fd-278b-4ffe-.png" alt="教 Claude 做出更好的设计：改进 Anthropic 的 Frontend Design Skill 图 3" loading="lazy" decoding="async"></a></figure>
+<p style="margin-top:3em"><a class="readorig" href="https://www.justinwetch.com/blog/improvingclaudefrontend/" target="_blank" rel="noopener">阅读原文 →</a></p>
 </article>
+<footer class="mono">原文 © Justin Wetch · 本页为自动生成的中文译文，仅供学习参考</footer>
+<script>
+(function () {
+  function play(frame) {
+    var embed = frame.getAttribute('data-embed');
+    var direct = frame.getAttribute('data-direct') === '1';
+    var url = frame.getAttribute('data-video-url') || '';
+    var title = frame.getAttribute('data-title') || '视频';
+    if (direct && url) {
+      var video = document.createElement('video');
+      video.src = url;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      var poster = frame.getAttribute('data-poster');
+      if (poster) video.poster = poster;
+      frame.innerHTML = '';
+      frame.appendChild(video);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (embed) {
+      var iframe = document.createElement('iframe');
+      iframe.src = embed;
+      iframe.title = title;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('loading', 'eager');
+      frame.innerHTML = '';
+      frame.appendChild(iframe);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (url) window.open(url, '_blank', 'noopener');
+  }
+  document.querySelectorAll('.video-frame[data-video-url]').forEach(function (frame) {
+    frame.addEventListener('click', function () { play(frame); });
+    frame.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); play(frame); }
+    });
+  });
+})();
+</script>
 </body></html>

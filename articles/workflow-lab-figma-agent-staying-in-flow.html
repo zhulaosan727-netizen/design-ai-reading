@@ -1,141 +1,117 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>判断留给你，杂活交给 Agent · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#DFEAEF">
-<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 26 · AI 设计工作流 / Figma / Agent / 设计系统</div><h1>判断留给你，杂活交给 Agent</h1><div class="en">Workflow lab: Staying in the flow with Figma&#x2019;s agent</div></div>
-<dl class="meta mono"><dt>作者</dt><dd>Brett McMillin</dd><dt>身份</dt><dd>Designer Advocate, Figma</dd><dt>日期</dt><dd>2026-10-06</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/workflow-lab-staying-in-the-flow-with-the-figma-agent/">figma.com ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/workflow-lab-staying-in-the-flow-with-the-figma-agent/" target="_blank" rel="noopener">阅读原文 →</a></div>
-<figure class="cover"><img src="../covers/workflow-lab-figma-agent-staying-in-flow.svg" alt="Workflow lab: Staying in the flow with Figma's agent 封面"></figure></section>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>判断留给你，杂活交给 Agent · 读本</title><link rel="stylesheet" href="../assets/style.css"><style>.video-card{margin:1.8em 0}.video-frame{position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--rule);background:#CFCFCF;cursor:pointer}.video-frame img,.video-frame iframe,.video-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block}.video-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#7A1E2B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px}.video-card figcaption{margin-top:10px;font-size:14px;opacity:.8}.video-index{margin:2em 0;padding:16px 18px;border:1px solid var(--rule)}article.body figure img{width:100%;height:auto;display:block}article.body figcaption{margin-top:8px;font-size:14px;opacity:.75}</style></head><body class="article" style="--tint:#DFEAEF">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 26 · AI 设计工作流 / Figma / Agent / 工作流 / 设计系统</div><h1>判断留给你，杂活交给 Agent</h1><div class="en">Workflow lab: Staying in the flow with Figma&#x27;s agent</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Brett McMillin</dd><dt>署名</dt><dd>Designer Advocate, Figma</dd><dt>日期</dt><dd>2026-10-06</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/workflow-lab-staying-in-the-flow-with-the-figma-agent/">figma.com ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/workflow-lab-staying-in-the-flow-with-the-figma-agent/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/workflow-lab-figma-agent-staying-in-flow.svg" alt="Workflow lab: Staying in the flow with Figma&#x27;s agent 封面"></figure></section>
 <article class="body">
-<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解。原文是 Figma「Workflow Lab」系列样板：虚构产品 Offtrail 加临时主持人权限时，设计师如何把库修复、评审整理、合规对照、组件增强规格交给 Agent，自己只守住设计、产品与政策判断。文中 Skills 名称、工作顺序与四个产出，均按原文事实整理；例子与清单是编者面向个人站与设计系统场景写的。想看原流程图与截图，请点上方「阅读原文」。</p>
+<p class="notice">中文全文译文：由「译文工坊」根据英文原文自动翻译生成，供学习参考。结构与措辞以译文为准；想看原始论述，请点上方「阅读原文」。</p>
 <nav class="toc"><div class="mono">本篇目录</div><ol>
-<li>先给结论：三句话读懂这篇</li>
-<li>核心问题：什么需要判断，什么只需要做完</li>
-<li>先修库，再做功能：/repair-library-usage</li>
-<li>功能本身：判断必须留在主路径</li>
-<li>评审之后：把评论堆成高信号简报</li>
-<li>合规 Skill：对照规则，不替你猜政策</li>
-<li>组件增强写在同一文件里</li>
-<li>一次需求，四份产出</li>
-<li>预览再应用：保护注意力的操作习惯</li>
-<li>什么时候不要交给 Agent</li>
-<li>可直接改写的 Skill / 提示模板</li>
-<li>自查清单</li>
-</ol></nav>
+<li><a href="#section-1">分享 Workflow Lab：借助 Figma 智能体保持工作流畅</a></li><li><a href="#section-2">问题</a></li><li><a href="#section-3">借助智能体检查与修复</a></li><li><a href="#section-4">审查流程并处理反馈</a></li><li><a href="#section-5">生成新的设计系统规格说明</a></li><li><a href="#section-6">更顺畅的投产之路</a></li><li><a href="#section-7">相关文章</a></li><li><a href="#section-8">使用 Figma 创作与协作</a></li></ol></nav>
 
-<h2>01 先给结论：三句话读懂这篇</h2>
-<p><b>第一，「知道该交什么」本身是设计技能。</b>不是「会不会用 Agent」，而是不断问：这步需要我的判断（judgment），还是只需要做完（doing）？</p>
-<p><b>第二，维护也是设计工作。</b>替换过期组件、修好变量绑定，不如画新屏炫目，却决定设计系统（design system）是「一套系统」还是「几个同名碎片」。Agent 适合做聚焦检查与重复修复；例外仍由你解释。</p>
-<p><b>第三，Agent 最有用的形态是保护注意力。</b>它承接上下文、处理重复步骤、准备下一步，让你少花时间管理「通往上线的路径」，多花时间决定「什么值得上线」。</p>
-<table><tr><th>留给设计师</th><th>交给 Agent</th><th>刻意避免</th></tr>
-<tr><td>功能主路径、产品取舍、政策怎么改体验</td><td>库对齐、评论归类、合规标注、增强规格草稿</td><td>让 Agent「顺便」定权限规则或法务结论</td></tr>
-<tr><td>模糊匹配怎么办、要不要增强系统组件</td><td>清晰可替换的 deprecated 实例与变量</td><td>一上来全文件大扫除，再回头做功能</td></tr>
-<tr><td>验收「改哪些、不改哪些」</td><td>先列出 findings，再按你的指令 apply</td><td>静默改完才告诉你「都修好了」</td></tr></table>
-
-<h2>02 核心问题：什么需要判断，什么只需要做完</h2>
-<p>原文开篇几乎就是全文口号：用 AI 做设计，就是不断问——<i>What needs my judgment, and what just needs doing?</i> 听起来平淡，一到 deadline 就容易崩：你既想每个产品和设计决定仍是自己的，又不想在过期组件、散乱评论、合规文档之间来回跳。</p>
-<p>场景是虚构 App <b>Offtrail</b>（本地户外聚会）。现有权限体验没法让人「只主持一场活动」；团队要加临时主持人权限：到期显示、管理员可管、过期与失败可恢复。功能建在旧权限屏上——而那些屏已经混了当前组件与手改过期变量。</p>
-<div class="note"><p>对 Zhu 这种自己用 AI 搭站、又要躲开「AI 脸」的人：你真正稀缺的不是「再画一屏」，而是注意力带宽。杂活（busywork）会把判断力挤出心流（flow）。这篇给的不是又一个「生成界面」demo，而是一张分工图。</p></div>
-
-<h2>03 先修库，再做功能：/repair-library-usage</h2>
-<p>设计师先选<b>预计复用</b>的 frame，连上当前库，跑 <code>/repair-library-usage</code>。Agent 对照库检查实例与变量绑定：有明确新等价物的，直接替换；两边都能凑合、看不清意图的，留下不动，并在旁边标注发现了什么、为什么停手。</p>
-<p>目标写得很清楚：<b>只更新新工作会建其上的那一段体验</b>，不是清扫整个文件。设计师只处理影响本项目的例外，然后进入临时访问流的第一稿——不必在「修文件」和「做功能」之间来回弹。</p>
-<table><tr><th>Agent 做</th><th>设计师做</th><th>为什么</th></tr>
-<tr><td>匹配清晰的 deprecated → 当前组件/变量</td><td>读模糊案例的 annotation</td><td>清晰替换是执行；模糊是语义判断</td></tr>
-<tr><td>只扫你选中的复用范围</td><td>决定范围边界</td><td>全文件大扫除会制造新上下文税</td></tr>
-<tr><td>把「为什么停」写在画布上</td><td>决定例外是保留还是改</td><td>例外往往编码了真实产品历史</td></tr></table>
-<blockquote>“Maintenance is design work.” — Brett McMillin / Figma（大意：维护也是设计工作）</blockquote>
-<p>原文提醒：这些小决定重复做下去，决定系统是连贯还是名存实亡。Agent 做检查与重复劳动；你仍解释例外意味着什么。</p>
-
-<h2>04 功能本身：判断必须留在主路径</h2>
-<p>源文件修好后，设计师自己设计临时访问流：主路径，加上到期、失败、恢复状态。这里没有「让 Agent 先出十个权限方案」——因为权限、身份、过期边界，正是产品与政策判断的高密度区。</p>
-<p>原文另有 Zoom out：文案、品牌语气、多语言也是流程的一部分；Agent 可以拉品牌语气、试替代文案、看其他语言下的屏。那是表达层的加速，不是把「该不该临时授权」交给模型。</p>
-<div class="note"><p>读本里 Linear「主判断留在自己手里」、Vercel product-design Skill「代码不告诉为什么」是同一立场的不同工具面。这篇更贴 Figma 画布：判断画在主路径上，杂活从侧枝被 Agent 接走。</p></div>
-
-<h2>05 评审之后：把评论堆成高信号简报</h2>
-<p>Crit 之后，评论会混成两类：一类是清楚动作（改到期文案、收紧层级、让恢复路径更好找）；一类是政策问题（邀请过期未接受怎么办？权限更新失败时谁看到什么？会话中途到期成员看见什么？）。</p>
-<p>设计师让 Agent 整理线程：归并重复反馈、标出矛盾、突出未决问题，压成一份短的高信号简报（high-signal brief）——什么立刻可改，什么仍需想。</p>
-<table><tr><th>评论里常见噪声</th><th>Agent 整理后</th><th>你仍要亲自做的</th></tr>
-<tr><td>同一建议说了三遍</td><td>合成一条可执行项</td><td>排优先级</td></tr>
-<tr><td>「这合法吗？」散落各处</td><td>标成开放政策问题</td><td>找合规伙伴或跑合规 Skill</td></tr>
-<tr><td>互相打架的视觉建议</td><td>显式列出矛盾</td><td>选边或重开讨论</td></tr></table>
-
-<h2>06 合规 Skill：对照规则，不替你猜政策</h2>
-<p>有些法务问题设计组答不上来。设计师不猜，而是跑团队的 <code>/compliance-review</code>：Skill 里挂着安全/合规伙伴维护的检查项，Agent 带着那些人期望设计师自问的问题来看访问、身份、权限相关流，并把发现标注到对应 frame。</p>
-<p>关键边界：Agent <b>搜集外部指引并给出 guided feedback</b>；设计师决定这些发现<b>会怎样改变功能</b>。它不扮演律师，也不替你拍板政策。</p>
-<div class="note"><p>个人站很少有正式合规文档，但仍可自建「对照表」：隐私文案、权限披露、第三方登录边界。Skill 的价值是「带着固定问题清单看稿」，不是「模型懂法」。</p></div>
-
-<h2>07 组件增强写在同一文件里</h2>
-<p>合规发现：列表用的系统组件 <b>item row</b> 还不支持展示「临时访问何时到期」。做一次性自定义组件，既扩 scope，又让体验脱离设计系统。更耐用的路是增强系统组件本身。</p>
-<p>此时功能已近完成。另开一套设计系统交接容易拖项目、逼设计师切上下文。于是用 <code>/document-component-enhancement</code>，在<b>同一 Figma 文件新分区</b>起草规格：需要什么行为、现状差在哪、缺哪些状态、可能改动与开放问题。</p>
-<p>设计师审草稿、确认开放问题，把该分区交给设计系统团队。规格与出问题的 frame、评论、组件同文件——评审能追溯动机；所有权也清楚：功能怎么发展归功能设计师，组件怎么改归系统团队；Agent 说明需要什么改、为什么，让系统团队能审，功能侧继续往前。</p>
-
-<h2>08 一次需求，四份产出</h2>
-<p>原文收束得很利落：一个产品请求，落到四件具体产出——</p>
-<ol>
-<li>现有屏上的设计系统缺口被识别（并部分修复）</li>
-<li>临时访问流覆盖主路径 + 到期 / 失败 / 恢复</li>
-<li>对照合规指引的标注 + 合成后的反馈简报</li>
-<li>item row 增强规格（行为、缺口、推理链回链到现场）</li>
-</ol>
-<p>共享、可视、多人画布把这些产出留在同一工件上：流、评论、标注不散到别的工具。Agent 的价值不是「又画了一屏」，而是检查、修复、蒸馏反馈；设计师做的是定义功能的设计、产品与政策决定。</p>
-<table><tr><th>产出</th><th>主要执行者</th><th>若不做会怎样</th></tr>
-<tr><td>库缺口识别与局部修复</td><td>Agent + 设计师裁定例外</td><td>新功能建在不可信基座上</td></tr>
-<tr><td>完整临时访问流</td><td>设计师</td><td>只有 happy path</td></tr>
-<tr><td>合规标注 + 反馈简报</td><td>Agent 整理，设计师决策</td><td>政策问题淹没在评论噪声里</td></tr>
-<tr><td>组件增强规格（同文件）</td><td>Agent 起草，系统团队拥有</td><td>一次性野组件，或交接丢上下文</td></tr></table>
-
-<h2>09 预览再应用：保护注意力的操作习惯</h2>
-<p>原文 Zoom out 给了一个可立刻养成的模式：先让 Agent <b>只列 findings、不改文件</b>——「对照已连接库审查选中 frame，列出过期组件与变量，提议当前等价物，标出模糊匹配。不要做任何修改。」读完画布上的标注后，再让它<b>只应用匹配清晰的项</b>，模糊案保留。</p>
-<p>这就是 preview-before-apply。它把「静默大改」变成「你批准的补丁」，也让你在心流里只处理真正需要判断的差分。</p>
-
-<h2>10 什么时候不要交给 Agent</h2>
-<ul>
-<li><b>政策与法务结论。</b>可以跑合规对照，不能让模型「觉得大概合规」。</li>
-<li><b>产品取舍。</b>临时权限到期后谁还能看什么——这是产品决定。</li>
-<li><b>模糊的库匹配。</b>两个新组件都能凑合时，留下标注比瞎替更好。</li>
-<li><b>系统组件的最终形态。</b>增强规格可草稿；拥有权仍在设计系统团队。</li>
-<li><b>全文件「顺便清理」。 </b>范围一扩，杂活会反噬注意力。</li>
-<li><b>你还说不清成功标准时。</b>先写清 brief，再开 Agent；否则它只会加速混乱。</li>
-</ul>
-
-<h2>11 可直接改写的 Skill / 提示模板</h2>
-<p>下面三段可改成你自己的斜杠命令或聊天模板。名称可自定；结构对齐原文三 Skills。</p>
-<pre><code># /repair-library-usage（预览模式）
-对照当前已连接的设计库，审查【选中的 frame】：
-1. 列出过期组件实例与错误/过期变量绑定
-2. 对每一项给出「当前等价物」建议
-3. 标出模糊匹配（两个都能用 / 意图不清）并说明为何不确定
-4. 本轮不要修改文件，只在画布旁标注 findings
-等我确认后，再只应用「清晰匹配」项；模糊案保持原样。
-范围：只处理本功能会复用的屏，不做全文件清理。
-</code></pre>
-<pre><code># 评审后简报
-阅读本文件中关于【功能名】的评论线程：
-- 归并重复反馈为可执行项
-- 显式列出互相矛盾的建议
-- 把政策/法务/权限类问题单独成「开放问题」清单
-输出一份短简报：立刻可改 / 需讨论 / 需合规对照。不要改设计。
-</code></pre>
-<pre><code># /document-component-enhancement
-基于【合规/评审发现】与周围设计上下文，在本文件新分区起草组件增强规格：
-- 需要的行为（含状态）
-- 当前组件缺口
-- 缺失状态列表
-- 开放问题（留给设计系统团队）
-- 回溯链接：指向触发该需求的 frame / 评论
-不要发明新的一次性组件；默认路径是增强系统组件。
-我审完开放问题后再分享给系统团队。
-</code></pre>
-
-<h2>12 自查清单</h2>
-<ul>
-<li>开 Agent 前，我有没有先问「这步要判断还是要做完」？</li>
-<li>修库时有没有限定在「本功能会建其上」的 frame，而不是全文件大扫除？</li>
-<li>模糊匹配是留下标注，还是被静默改掉了？</li>
-<li>功能主路径、到期/失败/恢复，是不是仍由我设计？</li>
-<li>Crit 后有没有把评论压成高信号简报，而不是在线程里游泳？</li>
-<li>合规结果是「改变功能的输入」，还是被当成最终判决？</li>
-<li>系统缺口是增强组件 + 同文件规格，还是又做了一个野组件？</li>
-<li>有没有先 preview findings，再 apply？</li>
-<li>四个产出里，我缺了哪一块：库缺口 / 完整流 / 合规与简报 / 增强规格？</li>
-</ul>
-<div class="note"><p>这篇和读本里「Got skills」「Agents meet canvas」「Teaching agents product design」是同一条生产线的不同工位：那些篇教你怎么写 Skill、怎么接画布；这篇教你怎么在真实功能压力下分工。若你已经会让 Agent 画屏，下一步不是画得更多，而是让它把你捞出杂活，好把判断留在主路径上。</p></div>
+<figure><img src="../figures/workflow-lab-figma-agent-staying-in-flow/01-regionalized-e6eaef0878de636302d0db6f1ba.avif" alt="" loading="lazy" decoding="async"></figure>
+<p>Brett McMillin，Figma 设计布道师</p>
+<ul><li><a href="https://www.figma.com/blog/working-well/">高效工作</a></li><li><a href="https://www.figma.com/blog/figma-design/">Figma Design</a></li><li><a href="https://www.figma.com/blog/figma-agent/">Figma 智能体</a></li><li><a href="https://www.figma.com/blog/design-systems/">设计系统</a></li><li><a href="https://www.figma.com/blog/tips-and-inspiration/">提示与灵感</a></li></ul>
+<p>知道把哪些工作交给智能体，本身就是一门技能。这个工作流展示了设计师如何打磨一个全新的临时访问功能，同时由 Figma 智能体处理库更新、评审反馈，以及设计系统规格说明的初稿。</p>
+<h2 id="section-1">分享 Workflow Lab：借助 Figma 智能体保持工作流畅</h2>
+<p>首屏插图：Marine Buffard</p>
+<p><i>欢迎来到 Workflow Lab。在这里，我们会展示一个使用 Figma 产品和工具的<a href="https://www.figma.com/blog/workflow-lab-moving-between-design-and-code-with-agents/">示例工作流Workflow lab: Moving between design and code with agentsCoding agents are reshaping how developers build, but they’re only as good as the input they’re given. This workflow explores how context keeps code and canvas in sync.</a>。</i></p>
+<h4 id="">工作流概览</h4>
+<p><b>Figma 产品：</b>Figma Design</p>
+<p><b>工具：</b>Figma 智能体、标注与评论、库、变量</p>
+<p><b>技能：</b><code>/repair-library-usage, /compliance-review, /document-component-enhancement</code></p>
+<p><b>团队：</b>设计师、设计系统团队、安全与合规合作伙伴</p>
+<p><b>待解决的问题：</b>如果由 Figma 智能体处理繁琐的杂务，而你专注于深度设计工作，会怎样？</p>
+<p>在设计工作流中使用 AI，意味着要不断问自己一个问题：哪些事需要我来判断，哪些事只需要做完就行？这听起来理所当然，直到你既要赶工期，<i>又</i>希望每一个产品和设计决策都由自己拿主意。跟随 Offtrail（一款虚构的本地户外聚会应用）的一位设计师，看看他如何判断该在何时、以何种方式把任务交给 <a href="https://www.figma.com/blog/3-ways-product-designers-use-the-figma-agent/">Figma 智能体</a>，从清理过时的组件，到为设计系统团队起草规格说明。</p>
+<h2 id="section-2"><a href="https://www.figma.com/blog/workflow-lab-staying-in-the-flow-with-the-figma-agent/#the-problem">问题</a></h2>
+<p>Offtrail 目前的权限设置无法让某人只主持单场活动，因此团队希望增加临时主持人权限，并在活动结束后自动失效。设计师接到的需求是：更新权限体验，让用户可以在限定时间内以主持人身份加入，显示该权限何时结束，并为群组管理员提供管理方式。</p>
+<p>现有的权限体验本身就需要更新。有些画板使用的是最新的组件和变量，另一些则带有已弃用的实例，或是有人手动覆盖过的值。由于临时权限流程要建立在这些界面之上，设计师需要先把它们更新到位，才能继续往下做。</p>
+<h2 id="section-3"><a href="https://www.figma.com/blog/workflow-lab-staying-in-the-flow-with-the-figma-agent/#inspect-and-repair-with-the-agent">借助智能体检查与修复</a></h2>
+<h4 id="">拉远视角</h4>
+<p>维护<i>本身就是</i>设计工作。替换旧组件或修复变量绑定，远不如生成一个新界面那样引人注目。但这些小决策在整个产品中不断累积，决定了设计系统是保持一致，还是慢慢变成几套共用同一个名字的系统。智能体可以完成聚焦的检查和重复的修复工作，而这些例外情况意味着什么，仍然要由设计师来判断。</p>
+<p>在开始设计流程之前，设计师需要先弄清楚现有设计文件中哪些部分值得信赖。这个组件还是最新的吗？那个变量绑定是错了，还是本来就该这样用？这些细节能帮助设计师判断旧流程中哪些部分需要更新。</p>
+<p>没人有时间逐个手动检查每个画框，文件最初大概就是这样慢慢跑偏的。这时就轮到 <a href="https://www.figma.com/blog/the-figma-agent-is-here/">Figma 智能体Figma 设计智能体来了从今天起，直接在画布上与专为 Figma 打造的智能体协作。</a>出场了。设计功能之前，设计师先选中预计会复用的画框，与智能体开启一个新对话，并连接当前的组件库。随后，设计师在智能体对话中使用 <a href="https://www.figma.com/community/skill/104170/repair-library-usage?q_id=2eddab8f-3811-4bd7-a171-81d4a410d754"><code>/repair-library-usage</code></a> 技能，检查所选画框，对照当前组件库比对组件实例和变量绑定，并在存在明确的新版替代项时，替换掉已弃用的部分。</p>
+<p>智能体会直接应用这些简单明了的更新。当无法确定该怎么选时（例如当前组件库中有两个组件都适用），智能体会保持原样，并在画框上标注它的发现以及停下的原因。目标是更新新工作所依赖的那部分体验，而不是清理整个文件。因此，设计师只需处理影响本项目的情况，然后就能开始设计临时访问流程的初稿，不必在文件维护和功能设计之间来回切换。</p>
+<figure><img src="../figures/workflow-lab-figma-agent-staying-in-flow/02-wa1wpfulxyn35pi7pu05tfysf8pqc3m80yj8emri.png" alt="聊天输入框，上方有一个显示“已选择 4 项”的 chip，输入的命令为 /repair-library-usage。" loading="lazy" decoding="async"><figcaption>使用 /repair-library-usage 智能体技能检查并更新过时的变量绑定和组件</figcaption></figure>
+<figure><img src="../figures/workflow-lab-figma-agent-staying-in-flow/03-regionalized-caf79ca91212421b2e535e71cd3.avif" alt="聊天输入框，上方有一个显示“已选择 4 项”的 chip，输入的命令为 /repair-library-usage。" loading="lazy" decoding="async"></figure>
+<figure><img src="../figures/workflow-lab-figma-agent-staying-in-flow/04-sna3hdq8o-qaaaabjru5erkjggg.png" alt="一个深色的邀请界面，其中“Pending”chip 通过虚线连接到一张标题为“Visual shift”的标注卡片。卡片说明该 chip 变宽了，标签文字更大更粗，而标签文案、未激活状态、高度和位置保持不变。" loading="lazy" decoding="async"><figcaption>智能体针对涉及视觉变化的组件更新所作的标注</figcaption></figure>
+<figure><img src="../figures/workflow-lab-figma-agent-staying-in-flow/05-regionalized-a74b248a1cb45c77e9698dbb3ea.avif" alt="一个深色的邀请界面，其中“Pending”chip 通过虚线连接到一张标题为“Visual shift”的标注卡片。卡片说明该 chip 变宽了，标签文字更大更粗，而标签文案、未激活状态、高度和位置保持不变。" loading="lazy" decoding="async"></figure>
+<h2 id="section-4"><a href="https://www.figma.com/blog/workflow-lab-staying-in-the-flow-with-the-figma-agent/#review-the-flow-and-work-through-the-feedback">审查流程并处理反馈</a></h2>
+<h4 id="">拉远视角</h4>
+<p>文字也是流程的一部分。<b> </b>智能体可以引入品牌语气指南、生成备选文案，并用其他受支持的语言试排该界面。</p>
+<p>源文件修复完毕、改进方案也设计好之后，设计师带着临时访问流程参加了设计评审。有些反馈很直接：把过期提示文案写清楚，收紧层级，让恢复路径更容易找到。另一些评论则涉及政策问题，即这套 UX 是否满足 Offtrail 的法律要求。邀请在被接受之前过期会怎样？权限更新失败又会怎样？如果成员的访问权限在会话中途结束，他们会看到什么？</p>
+<p>目前这些都只是评论串，很难分辨哪些有明确的行动项，哪些还需要做决定。于是设计师请智能体来梳理。智能体会阅读这些对话，归并反复出现的反馈，找出相互矛盾之处，并标出尚未解决的问题。这样，设计师就得到一份简短、高信息量的简报，知道哪些需要立即行动，哪些还需要再想想。</p>
+<p>引入外部合规指南来评审设计</p>
+<figure><img src="../figures/workflow-lab-figma-agent-staying-in-flow/06-wj7us-cz6y5hgaaaaasuvork5cyii.png" alt="深色的访客设置界面，两张标注卡片通过虚线指向界面。红色的“Compliance / Escalation”卡片写着“CR-1 — Guest host data access scope undefined. Escalate”，黄色的“Compliance / Safety”卡片写着“CR-4 — Remove from group lacks confirmation and consequence summary. Revise.”" loading="lazy" decoding="async"><figcaption>智能体标注出值得修改或上报的潜在合规风险</figcaption></figure>
+<figure><img src="../figures/workflow-lab-figma-agent-staying-in-flow/07-regionalized-b8dafe1b5432b7b98cac9fc43d7.avif" alt="深色的访客设置界面，两张标注卡片通过虚线指向界面。红色的“Compliance / Escalation”卡片写着“CR-1 — Guest host data access scope undefined. Escalate”，黄色的“Compliance / Safety”卡片写着“CR-4 — Remove from group lacks confirmation and consequence summary. Revise.”" loading="lazy" decoding="async"></figure>
+<p>有一个评论串仍未关闭。一些关于法律要求的问题悬而未决，设计团队里没人确定政策在这里该如何适用。设计师没有靠猜，而是请智能体针对这个流程运行团队的 <a href="https://www.figma.com/community/skill/100343/compliance-review?q_id=731dc5fb-45e5-4964-861d-37a79f909c52"><code>/compliance-review</code></a> skill。这个 skill 包含公司安全与合规伙伴维护的检查项参考，因此涉及访问、身份和权限时，智能体会带着这些伙伴期望设计师提出的问题来审查。智能体会结合上下文返回检查结果，并在每条结果对应的画框上添加标注。</p>
+<p>智能体会从合规伙伴维护的外部文档中获取所需的上下文，然后审查设计稿并给出有针对性的反馈。这样一来，设计师可以少花时间重建上下文，把更多时间用在判断这些发现会如何改变该功能上。</p>
+<h2 id="section-5"><a href="https://www.figma.com/blog/workflow-lab-staying-in-the-flow-with-the-figma-agent/#generate-a-new-design-system-spec">生成新的设计系统规格说明</a></h2>
+<h4 id="">拉远视角</h4>
+<p>智能体可以在修改之前先展示它的建议。设计师给出提示词：“对照已连接的库审查所选画框，列出过时的组件和变量，提出当前的对应项，并标记所有存在歧义的匹配。不要做任何修改。”智能体审查设计稿后，把每条发现写在画布上对应画框的旁边。读完之后，设计师让智能体只应用那些明确的匹配项，保持有歧义的情况不变。</p>
+<p>Offtrail 设计系统中有一个名为“item row”的组件，用途很广，常用于列表中展示设置、文档或用户等内容。但是 <a href="https://www.figma.com/community/skill/100343/compliance-review?q_id=731dc5fb-45e5-4964-861d-37a79f909c52"><code>/compliance-review</code></a> skill 指出了一项 item row 组件目前不支持的需求：设计需要显示用户的临时访问权限何时到期。新建一个自定义组件不仅会扩大范围，还会让这一体验脱离 Offtrail 设计系统。更持久的做法是增强设计系统中的 item row 组件本身。</p>
+<p>此时，功能工作已接近完成。再单独启动一轮设计系统设计交付，可能会拖延项目，还要让设计师切换上下文去撰写组件级的规格说明文档。于是，设计师改为让智能体使用 <a href="https://www.figma.com/community/skill/104032/document-component-update?q_id=2306ea21-afed-4ff0-bd7f-8c926a3e9b3c"><code>/document-component-enhancement</code></a> skill，在 Figma 文件的新分区中起草一份规格说明。</p>
+<p>智能体根据当前的组件发现以及文件中可用的周边设计上下文，梳理出系统更新可能需要支持的内容。这份规格说明描述了组件应有的行为、现有组件的不足以及缺失的状态，同时标出可能的改动和待解决的问题。</p>
+<figure><img src="../figures/workflow-lab-figma-agent-staying-in-flow/08-nlml07hwf35rh26h22tn7a4j78mekkfd8hugbyj6.png" alt="一份标题为“Component Update Proposal: Row / Person”的文档，标记为 Critical，包含变更内容、当前与拟议行状态的并排对比，以及属性对比表。右侧的注释卡片涵盖 Token、结构、变体和用法，包括收窄的身份信息宽度和新增的环形进度指示器。" loading="lazy" decoding="async"><figcaption>Figma 智能体为组件增强生成的详细规格说明</figcaption></figure>
+<figure><img src="../figures/workflow-lab-figma-agent-staying-in-flow/09-regionalized-ccfd4816b62d4fe52c7067bb148.avif" alt="一份标题为“Component Update Proposal: Row / Person”的文档，标记为 Critical，包含变更内容、当前与拟议行状态的并排对比，以及属性对比表。右侧的注释卡片涵盖 Token、结构、变体和用法，包括收窄的身份信息宽度和新增的环形进度指示器。" loading="lazy" decoding="async"></figure>
+<p>设计师审阅规格说明草稿，确认遗留问题，并与设计系统团队共享该部分内容。这份规格说明与它所描述的画框、提出问题的评论以及相关组件都在同一个文件里。这种就近存放让评审者能够把发现的问题追溯到产生它的流程，也让归属权落在应有的位置：功能如何演进，由设计师决定；组件如何处理，由设计系统团队决定。而智能体负责说明需要什么变更以及原因，这样设计系统团队可以在设计师继续推进功能其余部分的同时进行评审。</p>
+<p>产品功能团队继续推进，因为他们确信设计系统的更新已作为临时权限工作的依赖被跟踪。这种协调分工简化了各团队的职责范围，让他们能够全心投入各自负责的领域。功能开发得以快速推进，而设计系统团队也清楚知道这项增强需求的动因。</p>
+<figure><img src="../figures/workflow-lab-figma-agent-staying-in-flow/10-dlcnvvbozxbtmu3oii7ushzexd4burnzb-zjm0hw.png" alt="一项新功能的更新后设计画框，允许用户为每场活动向 Offtrail 访客组添加一位访客主持人" loading="lazy" decoding="async"><figcaption>添加访客主持人的主要界面，现已更新为最新的设计系统</figcaption></figure>
+<figure><img src="../figures/workflow-lab-figma-agent-staying-in-flow/11-regionalized-7046fb1ac6643a382eebc8fb9ba.avif" alt="一项新功能的更新后设计画框，允许用户为每场活动向 Offtrail 访客组添加一位访客主持人" loading="lazy" decoding="async"></figure>
+<h2 id="section-6"><a href="https://www.figma.com/blog/workflow-lab-staying-in-the-flow-with-the-figma-agent/#a-smoother-path-to-production">更顺畅的投产之路</a></h2>
+<p>设计师最初提出的这一项产品需求，最终产出了四项具体成果：</p>
+<ul><li>智能体识别出现有界面中的设计系统缺口。</li><li>临时访问流程现已覆盖主路径，并补全了此前缺失的过期、失败和恢复状态。</li><li>智能体对照团队的合规指引检查了设计稿，并标出了所有未决的政策问题。它还把团队零散的设计反馈整理成了一份可用的简报。</li><li>现在，一份设计系统规格说明记录了条目行组件中的缺口，写明了所需的行为，并链接回相应的推理过程。</li></ul>
+<p>一块共享、可视化、支持多人协作的画布，把这些产出连接在一起。设计好的流程、评论和标注始终附着在它们所描述的工作上，因此设计师、评审者和智能体可以在同一份成果上不断打磨，而不是把反馈散落在不同工具里，或在每次设计交付时从头再来。这远不止“智能体做了一个界面”这么简单。智能体负责检查、修复并提炼反馈，而设计师则做出了定义这项功能的设计、产品和政策决策。智能体最有价值的时候，是通过延续上下文、处理重复步骤、为下一步做好准备来守护设计师的注意力，让设计师少花时间管理通往上线的路径，多花时间判断什么值得走到那一步。</p>
+<p>Figma 智能体面向 Professional、Organization、Enterprise 以及部分 Education 方案中的完整席位用户开放，在 Starter 方案中则<a href="https://help.figma.com/hc/en-us/articles/37998629035799-Work-with-the-Figma-agent-in-design-files">限量开放</a>。Collab、Dev 和 View 席位可以在各自的草稿中使用智能体。</p>
+<p>深入了解如何使用智能体<a href="https://www.figma.com/blog/figma-agent-and-design-systems/">维护你的设计系统</a>，看看其他公司如何在工作流中<a href="https://www.figma.com/blog/3-ways-product-designers-use-the-figma-agent/">使用智能体</a>，或在我们的帮助中心阅读更多关于如何开始使用 <a href="https://help.figma.com/hc/en-us/articles/37998629035799">Figma 智能体</a>的内容。</p>
+<figure><img src="../figures/workflow-lab-figma-agent-staying-in-flow/01-regionalized-e6eaef0878de636302d0db6f1ba.avif" alt="" loading="lazy" decoding="async"></figure>
+<p>Brett McMillin 是 Figma 的设计布道师（designer advocate），拥有品牌、产品和设计系统方面的背景。他大部分时间都在思考设计如何演进——AI 改变了什么、没有改变什么，以及设计师如何在这一切变化中始终扎根于自己的手艺。</p>
+<p><a href="https://linkedin.com/in/brettmcm">LinkedIn</a><a href="https://x.com/brettmcm">X</a></p>
+<h2 id="section-7">相关文章</h2>
+<ul><li><a href="https://www.figma.com/blog/workflow-lab-moving-between-design-and-code-with-agents/">工作流实验室：借助智能体在设计与代码之间自由切换</a><a href="https://www.figma.com/blog/working-well/">Working Well</a><a href="https://www.figma.com/blog/figma-mcp/">Figma MCP</a><a href="https://www.figma.com/blog/figjam/">FigJam</a><a href="https://www.figma.com/blog/ai/">AI</a><a href="https://www.figma.com/blog/engineering/">工程</a><a href="https://www.figma.com/blog/design-systems/">设计系统</a></li><li><a href="https://www.figma.com/blog/workflow-lab-deploying-designs-directly-with-figma-make/">工作流实验室：用 Figma Make 直接部署设计</a><a href="https://www.figma.com/blog/working-well/">Working Well</a><a href="https://www.figma.com/blog/figma-make/">Figma Make</a><a href="https://www.figma.com/blog/figma-agent/">Figma 智能体</a><a href="https://www.figma.com/blog/figma-design/">Figma Design</a><a href="https://www.figma.com/blog/ai/">AI</a><a href="https://www.figma.com/blog/tips-and-inspiration/">提示与灵感</a></li><li><a href="https://www.figma.com/blog/workflow-lab-from-design-system-to-campaign-in-figma-weave/">工作流实验室：在 Figma Weave 中从设计系统到营销活动</a><a href="https://www.figma.com/blog/working-well/">Working Well</a><a href="https://www.figma.com/blog/figma-weave/">Figma Weave</a><a href="https://www.figma.com/blog/figma-design/">Figma Design</a><a href="https://www.figma.com/blog/design-systems/">设计系统</a></li></ul>
+<h2 id="section-8">使用 Figma 创作与协作</h2>
+<p>免费开始使用</p>
+<p style="margin-top:3em"><a class="readorig" href="https://www.figma.com/blog/workflow-lab-staying-in-the-flow-with-the-figma-agent/" target="_blank" rel="noopener">阅读原文 →</a></p>
 </article>
+<footer class="mono">原文 © Brett McMillin · 本页为自动生成的中文译文，仅供学习参考</footer>
+<script>
+(function () {
+  function play(frame) {
+    var embed = frame.getAttribute('data-embed');
+    var direct = frame.getAttribute('data-direct') === '1';
+    var url = frame.getAttribute('data-video-url') || '';
+    var title = frame.getAttribute('data-title') || '视频';
+    if (direct && url) {
+      var video = document.createElement('video');
+      video.src = url;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      var poster = frame.getAttribute('data-poster');
+      if (poster) video.poster = poster;
+      frame.innerHTML = '';
+      frame.appendChild(video);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (embed) {
+      var iframe = document.createElement('iframe');
+      iframe.src = embed;
+      iframe.title = title;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('loading', 'eager');
+      frame.innerHTML = '';
+      frame.appendChild(iframe);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (url) window.open(url, '_blank', 'noopener');
+  }
+  document.querySelectorAll('.video-frame[data-video-url]').forEach(function (frame) {
+    frame.addEventListener('click', function () { play(frame); });
+    frame.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); play(frame); }
+    });
+  });
+})();
+</script>
 </body></html>

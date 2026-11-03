@@ -1,115 +1,112 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Linear 设计团队怎么用 AI（还不丢手感）· 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E0EAEA">
-<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 06 · AI 设计工作流 / 判断力 / Skill / 上下文</div><h1>Linear 设计团队怎么用 AI（还不丢手感）</h1><div class="en">How tech's most craft-obsessed team uses AI: Inside design at Linear</div></div>
-<dl class="meta mono"><dt>作者</dt><dd>Designer Fund（案例访谈）</dt><dt>受访</dt><dd>Karri Saarinen（Linear CEO）、Charlie Aufmann、Isha Kumar（产品设计师）</dd><dt>日期</dt><dd>2026-08-12</dd><dt>原文</dt><dd><a href="https://designerfund.substack.com/p/ai-design-linear">designerfund.substack.com ↗</a></dd></dl><a class="readorig" href="https://designerfund.substack.com/p/ai-design-linear" target="_blank" rel="noopener">阅读原文 →</a></div>
-<figure class="cover"><img src="../covers/inside-design-at-linear-ai.svg" alt="How tech's most craft-obsessed team uses AI: Inside design at Linear 封面"></figure></section>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Linear 设计团队怎么用 AI（还不丢手感） · 读本</title><link rel="stylesheet" href="../assets/style.css"><style>.video-card{margin:1.8em 0}.video-frame{position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--rule);background:#CFCFCF;cursor:pointer}.video-frame img,.video-frame iframe,.video-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block}.video-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#7A1E2B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px}.video-card figcaption{margin-top:10px;font-size:14px;opacity:.8}.video-index{margin:2em 0;padding:16px 18px;border:1px solid var(--rule)}article.body figure img{width:100%;height:auto;display:block}article.body figcaption{margin-top:8px;font-size:14px;opacity:.75}</style></head><body class="article" style="--tint:#E0EAEA">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 06 · AI 设计工作流 / Linear / 判断力 / Skill / 上下文</div><h1>Linear 设计团队怎么用 AI（还不丢手感）</h1><div class="en">How tech&#x27;s most craft-obsessed team uses AI: Inside design at Linear</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Designer Fund</dd><dt>署名</dt><dd>案例访谈；受访 Karri Saarinen、Charlie Aufmann、Isha Kumar（Linear）</dd><dt>日期</dt><dd>2026-08-12</dd><dt>原文</dt><dd><a href="https://designerfund.substack.com/p/ai-design-linear">designerfund.substack.com ↗</a></dd></dl><a class="readorig" href="https://designerfund.substack.com/p/ai-design-linear" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/inside-design-at-linear-ai.svg" alt="How tech&#x27;s most craft-obsessed team uses AI: Inside design at Linear 封面"></figure></section>
 <article class="body">
-<p class="notice">深度精讲：这不是译文，而是编者按设计师视角重写的讲解，结构、例子、表格和模板都是编者自己的。原文是 Designer Fund 对 Linear 的 AI 设计案例研究，含访谈与演示；下文抽取可迁移的工作原则。想看完整访谈与视频，请点上方「阅读原文」。</p>
-<nav class="toc"><div class="mono">本篇目录</div><ol>
-<li>先给结论：三句话读懂这篇</li><li>为什么「手感顶尖」的团队反而更克制</li><li>设计是搜索，不是流水线</li><li>用 AI 审讯问题：/linear-way skill</li><li>用 AI 聚齐决策所需的上下文</li><li>保护创作过程：什么交给 AI，什么不交</li><li>四条可落地的原则</li><li>和读本里其他文章怎么对照</li><li>可直接改写的 skill / 提示词</li><li>自查清单</li></ol></nav>
+<p class="notice">中文全文译文：由「译文工坊」根据英文原文自动翻译生成，供学习参考。结构与措辞以译文为准；想看原始论述，请点上方「阅读原文」。</p>
 
-<h2>01 先给结论：三句话读懂这篇</h2>
-<p><b>第一，Linear 把 AI 当「腾出判断力的工具」，不当「把一切变快的开关」。</b>任何人都能在几秒内把想法变成可运行软件；真正稀缺的，是弄清问题、守住品味、决定不做什么。</p>
-<p><b>第二，他们用 AI 最多的地方是问题侧，不是出图侧。</b>CEO Karri 做了 /linear-way skill，连着四万多条客户请求，专门用来追问「背后的需要是什么」；设计师用 Agent 去代码库和历史决策里捞上下文、去 Twitter/Slack/访谈里汇总原话——先弄清再动手。</p>
-<p><b>第三，有人故意把 AI 用在少数场景。</b>产品设计师 Isha 大约只有 20–30% 的净新设计工作走 AI；她不用它写 UI 文案、也不用它当评审——因为「它想肯定我，不想激怒我」。其余时间她亲手做，把 AI 留给修纸张划痕（paper cuts）和难做的动态原型。</p>
-<blockquote>“When you can do anything, what you choose not to do is far more important than doing everything much faster.” — Designer Fund / Linear 案例题记</blockquote>
-
-<h2>02 为什么「手感顶尖」的团队反而更克制</h2>
-<p>Linear 被超过四万个团队使用（原文举例包括 OpenAI、Coinbase、Ramp）。在设计师圈子里，它几乎是「软件手感」的标杆。Charlie 加入时甚至会紧张：这是世界上最好的设计团队之一，我能不能达到手感标准（craft bar）？</p>
-<p>当「谁都能一秒做出能跑的东西」成为常态，跳过脏乱的思考、迭代和判断就变得特别有诱惑力。Linear 自己的产品也在走向更 agentic 的未来，但团队对 AI 的用法极其克制：不是不惜一切求快，而是故意给人类判断留出空间。</p>
-<div class="note"><p>对追求「不像 AI」的设计师，这篇比单纯的提示词技巧更重要：独特审美的上游，是独特的问题定义。如果你跳过问题阶段，再精致的视觉也只是给模糊需求镀金——读本上一篇「躲开 AI 审美默认值」解决的是输出侧；这篇解决的是输入侧。</p></div>
-
-<h2>03 设计是搜索，不是流水线</h2>
-<p>行业讨论已经从「设计师该不该写代码」滑到「AI 让写代码这么容易，设计师该写多少」。Designer Fund 自己的研究也提到：大约一半设计师表示自己会把代码推到生产环境。</p>
-<p>Karri 担心的不是「设计师写代码」本身，而是代码作为介质会过早逼你承诺。一个半生不熟的想法，一句提示就变成可运行原型，你很容易在还没弄清真正要解决什么问题之前，就被技术约束框死。</p>
-<p>他把设计看成搜索（search）：你从一个乱问题出发，并不知道最终答案。失败的常见原因之一是：大家对方案谈不拢，因为脑子里装的根本不是同一个问题——方案成了许多不同问题的妥协，而不是对一个问题的干净解。</p>
-<table><tr><th>把设计当流水线</th><th>把设计当搜索（Linear）</th></tr>
-<tr><td>尽快产出可演示的界面/代码</td><td>先弄清问题与上下文里的张力</td></tr>
-<tr><td>AI 的价值 = 更快出东西</td><td>AI 的价值 = 帮你审讯问题、聚齐证据</td></tr>
-<tr><td>过早落入实现约束</td><td>故意延迟承诺，直到问题清晰</td></tr>
-<tr><td>方案争论不休</td><td>先对齐「我们在解哪个问题」</td></tr></table>
-<p>这段观点和 Karri 自己的文章 <i>Design is more than code</i> 一脉相承；案例研究把它落到了团队日常。</p>
-
-<h2>04 用 AI 审讯问题：/linear-way skill</h2>
-<p>Karri 做了一个自定义 AI skill：/linear-way。它训练在 Linear 博客和其他内部材料上，并连接一个超过 4 万条客户请求的仓库（客户通话、Intercom 邮件、Slack、推文）。它的角色是共鸣板（sounding board），不是接单助理。</p>
-<p>客户通常要的是具体方案（「我要这个功能」），而不是描述底层痛点。于是 skill 被设计成必须先追问：</p>
-<ul>
-<li>这个请求背后的需要是什么？</li>
-<li>我们在做什么假设？</li>
-<li>如果我们不建它，会发生什么？</li>
-</ul>
-<blockquote>“Act like a Linear product teammate, not a request-taking assistant. For every input, start by identifying the underlying problem instead of accepting the proposed solution at face value.” — /linear-way skill 设定（原文引述）</blockquote>
-<p>wiki 功能的例子很能说明问题。表面请求是「在 Linear 里做知识库」。Skill 帮他们看到：客户其实不是要一个完整 docs 产品，而是想让团队文档更容易保存在工作已经发生的地方。Agent 把问题重写成：与其说「请改进文档」，不如说「请让上下文住在执行发生的地方」。</p>
-<p>Karri 还故意往下推：为什么 Linear <b>不该</b>做这个功能？Agent 给出稀释核心优势、胀大范围、掉进拥挤知识库赛道等反对意见。AI 不是来背书的，是来压力测试的。</p>
-<div class="note"><p>这和「独立评论家」提示词是亲戚，但更进一步：它绑了公司自己的写作声音和海量真实客户原话。通用模型只会给你通用反对意见；带品牌语境 + 真实请求库的 skill，反对意见才可能击中你的战略。</p></div>
-
-<h2>05 用 AI 聚齐决策所需的上下文</h2>
-<p>Isha 修一个「issue 如何链接到活跃开发会话」的行为时，先让 Agent 去查代码库和历史决策日志，解释旧行为为什么存在：「我需要它聚合上下文，好让我做有根据的决定。」</p>
-<p>Charlie 把同一思路放到更大尺度。界面刷新时，客户对新 issue 页布局反弹；他让 Agent 把 Twitter、Slack、客户通话里的原话收拢，去「感觉真正要解的问题是什么」。设计评审时，他把这份综合和前后截图一起带上，让团队基于客户原话决策，而不是基于他个人转述。</p>
-<table><tr><th>场景</th><th>人做什么</th><th>AI 做什么</th><th>刻意不做</th></tr>
-<tr><td>修遗留行为</td><td>做产品判断</td><td>查代码与决策日志，还原「当初为何如此」</td><td>让 AI 直接拍板该不该改</td></tr>
-<tr><td>大改版遇反弹</td><td>主持评审、给方向</td><td>跨渠道汇总客户原话</td><td>用 AI 生成「我们应该怎么回应」的漂亮总结替代原话</td></tr>
-<tr><td>新功能评估</td><td>定战略边界</td><td>/linear-way 追问需求与反对理由</td><td>把客户原话当 backlog 条目照单全收</td></tr></table>
-
-<h2>06 保护创作过程：什么交给 AI，什么不交</h2>
-<p>AI 大幅扩展了设计师能做的事，也逼出另一个问题：设计的哪些部分值得保护？</p>
-<p>Isha 一度很重度地用 AI，随后发现过程在退化：聊天界面逼她把视觉的、潜意识的直觉翻译成文字提示，打断心流；管工具开始像在管「一队初级员工」，而不是在设计。</p>
-<p>于是她改成：只在能去掉摩擦的地方用 AI——修 UI 纸张划痕、快速搭以前懒得探的边界情况动态原型。这正好接上 Linear 的 Quality Wednesdays：团队每周聚在一起修那些会慢慢腐蚀产品体验的小瑕疵。</p>
-<p>她明确不用 AI 做两件事：评审自己的设计、写 UI 文案。</p>
-<blockquote>“It wants to affirm me, not provoke me… AI-generated language really does feel like I’m settling.” — Isha Kumar</blockquote>
-<p>净新设计工作里，大约只有 20–30% 走 AI，其余亲手做。她的提醒是：工具和拐杖有巨大差别；AI 邀请你无限使用，可能让你更不信任自己。如果它是你唯一伸手去拿的工具，那暴露的是你手艺上的盲区。</p>
-<div class="note"><p>「20–30%」不是教条，而是一个校准器。你可以问自己：我这周有没有哪一次是因为怕自己下手不好看，才把主视觉或主文案甩给模型？如果有，那一次更可能是拐杖。反过来，修第八次同一类间距 bug、或搭一个难录的空状态动画——那是好工具。</p></div>
-
-<h2>07 四条可落地的原则</h2>
-<p>原文收束成几条实践原则，编者补上「怎么做」：</p>
-<table><tr><th>原则</th><th>原话要点</th><th>你可以怎么做</th></tr>
-<tr><td>要上下文，不要意见</td><td>Isha：问那些不需要它观点的问题，只要它聚合信息</td><td>提示词写成「列出证据 / 原话 / 提交记录」，禁止「你建议我们……」</td></tr>
-<tr><td>让 AI 跟你对着干</td><td>Karri：让它论证反对我的想法，再评估这些反对是否成立</td><td>固定加一句：先写最强的三条反对，再写在什么条件下反对不成立</td></tr>
-<tr><td>先定义「好」再构建</td><td>Karri：否则你永远成功——因为从未设过失败标准</td><td>动手前写 3 条可观察的接受标准（acceptance criteria）</td></tr>
-<tr><td>边建边学</td><td>Charlie：我不是技术型设计师；用设计师语言教我，而不只是替我做</td><td>要求 Agent 每做完一步用非行话解释概念，并指出你下次可自己改的地方</td></tr></table>
-
-<h2>08 和读本里其他文章怎么对照</h2>
-<table><tr><th>文章</th><th>侧重点</th><th>和本篇的关系</th></tr>
-<tr><td>Anthropic · Skills 改进前端设计</td><td>用审美 skill 对抗分布收敛</td><td>本篇补上：skill 还可以用来审讯问题，不只美化输出</td></tr>
-<tr><td>Anshu · 世界级设计师流程</td><td>外部种子、独立评论家、做减法</td><td>「让 AI 反对你」是独立评论家的产品战略版</td></tr>
-<tr><td>Vercel · design.md</td><td>品牌判断文件 + 评估闭环</td><td>Linear 的 /linear-way 更偏问题与策略；design.md 更偏页面品牌</td></tr>
-<tr><td>Figma · Agent 工具与 Skills</td><td>画布上的工具、上下文、斜杠命令</td><td>两边都在说：环境 &gt; 单次提示词</td></tr>
-<tr><td>Salman · 躲开 AI 审美默认值</td><td>输出侧的发散与对抗评审</td><td>本篇是输入侧：先搜索问题，再谈界面发散</td></tr></table>
-
-<h2>09 可直接改写的 skill / 提示词</h2>
-<pre><code># /my-product-way（改编自 /linear-way 思路）
-你是本产品的同事，不是接单助理。
-对每一条输入，必须先做这些，再谈方案：
-1. 用一句话重述「表面请求」
-2. 用一句话写出「可能的底层问题」（允许 2–3 个候选）
-3. 列出我们正在做的假设（至少 3 条）
-4. 写出「如果我们不建它」的后果与机会成本
-5. 写出「为什么我们不该建它」的最强三条反对
-6. 只有在以上完成后，才给出至多一个你认为值得探索的方向，并标明它回应的是哪个底层问题
-
-禁止：直接列功能清单；禁止未经验证就说「用户需要」。
-语气：像我们博客与产品原则里的人，而不是通用产品顾问。
-</code></pre>
-<pre><code># 设计评审前的上下文包（给 Agent）
-任务：为我准备一场设计评审的证据包，不要给方案建议。
-主题：[改动一句话]
-请分别汇总：
-- 代码 / 决策日志里「旧行为为何存在」
-- 客户原话（来源：访谈笔记 / Slack / 社媒 / 工单），尽量保留原句
-- 支持与反对该改动的原话各 5 条以内
-输出格式：表格 | 来源 | 原话或事实 | 与主题的关系 |
-最后用三句话描述「争议真正在争什么」，仍然不要给设计方案。
-</code></pre>
-
-<h2>10 自查清单</h2>
-<ul>
-<li>我这周有没有在「问题还不清」时就让 AI 出可运行原型？</li>
-<li>我有没有一份会追问底层问题、并论证反对意见的 skill？</li>
-<li>评审材料里，客户原话和我的转述，哪个占的篇幅更大？</li>
-<li>我有没有明确划定「不交给 AI」的区域（例如主文案、主视觉判断）？</li>
-<li>动手前有没有写下可观察的「好」的标准？</li>
-<li>我用 AI 时，是在要证据，还是在要它同意我？</li>
-<li>Quality Wednesday 式的小瑕疵修复，有没有变成 AI 的固定用途？</li>
-</ul>
-<div class="note"><p>Karri 对「好设计师」的定义值得钉在显示器上：最好的设计师在问题还不清楚时生产清晰度，给团队方向和信心。AI 可以帮你聚合证据、压力测试想法、修小伤口；它不能代替那种清晰度。Linear 的优势从来不是抄到最新工具，而是知道何时采用、何时说「我们想过了，不做」——对 AI 也一样。</p></div>
+<p><a href="https://designerfund.substack.com/s/ai-in-design/?utm_source=substack&amp;amp;utm_medium=menu">AI in Design</a></p>
+<h3 id="section-1">“当你什么都能做时，选择不做什么，远比把所有事情做得更快重要得多。”</h3>
+<p><i>在 AI in Design 的第一篇<a href="https://designerfund.substack.com/p/ai-design-sierra">案例研究</a>中，我们探讨了 Sierra 如何利用 AI 打造更好的客户体验。今天，我们将走进科技行业最注重匠心的团队之一，看看他们的设计流程在 AI 时代如何演变。</i></p>
+<h3 id="section-2">“设计是一场探索，而不是生产流水线”：Linear 如何守护优秀软件背后的思考</h3>
+<p><a href="https://linear.app/">Linear</a> 是一套产品开发系统，已有超过 40,000 个团队在使用，包括 OpenAI、Coinbase 和 Ramp。公司以对细节的极致追求闻名，已成为软件匠心的基准测试。如果你问一屋子的产品设计师，哪家公司的软件设计得最好，Linear 几乎一定会被提到。</p>
+<p>Charlie Aufmann 去年底加入 Linear，担任产品设计师。他说自己加入时感到压力很大：“这是世界上最好的设计团队之一，匠心水准极高……我能达到这个标准吗？”</p>
+<p>当任何人都能在几秒内把想法变成可运行的软件时，要守住这个标准就更难了。人们很容易想跳过设计优秀产品所必需的那些繁杂的思考、迭代和判断。但即便 Linear 自己的产品正朝着<a href="https://linear.app/now/how-we-built-linear-agent">日益智能体化的未来</a>演进，团队在使用 AI 时依然非常审慎：不是不惜一切代价追求速度，而是有意为人的判断创造更多空间。</p>
+<p>我们与 Linear 的 CEO Karri Saarinen，以及产品设计师 Charlie Aufmann 和 Isha Kumar 聊了聊，想了解他们的设计理念和工作方式如何延伸到 AI 世界。</p>
+<p>你将了解：</p>
+<ol><li>Karri 如何打造一个基于 Linear 思维方式训练的 AI 技能</li><li>设计师如何使用智能体获取客户与产品上下文</li><li>为什么有位设计师只在四分之一的新设计工作中使用 AI</li></ol>
+<figure class="video-card"><div class="video-frame" role="button" tabindex="0" data-video-url="https://www.youtube.com/watch?v=8wqZXOhuJUM" data-embed="https://www.youtube-nocookie.com/embed/8wqZXOhuJUM?autoplay=1&amp;rel=0&amp;playsinline=1" data-direct="" data-poster="../figures/inside-design-at-linear-ai/05-poster-8wqzxohujum-maxresdefault.jpg" data-title="Protecting the Thinking Behind Great Design | Inside Linear's Design Team" aria-label="播放视频：Protecting the Thinking Behind Great Design | Inside Linear's Design Team"><img src="../figures/inside-design-at-linear-ai/05-poster-8wqzxohujum-maxresdefault.jpg" alt="Protecting the Thinking Behind Great Design | Inside Linear's Design Team" loading="lazy" decoding="async"><span class="video-play" aria-hidden="true">▶</span></div><figcaption><a href="https://www.youtube.com/watch?v=8wqZXOhuJUM" target="_blank" rel="noreferrer">Protecting the Thinking Behind Great Design | Inside Linear's Design Team</a><span class="video-provider">YouTube</span><a class="video-open" href="https://www.youtube.com/watch?v=8wqZXOhuJUM" target="_blank" rel="noreferrer">新窗口打开</a></figcaption></figure>
+<p><a href="https://stateofaidesign.com/cases/linear">查看完整案例研究</a> • <a href="https://www.youtube.com/watch?v=8wqZXOhuJUM">在 YouTube 上观看</a></p>
+<h3 id="section-3">为什么不该跳过问题阶段</h3>
+<p>过去几年里，讨论的焦点从“设计师该不该写代码？”变成了“既然 AI 让写代码如此容易，设计师现在该写多少代码？”正如我们<a href="https://stateofaidesign.com/chapters/craft#coding">自己的研究</a>所显示的，如今有一半的设计师表示自己会把代码发布到生产环境。</p>
+<p>Karri 担心，当这种方式成为默认的工作方式时，会丢掉一些东西。问题不在于设计师写代码本身不好，而在于代码这种媒介往往会迫使人过早做出承诺。用一条提示词就把一个不成熟的想法变成可运行的原型，你可能还没来得及弄清自己究竟要解决什么问题，就已经被技术约束困住了。</p>
+<p>他把<a href="https://x.com/karrisaarinen/article/1999730838280503775">设计视为一种探索</a>：你从一个混乱的问题出发，并不知道最终答案。错误在于完全跳过这个探索过程，或者一开始就没有把问题想清楚。</p>
+<p>他认为，这是设计项目失败最常见的原因之一：</p>
+<blockquote><p>“大家无法就解决方案达成一致，因为每个人心里想的是不同的问题。最后的方案成了许多不同问题之间的折中，而不是对某一个问题的清晰解答。”</p></blockquote>
+<p>对 Linear 来说，这正是为什么必须保留深入思考和探索问题的过程，这是做出优秀产品的关键。</p>
+<figure><img src="https://designerfund.substack.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5e763d2e-a126-4ae6-8e0d-da23cdb83d82_1348x496.png" alt="" loading="lazy" decoding="async"><figcaption>摘自 Karri 的文章 <i><a href="https://linear.app/now/design-is-more-than-code">设计不止于代码</a></i></figcaption></figure>
+<h3 id="section-4">用 AI 拷问问题本身</h3>
+<p>Karri 打造了 <b><a href="https://gist.github.com/ksaa/5644e3225be8af5eef4fa1bed0e7e88a">/linear-way</a>，</b>这是一个自定义的 AI 技能，基于 Linear 的博客文章和其他内部资料训练而成。它连接着一个包含 4 万多条客户请求的库，内容来自客户通话、Intercom 邮件、Slack 消息和推文，充当 Karri 的讨论搭档。</p>
+<p>客户通常会直接提出具体的解决方案（“我想要这个功能”），而不是描述背后的痛点。所以 Karri 用这个技能来拷问每条请求：</p>
+<ul><li>这个请求背后的需求是什么？</li><li>我们做了哪些假设？</li><li>如果我们不做这个功能会怎样？</li></ul>
+<p>这个技能在设计上就明确要求不能照单全收地接受请求：</p>
+<blockquote><p>“要像 Linear 的产品队友，而不是只会接需求的助手。对每一条输入，先找出背后真正的问题，而不是直接接受对方提出的解决方案。”</p></blockquote>
+<p>例如，当 Linear 在考虑是否要做 wiki 功能时，这个技能帮助团队发现：客户其实并不是想要在 Linear 里建一个完整的知识库，而是想用更简单的方式，在工作所在的地方保存和访问团队文档。</p>
+<p>智能体重新定义了这个问题：“这个诉求与其说是<i>请改进文档</i>，不如说是<i>请让上下文与执行处于同一处。</i>”</p>
+<p>Karri 进一步追问：<i>Linear 为什么不该做这个功能？</i>智能体给出的理由是：这个想法可能会稀释 Linear 的核心优势，让产品范围变得臃肿，并把公司拖进竞争拥挤的知识库品类。AI 没有一味附和，而是帮助 Karri 对这个想法做了压力测试。<a href="https://www.linkedin.com/posts/karrisaarinen_quick-video-on-how-i-use-linear-agent-in-ugcPost-7445480312274472960-G0XG/?utm_source=share&amp;amp;utm_medium=member_desktop&amp;amp;rcm=ACoAABKfR3MB_6ms9sdYp9g-b69sWZKNgt4FZNI">观看完整的 /linear-way 演示</a>。</p>
+<figure><img src="https://designerfund.substack.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb051874e-5957-4450-bcd8-9533d7526efb_2644x1482.png" alt="" loading="lazy" decoding="async"><figcaption>Charlie Aufmann 与 Karri Saarinen 在旧金山</figcaption></figure>
+<h3 id="section-5">收集上下文，做出更好的决策</h3>
+<p>产品设计师 Isha Kumar 也以类似的方式使用 AI，而且远早于动手写代码之前。</p>
+<p>在修复一个关于 issue 如何关联到活跃开发者会话的 bug 时，她先让一个智能体查询代码库和历史决策记录，弄清楚这种旧行为为何存在。“我只是需要它汇总上下文，好让我做出有依据的决定。”</p>
+<p>今年早些时候，在 Linear 的<a href="https://linear.app/now/behind-the-latest-design-refresh">界面焕新</a>过程中，Charlie 把这种做法放大到了更宏观的层面。当客户对新的 issue 页面布局提出反对时，他用一个智能体汇总了 Twitter、Slack 和客户电话中的客户原话，以“真切感受到这里究竟有什么问题需要解决”。</p>
+<p>随后在设计评审中，他把这份汇总与前后对比截图一起带到会上，这样团队就能依据客户的原始反馈做决定，而不是依赖他个人的看法。</p>
+<p>在这两个例子中，AI 都帮助呈现了做出更好决策所需的信息。</p>
+<figure><img src="https://designerfund.substack.com/p/fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F499260a1-1f99-4163-b0d7-12f69c5d1583_3840x2160.png" alt="" loading="lazy" decoding="async"></figure>
+<h3 id="section-6">守护创作过程</h3>
+<p>AI 极大地拓展了设计师能够构建的范围。但对 Isha 来说，它带来了另一个问题：<b>设计中哪些部分值得守护？</b></p>
+<p>最初她重度依赖 AI 时，发现自己的设计过程在退化。聊天界面迫使她把视觉化的、下意识的直觉翻译成文字提示词，打断了她的心流。管理这个工具逐渐变得像在管理“一支初级员工团队”，而不是在做设计。</p>
+<p>于是她选择只在能减少阻力的地方使用 AI，而不是贯穿整个工作流。如今，这意味着修复 UI 上的小瑕疵，以及为那些过去探索起来繁琐的边缘情况快速搭建动态原型。这与 Linear 的 <a href="https://linear.app/now/quality-wednesdays">Quality Wednesdays</a> 十分契合：这是每周一次的例行活动，团队齐聚一堂，修复那些日积月累会损害整体产品体验的小缺陷。</p>
+<p>她不会用 AI 来点评自己的设计，也不会用它写界面文案。“它想的是认同我，而不是启发我，”她说。“AI 生成的语言确实让我觉得是在将就。”她全新的设计工作中，只有约 20% 到 30% 会经过 AI，其余仍然亲手完成。</p>
+<blockquote><p>“把某样东西当工具用，和把它当拐杖用，差别很大。AI 会诱使你无限使用，这可能让你越来越不相信自己。如果你只会求助于 AI，就说明你自己的手艺里存在盲区。”</p></blockquote>
+<blockquote><p>- Isha Kumar，产品设计师</p></blockquote>
+<p>以下是 Linear 团队总结的几条实用原则，帮助你在使用 AI 时不把思考外包出去：</p>
+<ul><li><b>收集上下文，而不是征求意见。</b>“我提问时并不真的需要它的意见，”Isha 说。“我只是需要它汇总上下文，好让我自己做决定。”</li><li><b>让 AI 反驳你。</b>智能体总想讨好你，所以 Karri 会让它跟自己唱反调：“我会让它针对我的想法提出反对的论点，然后由我来评估：这些论点站得住脚吗？我该认真对待吗？”</li><li><b>在动手之前先定义什么是好。</b>AI 几乎能让任何产出都显得像是有进展，这就让人很容易为得到的结果找理由。“否则你永远都是成功的。它永远不会失败，因为你从未设定任何标准，”Karri 说。</li><li><b>边做边学。</b>Charlie 会一开始就告诉智能体要教他：“我不是技术型设计师。当你为我构建东西时……请用设计师的语言和我交流，教我这些概念。我不想只是用你来做出某个东西，我想在做的过程中学到东西。”</li></ul>
+<h4 id="">AI 时代设计的角色</h4>
+<p>优秀的设计师不只是把界面做得更好。他们帮助公司更清楚地看清问题，做出更好的决策，并让团队其他人对该做什么充满信心。</p>
+<p>正如 Karri 所说：</p>
+<blockquote><p>“最优秀的设计师能在不清晰的问题中理出清晰的思路。这是我最喜欢的那类设计师。他们带给团队清晰感和信心，让大家相信就该这样去做。这样每个人都能安心，因为有人为他们指明了方向。”</p></blockquote>
+<p>这种清晰感依赖判断力：知道什么重要、什么不重要，以及该把精力放在哪里。而且这一点在设计职能之外也越来越适用。</p>
+<p>当创业公司似乎都在互相照搬打法时，Linear 的优势来自对自身判断的信任。它对待 AI 的方式也是如此：知道何时该采用新工具，也知道何时该说：“<a href="https://x.com/cjc/status/2083243669335970097">我们想过了，我们不做这个</a>。”</p>
+<p><a href="http://stateofaidesign.com/cases/linear">阅读 Linear 的完整案例研究</a></p>
+<hr>
+<h3 id="section-7">开放的设计岗位</h3>
+<ul><li><a href="https://linear.app/">Linear</a> 正在北美和欧洲招聘 Production Designer 和产品设计师。<a href="https://jobs.ashbyhq.com/Linear?utm_source=Designer+Fund+job+board">查看开放岗位</a>。</li><li><a href="https://ambrook.com/">Ambrook</a> 为独立经营的企业打造财务软件，正在旧金山、纽约、丹佛及远程招聘产品设计师、Design Engineer 和设计系统工程师。<a href="https://jobs.ashbyhq.com/ambrook?utm_source=Designer+Fund+job+board">查看开放岗位</a>。</li><li><a href="https://paper.design/">Paper</a> 正在招聘远程产品设计师和 Design Engineer，共同打造其协作设计工具。<a href="https://paper.design/blog/design">了解更多并申请</a>。</li><li><a href="https://gusto.com/">Gusto</a> 正在旧金山和纽约招聘设计负责人（Head of Design）和多名产品设计师，覆盖其整个平台。<a href="https://job-boards.greenhouse.io/gusto?gh_src=Designer+Fund+job+board">查看开放岗位</a>。</li><li><a href="https://stripe.com/">Stripe</a> 正在旧金山、纽约、多伦多、伦敦、都柏林等地招聘产品、动效、品牌和网页方向的设计师。<a href="https://stripe.com/careers/search">查看开放岗位</a>。</li><li><a href="https://www.notion.com/">Notion</a> 正在旧金山和纽约招聘产品设计师、用户研究员和品牌活动经理。<a href="https://jobs.ashbyhq.com/notion">查看开放岗位</a>。</li><li><a href="https://www.commure.com/">Commure</a> 正在山景城招聘品牌设计负责人（Brand Design Lead），负责塑造涵盖活动、发布和产品的品牌。<a href="https://jobs.ashbyhq.com/Commure/6e87b2ae-fed7-4dee-ac0f-9b9c9bb910c6?utm_source=Designer+Fund+job+board&amp;amp;utm_medium=getro.com&amp;amp;gh_src=Designer+Fund+job+board">在此申请</a>。</li></ul>
+<p>在我们的招聘板上，<a href="https://jobs.designerfund.com/">浏览 Designer Fund 旗下公司的 1,000 多个开放岗位</a>，或者把这篇文章转给正在求职的人。</p>
+<p>如果你想与那些以设计为成功核心的创始人和公司共事，欢迎<a href="https://jobs.designerfund.com/talent-network">加入我们的人才网络</a>，让我们在未来有机会时第一时间想到你。</p>
+<hr>
+<p style="margin-top:3em"><a class="readorig" href="https://designerfund.substack.com/p/ai-design-linear" target="_blank" rel="noopener">阅读原文 →</a></p>
 </article>
+<footer class="mono">原文 © Designer Fund · 本页为自动生成的中文译文，仅供学习参考</footer>
+<script>
+(function () {
+  function play(frame) {
+    var embed = frame.getAttribute('data-embed');
+    var direct = frame.getAttribute('data-direct') === '1';
+    var url = frame.getAttribute('data-video-url') || '';
+    var title = frame.getAttribute('data-title') || '视频';
+    if (direct && url) {
+      var video = document.createElement('video');
+      video.src = url;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      var poster = frame.getAttribute('data-poster');
+      if (poster) video.poster = poster;
+      frame.innerHTML = '';
+      frame.appendChild(video);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (embed) {
+      var iframe = document.createElement('iframe');
+      iframe.src = embed;
+      iframe.title = title;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('loading', 'eager');
+      frame.innerHTML = '';
+      frame.appendChild(iframe);
+      frame.classList.add('is-playing');
+      return;
+    }
+    if (url) window.open(url, '_blank', 'noopener');
+  }
+  document.querySelectorAll('.video-frame[data-video-url]').forEach(function (frame) {
+    frame.addEventListener('click', function () { play(frame); });
+    frame.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); play(frame); }
+    });
+  });
+})();
+</script>
 </body></html>

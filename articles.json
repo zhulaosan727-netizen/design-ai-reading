@@ -901,5 +901,49 @@
     "cover": "covers/career-advice-ai-frontier-balwit.svg",
     "accent": "#8C2A4A",
     "tint": "#F1E4E7"
+  },
+  {
+    "slug": "building-frontend-uis-codex-figma",
+    "title_zh": "代码与画布来回走：用 Codex + Figma MCP 做前端",
+    "title_en": "Building frontend UIs with Codex and Figma",
+    "author": "OpenAI（Developers 博客）",
+    "author_role": "OpenAI Developers Blog（Codex × Figma MCP）",
+    "source": "https://developers.openai.com/blog/building-frontend-uis-with-codex-and-figma",
+    "date": "2026-02-26",
+    "added": "2026-11-03",
+    "tags": [
+      "Codex",
+      "Figma MCP",
+      "roundtrip",
+      "设计系统",
+      "get_design_context"
+    ],
+    "dek": "Figma MCP 不是只读设计：Codex 把代码与画布焊成可往返的同一工作面。",
+    "category": "AI 设计工作流",
+    "cover": "covers/building-frontend-uis-codex-figma.svg",
+    "accent": "#1B6B5A",
+    "tint": "#E0EBE7"
+  },
+  {
+    "slug": "teaching-claude-frontend-design-skill",
+    "title_zh": "教 Claude 设计得更好：改写 Frontend Design Skill 的方法",
+    "title_en": "Teaching Claude to Design Better: Improving Anthropic's Frontend Design Skill",
+    "author": "Justin Wetch",
+    "author_role": "独立作者（向 anthropics/skills 提交 Frontend Design Skill PR）",
+    "source": "https://www.justinwetch.com/blog/improvingclaudefrontend/",
+    "date": "2026-01-05",
+    "added": "2026-11-03",
+    "tags": [
+      "Skill",
+      "frontend-design",
+      "eval",
+      "model theory of mind",
+      "Anthropic"
+    ],
+    "dek": "好听的指令不等于可执行：先问模型知不知道，再用盲测证明改 Skill 有效。",
+    "category": "提示词与 Skill",
+    "cover": "covers/teaching-claude-frontend-design-skill.svg",
+    "accent": "#9C3D2E",
+    "tint": "#F1E5E2"
   }
 ]

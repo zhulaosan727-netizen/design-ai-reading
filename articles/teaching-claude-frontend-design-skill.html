@@ -1,0 +1,120 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>教 Claude 设计得更好：改写 Frontend Design Skill 的方法 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#F1E5E2">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 44 · 提示词与 Skill / frontend-design / eval / theory of mind</div><h1>教 Claude 设计得更好：改写 Frontend Design Skill 的方法</h1><div class="en">Teaching Claude to Design Better: Improving Anthropic's Frontend Design Skill</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Justin Wetch</dd><dt>身份</dt><dd>独立作者（向 anthropics/skills 提交 Frontend Design Skill PR）</dd><dt>日期</dt><dd>2026-01-05</dd><dt>原文</dt><dd><a href="https://www.justinwetch.com/blog/improvingclaudefrontend/">justinwetch.com ↗</a></dd></dl><a class="readorig" href="https://www.justinwetch.com/blog/improvingclaudefrontend/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/teaching-claude-frontend-design-skill.svg" alt="Teaching Claude to Design Better: Improving Anthropic's Frontend Design Skill 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按「模型心智理论 (model theory of mind) + Skill 可执行性」视角重写并扩写的讲解。原文讲述 Justin 如何审读 Anthropic 开源的 frontend-design skill、把不可执行的指令改成可执行指令，并用盲测 A/B + Opus 评审拿到 75% 胜率。读本已有 Anthropic 官方「Improving frontend design through Skills」；本篇讲的是<strong>如何改 Skill 本身</strong>。细节与评测图表请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：好听的指令不等于可执行</li>
+<li>模型心智理论：先问「它知不知道」</li>
+<li>改写策略：清晰、祈使、扩潜空间、NEVER/INSTEAD</li>
+<li>排版与色彩：把形容词换成方向</li>
+<li>从 vibe 到数据：50 prompt × 盲测评审</li>
+<li>意外发现：小模型吃 Skill 红利更大</li>
+<li>给 Zhu 的改 Skill 清单与模板</li>
+</ol></nav>
+
+<h2>01 先给结论：好听的指令不等于可执行</h2>
+<p>Anthropic 的 Skills 仓库里有一份 frontend-design skill：目标是让 Claude 做出有辨识度、生产级的前端，避开「AI slop」审美。Justin 读到一句看似正确的话：<b>「NEVER converge on common choices (Space Grotesk, for example) across generations.」</b>再配上「No design should be the same」。</p>
+<p>意图很好——别次次都挤向同一套安全字体与版式。问题是：<b>Claude 看不到自己的其他会话。</b>每一次对话都是第一次。叫它「别跨 generation 收敛」，等于叫人别重复梦话里说过的句子——它根本没有那份记忆可参照。</p>
+<p>这篇的主线因此不是「多写一点审美形容词」，而是：<b>写 Skill 之前，先搞清模型的认识边界；再把意图改写成单次生成内可执行的动作；最后用评测证明改动有效。</b></p>
+<div class="note"><p>与读本 No.01 / 官方 frontend Skills 文对照：官方文教你「用 Skill 抬升审美轴」；Justin 教你「Skill 文本本身如何避免不可执行的拟人化指令」。两者叠用：官方定主题，Justin 定写法标准。</p></div>
+
+<h2>02 模型心智理论：先问「它知不知道」</h2>
+<p>Justin 称之为 <b>model theory of mind</b>：推理模型当下能知道什么、能感知什么、能记住什么、如何解析指令。没有这层，你会写出「对人听着很对、对模型却不可操作」的脚手架。</p>
+<table>
+<tr><th>人类直觉写法</th><th>模型实际状态</th><th>可执行改写</th></tr>
+<tr><td>别跨次生成收敛到同一字体</td><td>无跨会话记忆</td><td>若第一反应是常见默认，主动探索替代</td></tr>
+<tr><td>做出「美丽、独特、有趣」的字</td><td>形容词无判据</td><td>展示字体要有个性；正文要可读；用字号/字重/大小写/字距建层级</td></tr>
+<tr><td>选一个极端审美</td><td>与后文「关键是意图不是强度」打架</td><td>承诺一个清晰方向，细节都为它服务</td></tr>
+</table>
+<p>他把「跨 generation 不收敛」改成大意如下的句子：<b>永远不要满足于脑中第一个常见选项；若某字体、颜色或布局像「显而易见的答案」，就刻意探索替代方案。</b>目标不变，但动作落在单次生成之内。</p>
+
+<h2>03 改写策略：清晰、祈使、扩潜空间、NEVER/INSTEAD</h2>
+<p>Justin 先写了一份约 1800 词的「我相信什么叫好前端」备忘，作为改写锚，再逐行审原 Skill。改动落在几类：</p>
+<p><b>清晰与自洽。</b>原文一处说「pick an extreme」，另一处又说关键是 intentionality 不是 intensity——指令互殴。他改成「commit to a distinct direction」，并强调终稿应 singular：每个细节服务于同一方向。</p>
+<p><b>祈使语气 (imperative voice)。</b>原文有的段落像口号（「Unexpected layouts. Asymmetry.」），有的含糊得不知道要模型做什么。统一成清晰命令：告诉它做什么，而不只是「考虑什么」。</p>
+<p><b>扩展潜空间 (latent space)。</b>原列表偏「brutally minimal / maximalist chaos」等，缺暗色情绪、手作感、lo-fi zine 等领地。扩展不是为了穷尽，而是给模型「允许探索」的许可证。</p>
+<p><b>NEVER / INSTEAD 成对出现。</b>只说「别用 Inter / 紫渐变 / 可预期布局」不够——模型还需要伸手可及的正向目标。他补上 INSTEAD：有辨识度的字体、大胆且有承诺的色板、会让人一愣的布局、贴合上下文的 bespoke 细节。</p>
+<pre><code>## NEVER
+- 默认 Inter / Roboto / 系统字体全家桶
+- 白底紫渐变 + 三张同构功能卡
+- 无上下文的模板构图
+
+## INSTEAD
+- 有立场的字体配对（展示 vs 正文分工明确）
+- 主色主导 + 锐利强调色，而不是平均撒色
+- 布局服务于内容叙事，允许不对称与重叠
+- 每个选择能说回「这个产品的具体语境」
+</code></pre>
+
+<h2>04 排版与色彩：把形容词换成方向</h2>
+<p><b>Typography。</b>原文用「beautiful, unique, and interesting」——好听，但模型无法落地。改写后的骨架更像工程师说明书：默认字体 = 默认思考；字体承载设计的 singular voice；展示字体可表达，正文必须可读；动用完整 typographic range（size / weight / case / spacing）建立层级。</p>
+<p><b>Color with conviction。</b>「commit to a cohesive aesthetic」太空。他改成可挑选的方向盘：bold &amp; saturated / moody &amp; restrained / high-contrast &amp; minimal；主色领先，强调色点破。目的不是装自信，而是<strong>扩大可能性空间</strong>，让模型知道选项存在。</p>
+<table>
+<tr><th>轴</th><th>弱指令</th><th>强指令</th></tr>
+<tr><td>字体</td><td>美丽、独特</td><td>展示有性格；正文可读；用字阶与字重建层级</td></tr>
+<tr><td>色彩</td><td>有凝聚力</td><td>选一种态度（饱和 / 克制 / 高对比）；主色 + 锐利强调</td></tr>
+<tr><td>方向</td><td>极端一点</td><td>选定方向后，细节不得分裂叙事</td></tr>
+</table>
+<div class="note"><p>这与 Emil「Agents with Taste」、uiscanner「taste = context」同构：品味不是情绪词，是可执行的约束与正向示例。Justin 的贡献是把「改 Skill 文案」本身变成一门可检查的手艺。</p></div>
+
+<h2>05 从 vibe 到数据：50 prompt × 盲测评审</h2>
+<p>「我觉得更好」不能开 PR。他搭了一套评测：</p>
+<ol>
+<li>50 个代表性 prompt（落地页、仪表盘、作品集、菜单、注册流、乐队页等）。</li>
+<li>每次随机抽题，API 各跑原 Skill / 新 Skill 一次。</li>
+<li>Puppeteer 全页截图。</li>
+<li>把用户题 + 匿名 A/B 截图交给 Claude Opus 4.5，按五维打分：Prompt Adherence、Aesthetic Fit、Visual Polish &amp; Coherence、UX &amp; Usability、Creative Distinction。</li>
+</ol>
+<p>结果（Claude 4.5 家族）：Haiku 8/10 胜；Sonnet 7/10；Opus 6/10。去掉平局后，28 次决胜里新 Skill 赢 21 次（约 75%），二项检验显著。Creative Distinction 与 Visual Polish 是常见增益项。</p>
+<table>
+<tr><th>模型</th><th>新 Skill 胜场</th><th>相对收益直觉</th></tr>
+<tr><td>Haiku 4.5</td><td>8 / 10</td><td>最大——更依赖明确指令</td></tr>
+<tr><td>Sonnet 4.5</td><td>7 / 10</td><td>居中</td></tr>
+<tr><td>Opus 4.5</td><td>6 / 10</td><td>仍赢，但天花板更高，Skill 边际更小</td></tr>
+</table>
+
+<h2>06 意外发现：小模型吃 Skill 红利更大</h2>
+<p>Justin 的假设：Opus 本身前端已强，模糊处能靠能力补全；Haiku 更需要显式脚手架。若成立，对提示词工程有直接含义——<b>越强的模型，在其能力圈内对 prompt 越不敏感；越便宜的模型，越吃精确 Skill。</b>对要控成本的设计/前端流水线，这比「一律上最强模型」更实用：把 Skill 写清楚，让小模型追上一段差距。</p>
+
+<h2>07 给 Zhu 的改 Skill 清单与模板</h2>
+<p><b>审一行 Skill 时的四问</b></p>
+<ol>
+<li>模型在单次上下文里有没有执行所需的信息？</li>
+<li>指令是否可观察、可违反（因而可检查）？</li>
+<li>是否与同文档其他句子互殴？</li>
+<li>NEVER 有没有配对的 INSTEAD？</li>
+</ol>
+<p><b>改写模板（可粘贴进自己的 frontend / 读本 Skill）</b></p>
+<pre><code>## 方向
+先选一个清晰方向（例如：editorial quiet / dense tool UI / dark atelier）。
+整页细节必须服务这一方向；不要同时「极简又最大主义」。
+
+## Typography
+- 展示字体：允许个性；正文：优先可读。
+- 用 size / weight / case / tracking 建层级，而不是靠颜色喊话。
+- 若第一反应是 Inter / Space Grotesk / 系统字体，列出 2 个更贴语境的替代再选。
+
+## Color
+- 选一种态度：saturated / moody / high-contrast。
+- 主色占地，强调色点破；避免平均撒一圈柔和色。
+
+## NEVER / INSTEAD
+NEVER: 紫渐变白底默认套餐；无参考的三同构卡片；左侧竖向色条做状态。
+INSTEAD: 具名参考或 tokens；状态用标签/图标/表面色温/顶边或全框；布局叙事优先。
+
+## 自检（生成后）
+- 能否用一句话说明「这页为什么长这样」？
+- 删掉 30% 装饰文案后是否更清晰？
+- 是否出现训练分布中心的默认套餐而无理由？
+</code></pre>
+<p><b>轻量 eval（不必上 50 题也能开始）</b></p>
+<ul>
+<li>固定 5 个你常做的页面类型各 1 题。</li>
+<li>旧 Skill / 新 Skill 各出一版，匿名给同事或另一个模型按五维打分。</li>
+<li>只合并「胜场稳定」的句子，拒绝凭感觉整文件重写。</li>
+</ul>
+<div class="note"><p>一句话总结：改 Skill 不是润色文案，而是对模型做可用性设计——去掉它无法知道的要求，补上它能执行的动作，再用盲测证明你没有自我感动。官方 Skill 给你起点；Justin 的方法让你有资格维护自己的品味文件。</p></div>
+</article>
+</body></html>

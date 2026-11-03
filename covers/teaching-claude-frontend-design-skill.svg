@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#9C3D2E">
+  <!-- 读本 cover system v1 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.44 · 提示词与 Skill</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">MODEL THEORY OF MIND</text>
+  <!-- motif: vague instruction cloud vs actionable skill document with eval arrows -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- vague cloud -->
+    <path d="M160 260 C130 220 160 170 220 165 C250 130 330 140 350 185 C400 160 460 200 445 260 C490 290 470 360 410 370 C380 420 290 415 250 370 C190 395 140 330 160 260 Z"/>
+    <path d="M220 240 H310"/>
+    <path d="M210 275 H330"/>
+    <path d="M230 310 H300"/>
+    <!-- crossed-out "across generations" mark -->
+    <path d="M240 230 L300 320"/>
+    <!-- skill document -->
+    <path d="M560 180 H900 V520 H560 Z"/>
+    <path d="M590 230 H870"/>
+    <path d="M590 280 H820"/>
+    <path d="M590 330 H850"/>
+    <path d="M590 380 H780"/>
+    <path d="M590 430 H840"/>
+    <path d="M590 480 H800"/>
+    <!-- NEVER / INSTEAD pair boxes -->
+    <path d="M980 220 H1100 V300 H980 Z"/>
+    <path d="M980 340 H1100 V420 H980 Z"/>
+    <path d="M1040 300 V340"/>
+  </g>
+  <!-- accent: eval loop arrow from doc to twin screenshots back -->
+  <g fill="none" stroke="#9C3D2E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M730 540 V600 H420 V540"/>
+    <path d="M440 555 L420 540 L440 525"/>
+    <!-- twin screenshot frames -->
+    <path d="M280 540 H380 V620 H280 Z"/>
+    <path d="M400 540 H500 V620 H400 Z"/>
+    <path d="M300 565 H360" stroke-width="1.75"/>
+    <path d="M420 565 H480" stroke-width="1.75"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".5">
+    <text x="175" y="200">VAGUE RULE</text>
+    <text x="590" y="165">SKILL.md</text>
+    <text x="990" y="205">NEVER</text>
+    <text x="990" y="325">INSTEAD</text>
+    <text x="290" y="640">A / B EVAL</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="24" fill="#1B2B26">Teaching Claude to Design Better</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">JUSTIN WETCH</text>
+</svg>

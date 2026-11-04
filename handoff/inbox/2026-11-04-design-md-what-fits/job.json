@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "status": "ready",
+  "slug": "design-md-what-fits",
+  "title_zh": "DESIGN.md 该写什么：意图放进文件，真值指向源头",
+  "title_en": "DESIGN.md for Design Systems: What Fits in the File",
+  "author": "Supernova（团队博文）",
+  "author_role": "Design system platform（Supernova）",
+  "source_url": "https://www.supernova.io/blog/design-md-design-system",
+  "date": "2026-11-03",
+  "added": "2026-11-04",
+  "category": "提示词与 Skill",
+  "tags": [
+    "DESIGN.md",
+    "design tokens",
+    "MCP",
+    "Backpack",
+    "Stitch"
+  ],
+  "dek": "434 个 token 压成 32 个：文件写意图，真值留给系统",
+  "accent": "#6A4A2A",
+  "tint": "#EDE7E1",
+  "cover": "cover.svg",
+  "card": "card.png",
+  "mode": "depth_guide",
+  "language": "zh-CN",
+  "paywalled": false,
+  "notes": "已由 AI设计文章 直接深度精讲并发布到 articles/；本交接包供 DeepSeek 插件后续刷新或对照。",
+  "handoff_from": "AI设计文章",
+  "handoff_to": "DeepSeek Harness 翻译插件"
+}

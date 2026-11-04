@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#3A5A8C">
+  <!-- 读本 cover system v1 · No.45 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.45 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">ACCELERATE NOT OUTSOURCE</text>
+  <!-- motif: dashed trial curves converging to one solid craft path; accent on final polish mark -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- left experiment fan (dashed trials) -->
+    <path d="M140 520 C220 480 280 400 340 300" stroke-dasharray="6 7"/>
+    <path d="M160 560 C250 500 320 420 380 320" stroke-dasharray="6 7"/>
+    <path d="M180 600 C280 540 360 450 420 340" stroke-dasharray="6 7"/>
+    <path d="M200 620 C300 560 400 470 460 360" stroke-dasharray="5 8"/>
+    <!-- discarded stubs -->
+    <path d="M300 280 L340 240" stroke-dasharray="4 6"/>
+    <path d="M360 300 L410 250" stroke-dasharray="4 6"/>
+    <path d="M400 340 L450 290" stroke-dasharray="4 6"/>
+    <!-- scaffolding grid (Figma → code scaffold) -->
+    <path d="M520 200 H780 V420 H520 Z"/>
+    <path d="M520 260 H780"/>
+    <path d="M600 200 V420"/>
+    <path d="M700 200 V420"/>
+    <path d="M540 230 H580" stroke-width="1.5"/>
+    <path d="M620 290 H760" stroke-width="1.5"/>
+    <path d="M620 330 H720" stroke-width="1.5"/>
+    <path d="M620 370 H740" stroke-width="1.5"/>
+    <!-- solid craft path after convergence -->
+    <path d="M460 360 C560 300 640 280 760 300 C860 318 940 360 1020 420"/>
+    <!-- human hand-mark / polish ticks near end -->
+    <path d="M980 400 L1000 430 L1035 390"/>
+  </g>
+  <!-- accent: final craft curve + polish mark -->
+  <g fill="none" stroke="#3A5A8C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M900 340 C940 380 980 410 1040 450"/>
+    <path d="M1018 438 L1040 450 L1022 468"/>
+    <circle cx="900" cy="340" r="5" fill="#3A5A8C" stroke="none"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".5">
+    <text x="140" y="500">TRIALS</text>
+    <text x="540" y="185">SCAFFOLD</text>
+    <text x="980" y="500">CRAFT</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="#1B2B26">Using AI as a design engineer</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">jakub.kr</text>
+</svg>

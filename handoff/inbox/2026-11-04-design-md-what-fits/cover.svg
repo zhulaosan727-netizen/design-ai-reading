@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#6A4A2A">
+  <!-- 读本 cover system v1 · No.46 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.46 · 提示词与 Skill</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">INTENT NOT SOURCE OF TRUTH</text>
+  <!-- motif: slim DESIGN.md with few tokens vs dashed overflow of many tokens → live MCP source -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- DESIGN.md document -->
+    <path d="M180 160 H520 V580 H180 Z"/>
+    <path d="M210 210 H490"/>
+    <path d="M210 250 H420"/>
+    <!-- few kept tokens (solid small pills) -->
+    <path d="M220 300 H340 V330 H220 Z"/>
+    <path d="M220 350 H310 V380 H220 Z"/>
+    <path d="M220 400 H360 V430 H220 Z"/>
+    <path d="M220 450 H300 V480 H220 Z"/>
+    <!-- prose intent lines -->
+    <path d="M220 520 H460" stroke-width="1.5"/>
+    <path d="M220 545 H400" stroke-width="1.5"/>
+    <!-- overflow cloud of many tokens (dashed) -->
+    <g stroke-dasharray="5 6">
+      <path d="M560 200 H640 V230 H560 Z"/>
+      <path d="M660 190 H740 V220 H660 Z"/>
+      <path d="M760 210 H840 V240 H760 Z"/>
+      <path d="M580 260 H650 V290 H580 Z"/>
+      <path d="M670 250 H760 V280 H670 Z"/>
+      <path d="M780 270 H870 V300 H780 Z"/>
+      <path d="M600 320 H690 V350 H600 Z"/>
+      <path d="M710 310 H800 V340 H710 Z"/>
+      <path d="M820 330 H900 V360 H820 Z"/>
+      <path d="M590 380 H680 V410 H590 Z"/>
+      <path d="M700 370 H790 V400 H700 Z"/>
+      <path d="M810 390 H900 V420 H810 Z"/>
+      <path d="M620 440 H700 V470 H620 Z"/>
+      <path d="M720 430 H810 V460 H720 Z"/>
+      <path d="M830 450 H910 V480 H830 Z"/>
+      <path d="M640 500 H730 V530 H640 Z"/>
+      <path d="M750 490 H840 V520 H750 Z"/>
+    </g>
+    <!-- arrows from overflow toward live source -->
+    <path d="M920 300 C960 320 980 360 1000 400" stroke-dasharray="4 5"/>
+    <path d="M910 420 C950 430 975 450 1000 470" stroke-dasharray="4 5"/>
+    <path d="M900 520 C940 510 970 500 1000 490" stroke-dasharray="4 5"/>
+  </g>
+  <!-- accent: live-source MCP node -->
+  <g fill="none" stroke="#6A4A2A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="1045" cy="450" r="48"/>
+    <circle cx="1045" cy="450" r="28"/>
+    <path d="M1045 422 V450 H1070"/>
+    <path d="M1025 470 H1065" stroke-width="1.75"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".5">
+    <text x="200" y="145">DESIGN.md · 32</text>
+    <text x="580" y="175">434 TOKENS</text>
+    <text x="1005" y="545">LIVE MCP</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="24" fill="#1B2B26">DESIGN.md for Design Systems: What Fits</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">supernova.io</text>
+</svg>

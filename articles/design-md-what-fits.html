@@ -1,0 +1,150 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>DESIGN.md 该写什么：意图放进文件，真值指向源头 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#EDE7E1">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 46 · 提示词与 Skill / DESIGN.md / design tokens / MCP / Backpack / Stitch</div><h1>DESIGN.md 该写什么：意图放进文件，真值指向源头</h1><div class="en">DESIGN.md for Design Systems: What Fits in the File</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Supernova（团队博文）</dd><dt>身份</dt><dd>Design system platform（Supernova）</dd><dt>日期</dt><dd>2026-11-03</dd><dt>原文</dt><dd><a href="https://www.supernova.io/blog/design-md-design-system">supernova.io/blog ↗</a></dd></dl><a class="readorig" href="https://www.supernova.io/blog/design-md-design-system" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/design-md-what-fits.svg" alt="DESIGN.md for Design Systems: What Fits in the File 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按设计系统 / Agent 上下文视角重写的讲解。原文是 Supernova 团队用手写一份 Backpack（Skyscanner）的 DESIGN.md，把 foundations 里 434 个 token 压到文件里的 32 个——差距本身就是课。规格来自 Google Labs Stitch 开源的 alpha DESIGN.md（文中核对至 2026-11-03 仍为 alpha）。它和读本 No.30「Atlassian 实测 DESIGN.md」、No.03「Vercel design.md 品牌页」、No.45「设计工程师怎么用 AI」连成一条线：便携意图文件有用，但不是已上线产品的 source of truth。想看完整 YAML 与对照表，请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li>
+<li>434 → 32：差距为什么有用</li>
+<li>DESIGN.md 是什么（Stitch / alpha 规格）</li>
+<li>Backpack 实作：色彩角色胜过裸 token 表</li>
+<li>什么进了文件，什么没进</li>
+<li>三条硬缺口：过期真值、无 props 槽、无主题</li>
+<li>够不够用？看任务而不是看信仰</li>
+<li>意图留在 md，精确值指向 MCP / 源头</li>
+<li>和 No.30 / No.03 / No.45 怎么排</li>
+<li>可粘贴：写作清单与最小骨架</li>
+<li>自查清单</li>
+</ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，DESIGN.md 擅长说「产品该有什么感觉」，不擅长当活字典。</b>Supernova 按规格手写 Backpack 的 DESIGN.md，文件里最终只有 32 个 token 级条目；而 <code>@skyscanner/bpk-foundations-web</code> 源里是 434。能读完的文件装不下全部真值——这不是失败，是格式边界。</p>
+<p><b>第二，散文里的角色说明，比 YAML 色值列表更值钱。</b>例如 Navy <code>primary</code> 扛主操作，Blue <code>accent</code> 只给链接与 hero、绝不做按钮底——这种「为什么有两支蓝」是 agent 生成新屏时最容易缺的推理。</p>
+<p><b>第三，绿野新页可以用；已上线产品要另接 source of truth。</b>alpha 规格下：复制的值会过期；组件 props 没有 schema 槽；modes / themes 不受支持。做法：md 写 intent（意图）；精确、当前、可解析的值让设计系统 MCP 或源包回答。</p>
+<table><tr><th>任务</th><th>DESIGN.md</th><th>还需要</th></tr>
+<tr><td>新页面、统一气质的 greenfield</td><td>够用：调色、字阶、品味与 Do/Don't</td><td>可选：少量组件样式条目</td></tr>
+<tr><td>改已上线产品里的真实 Button</td><td>不够：缺当前值、props、主题</td><td>DS MCP / 源包 / 可 import 组件</td></tr>
+<tr><td>跨工具便携身份</td><td>强项（护照）</td><td>与内部 MCP 同源，避免两套真相</td></tr></table>
+
+<h2>02 434 → 32：差距为什么有用</h2>
+<p>Backpack 的 web foundations 包里有 434 个 design tokens。他们按 DESIGN.md 规格手写一份，最后文件里留下 32。文章把「差距」当作有用部分：格式适合告诉 agent 产品该有什么感觉；不适合承载 agent 在现有产品里构建时所需的精确值、组件 API 与版本。</p>
+<p>对 Zhu 的启发很直接：个人站或小设计系统若把「全部 token 倾倒进 md」当安全感，文件会变得既不可读又迅速过期；不如主动做编辑——留下角色与禁令，把字典留给源头。</p>
+
+<h2>03 DESIGN.md 是什么（Stitch / alpha 规格）</h2>
+<p>DESIGN.md 是一份给 AI coding agents 描述视觉身份的 Markdown：顶部用 YAML 放 tokens，正文用白话写 rationale（理据）。Google Labs 在 Stitch 设计工具中引入，并在 2026-04-21 开源草案规格；GitHub 上的规格到 2026-11-03 仍标 <code>alpha</code>。</p>
+<p>规格大致规定：</p>
+<ul>
+<li><b>Token 组：</b><code>colors</code>、<code>typography</code>、<code>rounded</code>、<code>spacing</code>、<code>components</code>，可用 <code>{colors.primary}</code> 这类引用。</li>
+<li><b>正文顺序：</b>Overview → Colors → Typography → Layout → Elevation &amp; Depth → Shapes → Components → Do's and Don'ts。</li>
+<li><b>CLI：</b><code>lint</code> 校验，<code>diff</code> 比较两版，<code>export</code> 转到 Tailwind 或 W3C DTCG。</li>
+</ul>
+<p>社区热度很高：VoltAgent 的 awesome-design-md（从公开网站抽 DESIGN.md）在他们 2026-11-03 查看时约有 125,000 GitHub stars。另文提醒：项目 instructions（如 CLAUDE.md）是另一份文件、另一份工作，不要和 DESIGN.md 混为一谈。</p>
+<div class="note"><p>读本 No.03 的 Vercel <code>design.md</code> 与本篇的 Stitch <code>DESIGN.md</code> 名字相近、职责同属「便携视觉意图」，但规格与生态不同。选型时先问：我要的是「仓库品牌说明书」，还是「Stitch/alpha 工具链可 lint 的那份」——再决定文件名与字段。</p></div>
+
+<h2>04 Backpack 实作：色彩角色胜过裸 token 表</h2>
+<p>选 Backpack 是因为它公开、成熟、持续发版。源取自 <code>@skyscanner/bpk-foundations-web</code> 24.9.0（2026-10-06）以及 <code>@skyscanner/backpack-web</code> 43.19.0 的 button API。</p>
+<p>YAML 头部（文中缩写）是常见的 day mode 子集：primary / accent / surface、正文字阶、圆角、以及 <code>button-primary</code> 若干样式字段。真正赚到的是正文：</p>
+<pre><code>## Colors
+Navy `primary` carries primary actions. Blue `accent` is for links
+and hero surfaces, never for buttons.
+
+## Do's and Don'ts
+- Do use one primary button per view
+- Don't use the accent blue as a button background
+</code></pre>
+<p>第二块是文件里最强的东西：它说明两支蓝为何存在、哪支能上按钮。裸 token 列表说不出这些；而这正是 agent 生成新屏时最常缺的推理。</p>
+<blockquote>That second block is the strongest thing in the file. — Supernova（大意：正文角色说明才是文件里最强的部分）</blockquote>
+
+<h2>05 什么进了文件，什么没进</h2>
+<p>完整手写文件约含：14 色、5 个字阶、5 档圆角、5 档间距、3 个组件条目。与 2026-11-03 从 npm 包清点的源对比：</p>
+<table><tr><th></th><th>Backpack 源</th><th>他们的 DESIGN.md</th><th>差距原因</th></tr>
+<tr><td>Design tokens</td><td>434</td><td>32</td><td>人能读完的文件装不下全部</td></tr>
+<tr><td>日/夜双值 token</td><td>205（102 对）</td><td>0</td><td>alpha 无 themes/modes 字段，只好选一种</td></tr>
+<tr><td>Button 色 token</td><td>54</td><td>3 个组件条目</td><td>类型×状态要各自写条目</td></tr>
+<tr><td>Button 类型与尺寸</td><td>9 类型 × 2 尺寸</td><td>1 类型 × 2 尺寸</td><td>同上</td></tr>
+<tr><td>Button props</td><td>16</td><td>0</td><td>组件条目只有样式属性，不是 API</td></tr>
+<tr><td>组件包数量</td><td>99</td><td>1</td><td>每个组件都得手写</td></tr></table>
+
+<h2>06 三条硬缺口：过期真值、无 props 槽、无主题</h2>
+<p>对「在已有产品里让 agent 构建」来说，三个缺口最伤：</p>
+<ol>
+<li><b>解析后的值会过期。</b>文件复制的是当时的值。Backpack foundations 到 2026 年 10 月初已有 12 次发布；组件包在 1–8 月间有 81 次稳定发布。每次都可能改掉文件仍当作事实的数字。<code>diff</code> 只能比两份 DESIGN.md，不能告诉你文件是否已与系统脱节。</li>
+<li><b>组件 props 没有槽位。</b>规格里 components 是最多约 8 个样式字段（backgroundColor、textColor、typography、rounded、padding、size、height、width）。Backpack button 有 16 个具名 props；loading 是否保宽、icon-only 要不要 label，只能写进散文。规格自己也说 components 部分「is actively evolving」。</li>
+<li><b>Modes 要么撑爆文件，要么出局。</b>102 个 token 各有 day/night。alpha 无 theme 概念：你要么写两份文件，要么发明 <code>primary-night</code> 命名，要么像他们一样直接丢掉暗色。</li>
+</ol>
+
+<h2>07 够不够用？看任务而不是看信仰</h2>
+<p><b>新页面、要统一长相：够。</b>agent 需要调色盘、字阶和一点品味时，DESIGN.md 是快且便宜的赢；也是 token 文件从不承载的规则终于能落笔的地方。</p>
+<p><b>已上线产品内部：不够。</b>那里 agent 必须吐出特定组件、正确 props、正确主题、今天的值。文件可读；agent 需要的是可 resolve 的东西——问 <code>button-primary</code> 就返回当前值、变体、映射到的组件。</p>
+<p>这是所有摘要的交易：写下来那天准确，之后没有人提醒你它何时不准。他们联想到文档过期的同一模式。</p>
+<div class="note"><p>对照 No.30 Atlassian：生产 playground 里整份 DESIGN.md 往往更贵、更慢、更不准，MCP/Skills 更合适。本篇从「手写真实 DS 子集」侧证明同一结论——不是 Atlassian 特例，而是便携快照的结构命运。</p></div>
+
+<h2>08 意图留在 md，精确值指向 MCP / 源头</h2>
+<p>建议策略很干净：</p>
+<ul>
+<li>DESIGN.md 保留 intent：Overview、色彩角色、Do's and Don'ts；YAML 保持短，并在 Overview 注明取值自哪个 package version。</li>
+<li>凡是必须「今天精确正确」的，指向系统本身——这正是 design system MCP server 的工作：返回实体而非页面，例如带 resolved value 的 token、以及使用它的组件，在 agent 询问当下读取系统。</li>
+</ul>
+<p>Supernova 提到自家 MCP 在各计划（含免费 Starter）上 lookup 不限次数，并另文比较各家 DS MCP、以及接到 Claude Code / Cursor 的步骤。对 Zhu：个人站若还没有 MCP，至少把「真值在 CSS variables / tokens.json」写进 Agent rules，并禁止模型把 md 里的旧 hex 当最终答案。</p>
+
+<h2>09 和 No.30 / No.03 / No.45 怎么排</h2>
+<ol>
+<li><b>No.03 Vercel design.md：</b>公开品牌向 md + 样式表 + eval——偏「仓库外也要像我们」。</li>
+<li><b>No.30 Atlassian：</b>同一意图的便携文件，在生产对照里输给 MCP / Skills；护照 vs 档案柜。</li>
+<li><b>本篇 Supernova：</b>用真实 Backpack 数字回答「文件里该装什么」——装意图与角色，不装全集真值；并点名 alpha 的三缺口。</li>
+<li><b>No.45 Jakub：</b>人怎么用 AI 加速而不外包思考——没有好的上下文路由（md vs MCP），再强的 craft 习惯也会被过期色值带偏。</li>
+</ol>
+<p>建议顺序：先写短 DESIGN.md / design.md 锁定气质与禁令 → 绿野原型直接喂文件 → 组件库与主题稳定后接 MCP / 源包做真值 → 人侧用 No.45 的方式只加速脚手架与琐务，审美判断不外包。</p>
+
+<h2>10 可粘贴：写作清单与最小骨架</h2>
+<pre><code># DESIGN.md 编辑清单（动手前）
+[ ] Overview 写清：气质一句话 + 取值 package 名与版本 + 今日只覆盖 day 还是双主题
+[ ] YAML 只留「生成新屏用得到」的子集（目标：可读完，而不是 400+）
+[ ] Colors 正文写角色：谁上按钮、谁上链接、谁绝对不能当主按钮
+[ ] Do's and Don'ts 至少 5 条可执行禁令（对照 Zhu 硬规则可写入）
+[ ] Components 只手写高频 1–3 个；props 细节指向源或 MCP
+[ ] 另开一条 Agent rule：精确值以 MCP / tokens 源为准，md 仅 intent
+
+# 最小骨架（示意）
+---
+version: alpha
+name: MyProduct (day)
+colors:
+  primary: "…"
+  accent: "…"
+  surface: "…"
+typography:
+  body-md: { fontFamily: "…", fontSize: 1rem, lineHeight: 1.5rem }
+rounded:
+  sm: 0.5rem
+components:
+  button-primary:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.surface}"
+---
+
+## Overview
+一句话气质；token 取自 `@scope/pkg@x.y.z`（日期）；无暗色（或见 `DESIGN.night.md`）。
+
+## Colors
+说明 primary / accent 的职责边界（比再贴 20 个 hex 重要）。
+
+## Do's and Don'ts
+- Do …
+- Don't …（含：禁止左侧竖向色条等产品级硬规则）
+</code></pre>
+
+<h2>11 自查清单</h2>
+<ul>
+<li>我是在写「意图护照」，还是在徒手复制第二份 token 字典？</li>
+<li>文件里最强的段落，是不是色彩角色与 Do/Don't，而不是 YAML 长度？</li>
+<li>Overview 有没有写明 package 版本？三个月后有人知道它可能过期吗？</li>
+<li>当前任务是 greenfield 新页，还是改已上线组件？后者是否已指向 MCP / 源？</li>
+<li>alpha 的三缺口（过期值 / 无 props 槽 / 无主题）我选了哪条权宜之计？</li>
+<li>Agent 输出是 <code>import</code> 设计系统组件，还是根据 md 散文重画了一遍 Button？</li>
+<li>与 No.30 / No.03 的公开 md 是否职责清晰，避免三份互相打架的「真相」？</li>
+</ul>
+<div class="note"><p>一句话收束：434 压成 32 不是偷工，是编辑。DESIGN.md 该装的是「你打算让产品感觉成什么样」以及「绝对不要怎样」；「今天准确的色值、props、主题」请指向还在发版的源头或 MCP。文件说你的意图，源头说今天的事实——让 agent 两个都听，而不是只听一份会过期的摘要。</p></div>
+</article>
+</body></html>

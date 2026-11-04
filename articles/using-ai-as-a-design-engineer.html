@@ -1,0 +1,115 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>设计工程师怎么用 AI：加速实验，不外包思考 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E3E8F1">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 45 · AI 设计工作流 / design engineer / Cursor / Figma MCP / rules / craft</div><h1>设计工程师怎么用 AI：加速实验，不外包思考</h1><div class="en">Using AI as a design engineer</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Jakub Krehel</dd><dt>身份</dt><dd>Design Engineer（Interfere / 独立）</dd><dt>日期</dt><dd>2026-01-14</dd><dt>原文</dt><dd><a href="https://jakub.kr/work/using-ai-as-a-design-engineer">jakub.kr ↗</a></dd></dl><a class="readorig" href="https://jakub.kr/work/using-ai-as-a-design-engineer" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/using-ai-as-a-design-engineer.svg" alt="Using AI as a design engineer 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按「设计工程师 / 高级 UX」视角重写的讲解。原文是 Jakub Krehel（Interfere）写自己日常如何把 AI 用在 craft 工作里——加速 trial-and-error，而不是让 agent 替他想点子。工具栈以 Cursor、Claude Opus 4.5、Figma MCP、context7、CLI 与 PR 审查为主。它和读本 No.43「Codex + Figma MCP 往返」、No.44「改写 Frontend Design Skill」、No.30「Atlassian DESIGN.md」同属一条线：前几篇讲上下文与技能文件，本篇讲「人如何一直握着方向盘」。想看交互截图与英文原句，请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li>
+<li>角色张力：craft 岗位为什么还要用 AI</li>
+<li>Setup：短规则、无上下文假设、可引用的外部 guidelines</li>
+<li>Commands：/deslop 与自定义 /review</li>
+<li>模型、Figma MCP 与脚手架边界</li>
+<li>Plan mode、拆 prompt、MCP 与 CLI</li>
+<li>写更少的代码：去重与迁移才是甜点</li>
+<li>结论：更快，也更 slop——craft 更贵</li>
+<li>给 Zhu 的可粘贴规则与工作流模板</li>
+<li>自查清单</li>
+</ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，AI 的正职是加速实验，不是发明想法。</b>设计工程大量时间花在 trial and error（试错）上——找「this feels right」往往要几小时。Jakub 用 AI 把不确定概念压到几分钟试完；合手就留下，不对就扔掉。他明确不把「想点子 / 替我思考」外包给模型。</p>
+<p><b>第二，人必须一直 in charge。</b>Agent 最强的时候，是你理解它在做什么、敢打断、敢改，而不是盲从输出。开聊默认假设它 <b>no context</b>（零上下文），比假装它记得上周对话更管用。</p>
+<p><b>第三，工具栈要「短规则 + 好脚手架 + 人打磨」。</b>Cursor rules 引用 ui-skills、Vercel Web Interface Guidelines、Motion、Tailwind sponsor rules；Figma MCP 出复杂屏脚手架；Plan mode 管大功能；context7 拉新文档；CLI（他最爱 Claude Code）扛大任务；Codex + Vercel agent 做 PR 审查。最后 polish 与动画仍是人的活。</p>
+<table><tr><th>你想要的</th><th>交给 AI</th><th>留给自己</th></tr>
+<tr><td>不确定概念的快速试错</td><td>几分钟搭出可感版本</td><td>判断「对不对味」、决定扔或留</td></tr>
+<tr><td>复杂屏脚手架</td><td>Figma MCP + 仓库 rules</td><td>间距、动效、微交互、无障碍</td></tr>
+<tr><td>重复劳动（图标迁移、抽公共组件）</td><td>批量改 import、删文件</td><td>定边界、验收、防回归</td></tr>
+<tr><td>大功能</td><td>Plan mode + 拆成小 prompt</td><td>产品取舍与信息架构</td></tr></table>
+
+<h2>02 角色张力：craft 岗位为什么还要用 AI</h2>
+<p>开篇他就承认：design engineer 的关键词是 craft、thoughtfulness、creativity——按定义 AI 暂时都不擅长。但他仍「kinda enjoy using it」，因为日常不是在论文里定义创造力，而是在 Interfere 与个人项目里反复实验。设计工程很大一块就是试错：同一交互试五种手感，九成会被丢。</p>
+<p>关键区分写得很硬：</p>
+<blockquote>I don't use AI to come up with ideas or to replace my own thinking. I use it to accelerate my workflow. — Jakub Krehel</blockquote>
+<p>以及：AI works best if the user is in charge。对 Zhu 这种「用 AI 建站约一年、要非泛用审美」的路径，这句话几乎是防 slop 的第一原则——模型很会交「能用的平均脸」，你若把审美判断也交出去，作品集就会迅速趋同。</p>
+<div class="note"><p>读本里「平均脸 / on-distribution」出现过多次。本篇贡献的是岗位级操作法：不是「少用 AI」，而是把 AI 钉在加速层，把「是否 feels right」留在人侧。和 No.01 分布收敛、No.44 Skill 改写形成互补——那边改指令，这边改你自己的使用契约。</p></div>
+
+<h2>03 Setup：短规则、无上下文假设、可引用的外部 guidelines</h2>
+<p>无论 Claude Code、Codex 还是 Cursor，他都把 setup 放在第一位。自己主力是 Cursor。新项目先写一套 codebase rules：你其实早已知道自己要什么——比如何时用 <code>will-change</code>、用 <code>cn</code> 而不是模板字符串拼 class、怎么用设计系统。规则保持 short and to the point，并经常 <b>reference</b> 其他文件——这也是 Cursor 官方 agent best practices 的方向。</p>
+<p>他反对「抄别人的 rules 却不懂」：复制可以，但要先理解。另一条反直觉习惯：人类跨对话记得很多上下文，模型不会；所以每次开聊都假设 agent 一无所知，结果反而最好。</p>
+<p>本站规则示例方向：动画性能、React Compiler、<code>cn</code>、设计系统。此外他会挂上外部优质集：</p>
+<ul>
+<li><b>ui-skills</b></li>
+<li><b>Vercel Web Interface Guidelines</b></li>
+<li><b>Motion</b> Plus 订阅附带的 rules</li>
+<li><b>Tailwind CSS</b> sponsor 提供的 rules</li>
+</ul>
+<p>价值很朴素：不用每次对话重复描述，需要时在 prompt 里点名引用即可。</p>
+
+<h2>04 Commands：/deslop 与自定义 /review</h2>
+<p>Rules 之外是 commands。他用的第一个是 Cursor 的 Eric 在 X 上分享的 <code>/deslop</code>——字面意思就是打掉 AI 味与松垮实现。Interfere 还有自定义 <code>/review</code>：对照仓库特定规则审 PR。对个人站，你可以做轻量版：一条「对照读本硬规则 + 禁止左侧色条 + 对照 design.md」的 review command，比每次手写评审提示稳。</p>
+
+<h2>05 模型、Figma MCP 与脚手架边界</h2>
+<p>写稿当时他的 daily driver 是 <b>Claude Opus 4.5</b>：够快，覆盖他日常大多数用途。UI 方面，Figma MCP 是转折点——Interfere 当时有大量界面要建。他曾长期犹豫：细节控制欲强，觉得「AI 建完再 polish」会比自己手写更慢。</p>
+<p>用 Opus 4.5 试了几周后态度变了：<b>rules 设得好，脚手架质量会 unexpectedly good</b>。不完美，但复杂屏、多组件搭建明显更快。他给的 prompt 甚至不太技术化——能成，很大程度因为仓库 rules 已经到位。脚手架出来后，才进入人的阶段：tweaking、polishing、animating。不懂 agent 在干什么就停下来问它解释——这句他强调到不能再强调。</p>
+<div class="note"><p>和 No.43 的 Codex↔Figma 往返对照：那边讲画布与代码焊成同一工作面；本篇更偏「单向脚手架 → 人打磨」。Zhu 若在个人站迭代，可以折中：Figma MCP / 设计上下文出第一版结构，自己锁气质与动效，再用往返把打磨结果同步回画布存档。</p></div>
+
+<h2>06 Plan mode、拆 prompt、MCP 与 CLI</h2>
+<p>Cursor 多种 mode 他都会用；Agent 之外用得最多的是 <b>Plan mode</b>。大功能上，用不用 Plan 差异显著。另一习惯：把 prompt 拆成多个更小、结构化的请求——输出更好，也更容易跟。</p>
+<p>日常 MCP 除了 Figma，几乎只用 <b>context7</b>：拉取库与框架的最新文档，补训练数据过时的洞。CLI 他试过 Claude Code、Codex、Cursor CLI、OpenCode，最爱 <b>Claude Code</b>；IDE 与 CLI 混用，但 CLI 越来越多——觉得大任务上 CLI 强于 IDE / 网页端。</p>
+<p>Code review 很克制：Codex 审他开的 PR（顺便用上 OpenAI 订阅）；更大 PR 再挂 Vercel agent。不是关键路径，但是便宜的第二层眼睛。</p>
+
+<h2>07 写更少的代码：去重与迁移才是甜点</h2>
+<p>他特别喜欢的一类用途不是「让 AI 替我多写」，而是 <b>让代码库以更少代码完成同样功能</b>。重复实现散落各处时，人很难扫全；模型擅长找出 duplication 并抽成 shared components / utilities。</p>
+<p>例子：发现站点图标集其实有 npm 包，此前一直手写 icon 文件。手工替换 import、删文件很烦且没时间，就让 Claude 做——偶需插手，但最终少了约 <b>5000 行</b>，功能不变。他说：这类乏味、耗时、边界清楚的活，才是自己最愿意交给 AI 的。</p>
+<p>另有非代码用途：某组件里的图由 ChatGPT 生成——点到为止，主线仍是工程加速。</p>
+
+<h2>08 结论：更快，也更 slop——craft 更贵</h2>
+<p>收束很清醒：AI 改变了日常——更快、能实验得更多；另一面是 slop 也更多。把一切交接给 agent、外包思考，长期会伤自己。所以他的契约始终是：只加速那些 tedious / time-consuming 的碎片，<b>never to replace my thinking</b>。</p>
+<p>入口门槛变低、知识触手可及时，quality 与 craft 会比以往任何时候都更决定产品。Design and user experience will become the product。他另荐 Lee Robinson 的相关视频作延伸。</p>
+<blockquote>…never to replace my thinking. — Jakub Krehel</blockquote>
+
+<h2>09 给 Zhu 的可粘贴规则与工作流模板</h2>
+<pre><code># .cursor/rules/design-ai-reading.mdc（示意，按仓库改）
+## 审美硬规则
+- 禁止卡片/告警/列表行左侧竖向色条（border-left accent bar）
+- 状态用标签、图标、表面色温或顶边/全框
+- 封面与文章页遵循读本 cover system；首页底 #E6E6E6
+
+## 实现偏好
+- 优先复用现有组件与 tokens；禁止为「好看」复制一套平行样式
+- class 合并用项目既有 util（如 cn），避免模板字符串失控
+- 动效：先问是否必要；必要则短、可打断、尊重 reduced-motion
+
+## 开聊假设
+- 默认 agent 无跨会话记忆；关键约束写进 rules 或本轮 prompt
+- 大功能先 Plan，再拆成：信息架构 → 静态结构 → 交互 → 动效
+
+# /deslop 个人版（command 示意）
+1. 列出本 diff 里「AI 平均脸」嫌疑：通用渐变、全大写标题、无信息卡片、假 hover
+2. 对照 design.md / 本仓库 rules 逐项改
+3. 删掉未使用的抽象与重复 wrapper
+4. 用更少 DOM / 更少 LOC 表达同一 UI
+
+# 复杂屏脚手架流程
+1. 确认 Figma 选区链接 + 仓库 rules 已挂
+2. 非技术口吻说明目标屏与约束（「像现有 Settings，不要新视觉语言」）
+3. 只接受 scaffolding；然后人改 spacing / type / motion
+4. 不懂的 hunk 先让 agent 解释，再决定留或回滚
+</code></pre>
+
+<h2>10 自查清单</h2>
+<ul>
+<li>这一轮我是在加速试错，还是在让模型替我决定「什么好看」？</li>
+<li>开聊时是否当成零上下文，关键约束是否写进 rules / 本轮 prompt？</li>
+<li>rules 是短而可引用，还是粘贴了一大份自己都没读完的别人配置？</li>
+<li>复杂 UI 是否停在脚手架，polish 与动画仍由自己收？</li>
+<li>大功能有没有先 Plan、再拆小 prompt？</li>
+<li>文档类问题有没有走 context7，而不是赌训练数据？</li>
+<li>AI 有没有帮我删代码（去重 / 迁移），而不只是加代码？</li>
+<li>PR 是否有第二层审查（Codex / Vercel agent / 自定义 /review）？</li>
+<li>结束后作品是否更像「我的手感」，而不是更像「模型默认官网」？</li>
+</ul>
+<div class="note"><p>一句话收束：Jakub 的用法不是「设计工程师向 AI 投降」，而是把 AI 当成高速车床——毛坯出得快，最终曲面仍靠你的手。速度会上来，slop 也会上来；这时 craft 不是情怀，是唯一的护城河。想对照他的原图与命令截图，请读原文。</p></div>
+</article>
+</body></html>

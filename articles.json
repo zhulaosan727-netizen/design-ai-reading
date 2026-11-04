@@ -945,5 +945,50 @@
     "cover": "covers/teaching-claude-frontend-design-skill.svg",
     "accent": "#9C3D2E",
     "tint": "#F1E5E2"
+  },
+  {
+    "slug": "using-ai-as-a-design-engineer",
+    "title_zh": "设计工程师怎么用 AI：加速实验，不外包思考",
+    "title_en": "Using AI as a design engineer",
+    "author": "Jakub Krehel",
+    "author_role": "Design Engineer（Interfere / 独立）",
+    "source": "https://jakub.kr/work/using-ai-as-a-design-engineer",
+    "date": "2026-01-14",
+    "date_note": "来自 jakub.kr/api/rss 的 pubDate Wed, 14 Jan 2026",
+    "added": "2026-11-04",
+    "tags": [
+      "design engineer",
+      "Cursor",
+      "Figma MCP",
+      "rules",
+      "craft"
+    ],
+    "dek": "用 AI 试概念与搭脚手架，思考和打磨仍留给自己",
+    "category": "AI 设计工作流",
+    "cover": "covers/using-ai-as-a-design-engineer.svg",
+    "accent": "#3A5A8C",
+    "tint": "#E3E8F1"
+  },
+  {
+    "slug": "design-md-what-fits",
+    "title_zh": "DESIGN.md 该写什么：意图放进文件，真值指向源头",
+    "title_en": "DESIGN.md for Design Systems: What Fits in the File",
+    "author": "Supernova（团队博文）",
+    "author_role": "Design system platform（Supernova）",
+    "source": "https://www.supernova.io/blog/design-md-design-system",
+    "date": "2026-11-03",
+    "added": "2026-11-04",
+    "tags": [
+      "DESIGN.md",
+      "design tokens",
+      "MCP",
+      "Backpack",
+      "Stitch"
+    ],
+    "dek": "434 个 token 压成 32 个：文件写意图，真值留给系统",
+    "category": "提示词与 Skill",
+    "cover": "covers/design-md-what-fits.svg",
+    "accent": "#6A4A2A",
+    "tint": "#EDE7E1"
   }
 ]

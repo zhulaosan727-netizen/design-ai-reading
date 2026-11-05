@@ -990,5 +990,49 @@
     "cover": "covers/design-md-what-fits.svg",
     "accent": "#6A4A2A",
     "tint": "#EDE7E1"
+  },
+  {
+    "slug": "coinbase-code-connect-agent-costs",
+    "title_zh": "Coinbase 用 Code Connect 喂饱 Agent：少花钱、更快、更贴设计系统",
+    "title_en": "How Coinbase used Code Connect to guide agents and shrink token costs",
+    "author": "Jenny Xie（撰文）/ Erich Kuerschner（Coinbase Technical Lead，受访与实测）",
+    "author_role": "Figma Editor；Coinbase Design System Technical Lead",
+    "source": "https://www.figma.com/blog/how-coinbase-used-code-connect-to-shrink-token-costs/",
+    "date": "2026-09-02",
+    "added": "2026-11-05",
+    "tags": [
+      "Code Connect",
+      "MCP",
+      "设计系统",
+      "Coinbase",
+      "Agent"
+    ],
+    "dek": "Skills 管怎么做，Code Connect 管从哪开始——Coinbase 实测降本约 22.5%",
+    "category": "AI 设计工作流",
+    "cover": "covers/coinbase-code-connect-agent-costs.svg",
+    "accent": "#2B5F8C",
+    "tint": "#E1E9F1"
+  },
+  {
+    "slug": "martin-tejeda-agentic-design-workflow",
+    "title_zh": "少开 Figma、多关闭环：Martin Tejeda 的 Agent 设计工作流",
+    "title_en": "AI workflow (Martin Tejeda)",
+    "author": "Martin Tejeda",
+    "author_role": "独立产品设计师（约 7 年经验；曾在 Underbelly 创意机构；现一人工作室，盐湖城）",
+    "source": "https://www.martin.design/ai-workflow",
+    "date": "2026-10",
+    "added": "2026-11-05",
+    "tags": [
+      "Cursor",
+      "Figma Make",
+      "MCP",
+      "工作流",
+      "原型"
+    ],
+    "dek": "研究→Cursor→Figma Make→MCP 回收→Vercel Preview：一条少开 Figma 的闭环",
+    "category": "AI 设计工作流",
+    "cover": "covers/martin-tejeda-agentic-design-workflow.svg",
+    "accent": "#8A3555",
+    "tint": "#F0E4E7"
   }
 ]

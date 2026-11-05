@@ -1,0 +1,124 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Coinbase 用 Code Connect 喂饱 Agent：少花钱、更快、更贴设计系统 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E1E9F1">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 47 · AI 设计工作流 / Code Connect / MCP / 设计系统 / Coinbase / Agent</div><h1>Coinbase 用 Code Connect 喂饱 Agent：少花钱、更快、更贴设计系统</h1><div class="en">How Coinbase used Code Connect to guide agents and shrink token costs</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Jenny Xie（撰文）/ Erich Kuerschner（Coinbase Technical Lead，受访与实测）</dd><dt>身份</dt><dd>Figma Editor；Coinbase Design System Technical Lead</dd><dt>日期</dt><dd>2026-09-02</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/how-coinbase-used-code-connect-to-shrink-token-costs/">figma.com/blog ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/how-coinbase-used-code-connect-to-shrink-token-costs/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/coinbase-code-connect-agent-costs.svg" alt="How Coinbase used Code Connect to guide agents and shrink token costs 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按「设计系统 × coding agent」视角重写的讲解。原文是 Figma Editor Jenny Xie 采访 Coinbase Design System（CDS）Technical Lead Erich Kuerschner，并整理他们把 Code Connect 接到 agent 工作流后的对照评测：同一设计、同一模糊 prompt、同一模型（Sonnet 4.6），三轮空白仓库，平均 token −11.5%、实现时间 −22.3%、成本 −22.5%。它和读本 No.15「Agent 上 Figma 画布」、No.04「Figma 设计 Agent 的工具与 Skills」、No.22「Vercel product-design Skill」、No.40「AGENTS.md 胜过 Skills」同属一条线——前几篇教 agent「怎么做」，本篇补上「从设计出发时从哪开始」。想看完整评测截图与英文原句，请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li>
+<li>问题变了：设计系统的主用户正在变成 Agent</li>
+<li>他们已有 Skills，为什么还不够</li>
+<li>Code Connect 欠账：过期映射与缺失模板</li>
+<li>四小时迁完：Claude Code + figma-code-connect skill</li>
+<li>评测怎么控：模糊 prompt、三轮、清缓存</li>
+<li>数字：token / 时间 / 成本都降了</li>
+<li>对照现场：乱造 Stepper vs 正确 ListCell</li>
+<li>分工：Skills 管 HOW，Code Connect 管 WHEN</li>
+<li>和 No.15 / No.04 / No.22 / No.40 怎么排</li>
+<li>可粘贴：落地清单与评测模板</li>
+<li>自查清单</li>
+</ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，给 agent 的「正确入口」比再写十条规则更值钱。</b>Coinbase 已有选组件、避弃用、用 CDS token 的 agent skills，也有内部原型 playground；但这些主要优化「从零写代码」。从 Figma 设计走到生产级 CDS 代码，仍慢、不准、不可预期——缺的是设计节点到组件实现的映射。</p>
+<p><b>第二，Code Connect 不是文档装饰，是可评测的上下文注入。</b>Erich 用 Claude Code + <code>figma-code-connect</code> skill，大约 4 小时把过时映射与缺失模板补到全库覆盖；之后在空白仓库、故意模糊的 prompt（<code>Implement this design from Figma</code> + 链接）下，三轮平均成本降约 22.5%、实现时间降约 22.3%、token 降约 11.5%，且每一轮都更好。</p>
+<p><b>第三，Skills 与 Code Connect 不是二选一。</b>Skills 塑造 HOW（模式、弃用、token 习惯）；Code Connect 在「从设计起步」时给出最佳起点，少让模型四处搜索、臆造图标名。Erich 的提醒很硬：没有 Code Connect，agent 解释设计时会 go wild。</p>
+<table><tr><th>你给 agent 的</th><th>擅长</th><th>不擅长 / 缺口</th></tr>
+<tr><td>Agent skills（怎么实现）</td><td>选对组件、避弃用、用 CDS tokens、从零写代码的习惯</td><td>设计→生产代码的「第一落点」；复杂属性组件仍易胡猜</td></tr>
+<tr><td>Code Connect（从哪开始）</td><td>节点→模板映射；少搜少猜；语义 token 更稳</td><td> alone 不教工作流哲学；映射过期等于喂错上下文</td></tr>
+<tr><td>两者叠用</td><td>起点对 + 过程对；成本与时间可测下降</td><td>仍需定期 eval（CDS 团队已在做）</td></tr></table>
+
+<h2>02 问题变了：设计系统的主用户正在变成 Agent</h2>
+<p>Coinbase Design System（CDS）团队发现：设计系统的 primary users 正在从工程师转向 agents。产品工程师侧的 design-to-code 长期痛点是 slow / inaccurate / unpredictable——这不是「再写一份组件文档」能解决的，而是「消费设计系统的主体」变了。</p>
+<p>对 Zhu 的翻译：个人站或小团队若还在按「给人读的 Storybook」组织 DS，agent 只会把文档当散文猜；真正要问的是——agent 打开 Figma 链接的第一秒，手里有没有可执行的组件模板，而不是又一页 Markdown。</p>
+<div class="note"><p>读本里多次出现「上下文路由」：md 写意图、MCP 给真值、Skills 给流程。本篇把另一块拼上——Code Connect 是「设计节点级的可执行指针」。没有它，MCP 再强也可能先浪费一轮在猜「这个 Stepper 该用哪个包」。</p></div>
+
+<h2>03 他们已有 Skills，为什么还不够</h2>
+<p>CDS 并非从零开始：团队已有 agent skills（选正确组件、避开 deprecated、使用 CDS tokens），还有内部 prototyping playground。问题是这些资产主要调教「从零写代码」；从设计到生产 CDS 代码这条路径仍 underserved。</p>
+<p>这很像读本 No.40 的提醒：被动塞进上下文的正确材料，往往比「记得去读 Skill」更稳。Code Connect 的价值正是——在 agent 看见设计时，把正确模板推到嘴边，而不是指望它先翻完一整本 skills 手册再动手。</p>
+
+<h2>04 Code Connect 欠账：过期映射与缺失模板</h2>
+<p>他们已有 Code Connect，但映射 outdated（早于 Figma MCP 那一波），许多新组件没有 templates。对 agent 来说，半套映射比没有更危险：模型会混合「有模板的旧件」和「只能视觉猜的新件」，输出看起来像设计系统，实则两套真相。</p>
+<p>实务含义：接 Code Connect 不是一次性开关，而是和组件库发版同频的维护面。新组件上架若不同步模板，评测里的「幻觉图标名」就会回来。</p>
+
+<h2>05 四小时迁完：Claude Code + figma-code-connect skill</h2>
+<p>Erich 用 Claude Code，配合 <code>figma-code-connect</code> skill，把迁移从「少数组件」推到「全 DS 覆盖的 Code Connect templates」，大约花了 4 小时。文章没有神化「一键完成」，重点是：用 agent 修 agent 所需的上下文资产，ROI 可以很高——前提是你知道目标覆盖率，而不是随机补几条映射。</p>
+<p>对个人站：不必追 Coinbase 的组件量；可以先覆盖首页高频 5–10 个组件（Button、Card、List row、Nav），再扩。没有覆盖表，就没有「四小时」这种可验收的里程碑。</p>
+
+<h2>06 评测怎么控：模糊 prompt、三轮、清缓存</h2>
+<p>评测设计值得单独学：</p>
+<ul>
+<li><b>同一设计、同一 prompt、同一模型（Sonnet 4.6）</b></li>
+<li><b>空白 codebase 跑三轮，每轮后 reset</b></li>
+<li><b>控制 prompt caching</b>，避免「第二轮假装更聪明」</li>
+<li><b>prompt 故意模糊：</b><code>Implement this design from Figma</code> + 链接——不给组件清单，专门测「有没有 Code Connect 时，agent 自己能不能找对入口」</li>
+</ul>
+<p>设计本身是 mid-complexity，组件种类有变化；陷阱包括属性极多的复杂 Stepper。以前 agent 常幻觉 illustration / icon 名称——Code Connect 全面采用后，Erich 说这个问题 overnight 消失。</p>
+<blockquote>Agents had been notorious for hallucinating illustration and icon names. After completing our adoption of Code Connect, that problem disappeared overnight. — Erich Kuerschner</blockquote>
+
+<h2>07 数字：token / 时间 / 成本都降了</h2>
+<p>三轮平均（every run 都改进）：</p>
+<table><tr><th>指标</th><th>相对变化（三轮平均）</th></tr>
+<tr><td>Token use</td><td>−11.5%</td></tr>
+<tr><td>Time to implementation</td><td>−22.3%</td></tr>
+<tr><td>Cost</td><td>−22.5%</td></tr></table>
+<p>注意解读：token 降幅小于成本与时间，说明省下的不只是「少吐字」，还有更少的来回试错与错误路径。对预算敏感的团队，22.5% 成本下降是可写进 OKR 的数字；对个人站，更直观的是「同一屏少烧一轮猜组件」。</p>
+<div class="note"><p>Code Connect 在 Organization / Enterprise 计划、Full 或 Dev seat 可用（原文产品说明）。选型前先核自己的座位与计划，避免把「组织级能力」写进个人试用清单却跑不通。</p></div>
+
+<h2>08 对照现场：乱造 Stepper vs 正确 ListCell</h2>
+<p>没有 Code Connect 时：agent 用两个 progress bars + labels 重造 Stepper——视觉上「有点像」，语义与 API 全错。有 Code Connect 后：用上正确组件，包括 ListCell 与 Stepper；semantic tokens 也优于到处 CSS / inline styles。</p>
+<p>这就是「贴设计系统」的可观察定义：不是截图像不像，而是 import 路径、组件名、token 层级是否落在 CDS 上。对 Zhu 的硬规则同理——禁止左侧竖条之类，应写进 skills / rules；但「用哪个 Card 组件」更适合 Code Connect 式映射，而不是再写一篇散文。</p>
+
+<h2>09 分工：Skills 管 HOW，Code Connect 管 WHEN</h2>
+<p>文章给出的分工很干净：</p>
+<ul>
+<li><b>Agent skills</b> → 塑造 HOW：实现模式、弃用策略、token 习惯</li>
+<li><b>Code Connect</b> → 在从设计起步时给最佳 context：少 token 花在搜索与猜测</li>
+</ul>
+<p>CDS 还会定期 eval 设计系统 skills；更新的模型即使没有 skills 也更懂 CDS——但 Erich 仍强调：不要卡在没有 Code Connect 的状态，否则 agent 解释设计时会 go wild。</p>
+<p>一句话：模型变强会抬高下限；Code Connect 抬的是「从设计出发」的上限稳定性。</p>
+
+<h2>10 和 No.15 / No.04 / No.22 / No.40 怎么排</h2>
+<ol>
+<li><b>No.04 Figma 设计 Agent（工具 / 上下文 / Skills）：</b>讲自定义工具与技能面——偏「agent 能调用什么」。</li>
+<li><b>No.15 Agent 上 Figma 画布：</b>设计发生在画布侧；本篇补代码侧如何被正确引导。</li>
+<li><b>No.22 Vercel product-design Skill：</b>把产品判断教进 Skill——偏 HOW 里的品味与决策。</li>
+<li><b>No.40 AGENTS.md 胜过 Skills：</b>被动上下文往往更可靠——Code Connect 本质也是「在关键时刻被动出现的正确模板」。</li>
+<li><b>本篇 Coinbase：</b>用可控评测证明：映射补全 → 少幻觉、少成本、更快落地；并明确 Skills × Code Connect 分工。</li>
+</ol>
+<p>建议顺序：先有短 skills / AGENTS.md 锁定 HOW 与禁令 → 高频组件接 Code Connect（或等价「设计节点→代码模板」）→ 用本篇式模糊 prompt 做三轮空白仓对照 → 再扩覆盖率，而不是先追求 100% 映射。</p>
+
+<h2>11 可粘贴：落地清单与评测模板</h2>
+<pre><code># Code Connect × Agent 落地清单（CDS 思路缩略版）
+[ ] 列出「设计→代码」高频组件 Top N（先 5–10，不要一次全库）
+[ ] 审计现有映射：过期？缺模板？MCP 之后是否重建过？
+[ ] 用 agent（如 Claude Code + figma-code-connect skill）批量补模板，目标=可验收覆盖表
+[ ] Skills 只写 HOW：选组件原则、弃用名单、token 规则、禁止事项
+[ ] Code Connect 负责 WHEN starting from Figma：节点默认落到正确模板
+[ ] 建立回归：新组件发版 = 同步模板，否则标红
+
+# 最小对照评测（可每周跑）
+模型：固定（文中为 Sonnet 4.6）
+仓库：空白；每轮 reset；注意 prompt cache
+Prompt：Implement this design from Figma + &lt;figma-link&gt;
+设计：中等复杂度，至少含 1 个「多属性陷阱」组件（类 Stepper）
+对比：无 Code Connect vs 有 Code Connect，各 3 轮
+记录：token、墙钟时间、费用、是否 import 正确组件、是否幻觉 icon/illustration 名
+验收：正确组件率 ↑，重造组件率 ↓，费用与时间 ↓
+</code></pre>
+
+<h2>12 自查清单</h2>
+<ul>
+<li>我的 DS 文档是给人读的，还是也给 agent 可执行入口？</li>
+<li>Skills 是否只在优化「从零写」，而 design-to-code 仍裸奔？</li>
+<li>Code Connect（或等价映射）是否覆盖新组件，还是停在 MCP 之前的旧账？</li>
+<li>评测 prompt 是否故意够糊，才能测出「猜」与「映射」的差？</li>
+<li>三轮是否都在空白仓、清缓存，避免第二轮吃老本？</li>
+<li>失败样例是不是「两个 progress bar 冒充 Stepper」这类看起来像、语义错？</li>
+<li>图标 / illustration 名幻觉是否在映射补全后消失？</li>
+<li>Skills（HOW）与 Code Connect（WHEN）职责是否写进团队约定，避免互相替代幻想？</li>
+</ul>
+<div class="note"><p>一句话收束：Coinbase 这篇的贡献不是又一个「我们用了 AI」故事，而是把 Code Connect 从设计系统插件升级成可测的 agent 上下文层——Skills 管怎么做，映射管从哪开始；补全之后，token、时间、成本同向下降，图标幻觉 overnight 消失。想让 agent 少花钱又更贴 DS，先别再堆散文规则，先问：设计节点打开时，正确模板在不在嘴边？原文有评测细节与产品计划说明，请点「阅读原文」。</p></div>
+<p><a class="readorig" href="https://www.figma.com/blog/how-coinbase-used-code-connect-to-shrink-token-costs/" target="_blank" rel="noopener">阅读原文 →</a></p>
+</article>
+</body></html>

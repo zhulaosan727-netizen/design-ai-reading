@@ -1,0 +1,133 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>少开 Figma、多关闭环：Martin Tejeda 的 Agent 设计工作流 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#F0E4E7">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 48 · AI 设计工作流 / Cursor / Figma Make / MCP / 工作流 / 原型</div><h1>少开 Figma、多关闭环：Martin Tejeda 的 Agent 设计工作流</h1><div class="en">AI workflow (Martin Tejeda)</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Martin Tejeda</dd><dt>身份</dt><dd>独立产品设计师（约 7 年经验；曾在 Underbelly 创意机构；现一人工作室，盐湖城）</dd><dt>日期</dt><dd>2026-10</dd><dt>原文</dt><dd><a href="https://www.martin.design/ai-workflow">martin.design/ai-workflow ↗</a></dd></dl><a class="readorig" href="https://www.martin.design/ai-workflow" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/martin-tejeda-agentic-design-workflow.svg" alt="AI workflow (Martin Tejeda) 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按「一人产品设计 / 高级 UX」视角重写的讲解。原文是 Martin Tejeda（盐湖城一人工作室）整理自己截至 2026 年 10 月仍在用的 agentic 工作流：研究 → Cursor 探索 →（可选）Figma Make 发散 → Figma MCP 回收到设计系统 → GitHub PR + Macroscope 审代码 + Vercel Preview 测用户。近年他刻意减少泡在 Figma 的小时数，把闭环接到研究、设计与开发上。它和读本 No.45「设计工程师怎么用 AI」、No.47「Coinbase Code Connect」、No.43「Codex + Figma 往返」同属「人握方向盘、工具关回路」一条线。想看他的原页结构与工具截图语境，请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li>
+<li>人是谁：从 Underbelly 到一人工作室</li>
+<li>总览：四段闭环，而不是「更多 Figma 文件」</li>
+<li>Research：Claude Skills、访谈提纲、Peridot</li>
+<li>Exploration：Cursor 里摸形状，或 Figma Make 开五版</li>
+<li>Refinement：设计系统定稿 + MCP 回流 Cursor</li>
+<li>User Testing：Macroscope、Vercel Preview、同分支迭代</li>
+<li>他明确放弃的路：整库 Demo Repo</li>
+<li>和 No.45 / No.47 / No.43 怎么排</li>
+<li>可粘贴：一人闭环模板</li>
+<li>自查清单</li>
+</ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，目标不是「AI 替你画」，而是关闭环。</b>Martin 近年减少在 Figma 里投入的小时，换来的是 research → design → development 更连贯的 agentic 路径；页面写明这套流程 as of October 2026 仍然成立。</p>
+<p><b>第二，工具按阶段换，不绑死在一个神器。</b>研究用 Claude（Skills 做竞品、起草访谈提纲）+ 自建 Peridot 做综合与证据切片；探索重度用 Cursor 做接近像素的改动，方向不清时才把 Cursor 产出丢进 Figma Make 再开五版；收束时用设计系统写规格，并靠 Figma MCP 把设计喂回 Cursor，用正确组件与样式重构；测试走 GitHub PR → Macroscope 审代码 → 每 PR 的 Vercel Preview 给用户点。</p>
+<p><b>第三，文档与同步要克制。</b>终稿、迭代与思考仍记在 Figma 给团队看；他试过把整个 repo 克隆成 Demo Repo 保设计同步，但维护成本太高，放弃了。一人工作室的护城河是闭环速度，不是第二份永远过期的平行仓库。</p>
+<table><tr><th>阶段</th><th>主工具</th><th>产出</th><th>刻意不做</th></tr>
+<tr><td>Research</td><td>Claude Skills、访谈提纲、Peridot</td><td>竞品洞察、讨论指南、带 clips 的综合</td><td>把未清洗的访谈原文直接丢给模型（他另有 Transcript Shield 清 PII）</td></tr>
+<tr><td>Explore</td><td>Cursor；可选 Figma Make×5</td><td>产品内可感形状 / 多方向发散</td><td>方向已清时仍空转做五版视觉</td></tr>
+<tr><td>Refine</td><td>设计系统 + Figma MCP → Cursor</td><td>组件对齐的实现 + Figma 文档</td><td>让 Cursor 草稿里的野组件进生产</td></tr>
+<tr><td>Test</td><td>PR、Macroscope、Vercel Preview</td><td>用户可点的预览、同分支迭代</td><td>为同步设计再养一套整库 Demo Repo</td></tr></table>
+
+<h2>02 人是谁：从 Underbelly 到一人工作室</h2>
+<p>Martin 约有 7 年产品设计经验：生于圣迭戈，现居盐湖城；起步于 Underbelly 创意机构（设计 / 营销 / 开发 / 视频都做），后转为一人工作室，业务覆盖 research / design / development。他会自建内部工具——例如 Transcript Shield：清洗访谈转录、在送去 AI 分析前去掉 PII（个人身份信息）。2026 下半年他计划寻找 in-house 角色。</p>
+<p>对 Zhu：这不是大厂 DS 团队的「千人流水线」故事，而是一人要同时摸研究与实现时，如何用 agent 把回路收短——和读本里 Coinbase 篇的组织级评测形成对照。</p>
+<div class="note"><p>Transcript Shield 的启示很具体：agentic 研究工作流的第一公里往往是「能不能安全地把真话喂给模型」。先剥 PII，再综合——比任何提示词模板都更像职业纪律。</p></div>
+
+<h2>03 总览：四段闭环，而不是「更多 Figma 文件」</h2>
+<p>页面开宗明义：近几年减少 Figma 小时数，转向更能关闭环的 agentic workflow。重度使用 Cursor IDE 做接近像素级的设计改动，用 Vercel 做原型测试。Figma 没有消失，但角色变了——从「默认工作面」变成「规格、发散与团队文档」的按需舞台。</p>
+<p>四段可以记成口诀：<b>Research → Explore → Refine → Test</b>，最后一刀是回到研究的迭代箭头，而不是停在「又导出一版视觉」。</p>
+
+<h2>04 Research：Claude Skills、访谈提纲、Peridot</h2>
+<p>研究侧他这样用：</p>
+<ul>
+<li>用若干 Claude Skills 做 competitor analysis（竞品分析）</li>
+<li>让 Claude 起草 user interview 的 discussion guides（讨论指南）</li>
+<li>自建工具 <b>Peridot</b>：做 research synthesis（研究综合），并检索 clips 作为证据</li>
+</ul>
+<p>要点不是「AI 写研报」，而是证据可回指——综合结论能拉回原片断。对个人站或客户项目，哪怕没有 Peridot，也应自问：模型给的「用户说他们喜欢 X」能不能点开原始摘录？不能，就还停留在光滑的幻觉层。</p>
+
+<h2>05 Exploration：Cursor 里摸形状，或 Figma Make 开五版</h2>
+<p>探索按「方向清不清」分叉：</p>
+<ul>
+<li><b>测一个新功能、方向相对清楚：</b>直接在 Cursor 里做，好在真实产品上下文里理解 shape（形态）</li>
+<li><b>方向更模糊：</b>把 Cursor 生成的设计带进 <b>Figma Make</b>，再做约五个额外版本，换更宽的探索面</li>
+</ul>
+<p>这和「默认先画 20 个 Figma 框」相反：能在产品里摸的，先摸；只有不确定时，才花钱买发散带宽。Figma Make 在这里是放大器，不是起点神器。</p>
+<div class="note"><p>对照 No.45 Jakub：AI 加速 trial-and-error，但不外包「对不对味」的判断。Martin 的五版发散同样该读成「快速备选」，终选仍是人；否则五版都会长成同一张平均脸。</p></div>
+
+<h2>06 Refinement：设计系统定稿 + MCP 回流 Cursor</h2>
+<p>收束三步很清楚：</p>
+<ol>
+<li>用 design system 把最终设计规格化</li>
+<li>用 <b>Figma MCP</b> 把设计喂回 Cursor，把先前 Cursor 生成的实现重构成匹配样式的正确组件</li>
+<li>在 Figma 里记录终稿、迭代与思考，方便团队阅读</li>
+</ol>
+<p>「先野后收」是诚实的顺序：探索阶段允许 Cursor 草稿不完美；Refine 阶段强制回到设计系统。若跳过 MCP 回流，仓库里会留着一套看起来能跑、却与 DS 平行的野组件——短期快，长期就是两套真相。</p>
+<p>和 No.47 Coinbase 对照：那边用 Code Connect 减少「从设计起步时的猜测」；这边用 MCP 把「已经画定的设计」焊回代码。一个管起点，一个管回收，都在打「猜组件」。</p>
+
+<h2>07 User Testing：Macroscope、Vercel Preview、同分支迭代</h2>
+<p>测试路径：</p>
+<ul>
+<li>PR 提到 GitHub 后，跑 <b>Macroscope</b> 做 code review：帮他看代码并 flag potential issues（标记潜在问题）</li>
+<li>每个 PR 都有 <b>Vercel Preview</b> 链接给用户点</li>
+<li>在同一分支上迭代，而不是为每次反馈开无限分叉</li>
+</ul>
+<p>用户摸的是真实预览，不是静态标注图。对一人工作室，这比「再开一轮可用性实验室」更可日更；代价是你必须接受「设计决策直接暴露在可运行 URL 上」。</p>
+
+<h2>08 他明确放弃的路：整库 Demo Repo</h2>
+<p>他试过把整个仓库克隆成 Demo Repo，好让设计保持同步——维护成本过高，放弃。这句话该放大：agentic 工作流最容易偷偷长出「第二真相源」（demo 仓、影子设计库、手工同步的 storybook）。Martin 的选择是：以主仓 PR + Preview 为真，而不是再养一套。</p>
+
+<h2>09 和 No.45 / No.47 / No.43 怎么排</h2>
+<ol>
+<li><b>No.45 Jakub：</b>设计工程师契约——加速实验，不外包思考；规则短、脚手架后人打磨。</li>
+<li><b>No.47 Coinbase：</b>组织级 DS × Code Connect，用评测证明少猜、少花钱。</li>
+<li><b>No.43 Codex↔Figma：</b>画布与代码焊成同一工作面的往返技术。</li>
+<li><b>本篇 Martin：</b>一人全链路编排——研究工具自建、探索在 Cursor、发散才用 Make、回收靠 MCP、验证靠 Preview；并公开「整库 Demo」失败经验。</li>
+</ol>
+<p>若你是 Zhu 这种「设计为主、能写一点代码、个人站要非泛用审美」：先抄 Martin 的阶段门（何时进 Make、何时必须 MCP 回收），再按需接入 No.47 的映射与评测，用 No.45 的契约守住「对不对味」不外包。</p>
+
+<h2>10 可粘贴：一人闭环模板</h2>
+<pre><code># 一人 Agentic 设计闭环（Martin 思路缩略，按项目改）
+
+## Research
+[ ] Claude Skill：竞品分析（范围、输出表格字段先写死）
+[ ] Claude：起草访谈 discussion guide（再人工改敏感问题）
+[ ] 转录先过 PII 清洗（类 Transcript Shield），再进综合
+[ ] 综合工具需能回指 clips / 原句；无证据不进结论
+
+## Explore
+[ ] 方向清楚 → 直接 Cursor，在产品上下文里改到可感
+[ ] 方向不清 → Cursor 草案进 Figma Make，另开 ~5 版再收敛
+[ ] 每版只记「要验证的假设」，不记「喜欢哪张图」
+
+## Refine
+[ ] 终稿对齐设计系统（组件名、token、状态）
+[ ] Figma MCP → Cursor：重构野组件，禁止平行样式进主仓
+[ ] Figma 文档：终稿 + 迭代 + 思考（给人，不给模型当唯一真值）
+
+## Test
+[ ] PR → Macroscope（或你的审码工具）看潜在问题
+[ ] 每 PR 的 Vercel Preview 发给用户
+[ ] 同分支迭代；拒绝「为同步设计再克隆整库 Demo Repo」
+
+## 周复盘三问
+1. 这周 Figma 小时减少，是闭环真快了，还是只是没文档？
+2. Cursor 草稿有没有在 Refine 被 DS 回收，还是野组件留在主仓？
+3. 用户点的是 Preview URL，还是又在看静态标注？
+</code></pre>
+
+<h2>11 自查清单</h2>
+<ul>
+<li>我是在关闭环，还是在用 AI 多生产静态画面？</li>
+<li>研究结论能否回指 clips / 原句？PII 是否在进模型前剥离？</li>
+<li>探索是否按「方向清 / 不清」选 Cursor 或 Figma Make，而不是情绪化开工具？</li>
+<li>Refine 有没有强制 MCP / DS 回流，消灭平行组件？</li>
+<li>团队文档是否仍在 Figma 可读，而不是只在 chat 记录里？</li>
+<li>用户是否点到 Vercel Preview？反馈是否落在同一分支？</li>
+<li>有没有偷偷养 Demo Repo / 第二真相源？该不该砍掉？</li>
+<li>审美判断是否仍在自己手里（对标 No.45），没有交给五版里的「平均最顺眼」？</li>
+</ul>
+<div class="note"><p>一句话收束：Martin 的工作流不是「少用 Figma」的态度帖，而是一张到 2026 年 10 月仍可用的闭环地图——研究可证据化、探索分叉有条件、收束必须回设计系统、测试必须可点击，并公开放弃整库 Demo 的同步幻想。一人工作室要的是回路短、真相源少；工具可以换，闭环结构不要散。细节与他的自我介绍见原文。</p></div>
+<p><a class="readorig" href="https://www.martin.design/ai-workflow" target="_blank" rel="noopener">阅读原文 →</a></p>
+</article>
+</body></html>

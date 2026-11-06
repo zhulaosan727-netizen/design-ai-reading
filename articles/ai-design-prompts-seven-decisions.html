@@ -1,0 +1,124 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>别堆形容词：AI 设计提示的七项决策框架 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#F1E5E2">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 50 · 提示词与 Skill / AI prompts / design brief / seven decisions / guardrails</div><h1>别堆形容词：AI 设计提示的七项决策框架</h1><div class="en">AI Design Prompts: A Framework, Template, and 3 Examples</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>v-1.design（团队博文）</dd><dt>身份</dt><dd>Design reference / rebuild packages for AI builders</dd><dt>日期</dt><dd>2026-07-16</dd><dt>原文</dt><dd><a href="https://v-1.design/blog/ai-design-prompts">v-1.design/blog ↗</a></dd></dl><a class="readorig" href="https://v-1.design/blog/ai-design-prompts" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/ai-design-prompts-seven-decisions.svg" alt="AI Design Prompts: A Framework, Template, and 3 Examples 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按「可复核设计 brief」视角重写的讲解。原文是 v-1.design 团队的框架文：停止堆叠 clean / modern / premium 这类形容词，改用七项可命名、可争论、可验收的决策；并给出 master template 与 SaaS 仪表盘 / 消费级夜间日记 / 落地页三类完整范例（本篇只抽象模式 + 缩短可粘贴模板，不整段照搬英文范例）。它和读本 No.29「四维提示词」、No.05「躲开 AI 审美默认值」、No.24「别再交出平均水准」、No.13「TC-EBC 备菜式提示」连成「把品味兑换成决策」一条线。完整三例与 FAQ 请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li>
+<li>为什么「干净、现代、高级」交不出界面</li>
+<li>七项决策：从用户到验收</li>
+<li>Master template：把括号填成决策</li>
+<li>三类范例各自押什么</li>
+<li>迭代纪律：一次只改一项</li>
+<li>工具手记：同一 brief，不同包装</li>
+<li>和 No.29 / No.05 / No.24 怎么排</li>
+<li>可粘贴：缩短版中英对照模板</li>
+<li>自查清单</li>
+</ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，有用的 AI 设计提示是一份压缩版 design brief（设计简报），不是情绪词清单。</b>「干净、现代、高级」只点了 mood（情绪），没定字体、色板、密度、空表长什么样——空缺会被工具默认值填满，于是长出熟悉的 AI 脸。</p>
+<p><b>第二，七项决策让输出可复核（reviewable），而不只是可评价（judgeable）。</b>User &amp; job → Screen &amp; real content → Visual thesis &amp; reference → Type &amp; color tokens → Layout → Components / states / motion → Guardrails &amp; acceptance checks。同事能就某一行和你争论，才算写够具体。</p>
+<p><b>第三，迭代一次只动一项，并显式写出 DO NOT CHANGE。</b>修密度时顺便「暖一下色板」，最容易把整页带跑；scoped edit（作用域编辑）是对抗漂移的纪律，不是工具保证。</p>
+<table><tr><th>写法</th><th>模型听到的</th><th>你能验收的</th></tr>
+<tr><td>形容词堆</td><td>mood + 大量开放决策</td><td>「好像不够高级」——不可证伪</td></tr>
+<tr><td>七项决策 brief</td><td>受众、真内容、tokens、布局、状态、禁令</td><td>「1440px 能否看见 ≥14 行」——可勾选</td></tr>
+<tr><td>有 mood + 无锚定</td><td>仍可能滑向默认卡片栅格</td><td>需要补 reference / hex / 排除项</td></tr></table>
+
+<h2>02 为什么「干净、现代、高级」交不出界面</h2>
+<p>原文借用社区语言（vibecoding / Cursor / Wix 等讨论作「问题形状」的旁证，非基准测试）：人们要 cool and professional，却不点名字体、圆角、密度；结果是挤布局、卡片过多、默认 Tailwind、弱层级。模型侧也同构：Anthropic 提示指南提醒，缺少具体转向时 Claude 易收敛到通用前端模式；OpenAI 前端提示指南则强调按受众与领域定制 layout / components / style，而不是吃通用视觉默认值。</p>
+<p>形容词不是禁词。「Editorial」「brutalist」「warm」可以定 mood——但必须立刻兑成字体、色值与参考。形容词是方向，决策是目的地。</p>
+<div class="note"><p>诊断篇见 No.05 / No.24；本篇是处方：把开放决策一项项关掉。Zhu 的硬规则也可写进 Guardrails：例如禁止卡片/告警左侧竖向色条（border-left accent bar），改用标签、图标或顶边强调。</p></div>
+
+<h2>03 七项决策：从用户到验收</h2>
+<ol>
+<li><b>User &amp; job：</b>谁看这屏、要完成什么事。「我的 App 仪表盘」等于没说；「客成经理周一早晨决定先打哪些客户」已经暗示密度与克制。</li>
+<li><b>Screen &amp; real content：</b>钉死一屏，写入真标签、可信数字、可上线文案。Lovable 也强调用真实内容、按组件推进；Lorem 会把层级问题藏起来。</li>
+<li><b>Visual thesis &amp; reference：</b>一句话方向 + 双方都懂的参考（「更像体育杂志而不是 SaaS 模板」）。形容词在这里才值钱。</li>
+<li><b>Type &amp; color tokens：</b>点名字体、字号、hex，并给用法规则。强调色没有规则就会到处出现。</li>
+<li><b>Layout &amp; composition：</b>谁占据视口、怎么分栏。「表格是英雄、全宽；筛选在 220px 左栏；首屏不要卡片」——否则模型常替你做成三张居中卡。</li>
+<li><b>Components, states, motion：</b>列出组件，再写 empty / loading / error / hover 的真文案；加一条动效规则（可以是 none）。屏幕最常在无人提示的状态里崩。</li>
+<li><b>Guardrails &amp; acceptance checks：</b>排除项（不要 KPI 卡片栅格、不要紫渐变、圆角不超过 8px）+ 验收句（1440px 至少看见 14 行）。提示够不够具体：同事能否就它争论。</li>
+</ol>
+
+<h2>04 Master template：把括号填成决策</h2>
+<p>原文模板把七项收成可粘贴块：Build [screen] → USER &amp; JOB → CONTENT（禁用 lorem）→ DIRECTION / Not → TYPE / COLOR → LAYOUT → COMPONENTS &amp; STATES → ACCESSIBILITY &amp; RESPONSIVE → AVOID → ACCEPTANCE。每一个你填不出的括号，都是模型会替你做的决定。</p>
+<blockquote>An adjective is a direction; a decision is a destination. — v-1.design（大意：形容词是方向，决策才是目的地）</blockquote>
+
+<h2>05 三类范例各自押什么</h2>
+<p>三例体裁不同，但每一行都可复核。模式摘要（非全文照搬）：</p>
+<table><tr><th>体裁</th><th>押注的决策</th><th>典型 Guardrail / Acceptance</th></tr>
+<tr><td>SaaS 风险账户表</td><td>表格英雄、交易终端密度、风险红有职责</td><td>禁 KPI 卡栅格；1440px ≥14 行；红只标风险</td></tr>
+<tr><td>夜间日记移动端</td><td>安静、单手、纸本灯感；反游戏化</td><td>禁火焰连胜、亮蓝链；最亮元素是正在写的字</td></tr>
+<tr><td>教练排程落地页</td><td>编辑式 utility、非对称英雄、真日程</td><td>酸绿只出现两处；陌生人能从英雄区说出受众</td></tr></table>
+<p>Acceptance 行的作用：把「做好看」换成十秒能勾选的检查。</p>
+
+<h2>06 迭代纪律：一次只改一项</h2>
+<p>实务失败模式：修一处，其它几处被悄悄重绘。推荐纪律（原文称为建议，非工具保证）：</p>
+<ol>
+<li>对照 acceptance checks 验收，不靠 vibe。</li>
+<li>点名失败的那一项（密度 / 强调色用法 / 字阶）。</li>
+<li>发 scoped edit：精确重述该项，钉死其余不变。</li>
+</ol>
+<pre><code>The table is too airy: only 8 rows are visible at 1440px.
+CHANGE: row height to 40px, base font to 13px, remove vertical padding on the summary strip.
+DO NOT CHANGE: fonts, colors, the filter rail, column order, or any copy.
+</code></pre>
+<p>两项都错就发两条提示；合并「修密度 + 暖色板」常会邀请超范围改动。</p>
+
+<h2>07 工具手记：同一 brief，不同包装</h2>
+<ul>
+<li><b>v0：</b>有参考图就连同书面 brief 一起附上，别靠回忆描述。</li>
+<li><b>Lovable：</b>开放请求可能先探索最多约三个方向；字体/色/参考/具名 DS 写全时可跳过探索，直接建。</li>
+<li><b>Bolt / Replit：</b>启发式——首条消息放 brief，结构大改时重述相关 guardrails；仍用同一套 acceptance 验收。</li>
+<li><b>Cursor：</b>规划先行、目标具体；仓库里可用 tokens 文件 + 参考组件承载决策 4–7。</li>
+<li><b>Claude Code / Codex：</b>同一书面验收标准 + 现有 tokens + 参考截图；跑完检查后要求汇报视觉缺口。</li>
+</ul>
+<p>Brief 可移植；期望各工具吐出一模一样像素则不可移植。</p>
+
+<h2>08 和 No.29 / No.05 / No.24 怎么排</h2>
+<ol>
+<li><b>No.05 / No.24：</b>诊断——为何会落到可互换的 AI 脸与平均水准。</li>
+<li><b>No.29 四维提示词：</b>把前端拉出默认脸的另一套结构；与七项决策可叠加，不必二选一。</li>
+<li><b>No.13 TC-EBC：</b>Figma 侧「备菜式」提示纪律，偏生成控制；本篇偏界面 brief 完整性。</li>
+<li><b>本篇：</b>把「可争论的决策清单」写成可粘贴模板，并强调 acceptance 与 scoped iteration。</li>
+</ol>
+
+<h2>09 可粘贴：缩短版中英对照模板</h2>
+<pre><code>Build [屏幕] for [产品], a [一句话产品说明].
+
+USER &amp; JOB: [谁] uses this to [任务]. Optimize for [最重要的事].
+
+CONTENT（必须用这些，禁止 lorem）:
+- [真标题 / 列名 / 数字 / 按钮文案]
+
+DIRECTION: [一句视觉主张]. Reference: [风格 / 产品 / 体裁].
+Not: [绝不能像什么].
+
+TYPE: [展示字体] for [用途]; [正文字体] for [用途]. Base [n]px.
+COLOR: bg [hex], text [hex], accent [hex]. Accent only for [规则].
+
+LAYOUT: [栅格 / 栏], [密度], [谁占据视口].
+
+COMPONENTS &amp; STATES: [列表]. Include empty / loading / error / hover.
+Empty: "[真文案]". Motion: [一条规则或 none].
+
+AVOID: [3–6 条具体排除，可含：no left accent bars].
+ACCEPTANCE: [2–3 条可验证检查].
+</code></pre>
+
+<h2>10 自查清单</h2>
+<ul>
+<li>我的提示里，形容词有没有立刻兑成字体 / hex / 参考？</li>
+<li>七项里哪一项仍是空括号——是否准备让模型替我决定？</li>
+<li>内容是真货还是 lorem？空状态有没有真文案？</li>
+<li>强调色有没有「只用在何处」的规则？</li>
+<li>Guardrails 是否具体到同事能反对（而不只是「不要太俗」）？</li>
+<li>Acceptance 能否在十秒内勾选？</li>
+<li>这次迭代是否只改一项，并写了 DO NOT CHANGE？</li>
+<li>换工具时，我改编的是包装，还是偷偷改了决策本身？</li>
+</ul>
+<div class="note"><p>一句话收束：别再向模型索要「高级感」——向它交付七项可复核决策。Mood 可以留一句；其余用用户与任务、真内容、视觉主张、tokens、布局、状态与禁令、验收句钉死。提示够不够好，不看形容词密度，而看同事能不能就某一行和你吵架，以及你能不能在十秒内说「过」或「不过」。</p></div>
+</article>
+</body></html>

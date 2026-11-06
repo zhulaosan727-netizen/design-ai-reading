@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#7B3A2E">
+  <!-- 读本 cover system v1 · No.50 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.50 · 提示词与 Skill</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">SEVEN REVIEWABLE DECISIONS</text>
+  <!-- motif: seven numbered decision boxes; accent on acceptance check -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- row of 7 decision cards -->
+    <rect x="120" y="240" width="120" height="160" rx="4"/>
+    <rect x="260" y="240" width="120" height="160" rx="4"/>
+    <rect x="400" y="240" width="120" height="160" rx="4"/>
+    <rect x="540" y="240" width="120" height="160" rx="4"/>
+    <rect x="680" y="240" width="120" height="160" rx="4"/>
+    <rect x="820" y="240" width="120" height="160" rx="4"/>
+    <rect x="960" y="240" width="120" height="160" rx="4"/>
+    <!-- content lines inside cards -->
+    <path d="M140 300 H220" stroke-width="1.5"/><path d="M140 325 H200" stroke-width="1.5"/><path d="M140 350 H210" stroke-width="1.5"/>
+    <path d="M280 300 H360" stroke-width="1.5"/><path d="M280 325 H340" stroke-width="1.5"/><path d="M280 350 H350" stroke-width="1.5"/>
+    <path d="M420 300 H500" stroke-width="1.5"/><path d="M420 325 H480" stroke-width="1.5"/><path d="M420 350 H490" stroke-width="1.5"/>
+    <path d="M560 300 H640" stroke-width="1.5"/><path d="M560 325 H620" stroke-width="1.5"/><path d="M560 350 H630" stroke-width="1.5"/>
+    <path d="M700 300 H780" stroke-width="1.5"/><path d="M700 325 H760" stroke-width="1.5"/><path d="M700 350 H770" stroke-width="1.5"/>
+    <path d="M840 300 H920" stroke-width="1.5"/><path d="M840 325 H900" stroke-width="1.5"/><path d="M840 350 H910" stroke-width="1.5"/>
+    <path d="M980 300 H1060" stroke-width="1.5"/><path d="M980 325 H1040" stroke-width="1.5"/><path d="M980 350 H1050" stroke-width="1.5"/>
+    <!-- faint adjective stack discarded on left -->
+    <g stroke-dasharray="4 5" stroke-opacity=".45">
+      <path d="M160 480 H320"/>
+      <path d="M160 505 H300"/>
+      <path d="M160 530 H280"/>
+      <path d="M150 470 L330 540"/>
+    </g>
+  </g>
+  <!-- accent: acceptance bar + checkmark under decision 7 -->
+  <g fill="none" stroke="#7B3A2E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="960" y="440" width="120" height="36" rx="4"/>
+    <path d="M980 458 L995 472 L1055 448"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="1" fill="#1B2B26" fill-opacity=".55">
+    <text x="168" y="280">01</text>
+    <text x="308" y="280">02</text>
+    <text x="448" y="280">03</text>
+    <text x="588" y="280">04</text>
+    <text x="728" y="280">05</text>
+    <text x="868" y="280">06</text>
+    <text x="1008" y="280">07</text>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="1" fill="#1B2B26" fill-opacity=".45">
+    <text x="145" y="560">ADJECTIVES</text>
+    <text x="970" y="505">ACCEPT</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="24" fill="#1B2B26">AI Design Prompts: Seven Decisions</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">v-1.design</text>
+</svg>

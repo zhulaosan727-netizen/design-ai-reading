@@ -1034,5 +1034,51 @@
     "cover": "covers/martin-tejeda-agentic-design-workflow.svg",
     "accent": "#8A3555",
     "tint": "#F0E4E7"
+  },
+  {
+    "slug": "figma-weave-tldr-repeatable",
+    "title_zh": "把创意生成做成可复用流程：Figma Weave 速读",
+    "title_en": "The TL;DR on Figma Weave: Make your creative process repeatable",
+    "author": "Emma Webster",
+    "author_role": "Content Strategist, Figma",
+    "source": "https://www.figma.com/blog/the-tldr-on-figma-weave/",
+    "date": "2026-10-30",
+    "added": "2026-11-06",
+    "tags": [
+      "Figma Weave",
+      "AI workflow",
+      "nodes",
+      "creative production",
+      "prompt variables",
+      "Weave tools"
+    ],
+    "dek": "节点连成流程，分支探索，工具化复用",
+    "category": "AI 设计工作流",
+    "cover": "covers/figma-weave-tldr-repeatable.svg",
+    "accent": "#3E6B4A",
+    "tint": "#E3EAE4"
+  },
+  {
+    "slug": "ai-design-prompts-seven-decisions",
+    "title_zh": "别堆形容词：AI 设计提示的七项决策框架",
+    "title_en": "AI Design Prompts: A Framework, Template, and 3 Examples",
+    "author": "v-1.design（团队博文）",
+    "author_role": "Design reference / rebuild packages for AI builders",
+    "source": "https://v-1.design/blog/ai-design-prompts",
+    "date": "2026-07-16",
+    "added": "2026-11-06",
+    "tags": [
+      "AI prompts",
+      "design brief",
+      "seven decisions",
+      "guardrails",
+      "acceptance checks",
+      "distinctive UI"
+    ],
+    "dek": "七项可复核决策，取代「干净现代高级」",
+    "category": "提示词与 Skill",
+    "cover": "covers/ai-design-prompts-seven-decisions.svg",
+    "accent": "#7B3A2E",
+    "tint": "#F1E5E2"
   }
 ]

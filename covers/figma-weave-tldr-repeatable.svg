@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#3E6B4A">
+  <!-- 读本 cover system v1 · No.49 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.49 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">REPEATABLE CREATIVE WORKFLOWS</text>
+  <!-- motif: node graph with branch; accent on the successful reusable path -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- start / reference node -->
+    <rect x="160" y="300" width="120" height="80" rx="8"/>
+    <path d="M180 330 H260" stroke-width="1.5"/>
+    <path d="M180 355 H240" stroke-width="1.5"/>
+    <!-- upper branch nodes (explore) -->
+    <rect x="400" y="180" width="120" height="80" rx="8"/>
+    <path d="M420 210 H500" stroke-width="1.5"/>
+    <path d="M420 235 H480" stroke-width="1.5"/>
+    <rect x="640" y="180" width="120" height="80" rx="8"/>
+    <path d="M660 210 H740" stroke-width="1.5"/>
+    <path d="M660 235 H720" stroke-width="1.5"/>
+    <!-- lower branch nodes -->
+    <rect x="400" y="420" width="120" height="80" rx="8"/>
+    <path d="M420 450 H500" stroke-width="1.5"/>
+    <path d="M420 475 H480" stroke-width="1.5"/>
+    <rect x="640" y="420" width="120" height="80" rx="8"/>
+    <path d="M660 450 H740" stroke-width="1.5"/>
+    <path d="M660 475 H720" stroke-width="1.5"/>
+    <!-- connectors: start → both branches -->
+    <path d="M280 340 C340 340 360 220 400 220"/>
+    <path d="M280 340 C340 340 360 460 400 460"/>
+    <path d="M520 220 H640"/>
+    <path d="M520 460 H640"/>
+    <!-- dashed alternate branch continuing out -->
+    <path d="M760 220 C820 220 860 260 900 300" stroke-dasharray="6 7"/>
+    <path d="M760 460 C820 460 860 420 900 380" stroke-dasharray="6 7"/>
+    <!-- small model-compare markers on upper path -->
+    <circle cx="580" cy="200" r="6"/>
+    <circle cx="580" cy="240" r="6"/>
+  </g>
+  <!-- accent: packaged Weave tool (repeatable output) -->
+  <g fill="none" stroke="#3E6B4A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M900 300 H1040 V440 H900 Z"/>
+    <path d="M920 340 H1020" stroke-width="2"/>
+    <path d="M920 370 H1000" stroke-width="2"/>
+    <path d="M920 400 H1010" stroke-width="2"/>
+    <circle cx="980" cy="300" r="10" fill="#3E6B4A" stroke="none"/>
+    <!-- accent path into tool -->
+    <path d="M760 340 C820 340 860 360 900 370"/>
+    <path d="M880 350 L900 370 L880 385"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".5">
+    <text x="175" y="285">NODE</text>
+    <text x="415" y="165">BRANCH A</text>
+    <text x="415" y="530">BRANCH B</text>
+    <text x="910" y="480">WEAVE TOOL</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="#1B2B26">The TL;DR on Figma Weave</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">figma.com</text>
+</svg>

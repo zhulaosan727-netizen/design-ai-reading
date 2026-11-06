@@ -1,0 +1,117 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>把创意生成做成可复用流程：Figma Weave 速读 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E3EAE4">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 49 · AI 设计工作流 / Figma Weave / AI workflow / nodes / creative production</div><h1>把创意生成做成可复用流程：Figma Weave 速读</h1><div class="en">The TL;DR on Figma Weave: Make your creative process repeatable</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Emma Webster</dd><dt>身份</dt><dd>Content Strategist, Figma</dd><dt>日期</dt><dd>2026-10-30</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/the-tldr-on-figma-weave/">figma.com/blog ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/the-tldr-on-figma-weave/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/figma-weave-tldr-repeatable.svg" alt="The TL;DR on Figma Weave: Make your creative process repeatable 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按「创意生产 / 可复用工作流」视角重写的讲解。原文是 Figma Content Strategist Emma Webster 对 <b>Figma Weave</b> 的 TL;DR：把 AI 图像与视频的生成、编辑连成可见、可改、可复用的节点流程，并把成功路径打包成队友能一键跑的 Weave tool。它和读本 No.28「Figma Make 反向交接」、No.26「判断留给你」、No.48「Martin 少开 Figma 闭环」、No.47「Coinbase Code Connect」同属「过程可见、结果可复用」一条线。想看官方术语表与社区工具示例，请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>先给结论：三句话读懂这篇</li>
+<li>四个词先对齐：Node / Workflow / Branch / Weave tool</li>
+<li>探索：分支与同提示多模型对照</li>
+<li>控细节：编辑节点，而不是再写一轮提示</li>
+<li>复用：把成功路径交给队友</li>
+<li>和「单次生成」差在哪</li>
+<li>六条上手纪律</li>
+<li>什么时候该伸手去拿 Weave</li>
+<li>和 No.28 / No.26 / No.48 怎么排</li>
+<li>可粘贴：Weave 工作流检查表</li>
+<li>自查清单</li>
+</ol></nav>
+
+<h2>01 先给结论：三句话读懂这篇</h2>
+<p><b>第一，Weave 卖的不是「又一个文生图框」，而是把生产过程做成可编辑的图。</b>节点（Node）连成工作流（Workflow）；同一起点可以分出分支（Branch）试方向；跑通的流程还能打成 Weave tool，让队友不必碰底层节点。</p>
+<p><b>第二，控制力来自「节点级编辑」，不是「再赌一次生成」。</b>校色、合成、Levels、Trim、Crop、Painter 都以节点形式挂在链路上；细节该手改时就手改，省掉 credits，也避免整条链路被一次含糊提示带偏。</p>
+<p><b>第三，与 Figma Design 保持连接，是品牌一致性的便宜保险。</b>用 Figma node 把画板贴进 Weave，改原 frame 会反映到节点——让已定的版式与品牌决策继续指导创意生产，而不是在另一边重画一遍。</p>
+<table><tr><th>概念</th><th>一句话</th><th>对 Zhu 的用处</th></tr>
+<tr><td>Node</td><td>画布上的一步积木（素材 / 提示 / 生成 / 编辑）</td><td>把「哪一步坏了」说清楚</td></tr>
+<tr><td>Workflow</td><td>连起来的节点序列，从起点到成品</td><td>过程可见，可回退到更早节点</td></tr>
+<tr><td>Branch</td><td>从同一起点分出的探索路径</td><td>森林 vs 山顶并排比，不必覆盖原版</td></tr>
+<tr><td>Weave tool</td><td>打包后的工作流，使用者只交输入</td><td>个人站多尺寸物料可模板化</td></tr></table>
+
+<h2>02 四个词先对齐：Node / Workflow / Branch / Weave tool</h2>
+<p>原文开篇就把术语钉死。Node 是单个积木；Workflow 是连成成品的路径；Branch 是另辟一条方向却保留原起点；Weave tool 是「给不会摸节点的人用的封装」。读本建议把最后一项当成产品化门槛：只有当你愿意让队友在无人讲解的情况下跑通，它才算真正可复用——否则还只是你自己的私人节点画布。</p>
+<div class="note"><p>和 Skill / MCP 的对照：Skill 写的是「怎么判断与执行」；Weave tool 写的是「这条创意生产流水线怎么跑」。一个偏流程知识，一个偏媒体产出链路——别混成同一种「可复用」。</p></div>
+
+<h2>03 探索：分支与同提示多模型对照</h2>
+<p>探索期 Weave 给的是并排带宽：同一张背包产品图，可以接到两个图像编辑节点——一个提示放进森林，一个放上山顶；再各自校色或转成短视频。两条 Branch 都留在画布上，提交方向之前仍能回看。</p>
+<p>同提示也可过不同 AI 模型并排比结果，选更贴 look 的那条继续。关键纪律：每个版本都连回产生它的步骤，比较的是「路径」，不是散落在桌面的孤立 JPG。</p>
+
+<h2>04 控细节：编辑节点，而不是再写一轮提示</h2>
+<p>文中点名的编辑节点包括：</p>
+<ul>
+<li><b>Color correction：</b>整体色相与观感（含饱和）</li>
+<li><b>Compositor：</b>图层叠图 / 视频 / 文字 / 形状</li>
+<li><b>Levels：</b>阴影、中间调、高光</li>
+<li><b>Trim / Crop：</b>剪短视频；按预设或自定义比例裁切</li>
+<li><b>Painter：</b>笔刷、形状、橡皮直接画</li>
+</ul>
+<p>原则很务实：已经喜欢的图，小改动优先手改节点，而不是再花一次生成去「碰运气」。这和读本里反复强调的「AI 加速脚手架、细节判断留给人」一致。</p>
+
+<h2>05 复用：把成功路径交给队友</h2>
+<p>成功工作流保存的是一路上的选择，而不只是终帧。例子：去背 → 贴品牌背景 → 裁成社媒尺寸；下一场发布会只换产品照，处理保持一致。再进一步，把该流程打成 Weave tool：下一任用户上传照片、点 Generate，自动跑完全程。</p>
+<p>社区已可发布 Weave tool（文中提到 moodboard→房间 3D、改尺寸等）。对个人站：同一套封面系统、多渠道裁切，很适合先在自己工作流里跑通，再决定要不要封装。</p>
+<blockquote>A successful workflow preserves the choices someone made along the way to a finished result. — Emma Webster / Figma Blog</blockquote>
+
+
+<h2>06 和「单次生成」差在哪：一张对照表</h2>
+<p>很多人第一次打开 Weave，仍会把它当成「更好看的文生图面板」。差别在过程是否可版本化：</p>
+<table><tr><th></th><th>单次生成工具</th><th>Weave 工作流</th></tr>
+<tr><td>失败时</td><td>整段重写提示、重抽奖</td><td>回到出错的 Node，只修那一步</td></tr>
+<tr><td>探索</td><td>另开对话 / 另存文件，易丢谱系</td><td>Branch 并排，谱系留在画布</td></tr>
+<tr><td>交付队友</td><td>交终帧 + 口头说明</td><td>交 Workflow / Weave tool，输入可替换</td></tr>
+<tr><td>与设计稿</td><td>常靠截图搬运</td><td>Figma node 保持链接</td></tr>
+<tr><td>小改动成本</td><td>常再烧一次 generation</td><td>编辑节点手改</td></tr></table>
+<p>若你的瓶颈是「还不会写一句好提示」，先练具体提示与参考角色；若瓶颈是「每次战役都从零搭流水线」，才值得把成功路径节点化并打包。</p>
+<div class="note"><p>社区 Weave tool 的价值不在「魔法效果」，而在降低搭建税：moodboard→房间渲染、改尺寸适配等，让你先跑通别人的图，再决定要不要 fork 成自己的品牌版本。</p></div>
+
+<h2>07 六条上手纪律</h2>
+<ol>
+<li><b>提示要具体：</b>写清改什么、保留什么。少写 “Make the lighting better”，多写 “Use soft, warm light, keeping the backpack’s color and shape unchanged.”</li>
+<li><b>给参考图角色：</b>多张参考时用 Prompt node 写明「第一张取色，第二张取插画风格」。</li>
+<li><b>该手改就手改：</b>提亮、校色、加字——编辑节点优先于再生成。</li>
+<li><b>逐步搭建、逐步测：</b>早期结果歪了，后面每一步都会叠错；进 Compositor / 生视频前先验收静帧。</li>
+<li><b>发布前找人盲测：</b>队友不听讲解能否知道该交什么、输出是否有用。</li>
+<li><b>接住 Figma Design：</b>用 Figma node 粘贴 frame，保持与原稿链接；并排试模型，用结果选模型而不是用品牌偏好赌。</li>
+</ol>
+<p>辅助节点：<b>Prompt Enhancer</b> 帮你把提示写细；<b>Run Any LLM</b> 可选模型审/改指令；<b>prompt variables</b> 只改提示里的一段，不必整段重写。</p>
+
+<h2>08 什么时候该伸手去拿 Weave</h2>
+<table><tr><th>场景</th><th>痛点</th><th>Weave 扮演的角色</th></tr>
+<tr><td>产品系列上新</td><td>变体多，无法每件重拍</td><td>同一处理链换素材</td></tr>
+<tr><td>多渠道 / 多市场战役</td><td>尺寸与市场差异大，又要统一气质</td><td>分支适配 + 共用上游节点</td></tr>
+<tr><td>视频从静帧长出来</td><td>参考图有了，镜头还没有</td><td>从参考生成镜头 /  refining clips</td></tr></table>
+<p>不该神话的边界：若你还在定视觉 thesis（视觉主张），先把方向想清再进节点图——否则分支只会高效地复制混乱。</p>
+
+<h2>09 和 No.28 / No.26 / No.48 怎么排</h2>
+<ol>
+<li><b>No.26 判断留给你：</b>Agent 做杂活，人留审美判断——Weave 的「手改节点 vs 再提示」是同一纪律的创意生产版。</li>
+<li><b>No.28 Figma Make 反向交接：</b>设计师改代码推 PR；Weave 则把「设计→创意物料」那一侧流水线化。一个偏工程交接，一个偏生产复用。</li>
+<li><b>No.48 Martin 闭环：</b>少开 Figma、多关 research→code 环；若你的瓶颈是战役物料而不是产品原型，Weave 更贴。</li>
+<li><b>本篇：</b>把生成与编辑变成可版本、可分支、可打包的图。</li>
+</ol>
+
+<h2>10 可粘贴：Weave 工作流检查表</h2>
+<pre><code># Figma Weave 工作流检查表（开跑前）
+[ ] 起点素材角色写清（产品图 / 版式 frame / 参考 mood）
+[ ] 提示写「改什么 + 保什么」；多参考则 Prompt node 分配角色
+[ ] 探索用 Branch，不覆盖原路径；同提示至少比 2 个模型
+[ ] 细节优先 Color / Levels / Crop / Painter，再考虑重新生成
+[ ] 逐步验收：静帧 OK → 再进 Compositor / 视频节点
+[ ] 需要品牌一致性：用 Figma node 粘贴并保持链接
+[ ] 准备打成 Weave tool 前：换 2 套陌生素材盲测 + 同事无讲解试跑
+[ ] 文档一句：这条工具解决什么、输入是什么、禁止改哪些上游节点
+</code></pre>
+
+<h2>11 自查清单</h2>
+<ul>
+<li>我是在搭「可回退的路径」，还是在堆互不相关的生成结果？</li>
+<li>失败时能不能指到具体 Node，而不是整段重来？</li>
+<li>Branch 是在探索方向，还是在逃避做选择？</li>
+<li>小改动是否浪费了一次生成 credits？</li>
+<li>Figma Design 里的品牌决策有没有断连？</li>
+<li>若打包成 Weave tool，陌生人第一眼知道该上传什么吗？</li>
+<li>这条流程下周换一批产品图，还能否保持同一 treatment？</li>
+</ul>
+<div class="note"><p>一句话收束：Weave 把「灵感偶然成功」升级成「团队可复用的生产图」。节点让过程可见，分支让探索不毁原版，编辑节点把控制权从提示词赌局里抽回来，Weave tool 则把成功选择交给下一个不会搭节点的人。创意生产要的不是更多孤立好图，而是一条下次还能跑的路。</p></div>
+</article>
+</body></html>

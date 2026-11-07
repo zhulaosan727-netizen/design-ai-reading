@@ -1080,5 +1080,28 @@
     "cover": "covers/ai-design-prompts-seven-decisions.svg",
     "accent": "#7B3A2E",
     "tint": "#F1E5E2"
+  },
+  {
+    "slug": "workflow-lab-figma-code-layers",
+    "title_zh": "画布上并排试代码原型：Figma Code Layers 工作流",
+    "title_en": "Workflow lab: Test ideas with code layers and the Figma agent",
+    "author": "Mari Kong",
+    "author_role": "Product Marketer, Figma",
+    "source": "https://www.figma.com/blog/workflow-lab-build-with-code-on-the-canvas-using-the-figma-agent-and-code-layers/",
+    "date": "2026-11-04",
+    "added": "2026-11-07",
+    "tags": [
+      "Figma",
+      "code layers",
+      "Figma agent",
+      "prototyping",
+      "multiplayer",
+      "MCP"
+    ],
+    "dek": "把代码原型放到画布上并排比、手改、再合并",
+    "category": "AI 设计工作流",
+    "cover": "covers/workflow-lab-figma-code-layers.svg",
+    "accent": "#5C4A8C",
+    "tint": "#E8E6F1"
   }
 ]

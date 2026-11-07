@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#5C4A8C">
+  <!-- 读本 cover system v1 · No.51 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.51 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">CODE LAYERS ON CANVAS</text>
+  <!-- motif: side-by-side code-layer frames on canvas; accent = two explorations merge into one -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- canvas board -->
+    <rect x="140" y="160" width="920" height="440" rx="6"/>
+    <!-- left exploration frame A -->
+    <rect x="190" y="220" width="200" height="280" rx="4"/>
+    <path d="M210 250 H370"/>
+    <path d="M210 280 H340"/>
+    <rect x="210" y="310" width="160" height="90" rx="3"/>
+    <path d="M220 340 H350" stroke-width="1.4"/>
+    <path d="M220 365 H320" stroke-width="1.4"/>
+    <rect x="210" y="420" width="70" height="28" rx="3"/>
+    <rect x="290" y="420" width="70" height="28" rx="3"/>
+    <!-- middle exploration frame B -->
+    <rect x="440" y="220" width="200" height="280" rx="4"/>
+    <path d="M460 250 H620"/>
+    <path d="M460 280 H590"/>
+    <circle cx="540" cy="360" r="48"/>
+    <path d="M520 360 H560" stroke-width="1.4"/>
+    <path d="M540 340 V380" stroke-width="1.4"/>
+    <rect x="460" y="430" width="160" height="28" rx="3"/>
+    <!-- small source / base layer hint top-left of board -->
+    <rect x="190" y="175" width="90" height="28" rx="3"/>
+    <path d="M205 189 H255" stroke-width="1.3"/>
+  </g>
+  <!-- accent: merge arrows + combined result frame -->
+  <g fill="none" stroke="#5C4A8C" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+    <!-- paths from A and B converging -->
+    <path d="M390 360 C430 360 450 360 500 360" stroke-opacity="0"/>
+    <path d="M390 340 C460 340 520 300 640 300"/>
+    <path d="M640 360 C580 400 500 400 390 380"/>
+    <!-- arrow tips into combined -->
+    <path d="M625 288 L640 300 L625 312"/>
+    <path d="M655 348 L640 360 L655 372"/>
+    <!-- combined / merged frame -->
+    <rect x="700" y="250" width="280" height="220" rx="4"/>
+    <path d="M725 285 H940" stroke-width="2"/>
+    <path d="M725 320 H900" stroke-width="1.8"/>
+    <rect x="725" y="350" width="230" height="70" rx="3"/>
+    <path d="M740 375 H920" stroke-width="1.6"/>
+    <path d="M740 400 H880" stroke-width="1.6"/>
+    <rect x="725" y="440" width="100" height="18" rx="2"/>
+    <!-- merge node mark -->
+    <circle cx="640" cy="330" r="9" fill="#5C4A8C" stroke="none"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="11" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".5">
+    <text x="210" y="210">OPTION A</text>
+    <text x="460" y="210">OPTION B</text>
+    <text x="720" y="240" fill="#5C4A8C" fill-opacity=".85">MERGED LAYER</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="28" fill="#1B2B26">Code layers + Figma agent</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">figma.com</text>
+</svg>

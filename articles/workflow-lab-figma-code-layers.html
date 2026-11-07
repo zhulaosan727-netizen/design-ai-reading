@@ -1,0 +1,122 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>画布上并排试代码原型：Figma Code Layers 工作流 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E8E6F1">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 51 · AI 设计工作流 / Figma / code layers / Figma agent / prototyping / multiplayer / MCP</div><h1>画布上并排试代码原型：Figma Code Layers 工作流</h1><div class="en">Workflow lab: Test ideas with code layers and the Figma agent</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Mari Kong</dd><dt>身份</dt><dd>Product Marketer, Figma</dd><dt>日期</dt><dd>2026-11-04</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/workflow-lab-build-with-code-on-the-canvas-using-the-figma-agent-and-code-layers/">figma.com/blog ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/workflow-lab-build-with-code-on-the-canvas-using-the-figma-agent-and-code-layers/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/workflow-lab-figma-code-layers.svg" alt="Workflow lab: Test ideas with code layers and the Figma agent 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按「多人并排试可交互代码原型」视角重写的讲解。原文是 Figma Product Marketer Mari Kong 的 Workflow Lab：用 <b>code layers</b>（代码图层）把可运行的代码原型放到 Figma 画布上，和队友同屏比较、手改、再合并。它和读本 No.26「判断留给你」、No.28「Figma Make 反向交接」、No.35「设计与代码 Agent 同步」、No.15「Agent 上画布」、No.38「Specs Markdown」、No.43「Codex + Figma MCP」同属「设计—代码闭环」一条线。想看官方步骤与截图，请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>三句话结论</li>
+<li>问题：分工具探索为什么贵</li>
+<li>七种把代码放到画布上的方式</li>
+<li>一次提示要三条方向：并排交互原型</li>
+<li>双轨编辑：代码编辑器 ↔ Extract designs</li>
+<li>合并队友探索 + Spec 给工程</li>
+<li>对照表：分工具 vibe coding vs code layers</li>
+<li>可粘贴提示词模板</li>
+<li>和读本相关篇怎么排</li>
+<li>自查清单</li>
+</ol></nav>
+
+<h2>01 三句话结论</h2>
+<p><b>第一，code layers 解决的是「可交互原型被锁在单人工具里」。</b>分头在 vibe-coding 工具里试想法，很难并排比细节，也难接住队友刚做好的交互；把代码原型（code-backed prototype）贴回画布，比较、评论、分叉才回到多人设计的默认姿势。</p>
+<p><b>第二，一次提示可以要三条方向，并排放在画布上点着试。</b>原文 Pickup 市集 App 的例子：在地图页加「配送地址」入口，第一条指定全搜索地址栏（omnisearch），另外两条让 Agent 惊喜——地图选点、快捷地址（已存地址 / 当前位置）。队友能直接操作，再评论或 fork。</p>
+<p><b>第三，探索不是终点：合并层 + 画布上的 Spec（规格说明），才接到工程。</b>选中两份探索层让 Agent 合并；再让它写 Markdown Spec，标出相对原版改了什么、哪些牵涉后端 / API，留给开发者审阅。原型与决策史都留在画布上。</p>
+<table><tr><th>概念</th><th>一句话</th><th>对 Zhu 的用处</th></tr>
+<tr><td>Code layer</td><td>画布上可交互、背后有代码的图层</td><td>读本卡片 / 个人站交互可并排试，不必另开沙盒</td></tr>
+<tr><td>Figma agent</td><td>在画布上下文里改设计与代码的 Agent</td><td>「三条方向」或「合并两层」用自然语言下单</td></tr>
+<tr><td>Extract designs</td><td>从代码层当前屏 / 元素 / 录制流程抽回可编辑设计层</td><td>手感对了再回设计稿精修间距与文案</td></tr>
+<tr><td>Spec on canvas</td><td>画布上的 Markdown 变更说明</td><td>给工程的交接物，不只是可点的原型</td></tr></table>
+
+<h2>02 问题：分工具探索为什么贵</h2>
+<p>痛点不是「不会 vibe coding」，而是探索被拆成孤岛：每个人在各自工具里生成可点原型，文件散落、交互细节对不齐，更难在别人成果上继续改。设计评审变成「看录屏」或「轮流投屏」，失去画布上并排标注的带宽。</p>
+<p>对个人站 / 读本这类小产品同样成立：你用 AI 搭站点约一年，很多交互想法（卡片 hover、双语对照、筛选）会在 Cursor / 外部 Agent 里试完，再截图贴回 Figma——谱系断了，下一次战役还要从零描述上下文。</p>
+<div class="note"><p>编者点评：贵的不是生成一次原型，而是「比较税」与「交接税」。code layers 的价值主张，是把比较和交接重新放回多人已经熟悉的画布，而不是再发明一个协作产品。</p></div>
+
+<h2>03 七种把代码放到画布上的方式</h2>
+<p>原文列出多条创建路径，可按「手里已有什么」选入口：</p>
+<ol>
+<li><b>Chrome 扩展捕获网页</b> → 粘贴到画布成 code layer</li>
+<li><b>选中设计 frame</b> → 提示 Figma agent 转成可交互 code layer</li>
+<li><b>空 code layer</b> → 从零提示 Agent 生成</li>
+<li><b>克隆已连接的 GitHub 仓库</b>到画布</li>
+<li><b>上传代码文件夹</b></li>
+<li><b>外部编码 Agent 经 MCP 导入</b></li>
+<li><b>从描述 / PRD 起空层</b>（可用 Notion connector 共享 PRD）</li>
+</ol>
+<p>Pickup 故事走的是第 4 条：设计师把 GitHub 仓库克隆为画布上的 code layer（地图视图），再在其上开分支式探索。对 Zhu：若读本或 azuredesign.cn 已有仓库，克隆上画布比「口头描述现有信息架构」便宜得多；若还在纯设计阶段，用第 2 条从 frame 起步更自然。</p>
+
+<h2>04 一次提示要三条方向：并排交互原型</h2>
+<p>关键纪律：<b>不要一次只要一个「最好的」</b>。原文提示大意是——做三个变体，在地图页加配送按钮；点击后可选地址；第一条用 omnisearch 地址栏，另外两条让我惊喜。</p>
+<p>Agent 在画布上并排出三个可点版本：</p>
+<ul>
+<li><b>Option 1：</b>地址搜索（omnisearch）</li>
+<li><b>Option 2：</b>地图选点</li>
+<li><b>Option 3：</b>地址快捷方式（已存地址 / 当前位置）</li>
+</ul>
+<p>队友当场试、在画布评论，也可对某一层再 fork。这比「三个独立沙盒链接 + 口头对齐」更接近设计评审的肌肉记忆。</p>
+<div class="note"><p>和 No.49 Weave 的对照：Weave 用 Branch 并排创意物料路径；code layers 用并排可交互代码层并排产品交互路径。都是「探索不覆盖原版」，媒介不同。</p></div>
+
+<h2>05 双轨编辑：代码编辑器 ↔ Extract designs</h2>
+<p>细化时先 <b>Option/Alt 拖拽复制层</b>，保留原版再改。打开代码编辑器：左侧 Agent 对话、中间预览、Files 看代码。也可走手动路径：Edit → 选中标题 → 在属性里改字号 → Apply，只更新该层代码。</p>
+<p>另一侧是 <b>Extract designs</b>：把当前屏幕、特定元素，或 Record flow（录制流程）抽成可编辑的 Figma 设计层。例子：给 “Delivery options” 标签加留白；按钮文案改成 “Choose delivery address”。再 <b>Update code layer</b>，把设计侧改动写回可运行原型。</p>
+<p>纪律很清晰：交互逻辑与状态机优先在代码层试；视觉节奏、文案、间距在设计层精修；最后写回，避免「设计稿很美、原型还是旧的」。</p>
+
+<h2>06 合并队友探索 + Spec 给工程</h2>
+<p>故事后半：队友在地图聚类上探索（地图数字标记 vs 附近商品网格），并留下评论。设计师选中「网格聚类」那层 + 「配送」探索层，提示 Agent：新建一层，合并网格聚类与配送能力。得到一份可跑的合并体验。</p>
+<p>然后让 Agent 在画布写 Spec（Markdown）：相对原版改了什么、哪些点牵涉后端 / API，方便开发者审查。通向生产的路径是：可工作原型 + 技术 Spec 留在画布 → 开发者标出仍需实现 / 测试的部分 → 代码可回分支或开 PR；探索、评论与 Spec 留作决策史。原文注明 code layers 已对全部用户开放公测（open beta）。</p>
+<blockquote>Create a new code layer combining the grid clustering from the grid layer and the delivery feature from the delivery code layer. — 文中示例提示大意 / Mari Kong, Figma Blog</blockquote>
+
+<h2>07 对照表：分工具 vibe coding vs code layers</h2>
+<table><tr><th></th><th>分工具 vibe coding</th><th>画布上的 code layers</th></tr>
+<tr><td>比较细节</td><td>多窗口 / 录屏，难对齐像素与文案</td><td>并排图层，同屏点、同屏评</td></tr>
+<tr><td>接力队友</td><td>导出链接或重述上下文</td><td>直接 fork 层，上下文在画布</td></tr>
+<tr><td>设计精修</td><td>常在设计工具重画一截</td><td>Extract designs → 改完 Update code layer</td></tr>
+<tr><td>给工程</td><td>原型 + 口头 / 另写文档</td><td>原型 + 画布 Spec，决策史可回看</td></tr>
+<tr><td>与仓库关系</td><td>易成一次性沙盒</td><td>可从 GitHub 克隆，也可回 PR</td></tr>
+<tr><td>适合</td><td>个人快速验证单一想法</td><td>多人比较、合并、交接</td></tr></table>
+<p>若你仍是一个人周末实验个人站，分工具未必错；一旦需要「和自己上周的版本并排比」或「让工程看清 API 缺口」，画布层更省解释成本。</p>
+
+<h2>08 可粘贴提示词模板</h2>
+<pre><code># A. 三方向探索（改成你的页面与约束）
+Make three variations of this and add [新入口] to the [页面].
+When clicked, the user can [完成的任务].
+The first one should be [明确方案], but surprise me with the other two.
+Keep existing [品牌色 / 组件库 / 路由] unchanged unless required.
+
+# B. 合并两层
+Create a new code layer combining [能力 A] from [层名 A]
+and [能力 B] from [层名 B].
+Preserve working interactions from both; resolve conflicts in favor of [优先级].
+
+# C. 画布 Spec（给工程）
+Write a Spec (Markdown) on the canvas documenting changes vs the original.
+Flag backend/API implications and anything that still needs building or testing.
+List open questions for developer review.
+</code></pre>
+<div class="note"><p>模板用法：A 解决「探索带宽」；B 解决「把评论里夸过的两段拼回去」；C 解决「可点 ≠ 可交付」。三步缺一会重新掉回分工具的交接黑洞。</p></div>
+
+<h2>09 和读本相关篇怎么排</h2>
+<ol>
+<li><b>No.26 判断留给你：</b>Agent 做杂活，人留判断——本篇的「手改属性 / Extract 后再写回」是同一纪律的代码原型版。</li>
+<li><b>No.28 Figma Make 反向交接：</b>设计师改代码推 PR；本篇补上「推 PR 之前，多人如何在画布上并排试与合并」。</li>
+<li><b>No.35 设计与代码 Agent 同步：</b>两边上下文对齐；code layers 让同步发生在同一画布对象上。</li>
+<li><b>No.15 Agent 上画布：</b>Agent 直接在 Figma 设计；本篇把「可运行代码」也变成画布一等公民。</li>
+<li><b>No.38 Specs Markdown：</b>Markdown 当协作容器；本篇让 Spec 紧挨着被合并的 code layer，服务工程审阅。</li>
+<li><b>No.43 Codex + Figma MCP：</b>外部编码 Agent 经 MCP 进出画布——正是创建 code layer 的第 6 条路径。</li>
+<li><b>本篇：</b>把可交互代码原型变成可并排、可合并、可写 Spec 的画布工作流。</li>
+</ol>
+
+<h2>10 自查清单</h2>
+<ul>
+<li>我是在并排比较可点原型，还是在收集互不相关的沙盒链接？</li>
+<li>一次探索有没有故意要 ≥2 条方向，避免过早收敛？</li>
+<li>细化前有没有复制层，避免毁掉可回退的原版？</li>
+<li>视觉与文案小改，是走了 Extract designs，还是整段重新生成？</li>
+<li>合并前，两层各自被队友点过并留下评论了吗？</li>
+<li>交给工程的是否包含画布 Spec（含 API / 后端风险），而不只是「能点」？</li>
+<li>仓库来源清晰吗——克隆自哪条分支、探索是否准备回 PR？</li>
+<li>这条决策史（层、评论、Spec）下周还能在同一文件里找到吗？</li>
+</ul>
+<div class="note"><p>一句话收束：code layers 把 vibe coding 的爽感，接回设计画布的多人肌肉。并排试的是交互，不是截图；合并的是可运行层，不是口头折中；留给工程的是原型加 Spec，不是「你看录屏吧」。探索可以热闹，交付必须可回放。</p></div>
+</article>
+</body></html>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#C24E32">
+  <!-- 读本 cover system v1 · No.52 · lightning leaders explore; one strike decides -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.52 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">THE HARNESS STAYS</text>
+  <!-- motif: faint branching leaders (explore every option); accent strike reaches ground -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.7" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="600" cy="148" r="5.5"/>
+    <!-- left leaders -->
+    <path d="M600 148 L508 232 L418 312 L348 402"/>
+    <path d="M508 232 L468 324 L398 418 L362 508"/>
+    <path d="M418 312 L362 368 L292 448 L248 528"/>
+    <path d="M348 402 L288 478 L252 558"/>
+    <path d="M468 324 L512 416 L472 502 L438 568"/>
+    <path d="M418 312 L448 378 L412 448"/>
+    <path d="M348 402 L392 458"/>
+    <!-- right leaders -->
+    <path d="M600 148 L698 236 L792 318 L868 408"/>
+    <path d="M698 236 L748 332 L822 422 L862 512"/>
+    <path d="M792 318 L858 382 L932 458 L972 532"/>
+    <path d="M868 408 L922 492 L968 562"/>
+    <path d="M748 332 L708 424 L752 514 L788 572"/>
+    <path d="M792 318 L754 384 L788 452"/>
+    <path d="M868 408 L828 472"/>
+    <!-- center leaders that die short of the ground -->
+    <path d="M600 148 L558 258 L592 358 L528 458 L548 548"/>
+    <path d="M558 258 L628 348 L588 438 L612 522"/>
+    <path d="M592 358 L548 418"/>
+    <path d="M528 458 L490 518"/>
+    <!-- ground -->
+    <path d="M200 624 H1000" stroke-width="1.6"/>
+  </g>
+  <g fill="none" stroke="#C24E32" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M600 148 L646 268 L612 392 L662 508 L640 624"/>
+    <circle cx="640" cy="624" r="6.5" fill="#C24E32" stroke="none"/>
+    <path d="M640 624 L612 598"/>
+    <path d="M640 624 L668 596"/>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="#1B2B26">Reddit Proto: an AI prototyping harness</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">jblairmetcalf.com</text>
+</svg>

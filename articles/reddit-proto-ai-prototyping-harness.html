@@ -1,0 +1,156 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>从意见到可用：Reddit 自建的 AI 原型套具 Proto · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#F1E5E2">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 52 · AI 设计工作流 / 工作流 / 原型 / 设计系统 / MCP / Reddit</div><h1>从意见到可用：Reddit 自建的 AI 原型套具 Proto</h1><div class="en">Reddit Proto: an AI prototyping harness</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Blair Metcalf</dd><dt>身份</dt><dd>Principal UX Engineer, lead of Reddit Proto</dd><dt>日期</dt><dd>2026-10（原文页面未标注具体日期；同期 How I AI 访谈发布于 2026-10-26）</dd><dt>原文</dt><dd><a href="https://jblairmetcalf.com/work/reddit-proto">jblairmetcalf.com ↗</a></dd></dl><a class="readorig" href="https://jblairmetcalf.com/work/reddit-proto" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/reddit-proto-ai-prototyping-harness.svg" alt="Reddit Proto: an AI prototyping harness 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按「决策工具，而不是出图加速器」视角重写的讲解。原文是 Reddit Principal UX Engineer、Proto 负责人 Blair Metcalf 的一手案例：他在公司自建了一套 AI 原型套具（harness），让设计和产品用真数据、可上手的产品分身来拍板。它和读本 No.51「Figma Code Layers」、No.48「Martin Tejeda 的 Agent 闭环」、No.12「Stripe Harbor」、No.16「Stripe Protodash」、No.47「Coinbase Code Connect」同属「原型如何进入组织决策」一条线。想看原页的指标、图示与原话，请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>三句话结论</li>
+<li>问题：想得比决定快</li>
+<li>点火与政策：从工具到必用审查路径</li>
+<li>Proto 是什么：全应视似 + 真数据 + 无终端门坎</li>
+<li>套具（harness）：具体到能被证伪的规格</li>
+<li>当实验室运营：小赌注、合并、毕业</li>
+<li>对照表：画板评审、一次性 vibe coding、读本相关篇</li>
+<li>可粘贴模板：可证伪规格、agent skill、点选标注</li>
+<li>和读本相关篇怎么排</li>
+<li>自查清单与诚实部分</li>
+</ol></nav>
+
+<h2>01 三句话结论</h2>
+<p><b>第一，Proto 要解决的不是「更快画出 mockup」，而是「怎样做决定」。</b>Blair 自己的证明句（prove）是：一件工具只有改变了决策方式，才算数。它把设计从意见驱动（opinion-based：谁在甲板里辩得最好）推到使用驱动（use-based：领导用过再拍板）。</p>
+<p><b>第二，起点不是空白沙盒，而是整站 Reddit 的应视似产品（look-alike）。</b>它建在 Reddit 的设计系统上，跑员工账号下的真数据。设计师从这里 vibe-code，原型的行为像产品本身——不必先在生产环境里做一季度，才知道想法成不成。</p>
+<p><b>第三，原型是用完即弃的；留下并复利的是套具（harness）。</b>书面指南和组件规格进去，Agent 建造、人来判断。65 个组件规格加 16 个 agent skills，每做一次原型，套具就好一点点。传统 UX 方法则几乎每次从零开始。</p>
+<table><tr><th>概念</th><th>一句话</th><th>对 Zhu 的用处</th></tr>
+<tr><td>Use-based decision</td><td>用过再拍板，而不是在幻灯片里辩赢</td><td>读本或个人站的关键交互，用可点链接自审 / 请人审，少靠截图和口头</td></tr>
+<tr><td>Look-alike + 真数据</td><td>从产品分身起步，而不是从空文件生成「像那么回事」的界面</td><td>给站点准备一个「已经像真站」的起点仓库，避免每次向 Agent 重讲信息架构</td></tr>
+<tr><td>Harness（套具）</td><td>组件规格、交互模式、agent guidance 构成可复利的底层</td><td>把卡片、正文栏、封面系统写成可证伪规格，而不是每次重讲品味</td></tr>
+<tr><td>Throwaway prototype</td><td>原型扔掉，套具留下</td><td>允许探索失败；投资写进文档和 skill，不投资堆沙盒链接</td></tr></table>
+
+<h2>02 问题：想得比决定快</h2>
+<p>Blair 对那个设计组织的判断很冷：它想象的速度，已经超过它做决定的速度。一个想法会走过设计、缩范围（descope）、实现、实验，然后开始等待。大多数想法会永远等下去。</p>
+<p>等待太贵的时候，决策就会改走捷径：在甲板（deck）上，靠谁辩得最好。这就是意见驱动——评审物是幻灯片和稿，胜出的是叙事，不是使用中的证据。</p>
+<p>原页把旧环和新环对照成一句话：旧的循环止于杀掉一个想法，新的循环止于证明（proof）。缺的不是更多视觉方案，而是一种能被领导亲手用起来的证明物。</p>
+<div class="note"><p>编者点评：对一个人做站点的缩小版同样成立。你用 AI 搭站大约一年，三种卡片 hover、两种双语对照，生成并不难；难的是「该不该上船」仍然常靠自我感觉或一张截图。缺的不是生成速度，是自己（或请来看的人）用过再决定。</p></div>
+
+<h2>03 点火与政策：从工具到必用审查路径</h2>
+<p>点火事件很具体：一个功能概念在三天里从想法做到全保真（full fidelity），而且领导可以上手使用，而不只是看着它。Blair 带着它过了 CEO 与 CPO 的评审。</p>
+<p>他据此给出的定位不是「更快的出图器」。Proto 是一种做决定的方法，把设计从意见驱动改成使用驱动。原页用闪电作比喻：先同时向每个方向伸出淡淡的先导（leader），再沿着那条触到地面的分支落下雷击。探索要宽，在使用中决定，然后建得很快。</p>
+<p>火花本身还只是案例。一份高管简报（executive brief）把它写成了政策：和领导评审工作，必须走 Proto。送到他们面前的，是可以打开、可以操作的东西。</p>
+<p>于是工作上船的路径被改写成三段：Figma 用来想清楚想法；Proto 用来在真数据上试遍选项，留下那条在使用中成立的；生产则从已经长成生产形状的原型再建造。从高保真 Figma 到生产，这条路径快了 50%。</p>
+<div class="note"><p>编者点评：许多团队已经有 vibe-coding 工具，但和领导开会带的仍是甲板。Proto 的跃迁不在模型更强，而在评审入口换了：领导收到的是链接，不必再看一叠幻灯片。工具变成政策之后，它才开始改变决策。</p></div>
+
+<h2>04 Proto 是什么：全应视似 + 真数据 + 无终端门坎</h2>
+<p>如果要找一个直观坐标，Blair 写的是：想象 Vercel 加上 Lovable，但起点完全不同——一份整站 Reddit 应用的应视似产品，建立在设计系统之上，通过员工账号跑真数据。设计师从这里往下 vibe-code，原型的行为像产品。不必先在生产环境里做一季度，才发现走不通。</p>
+<p>真数据之所以关键，是因为 Reddit 是高度个人化的。把 Figma 里的稿拿给领导看，他们会说「这跟我无关」（“This isn't relevant to me.”）。把他们自己的信息流（feed）给他们，他们就会用。</p>
+<blockquote>The dynamic parameters… it was the first thing I noticed that felt like magic. — UX engineer / 原页</blockquote>
+<p>一套「必用系统」好不好，取决于它的前门（front door）。Blair 把它设计成设计师可以独自完成的四步：一小时内，不必打开终端。原页用图说明这条路径——从一台新笔记本，到领导能打开的链接——但没有逐条写出这四步的名称，所以这里不强行补名字。重要的是门槛：不依赖会开终端的人，一个人就能把门走完。</p>
+<blockquote>He has the technical prowess of a veteran engineer. Blair has 10x'd my speed. — UX designer / 原页</blockquote>
+<p>进到原型里面，改法更接近标注而不是重写：点你想改的那一块，写下你要什么，请求连同它在代码里的位置一起交给 Cursor。Blair 随手要过一次带真实 type-ahead 的搜索，它当场就做了出来。</p>
+<p>仓库是内部的，所以原页上的图都是手绘示意。要看它跑起来的样子，他在 How I AI 节目里演示过。</p>
+<div class="note"><p>编者点评：「点选标注进 Cursor」把改动从「整段重新生成」降成「对这个位置说一句话」。读本、个人站这种已经有结构的小产品，最怕的就是 Agent 为了改一处 dek 截断或目录样式，把整页重写一遍。先点位置、再写意图，比开口就「帮我优化这个页面」便宜得多。</p></div>
+
+<h2>05 套具（harness）：具体到能被证伪的规格</h2>
+<p>表层是可点的原型，底层是一套套具：组件规格（component specs）、交互模式（interaction patterns）和给 Agent 的指南（agent guidance）——65 个组件，16 个 agent skills。它会复利：每一个原型都会把套具留得比来时更好一点，方法随着使用变快。传统 UX 方法则几乎每次从零开始。</p>
+<p>原页把这套循环画成：书面指南和组件规格输入；Agent 建造，人来判断；被扔掉的是原型。套具本身留下，并随着模型一起改进。</p>
+<p>技术栈写得很清楚：Next.js App Router、TypeScript、React 和 Tailwind，用 Cursor 构建，并经 MCP 打通 Figma 到 iOS。</p>
+<blockquote>He's now maintaining what is a core internal service at Reddit, and maintaining 99.999% of uptime. — Engineer / 原页</blockquote>
+<p>Blair 有一句几乎可以当标题的话：工程在文档里。规格只有具体到能被证伪（specific enough to be wrong），才能帮到 Agent。说「现代、干净、高级」永远不会错，因此也永远无法约束生成；能写错的规格才是工程。</p>
+<p>同一批文档还能反向跑：从 Figma 走向生产。一套设计系统 MCP 把每个 token 和组件映射到 Figma、iOS 和代码上，于是一个 Figma frame 可以变成带验收标准（acceptance criteria）的 PRD，再变成生产形状的代码。为了检查套具有没有漏项，他们画过一块罗塞塔石碑（Rosetta Stone）：每一个 token、组件、界面（surface）和用户旅程（journey）。</p>
+<div class="note"><p>编者点评：「具体到能被证伪」是本篇最该带走的一句话。它和读本里反复出现的「别堆形容词」是同一块肌肉：能被判错的约束，Agent 才知道自己有没有做对。罗塞塔石碑的用处也不是好看，而是查漏——token、组件、界面、旅程四面都画到了，套具才算齐。</p></div>
+
+<h2>06 当实验室运营：小赌注、合并、毕业</h2>
+<p>他们不把 Proto 当产品团队来跑，而当成实验室。生成许多小想法，在真数据上做原型；把那些在使用中成立的，合并成更大的工具；再把这些工具毕业给工程团队认领和拥有。实验室因此能腾出手做下一件。大多数想法会被扔掉，而这正是设计本身。一小篮子赌注，比押一个大注学得更快；任何建在模型上的东西，都可能在模型迁移时需要重做。</p>
+<p>推广也按实验室的方式推进：一周内三分之二的 UX 完成上手，一队一队地走，发现阻碍就当场清掉。他们还做了反向分享会（reverse show-and-tell）——让设计师演示自己做出的东西。七月峰会前一个月，每个小组（pod）都已经能在大约 75 分钟里交出一个现场 URL。</p>
+<blockquote>Before this, I was a sad PM chatting to ChatGPT. After the last two days, I feel like I can make massive impact quickly. — Product manager / 原页</blockquote>
+<p>最好的原型师出乎他们预料：一位视觉设计师，一位动画师。他们会导演，能把完整上下文托在手里、描述得很充分，也不怕当众失败。</p>
+<p>支撑这套套具的是十二人的团队。Blair 把他们做成一套收藏卡：每个人是一只带超能力的 Snoo，背面写能力值，正面从不写名字。他描述每一个人，ChatGPT 来画，一条 markdown 提示词把整套卡维持在同一只手上。</p>
+<div class="note"><p>编者点评：最好的原型师往往不是「最会写代码的人」，而是最会把完整上下文说清楚、并且不怕当众失败的人。视觉设计师和动画师本来就习惯先看见整体再描述细节——指挥 Agent，用的是同一种肌肉。实验室的另一半纪律同样重要：合并、毕业、放手，实验室才不会把自己做成第二个产品团队。</p></div>
+
+<h2>07 对照表：画板评审、一次性 vibe coding、读本相关篇</h2>
+<table><tr><th></th><th>Figma 画板评审</th><th>真数据上的 Proto</th></tr>
+<tr><td>送到领导面前的</td><td>稿、走查、甲板</td><td>可打开的链接，行为像产品</td></tr>
+<tr><td>数据</td><td>占位内容或设计稿文案</td><td>员工账号下的真数据（自己的 feed）</td></tr>
+<tr><td>常见反应</td><td>「这跟我无关」</td><td>上手使用</td></tr>
+<tr><td>决策依据</td><td>谁辩得好（opinion-based）</td><td>哪一条在使用中成立（use-based）</td></tr>
+<tr><td>到生产</td><td>另起实现，形状容易走样</td><td>从已经像生产的原型再建造；高保真 Figma 到生产快 50%</td></tr>
+<tr><td>门坎</td><td>设计工具熟练度</td><td>四步、一小时、不打开终端</td></tr></table>
+<table><tr><th></th><th>一次性 vibe coding</th><th>可复利的套具</th></tr>
+<tr><td>起点</td><td>空文件或通用模板</td><td>整站应视似 + 设计系统 + 真数据</td></tr>
+<tr><td>每次结束留下什么</td><td>一个沙盒链接</td><td>原型可扔，规格和 skill 留下并变好</td></tr>
+<tr><td>和传统 UX 的关系</td><td>接近「每次从零开始」</td><td>方法随使用变快</td></tr>
+<tr><td>工程写在哪</td><td>多半在对话记录里</td><td>在文档里：具体到能被证伪的规格</td></tr>
+<tr><td>过期时会发生什么</td><td>下次换模型再重来一遍</td><td>指南若过期，Agent 会自信地按上季度约定生成</td></tr></table>
+<table><tr><th>读本篇目</th><th>它解决什么</th><th>和 Proto 差在哪</th></tr>
+<tr><td>No.51 Code Layers</td><td>把可交互代码原型放回 Figma 画布，并排试、合并、写 Spec</td><td>Figma 让代码原型成为共享画布上的层；Reddit 做的是整站应视似 + 个性化真数据，让领导「用」而不是「看画布」</td></tr>
+<tr><td>No.48 Martin Tejeda</td><td>一人闭环：研究 → Cursor → Make → MCP → Preview</td><td>Martin 是个人工作流；Proto 是组织级决策系统，和领导评审被写成了政策</td></tr>
+<tr><td>No.12 Harbor / No.16 Protodash</td><td>Stripe 自建内部原型，用设计系统避免「模糊紫泥」，让原型成为公司语言</td><td>同属「吃设计系统的内部原型」；Proto 额外强调员工账号真数据（因为 Reddit 高度个人化），以及「用完即弃、套具留下」的实验室运营</td></tr>
+<tr><td>No.47 Coinbase Code Connect</td><td>把设计系统映射进 Agent 上下文，少猜、少花钱</td><td>Code Connect 重在「喂上下文」；Proto 的设计系统 MCP 还把同一套文档反向跑成 Figma → 带验收标准的 PRD → 生产形状代码</td></tr></table>
+<p>若你主要在做个人站和读本：不必去仿一套公司级 Proto。更值得抄的是三件可缩小的东西——一个已经像真站的起点、一份能被证伪的规格、以及「用链接而不是截图来决定」。</p>
+
+<h2>08 可粘贴模板：可证伪规格、agent skill、点选标注</h2>
+<pre><code># A. 组件规格（必须具体到能被写错）
+# 用在读本卡片 / 个人站模块。把「好看」换成可复核的约束。
+
+组件：读本首页卡片
+目的：让人 2 秒内决定要不要点进去
+必须包含：封面、中文标题（最多两行）、作者、一句 dek
+禁止包含：额外摘要段、左侧竖向色条、第二行元数据
+比例：封面约 2:1（首页紧凑卡）或约 3:4（若用竖卡）
+dek：一句短钩子，单行截断；不复述标题
+可被判错的验收：
+- [ ] 只有上述字段，没有多出来的说明文字
+- [ ] 标题超过两行必须截断，不得把卡片撑高
+- [ ] dek 不是标题的同义改写
+- [ ] 状态或分类用标签，不用左边色条
+失败例子（Agent 若这样做就判错）：
+- 把英文原标题和中文标题叠在一起
+- 用一段 80 字导读代替 dek
+- 为了「更有设计感」在卡片左侧加色条
+
+# B. Agent skill（给下一次原型留下的那一层）
+名称：reading-library-card
+何时用：生成或修改读本首页 / 列表中的一篇卡片
+先读：本规格 + 现有 articles.json 字段（slug, title_zh, author, dek, category）
+不要做：发明原文没有的作者、日期、引用或数据
+改完自检：对照上面的验收清单，列出你可能写错的三条
+
+# C. 点选标注式改法（对已有原型说，不要整页重写）
+我点中的是：[页面区域 / 组件名]。
+它现在：[可见行为或样式]。
+我要它变成：[一句可观察的结果]。
+请只改这一处在代码里的位置，不要重写整页或相邻模块。
+若必须动到设计系统 token / 共享组件，先说明会影响哪些其他表面，等我确认。
+例子：点中搜索框 → 「加上真实的 type-ahead，而不是提交后才出结果」。
+</code></pre>
+<div class="note"><p>模板用法：A 解决「规格永远正确因此毫无用处」；B 解决「做完一个原型，方法还是从零开始」；C 解决「为了改一处，整站被重写」。三份都要能指出 Agent 错在哪里——不能指出错误的指南，只是语气友善的形容词堆。</p></div>
+
+<h2>09 和读本相关篇怎么排</h2>
+<ol>
+<li><b>No.51 Code Layers：</b>最近的对照。Figma 把代码原型放回共享画布，方便并排比较与合并；本篇则把整站应视似和个性化真数据做成领导能「用」的东西。一个解决设计团队内部的比较税，一个解决组织向上的决策税。</li>
+<li><b>No.48 Martin Tejeda：</b>一人把研究到 Preview 的闭环握在自己手里；Proto 是十二人实验室加上「和领导评审必须走它」的政策。个人抄 Martin 的阶段门，组织才需要 Proto 这种前门与政策。</li>
+<li><b>No.12 Harbor / No.16 Protodash：</b>Stripe 内部原型传统——设计系统进工具、原型成为公司语言、避免通用生成器的「模糊紫泥」。Proto 走在同一条街上，但更强调真数据（因为 Reddit 是个人化产品）和套具复利。</li>
+<li><b>No.47 Coinbase Code Connect：</b>如何把设计系统映射进 Agent 上下文。Proto 的设计系统 MCP 做了类似的映射，并让同一套文档反向从 Figma 跑到带验收标准的 PRD 和生产形状代码。</li>
+<li><b>本篇：</b>把原型从出图加速器，改写成组织的决策路径：用过再拍板；原型扔掉，套具留下。</li>
+</ol>
+
+<h2>10 自查清单与诚实部分</h2>
+<p>Blair 自己写下的保留意见，比指标更值得一起读。不是每个团队都希望旧流程被改掉；他们提出的难题反而让 Proto 变得更好。若重来一次，他会更早把这些团队拉进来当共同负责人（co-owners）。</p>
+<p>交接质量 +80%，是工程侧对交接品质的判断，不是一次测量，应按「判断」来读，而不是按「测出来的数字」来引用。套具在撤走工作的同时，也在转移工作。指南必须保持在当前约定上，否则 Agent 会带着十足把握，按上个季度的约定来生成。</p>
+<p>结果写在原页末尾：Proto 现在是公司事实上的决策方式，UX 与 Product 100% 在用。130 人已经部署了 800 个原型，其上跑过几十项研究。上手只要一小时；交接质量的提升（+80%）由工程评估。领导收到的是链接，不再需要甲板。原型被扔掉。套具留下。</p>
+<blockquote>Proto is fast becoming the de facto standard for how teams explore, prototype, and ship. Blair's influence there isn't just technical. He shapes how people think about what's possible. — Product manager / 原页</blockquote>
+<ul>
+<li>我这次是在让人用原型做决定，还是在更快地生产一些看起来能服人的稿？</li>
+<li>起点是「已经像我的产品」的分身，还是又一个从零讲起的空沙盒？</li>
+<li>领导和同事拿到的是可打开的链接，还是甲板 / 截图？</li>
+<li>数据是否足够个人化，以至于对方不会说「这跟我无关」？</li>
+<li>规格有没有具体到能被写错？我能指出 Agent 怎样做算失败吗？</li>
+<li>这个原型结束时，套具（规格 / skill / 模式）有没有比来时更好一点？</li>
+<li>我是在点选一处改，还是在让 Agent 整页重写？</li>
+<li>有没有把一次性沙盒误当成可以毕业的工具？该合并的合并了吗？该扔掉的扔掉了吗？</li>
+<li>+80% 这类数字，我是当作工程判断在读，还是当成测出来的真理在传播？</li>
+<li>指南是否还停在上个季度？过期的套具，会不会带着十足把握生成旧约定？</li>
+</ul>
+<div class="note"><p>一句话收束：Proto 证明的不是「设计师也可以 vibe-code」，而是「决策可以改走使用，而不是意见」。真数据上的产品分身让领导不再说「这跟我无关」；四步、一小时、不打开终端，让工具真的成为前门；具体到能被证伪的规格，让工程写在文档里而不是聊天记录里。原型用完即弃。留下的那一层，才是方法。</p></div>
+</article>
+</body></html>

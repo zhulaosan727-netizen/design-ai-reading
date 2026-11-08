@@ -1103,5 +1103,28 @@
     "cover": "covers/workflow-lab-figma-code-layers.svg",
     "accent": "#5C4A8C",
     "tint": "#E8E6F1"
+  },
+  {
+    "slug": "reddit-proto-ai-prototyping-harness",
+    "title_zh": "从意见到可用：Reddit 自建的 AI 原型套具 Proto",
+    "title_en": "Reddit Proto: an AI prototyping harness",
+    "author": "Blair Metcalf",
+    "author_role": "Principal UX Engineer, lead of Reddit Proto",
+    "source": "https://jblairmetcalf.com/work/reddit-proto",
+    "date": "2026-10",
+    "added": "2026-11-08",
+    "tags": [
+      "工作流",
+      "原型",
+      "设计系统",
+      "MCP",
+      "Reddit"
+    ],
+    "dek": "真数据上的可用原型，领导用过再拍板",
+    "category": "AI 设计工作流",
+    "date_note": "原文页面未标注具体日期；同期 How I AI 访谈发布于 2026-10-26",
+    "cover": "covers/reddit-proto-ai-prototyping-harness.svg",
+    "accent": "#C24E32",
+    "tint": "#F1E5E2"
   }
 ]

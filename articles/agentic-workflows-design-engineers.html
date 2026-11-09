@@ -1,0 +1,199 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>设计工程师的 Agent 工作流：回路、长弧与失败模式 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#F0E4E9">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 53 · AI 设计工作流 / 工作流 / Claude Code / Cursor / 配置 / 失败模式</div><h1>设计工程师的 Agent 工作流：回路、长弧与失败模式</h1><div class="en">Agentic Workflows for Design Engineers</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Mark Learst</dd><dt>身份</dt><dd>Design Engineer（跨设计与工程）</dd><dt>日期</dt><dd>2026-01-28</dd><dt>原文</dt><dd><a href="https://www.marklearst.com/artifacts/agentic-workflows">marklearst.com ↗</a></dd></dl><a class="readorig" href="https://www.marklearst.com/artifacts/agentic-workflows" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/agentic-workflows-design-engineers.svg" alt="Agentic Workflows for Design Engineers 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按「回路做手感、长弧做结构、把禁令写进配置」视角重写的讲解。原文是 Design Engineer Mark Learst 的一手工作流：用 Cursor 做亚 100 毫秒的视觉迭代回路（visual iteration loop），用 Claude Code 做跨文件的自主推理长弧（autonomous reasoning arc），并把反复被打破的不变量写进项目规则（project rules），而不是每次重写一段华丽提示词。它和读本 <a href="using-ai-as-a-design-engineer.html">No.45「设计工程师怎么用 AI」</a>（Jakub Krehel）、<a href="martin-tejeda-agentic-design-workflow.html">No.48「Martin Tejeda 的 Agent 闭环」</a>、<a href="reddit-proto-ai-prototyping-harness.html">No.52「Reddit Proto」</a>、<a href="teaching-agents-product-design-vercel.html">No.22「把产品设计判断教给 Agent」</a>同属「人如何约束 Agent、而不是被它带跑」一条线。配置写法也可对照 <a href="design-md-what-fits.html">No.46「DESIGN.md 该写什么」</a>、<a href="agents-md-outperforms-skills.html">No.40「AGENTS.md」</a>，以及仓库里的 <code>CLAUDE.md</code> / Skills。想看原文完整提示词、规格摘录和代码片段，请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>三句话结论</li>
+<li>Loop 与 Arc：两种时间尺度</li>
+<li>为什么配置比一次性提示词更重要</li>
+<li>三阶段：Architect → Painter → Auditor</li>
+<li>失败模式对照</li>
+<li>对照表：回路与长弧、有配置与无配置、读本相关篇</li>
+<li>可粘贴模板：规则、禁令、规格脚本、显式作用域</li>
+<li>自查清单与诚实部分</li>
+</ol></nav>
+
+<h2>01 三句话结论</h2>
+<p><b>第一，按时间尺度分工，而不是按「哪个模型更强」。</b>回路（Loop）交给 Cursor：亚 100 毫秒的视觉反馈，用来调模态弹簧（modal springs）、画廊错落（gallery stagger timing）、不透明度过渡（opacity transitions）。长弧（Arc）交给 Claude Code：多文件重构、读后端契约（backend contracts）、以及那些一旦自己切换上下文就要丢掉半小时的结构性工作。Claude Code 跑在终端里，任何编辑器或 iTerm 都能接上。一个功能，他最初估 40 小时，这套组合压到了 12 小时。有的日子他会在 Cursor 里待满 8 小时，因为当天全是视觉；有的日子他会并行调度 5 个 Claude Code agent，去重构一套设计系统。</p>
+<p><b>第二，不要用 Claude Code 做视觉打磨（visual polish）。</b>它会把你手调过的动画「改进」成更干净、也更差的东西。Mark 的教训很具体：它把一条手调的 <code>expo.out</code> 缓动（easing）换成了 <code>power2.inOut</code>，只因为 GSAP 文档里后者出现得更勤。代码显得更「正确」，交互却是死的。</p>
+<p><b>第三，精致的一次性提示词挡不住漂移。</b>前两个月，他为每个任务写很长的提示词，约束还是会漂、错误还是会重复。把不变量搬进 <code>CLAUDE.md</code> 之后，一致性立刻改善。Cursor 一侧则用 <code>.cursor/rules/*.mdc</code>，按文件 glob 门控上下文。配置仍然是反应式的（reactive）：它在生成之后抓住问题。他正在做一份 Variable Design Standard，想从规格层减少设计和落地代码之间的碎片化。</p>
+<table><tr><th>概念</th><th>一句话</th><th>对 Zhu 的用处</th></tr>
+<tr><td>Loop（回路）</td><td>亚 100ms 的视觉反馈，用来调手感</td><td>封面母题、卡片 hover、正文栏对齐、动效曲线——这些要自己看见再改</td></tr>
+<tr><td>Arc（长弧）</td><td>跨文件的结构推理，用来改骨架</td><td>一篇读本入库（封面、正文、<code>articles.json</code>、构建脚本）或一次信息架构调整</td></tr>
+<tr><td>Project rules</td><td>把反复被打破的不变量写成配置，而不是当天的提示词</td><td><code>CLAUDE.md</code> / Cursor rules 里写清封面系统、正文栏约束，以及「不要做」</td></tr>
+<tr><td>What NOT to do</td><td>禁令比形容词更能拦住「好心改坏」</td><td>禁止左侧竖向色条、禁止发明原文没有的数据和引言、禁止未要求就重写邻页</td></tr></table>
+
+<h2>02 Loop 与 Arc：两种时间尺度</h2>
+<p>Mark 说自己大部分职业生涯都走在设计和工程中间，行业还没给这个位置起名字的时候就已经如此：一边是组件架构（component architecture）和动效设计（motion design），一边是后端契约和交互模式（interaction patterns）。对设计团队偏技术，对工程团队又偏视觉，中间地带并不舒服。这套工作流，就是为「两边都要」的工作准备的。</p>
+<p>他随后把工作劈成两种时间尺度。回路是短的、可看见的、必须反馈够快的：模态弹入、画廊错落、透明度过渡，差几十毫秒手感就不对。这类活他放进 Cursor，因为亚 100 毫秒的预览循环，才配得上「调」这个动作。长弧是长的、跨文件的、结构性地往前推的：一次多文件重构、读懂后端契约再改 UI、以及那些若由自己切换上下文，半小时就会耗在找文件上的事。结构性工作由 Claude Code 顶着，人就可以把注意力留在表面（the surface）。</p>
+<p>两种尺度不会在同一天以同样比例出现。全是视觉的日子，他就在 Cursor 里待 8 小时；要重构设计系统的日子，他会并行编排 5 个 Claude Code agent。工具选择跟的是任务的时间结构，不是对某个产品的忠诚。</p>
+<blockquote>Don't use Claude Code for visual polish. It will "improve" your animation by refactoring it into something "cleaner" that looks objectively worse. — Mark Learst</blockquote>
+<p>那次失败值得单独记住。Claude Code 把一条手调的 <code>expo.out</code> 换成了文档里更常见的 <code>power2.inOut</code>。从「代码是否像文档示例」的角度看，它做对了；从「交互是否还活着」的角度看，它把东西弄死了。</p>
+<blockquote>The code was more "correct." The interaction felt dead. — 原文</blockquote>
+<div class="note"><p>编者点评：读本和个人站正好也有这两种时间尺度。调一张封面的线描、卡片 hover、文章页那一层极淡的 tint，是回路——你得看见，差一点点就不对。新增一篇读本（封面 SVG、正文 HTML、<code>articles.json</code>、跑 <code>build.py</code>、提交）是长弧——跨文件、有契约、不该靠手点来回切。危险在于把两种活交给同一个「请帮我优化」：Agent 很可能会以文档里更常见的缓动、更常见的卡片样式，覆盖你已经手调过的东西。封面系统、正文栏左右对齐、禁止左侧竖向色条，都属于不该被「改进」的手感。</p></div>
+
+<h2>03 为什么配置比一次性提示词更重要</h2>
+<p>Mark 把反复出现的约束写进项目配置，为的是限制一次性 token、以及那些会把设计系统撕碎的工具函数。他把规则调准，花了几个月。前两个月，每个任务都写很长的提示词，约束照样漂移，错误照样重复。把不变量（invariants）搬进 <code>CLAUDE.md</code> 之后，一致性立刻改善。</p>
+<p>Cursor 一侧，规则放在 <code>.cursor/rules/</code>，用 glob 按文件模式门控上下文。他真正在用的一份是 <code>design-system.mdc</code>，作用域是 <code>src/components/**/*.tsx</code>。动画规则三条：始终用 <code>useGSAP()</code> 管生命周期；用 <code>gsap.utils.selector(ref)</code> 防止查询漏到全局；缓动默认 <code>expo.out</code>，离场必须比入场快 30%。token 规则两条：间距走 <code>gap-4</code>（1rem）台阶，禁止随手写 <code>mt-[13px]</code>；颜色走语义 token（他举例 <code>text-monokai-pink</code>），不要直接写十六进制。</p>
+<p>每条规则背后都有一次具体的疼：</p>
+<ul>
+<li><code>useGSAP()</code> 负责动画清理。写在 <code>useEffect</code> 里、又没有显式清理的动画，卸载后还会活着。他有过一个模态，累积了 47 个孤儿 tween，才被抓到。</li>
+<li><code>gsap.utils.selector(ref)</code> 把查询限制在当前组件。没有它，Cursor 会生成 <code>gsap.to('.card', ...)</code>，于是页上每一张卡片一起动。</li>
+<li>离场比入场快 30%，来自用户测试：离场如果和入场一样长，会显得拖。</li>
+</ul>
+<p>他做过对照实验：一整周不用 <code>.mdc</code> 文件。结果是同一功能里出现 3 种缓动曲线、每次编辑都在漂的任意间距 <code>mt-[13px]</code>，以及一条用了已弃用 <code>TimelineLite</code> 语法的 GSAP timeline。</p>
+<p>Claude Code 一侧，<code>CLAUDE.md</code> 先写架构，再写「不要做」。架构很短：做流畅的乐观界面（optimistic UIs）；默认服务端组件，<code>'use client'</code> 只留给交互；动画一律走 GSAP 加 <code>useGSAP()</code>。真正拦住祸事的，是那一组禁令：</p>
+<ul>
+<li>不要重构动画代码，除非被明确要求。</li>
+<li>不要为了「调试」加 <code>console.log</code>。</li>
+<li>不要改缓动。永远不要。</li>
+<li>不要通过删掉你看不懂的 <code>aria-label</code>，来「改进」无障碍（accessibility）。</li>
+<li>不要新建工具函数。使用已有模式。</li>
+</ul>
+<p>最后一条来自一次具体越权：Claude 写了一个 <code>formatDateRelative()</code>，而项目里的 <code>date-fns/formatDistanceToNow</code> 就在三个文件之外，而且已经被引进来了。</p>
+<div class="note"><p>编者点评：读本反复出现的「别堆形容词」，在这里变成了工程动作：能被违反、并且你已经违反过的事，才配写进配置。封面画布必须是 1200×750、底色 <code>#E6E6E6</code>、每篇只有一个强调色、卡片和正文禁止左侧竖向色条、不要发明原文没有的数据或引言——这些不宜每次在对话里再恳求一遍。它们该出现在 <code>CLAUDE.md</code> 或 Cursor rules 的「不要做」里。配置不是品味宣言，是一张你已经付过学费的清单。</p></div>
+
+<h2>04 三阶段：Architect → Painter → Auditor</h2>
+<p>当一个功能同时碰到数据和界面，他走三段。原文里的例子是自动化构建器里的工作流步骤编辑器（workflow step editor）：用户要配置一组可多步的动作序列。</p>
+<p><b>第一阶段，建筑师（Architect），交给 Claude Code。</b>先让它读已有契约和数据形状，再生成一份供人审阅的规格，而且这时候不准写代码。提示词的骨架是：读 <code>src/types/workflow.ts</code> 里的 <code>WorkflowStep</code> 类型，读 <code>src/server/routers/steps.ts</code> 里的 <code>stepRouter</code>，识别必须遵守的 mutation 契约，然后生成 <code>specs/WORKFLOW_STEP_EDITOR.md</code>——里面要有组件层级、乐观更新（optimistic updates）的状态管理思路，以及校验、错误态、并发编辑这些边角。最后一行是硬约束：<code>DO NOT write code. Spec only.</code></p>
+<p>「先不要写代码」把实现挡在规格评审之后。没有这句，Claude 会在你还没认可方案时，先搭出 12 个文件。先读现有契约，规格才有 API 可对齐，而不是凭空发明一套数据结构。</p>
+<p>原文给出的规格摘录，大致长成这样：</p>
+<table><tr><th>块</th><th>规格里实际写了什么</th></tr>
+<tr><td>已有契约</td><td><code>createStep</code>、<code>updateStep</code>（乐观，出错后重新校验）、<code>reorderSteps</code></td></tr>
+<tr><td>组件层级</td><td><code>StepEditor</code> 容器；<code>StepTypeSelector</code>；随 <code>step.type</code> 变化的 <code>StepConfigForm</code>；保存 / 删除 / 复制的 <code>StepActions</code></td></tr>
+<tr><td>状态</td><td>本地草稿用 <code>useReducer</code>；保存时经 tRPC <code>useMutation</code> 做乐观更新；遇到 409 Conflict（并发编辑）回滚到服务器状态</td></tr>
+<tr><td>边角</td><td>空配置显示占位并禁用保存；中途改类型要确认丢弃已有配置；网络失败则 toast + 重试，并保留草稿</td></tr></table>
+<p><b>第二阶段，画师（Painter），交给 Cursor。</b>打开那份规格，选中它，<code>Cmd+I</code> 唤出 Composer。他要求按规格搭出 <code>StepEditor</code>，用 GSAP 做切换步骤类型时的面板过渡，并引用 <code>design-system.mdc</code>。手感要求写得很具体：过渡该是灵敏的（responsive），用户不必等动画播完才能继续交互。</p>
+<p>生成结果站在了规则一侧：<code>useGSAP()</code>、限定作用域的 selector、缓动 <code>expo.out</code>，过渡时长 0.25 秒，容器间距走 <code>gap-4</code>。他因此把时间花在 reducer 逻辑上——大约 20 分钟，而不是花 2 小时去修动画基本功。</p>
+<pre><code>// Painter 阶段实际产物里，GSAP 部分遵循了 .mdc（摘录，非法完整组件）
+useGSAP(
+  () => {
+    const q = gsap.utils.selector(containerRef)
+    gsap.fromTo(
+      q('.config-panel'),
+      { opacity: 0, x: 12 },
+      { opacity: 1, x: 0, duration: 0.25, ease: 'expo.out' },
+    )
+  },
+  { scope: containerRef, dependencies: [draft.type] },
+)</code></pre>
+<p><b>第三阶段，审计员（Auditor），再交给 Claude Code。</b>视觉工作就绪后，他让 Claude Code 跑这个功能的测试套件：若布局测试或无障碍检查失败，就读错误日志、改组件、再验证，直到全部通过。</p>
+<p>失败发生在这里：Claude Code「修好」一次无障碍失败的方法，是删掉一个它看不懂的 <code>aria-label</code>。axe-core 检查通过了，使用屏幕阅读器的人却彻底失去了上下文。他随后补进 <code>CLAUDE.md</code> 的，不是又一句「请注意无障碍」，而是更硬的禁令：不要通过移除 aria 属性来修复无障碍报错；先问。</p>
+<div class="note"><p>编者点评：三段的价值不在名字好听，而在每段只准做一种事。建筑师不准写代码，否则你审的是已经铺开的 12 个文件，而不是方案。画师对着规格在回路里调表面，才用得上 <code>.mdc</code> 里那些手感规则。审计员最危险——它有测试当借口，会为了让 axe 变绿而拆掉你看不懂的标签。同一失败模式换到读本或个人站，就是 Agent 为了「更有层次」在卡片或告警左侧加一条色条，或为了让某条 lint 安静而删掉一段你需要的语义标记。先写进「不要做」，比事后在 diff 里生气便宜。</p></div>
+
+<h2>05 失败模式对照</h2>
+<p>原文把反复踩过的坑写成一组可对照的失败模式。它们不是模型「不够聪明」，而是编排和约束没有跟上班。</p>
+<table><tr><th>失败模式</th><th>它实际长什么样</th><th>他怎么挡</th></tr>
+<tr><td>上下文窗口耗尽（Context Window Exhaustion）</td><td>200K token 听起来很大，一旦跨约 40 个文件重构就不够。大约到第 30 个文件，它开始「忘记」<code>CLAUDE.md</code>，把前 20 个文件里已经正确避开的 <code>TimelineLite</code> 又写回来</td><td>重构按 15–20 个文件分批，每批换一份新上下文</td></tr>
+<tr><td>重构陷阱（Refactor Trap）</td><td>你请它修 <code>Button.tsx</code> 里的一个缺陷，它会「注意到」<code>Card.tsx</code> 有类似模式可以「改进」。你还没看完 diff，它已经动了 8 个文件</td><td>每条提示都写显式作用域：<code>Do NOT modify any other files.</code> 接受前先核对 diff</td></tr>
+<tr><td>导入幻觉（Import Hallucinations）</td><td>Cursor 从训练数据而不是你的 <code>package.json</code> 里取包。项目用 <code>heroicons</code>，它却从 <code>lucide-react</code> 导入。组件能渲染，图标是错的，到生产环境才发现</td><td>把明确的包约束写进 <code>.mdc</code></td></tr>
+<tr><td>自信问题（Confidence Problem）</td><td>他没找到办法让工具的自信程度变成有用的审查信号。隐蔽的竞态条件（race condition）和修一个笔误会用同一种语气</td><td>每一行仍然自己读</td></tr>
+<tr><td>误改无障碍</td><td>审计阶段删掉看不懂的 <code>aria-label</code>，换来 axe 通过、读屏用户失去上下文；子代理（subagent）被允许「自行修复」时更糟</td><td>禁令写进 <code>CLAUDE.md</code>；子代理只准报告、不准改文件</td></tr></table>
+<p>子代理用来做他不想亲自成为专家的专项工作，约束却只有一句：报告，不要修复。除非被拦住，Claude Code 会「帮忙」把改动直接做进去。他是在一次无障碍子代理「自主修复」之后学到的：它动了 47 个组件，其中 12 个变得更差。现在每条子代理提示都以 <code>Do NOT modify files</code> 结尾，直到他审完报告。</p>
+<p>文档方面，他用 Context7 MCP 拉取包括 GSAP 3.13 在内的现行文档，避免 Claude 沿用 2023 年那些已弃用的 ScrollMagic 模式。无障碍审计则限定在改过的文件上，并再次写明「不要改文件」。报告先到，改动后到。</p>
+<div class="note"><p>编者点评：在一个人维护的站点上，重构陷阱几乎是默认事故。你只想改读本卡片 dek 的截断，Agent 却「顺便」重写首页分组、目录样式和相邻文章。显式作用域——「不要修改任何其他文件」——应该成为每条改动提示的结尾，而不是生气时才补的一句。自信问题同样适用：Agent 解释为什么要用某颗语义色，和它解释为什么该重做整页信息架构，语气会一样稳。语气不能当审查信号，diff 才是。</p></div>
+
+<h2>06 对照表：回路与长弧、有配置与无配置、读本相关篇</h2>
+<table><tr><th></th><th>Cursor 回路（Loop）</th><th>Claude Code 长弧（Arc）</th></tr>
+<tr><td>时间尺度</td><td>亚 100ms 的视觉反馈</td><td>跨文件、读契约、少一次就要丢 30 分钟上下文的结构活</td></tr>
+<tr><td>典型工作</td><td>模态弹簧、画廊错落、透明度、面板过渡</td><td>多文件重构、后端契约、设计系统级编排（他举例并行 5 个 agent）</td></tr>
+<tr><td>适合的阶段</td><td>Painter：对着规格搭界面、调手感</td><td>Architect（只出规格）与 Auditor（跑测试、读日志）</td></tr>
+<tr><td>明确不该做的</td><td>不是禁区；它就是看的地方</td><td>不要拿它做视觉打磨；它会用更「正确」的缓动换掉活的交互</td></tr>
+<tr><td>主要配置</td><td>按 glob 门控的 <code>.mdc</code>（如 <code>src/components/**/*.tsx</code>）</td><td><code>CLAUDE.md</code> 里的架构约定和「不要做」</td></tr></table>
+<table><tr><th></th><th>只有一次性提示词</th><th>把不变量写进配置</th></tr>
+<tr><td>前两个月的情况</td><td>每个任务写很长提示，约束漂移、错误重复</td><td>搬进 <code>CLAUDE.md</code> 后，一致性立刻改善</td></tr>
+<tr><td>他做过的对照周</td><td>不用 <code>.mdc</code>：3 种缓动、任意 <code>mt-[13px]</code>、弃用的 <code>TimelineLite</code></td><td>有规则：<code>useGSAP()</code>、作用域选择器、<code>expo.out</code>、离场快 30%、语义色</td></tr>
+<tr><td>禁令写在哪</td><td>写在当天心情好的那段话里，下次就忘</td><td>写在「What NOT to do」：不擅自重构动画、不改缓动、不删看不懂的 aria、不造已有工具函数</td></tr>
+<tr><td>配置的限度</td><td>每次重新解释品味</td><td>仍然是反应式的，生成之后才抓住问题；所以他在做 Variable Design Standard</td></tr></table>
+<table><tr><th>读本篇目</th><th>它解决什么</th><th>和本篇差在哪</th></tr>
+<tr><td>No.45 Jakub / 设计工程师怎么用 AI</td><td>用 AI 加速试错，思考和打磨不外包</td><td>Jakub 强调人一直握着方向盘；本篇把「握方向盘」拆成两种时间尺度，并坚持把禁令写进配置</td></tr>
+<tr><td>No.48 Martin Tejeda</td><td>一人闭环：研究 → Cursor → Make → MCP → Preview</td><td>Martin 写的是阶段门和个人闭环；本篇更细的是 Cursor 与 Claude Code 的分工，以及五种失败模式</td></tr>
+<tr><td>No.52 Reddit Proto</td><td>组织级套具：真数据、可证伪规格、原型可扔</td><td>Proto 改变的是组织怎么做决定；本篇是一位 design engineer 如何编排自己的工具，避免被「正确」的代码杀死手感</td></tr>
+<tr><td>No.22 Vercel product-design Skill</td><td>把评审里的产品判断写进仓库级 Skill</td><td>Skill 告诉 Agent「为什么这样」；本篇补充同等重要的另一半——明确写出「不要做什么」</td></tr>
+<tr><td>No.46 DESIGN.md / No.40 AGENTS.md</td><td>意图放进文件、被动上下文往往更可靠</td><td>本篇演示一份真正在用的 <code>.mdc</code> 和 <code>CLAUDE.md</code>：有 glob、有禁令、有对照实验</td></tr>
+<tr><td>No.23 设计师怎么用 Claude Code</td><td>从画框走到真代码，用 MCP 喂组件与 token</td><td>那篇着重「设计师也能改到代码」；本篇给它补一条边界：Claude Code 不要承担视觉打磨</td></tr></table>
+<p>若你主要在做个人站和读本：不必并行调度 5 个 agent，也不必上 GSAP 与 tRPC。更值得抄的是分工、禁令和作用域——回路里看见再改，长弧里先出规格再动代码，反复踩过的坑写成「不要做」，每次改动都写明不要碰别的文件。</p>
+
+<h2>07 可粘贴模板：规则、禁令、规格脚本、显式作用域</h2>
+<pre><code># A. .cursor/rules/design-system.mdc（按原文精简）
+---
+description: Design System & GSAP Motion Standards
+globs: src/components/**/*.tsx
+---
+# Animation Rules
+- ALWAYS use `useGSAP()` hook for lifecycle management.
+- Use `gsap.utils.selector(ref)` to prevent global scope leakage.
+- Easing: Default to `expo.out`. Exits must be 30% faster than entrances.
+
+# Token Enforcement
+- Spacing: Use `gap-4` (1rem) steps. No arbitrary `mt-[13px]`.
+- Colors: Use semantic tokens over hex codes.
+
+# B. CLAUDE.md「不要做」（按原文）
+## Architecture
+- We build fluid, optimistic UIs.
+- Server components by default. 'use client' only for interactivity.
+- All animation via GSAP with `useGSAP()` hook.
+
+## What NOT to do
+- Do NOT refactor animation code unless explicitly asked.
+- Do NOT add console.log statements for "debugging."
+- Do NOT change easing curves. Ever.
+- Do NOT "improve" accessibility by removing aria-labels you don't understand.
+- Do NOT create new utility functions. Use existing patterns.
+- Do NOT remove aria attributes to fix a11y errors. Ask first.
+
+# C. 显式作用域（每条改动提示的结尾）
+只改我点名的文件。
+Do NOT modify any other files.
+接受前先列出 diff 里每个被改文件，等我确认。
+子代理：只准报告，不准修改文件。
+
+# D. spec 脚本的意图（原文脚本是生成 markdown，不写实现）
+# Usage: spec &lt;feature-name&gt;
+# 让 Claude 只输出 specs/${FEATURE_NAME}.md
+# 必须包含：数据模型变化、API 路由、组件层级、状态管理、边角情况
+# DO NOT write implementation code.
+
+# E. variant 脚本的意图（功能开关后的加法实验）
+# Usage: variant src/components/Button.tsx dark-mode
+# 读取现有组件，新增 ${COMPONENT}.${VARIANT}.tsx
+# 原文件只按已有 flags 模式做条件渲染
+# Variant is additive — flag 关闭时不得改变原有行为
+# 运行时可关实验，而不必为了回滚再发一版
+</code></pre>
+<pre><code># F. 编者改写：读本 / 个人站的「不要做」（不是原文规则）
+## What NOT to do
+- 不要在卡片、告警、详情面板或列表行左侧加竖向色条 / border-left accent bar。
+  状态与强调改用标签、图标、表面色温或顶边 / 全框。
+- 不要发明原文没有的数据、引言、作者或日期。
+- 不要「改进」封面系统：画布 1200×750，底色 #E6E6E6，每篇一个强调色，线描母题，不用照片和渐变。
+- 不要重写未被点名的页面、相邻文章或共享样式。
+- 不要新建已经存在的工具函数、工具类或组件变体；先在邻近文件里找。
+- 不要为了让检查变绿，删除你看不懂的 aria 属性或语义标记。
+</code></pre>
+<div class="note"><p>模板用法：A 和 B 是 Mark 付过学费的原规则，适合有 GSAP 和语义色的组件仓库；C 用来挡住重构陷阱；D 把「先规格、后代码」收成一条命令；E 让交互实验待在可运行时关闭的旗标后面。F 是编者按读本和个人站改写的禁令，不要和原文混为一谈。能指出 Agent 怎样做算错的规则，才配叫配置。</p></div>
+
+<h2>08 自查清单与诚实部分</h2>
+<p>用了这套工作流六个月之后，Mark 觉得最难的不是再找一个工具，而是决定何时停止迭代。一段动画还可以再顺 2%，代码也可以再干净一点；工具让「再来一轮」变得非常容易。该不该出货，仍然得自己拍板。</p>
+<blockquote>the hardest part is deciding when to stop iterating. — Mark Learst</blockquote>
+<p>他也看见过设计师拿起这些工具之后仍然把东西做坏：要把输出约束在已有原语（existing primitives）上，你得先理解这套系统。审查结果，意味着你分得清「代码是对的」和「代码只是能编译」。</p>
+<p>项目配置至今仍是反应式的：它在生成之后抓住问题，而不是从一开始就让错误无法发生。他正在做的 Variable Design Standard，想用可强制执行的规格，去处理设计意图和落地代码之间的碎片化，让跨交接、跨工具的漂移变少，也让这些事后补上的纠正性规则渐渐不那么必要。</p>
+<p>他最常用的两条脚本，也服从同一纪律。<code>spec</code> 只生成 markdown 规格，不写实现；<code>variant</code> 做出带功能开关的组件变体，而且是加法——旗标关闭时不得改变原有行为。交互实验因此可以在运行时关掉，而不必为了回滚再发一版。</p>
+<ul>
+<li>这次是回路（要看见手感）还是长弧（要跨文件改结构）？我有没有把视觉打磨交给 Claude Code？</li>
+<li>不变量写在项目配置里，还是只写在今天这段提示词里？</li>
+<li><code>CLAUDE.md</code> 或 Cursor rules 有没有「不要做」？里面是不是我已经亲手撤回过的错？</li>
+<li>建筑师阶段我有没有写 <code>DO NOT write code</code>？有没有在它搭出一堆文件之前先审规格？</li>
+<li>提示里有没有显式作用域：<code>Do NOT modify any other files</code>？我看过 diff，还是只看了那段很有把握的总结？</li>
+<li>一次重构是否超过 15–20 个文件？到第 30 个文件时，它会不会开始忘记规则？</li>
+<li>子代理是只准报告，还是被允许「自行修复」？上一轮有没有人借无障碍或 lint 的名义删掉重要标记？</li>
+<li>它是不是又新建了一个附近已经存在的工具函数？导入的包是项目里的，还是训练数据里更常见的那个？</li>
+<li>我继续迭代，是因为东西还没准备好出货，还是因为再顺 2% 太容易？</li>
+<li>配置是在事后抓错，还是已经把意图写成可执行的规格？有没有把同一种禁令只停留在对话里、却不写进仓库？</li>
+</ul>
+<div class="note"><p>一句话收束：Mark 证明的不是「设计工程师应该同时开 Cursor 和 Claude Code」，而是「两种时间尺度不该混用，反复被打破的约束不该只活在提示词里」。回路用来看见手感，长弧用来推动结构；建筑师先出规格，画师再对着规格调表面，审计员不准为了让测试变绿而拆掉它看不懂的东西。工具会用同一种语气谈论竞态条件和笔误，也会把更常见的缓动当成正确答案。该停下来的时候，仍然得你自己说。</p></div>
+</article>
+</body></html>

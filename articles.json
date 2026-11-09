@@ -1126,5 +1126,27 @@
     "cover": "covers/reddit-proto-ai-prototyping-harness.svg",
     "accent": "#C24E32",
     "tint": "#F1E5E2"
+  },
+  {
+    "slug": "agentic-workflows-design-engineers",
+    "title_zh": "设计工程师的 Agent 工作流：回路、长弧与失败模式",
+    "title_en": "Agentic Workflows for Design Engineers",
+    "author": "Mark Learst",
+    "author_role": "Design Engineer（跨设计与工程）",
+    "source": "https://www.marklearst.com/artifacts/agentic-workflows",
+    "date": "2026-01-28",
+    "added": "2026-11-09",
+    "tags": [
+      "工作流",
+      "Claude Code",
+      "Cursor",
+      "配置",
+      "失败模式"
+    ],
+    "dek": "回路做手感，长弧做结构，把禁令写进配置",
+    "category": "AI 设计工作流",
+    "cover": "covers/agentic-workflows-design-engineers.svg",
+    "accent": "#7A3558",
+    "tint": "#F0E4E9"
   }
 ]

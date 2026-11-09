@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#7A3558">
+  <!-- 读本 cover system v1 · No.53 · left closed loop (Cursor visual iteration); right open arc (Claude Code reasoning); accent on the handoff -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.53 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">LOOP AND ARC</text>
+  <!-- motif: tight closed feedback loop at left; long open sweep at right; berry handoff between them -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.7" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="348" cy="375" r="122"/>
+    <!-- clockwise arrows on the loop -->
+    <path d="M336 242 L348 253 L336 264"/>
+    <path d="M360 484 L348 495 L360 506"/>
+    <!-- short ink stem from loop to handoff -->
+    <path d="M470 375 H508"/>
+    <!-- long open arc: autonomous reasoning across files -->
+    <path d="M568 375 C 660 248, 830 198, 1000 292 C 1088 352, 1070 498, 928 578"/>
+    <path d="M914 560 L928 578 L944 564"/>
+  </g>
+  <!-- single accent: the handoff node, plus a short connector into the arc -->
+  <g fill="none" stroke="#7A3558" stroke-width="2.2" stroke-linecap="round">
+    <circle cx="528" cy="375" r="9"/>
+    <circle cx="528" cy="375" r="3.5" fill="#7A3558" stroke="none"/>
+    <path d="M537 375 H568"/>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="#1B2B26">Agentic Workflows for Design Engineers</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">marklearst.com</text>
+</svg>

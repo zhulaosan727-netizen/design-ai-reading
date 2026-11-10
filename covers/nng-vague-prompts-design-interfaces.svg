@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#2E6A9C">
+  <!-- 读本 cover system v1 · No.54 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.54 · 提示词与 Skill</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">SPECIFICITY OVER VAGUENESS</text>
+  <!-- motif: Frankenstein / vague patched layout → clean hierarchy; accent on the fix arrow -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- left: irregular vague blob -->
+    <path d="M148 305 C168 198 312 172 428 208 C522 240 548 328 516 424 C490 528 386 568 272 552 C162 536 118 448 136 352 C144 322 140 318 148 305 Z"/>
+    <!-- frankenstein mismatched boxes, overlapping -->
+    <rect x="178" y="228" width="148" height="78" rx="2"/>
+    <path d="M196 252 H300 M196 274 H268"/>
+    <rect x="268" y="276" width="128" height="108" rx="2"/>
+    <path d="M286 304 H372 M286 328 H348 M286 352 H360"/>
+    <rect x="162" y="338" width="88" height="96" rx="2"/>
+    <path d="M178 364 H232 M178 388 H214"/>
+    <!-- extra clutter tiles -->
+    <rect x="404" y="248" width="58" height="46" rx="2"/>
+    <rect x="418" y="348" width="72" height="38" rx="2"/>
+    <path d="M430 368 H476"/>
+    <!-- duplicate progress bars (repeated element) -->
+    <rect x="176" y="458" width="128" height="16" rx="8"/>
+    <rect x="198" y="516" width="128" height="16" rx="8"/>
+    <!-- prominent low-density ring -->
+    <circle cx="392" cy="498" r="50"/>
+    <circle cx="392" cy="498" r="26"/>
+    <!-- dashed patch-lines suggesting pieced-together joints -->
+    <g stroke-dasharray="4 5" stroke-opacity=".42">
+      <path d="M250 306 L268 320"/>
+      <path d="M250 400 L268 384"/>
+      <path d="M396 384 L418 368"/>
+    </g>
+    <!-- right: clean hierarchical page -->
+    <rect x="688" y="188" width="404" height="428" rx="3"/>
+    <!-- header -->
+    <rect x="708" y="208" width="364" height="46" rx="2"/>
+    <path d="M724 230 H880" stroke-width="1.5"/>
+    <path d="M724 244 H820" stroke-width="1.5"/>
+    <!-- primary stacked content: general → specific -->
+    <rect x="708" y="274" width="236" height="86" rx="2"/>
+    <path d="M724 298 H916" stroke-width="1.5"/>
+    <path d="M724 322 H880" stroke-width="1.5"/>
+    <rect x="708" y="376" width="236" height="78" rx="2"/>
+    <path d="M724 400 H900" stroke-width="1.5"/>
+    <path d="M724 422 H852" stroke-width="1.5"/>
+    <rect x="708" y="470" width="236" height="78" rx="2"/>
+    <path d="M724 494 H888" stroke-width="1.5"/>
+    <path d="M724 516 H840" stroke-width="1.5"/>
+    <!-- secondary sidebar: smaller, not the hero -->
+    <rect x="960" y="274" width="112" height="274" rx="2"/>
+    <path d="M976 304 H1052"/>
+    <path d="M976 328 H1036"/>
+    <path d="M976 360 H1044"/>
+    <path d="M976 384 H1028"/>
+    <!-- small secondary progress, not a giant ring -->
+    <rect x="976" y="500" width="80" height="10" rx="5"/>
+    <!-- faint downward flow marks on the clean side -->
+    <g stroke-opacity=".4" stroke-width="1.25">
+      <path d="M826 360 L826 376"/>
+      <path d="M826 454 L826 470"/>
+    </g>
+  </g>
+  <!-- accent: the single fix — specificity carrying vague layout into hierarchy -->
+  <g fill="none" stroke="#2E6A9C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M548 375 H658"/>
+    <path d="M636 352 L658 375 L636 398"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="1" fill="#1B2B26" fill-opacity=".45">
+    <text x="214" y="628">FRANKENSTEIN</text>
+    <text x="818" y="638">HIERARCHY</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="#1B2B26">Why Vague Prompts Fail</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">NN/G</text>
+</svg>

@@ -1148,5 +1148,27 @@
     "cover": "covers/agentic-workflows-design-engineers.svg",
     "accent": "#7A3558",
     "tint": "#F0E4E9"
+  },
+  {
+    "slug": "nng-vague-prompts-design-interfaces",
+    "title_zh": "别用含糊提示：为什么模糊提示交不出界面",
+    "title_en": "Prompt to Design Interfaces: Why Vague Prompts Fail and How to Fix Them",
+    "author": "Huei-Hsin Wang",
+    "author_role": "Nielsen Norman Group（NN/G）",
+    "source": "https://www.nngroup.com/articles/vague-prototyping/",
+    "date": "2025-12-05",
+    "added": "2026-11-10",
+    "tags": [
+      "提示词",
+      "AI 原型",
+      "视觉关键词",
+      "参考图",
+      "真数据"
+    ],
+    "dek": "含糊提示长出弗兰肯斯坦布局；用五条策略补回特异度",
+    "category": "提示词与 Skill",
+    "cover": "covers/nng-vague-prompts-design-interfaces.svg",
+    "accent": "#2E6A9C",
+    "tint": "#E1E9F1"
   }
 ]

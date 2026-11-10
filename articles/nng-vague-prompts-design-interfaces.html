@@ -1,0 +1,200 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>别用含糊提示：为什么模糊提示交不出界面 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#E1E9F1">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 54 · 提示词与 Skill / 提示词 / AI 原型 / 视觉关键词 / 参考图 / 真数据</div><h1>别用含糊提示：为什么模糊提示交不出界面</h1><div class="en">Prompt to Design Interfaces: Why Vague Prompts Fail and How to Fix Them</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Huei-Hsin Wang</dd><dt>身份</dt><dd>Researcher / Writer, Nielsen Norman Group（NN/G）</dd><dt>日期</dt><dd>2025-12-05</dd><dt>原文</dt><dd><a href="https://www.nngroup.com/articles/vague-prototyping/">nngroup.com ↗</a></dd></dl><a class="readorig" href="https://www.nngroup.com/articles/vague-prototyping/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/nng-vague-prompts-design-interfaces.svg" alt="Prompt to Design Interfaces: Why Vague Prompts Fail and How to Fix Them 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按「特异度补不回被省略的设计决策」视角重写的讲解。原文是 Nielsen Norman Group 研究员 Huei-Hsin Wang 的一篇方法文：他们让 AI 原型工具（AI-prototyping tools）生成 NN/G 直播课学员的个人资料页，对照详细提示与含糊提示的产出，把含糊一侧最常见的拼贴感命名为弗兰肯斯坦布局（Frankenstein layout），并给出五条不必先在 Figma 里画完整稿、也不必写成长篇小说的补特异度（specificity）策略。它和读本 <a href="ai-design-prompts-seven-decisions.html">No.50「七项决策」</a>、<a href="prompting-frontend-aesthetics-claude.html">No.29「四维提示词」</a>、<a href="avoid-the-ai-aesthetic.html">No.05「躲开 AI 审美默认值」</a>、<a href="stop-shipping-the-average.html">No.24「别再交出平均水准」</a>、<a href="picture-is-worth-a-thousand-tokens.html">No.17「一张图胜过千个 token」</a>连成同一条线：模型怕的是歧义，形容词和情绪词填不满被你省掉的决策。研究方法和提示原文见 NN/G 另页说明；完整图示与工具对照请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>三句话结论</li>
+<li>研究怎么比的：详细提示 vs 含糊提示</li>
+<li>弗兰肯斯坦布局的四种病症</li>
+<li>为什么人们还是会写含糊提示</li>
+<li>五条策略：不必先画完整稿</li>
+<li>对照表：含糊、精确、五条策略各补什么</li>
+<li>把 AI 当成提示词搭档</li>
+<li>特异度提高质量，替代不了思考</li>
+<li>可粘贴：从含糊提示升级</li>
+<li>自查清单</li>
+<li>和读本相关篇怎么排</li>
+</ol></nav>
+
+<h2>01 三句话结论</h2>
+<p><b>第一，AI 原型工具的输出质量，很大程度上取决于提示词有多具体。</b>生成式工具把设计工作推进到一个新范式：设计师可以不再只在设计软件里直接挪元素，而是用提示词让工具生成界面。开放式提示适合早期探索多样方向；一旦你需要可交付的精确产出，含糊就会让结果在各次生成之间晃来晃去。</p>
+<p><b>第二，含糊提示最稳的「成就」是弗兰肯斯坦布局。</b>工具对进度条（progress bar）、列表视图（list view）这类单个组件往往有表层理解，可是把它们拼成一页时缺少层级（hierarchy）：多余杂讯、无意义的重复、反直觉的信息流，以及又大又空、却抢了视觉权重的容器。</p>
+<p><b>第三，补回特异度，不必先自己做完整设计，也不必默认把提示词写成一篇说明文。</b>原文给出五条可以单用或叠用的策略：点名精确的视觉关键词、附上轻量视觉参考、先让通用聊天模型做视觉分析再提炼提示、先生成模拟数据（mock data）再设计、以及直接附上代码片段。它们能抬高输出质量，却替代不了把需求想清楚、权衡利弊、做出有依据的设计决策。</p>
+<table>
+<tr><th>你给模型的</th><th>模型实际在做的</th><th>你拿到的常见结果</th></tr>
+<tr><td>宽陈述：「做一页让学员完成某某事的资料页」</td><td>自己补全优先级、模式选择和布局逻辑</td><td>各次生成不一致；整页像零件拼盘</td></tr>
+<tr><td>详细、可执行的提示</td><td>在已被收束的决策里生成</td><td>更接近人类设计师会交出的页面</td></tr>
+<tr><td>只补了视觉、没补内容和任务</td><td>把「像样」用在错误的层级上</td><td>看起来像某个设计系统，用起来仍然混乱</td></tr>
+</table>
+
+<h2>02 研究怎么比的：详细提示 vs 含糊提示</h2>
+<p>NN/G 给 AI 原型工具的任务很具体：为课程学员生成一页直播培训个人资料页（live-training profile page）。对照很清楚——详细提示能交出质量更好、也更接近人类设计师手笔的结果；含糊提示则整体不稳定、不可预测。</p>
+<p>差别不在「人比较会画框」，而在人会处理歧义（ambiguity）。一位熟练的人类设计师接到「设计一页让学员做 XYZ 的资料页」这种宽陈述时，会自己完成后半段工作：辨认并排出用户需要看见的信息优先级，选择支撑目标的设计模式（design patterns），再把元素安排成容易导航的逻辑布局。AI 做不到在这样宽的上下文里交出经过取舍的结果。它不是不会画组件，是不会替你决定「这一页到底要先让人看见什么」。</p>
+<p>这并不等于开放式提示没有位置。原文明确把早期设计阶段划了出来：那时你可能正想看多种方向，宽提示有用。除此之外，需要精确输出的设计工作，含糊提示就交不出来。方法论和所用提示、工具的细节，原文指向他们另写的研究说明，本篇不凭空补实验清单。</p>
+<div class="note"><p>编者点评：把这句话放到读本里，它几乎是 <a href="ai-design-prompts-seven-decisions.html">No.50</a> 的实验注脚。七项决策框架说：形容词是方向，决策才是目的地；NN/G 这边用同一类资料页证明，若你把优先级、模式和布局逻辑都留给模型，它会每次补出不一样的「目的地」。早期探索可以含糊；一进入「我要一页能用的资料页」，含糊就从探索策略变成了甩锅。</p></div>
+
+<h2>03 弗兰肯斯坦布局的四种病症</h2>
+<p>在宽提示生成的原型里，原文观察到一种非常显眼的模式，并给它起了名字：弗兰肯斯坦布局。它不是某个按钮画错了，而是整页读起来像被随手缝在一起，而不是被有意识地组织过。</p>
+<blockquote>the Frankenstein layout — designs that feel randomly pieced together instead of thoughtfully structured. — Huei-Hsin Wang / NN/G</blockquote>
+<p>四种一并出现的病症，正好对应「单个组件还认识、整页层级却垮了」：</p>
+<ol>
+<li><b>不必要的视觉杂讯（unnecessary visual clutter）。</b>宽范围提示会诱使工具生成比需要更多的元素。原文的比方是一套低效的导航系统：最后也能到目的地，但永远绕远路。杂讯对谁都不好：用户的认知负荷（cognitive load）和交互成本（interaction cost）上升，重要内容可能被埋住，系统更臃肿，加载变慢，开发也要维护更复杂的代码。他们看到的一个宽提示产出（文中称为 Prompt 1）把界面塞满内容和视觉元素，组织与层级都很差——看不出该先看哪里、下一步该做什么；多个内容块还在重复，本可以合并或删减。</li>
+<li><b>重复的设计元素（repeated design elements）。</b>测试中多次出现同一元素或同一信息被展示不止一次。真实产品里，屏幕面积和用户注意力都贵，设计团队很少容忍这种冗余。没有目的的重复只会增加噪音，把人从关键内容上拉开。原文点名 Lovable 与 Bolt 的生成结果：认证进度条（certification progress bars）在同一界面里重复出现；呈现方式略有不同，信息却是多余的。</li>
+<li><b>反直觉的内容流（counterintuitive content flow）。</b>用户预期信息按有逻辑、可直觉跟上的顺序展开——通常从总体到具体，相关项成组。这样才帮得上心理模型（mental model），也减轻理解成本。多个 AI 生成页把内容排成了不合逻辑的序列；再叠上糟糕的视觉层级，整页失去焦点和前进感。原文举的线性顺序是：成就仪表盘（achievement dashboard）→ 课程概览（course overview）→ 考试状态（exam status）→ 用户资料小部件（user-profile widget）→ 认证进度（certification progress）→ 我的证书（my certificates）。插在中段的资料小部件打断了这条进展。除了「谁放在谁上面」，页上几乎没有别的层级线索，于是流向也跟着散掉。</li>
+<li><b>视觉上很抢眼、信息密度却很低的容器（visually prominent containers with low information density）。</b>视觉层级本应把人带到最重要的东西上：更大、更鲜艳、更突出的元素，会被感知为更重要。当层级和内容优先级对着干，用户会困惑，或从主任务上被拉开。AI 生成界面的通病，正是把视觉强调放在错误的元素上——模型没有「对目标而言什么才是关键」的上下文理解。在这页资料页上，查看与课程相关的信息是更主要的事，追踪认证进度是次要目标；可认证进度环（certification-progress ring）却因为尺度和周围的留白，成了最抢眼的元素。层级和内容错位，页面焦点就被稀释了。另一类常见手法，是用显眼容器只装一个数字：占了大面积，传达的信息很少，而且往往也不是主任务。多个输出把「上过几门课 / 考过几次试」这类数字卡放在页顶——用户既看不出自己进展到哪，也看不出下一步该做什么。</li>
+</ol>
+<table>
+<tr><th>病症</th><th>页上看见什么</th><th>它伤害的是什么</th></tr>
+<tr><td>多余杂讯</td><td>内容与装饰过饱和，路径不清，块与块重复</td><td>认知负荷、交互成本、加载与代码复杂度</td></tr>
+<tr><td>无意义重复</td><td>同一进度条或同一信息出现两次（Lovable / Bolt 例）</td><td>稀缺的屏幕面积和注意力</td></tr>
+<tr><td>反直觉流</td><td>资料小部件插进「成就 → 课程 → 考试 → 认证 → 证书」中间</td><td>心理模型与前进感</td></tr>
+<tr><td>低密度高权重</td><td>次要的认证环成为视觉英雄；页顶单数字大容器</td><td>主任务焦点</td></tr>
+</table>
+<div class="note"><p>编者点评：这四种病症与「组件库是否齐全」几乎无关。进度条会画、数字卡会画、资料小部件也会画，缺的是谁该当英雄、谁该让路、谁不该出现第二次。以后审 AI 原型，不妨先不问「好不好看」，而问四句：有没有可删的块？有没有重复？顺序是否从总体到具体？最大最空的那个容器，是不是在抢主任务的风头？能回答这四句，比再加一句「请更有设计感」有用。</p></div>
+
+<h2>04 为什么人们还是会写含糊提示</h2>
+<p>既然详细提示明显更好，为什么实务里很少有人一上来就写很长、很完整的文本提示？原文的观察很直白：把细节补全本身就耗时间，而许多人转向 AI，正是为了减轻工作量。于是默认策略变成了「先丢一句宽的试试」。</p>
+<p>要让 AI 原型工具真的省事，设计师需要先搞懂：提示词的特异度如何改变输出，再按任务裁剪策略——而不是在「写一篇说明书」和「只说做个现代页面」两极之间来回碰运气。后面五条策略的定位也在这里：它们提高输入的具体程度，却不必让你先在 Figma 里把设计做完，也不必自己先承担大部分设计执行。</p>
+
+<h2>05 五条策略：不必先画完整稿</h2>
+<p>五条可以组合，也可以分开用。共同目标只有一个：在不自己承担大部分设计执行的前提下，把输入的特异度抬上去。</p>
+
+<h3>策略一：使用精确的视觉关键词</h3>
+<p>写提示时，清楚和具体比篇幅更重要。原文提到，许多前沿模型（文中举例 ChatGPT5）被设计成会激光般地跟随指令；没有精度的冗长反而伤害清晰度——一个选得准的关键词，常常胜过一段又长又含糊的描述。</p>
+<p>不要用「简单、干净、现代」（simple, clean, and modern）这类泛视觉描述，而要指向已有名称的设计风格或框架。点名可识别的视觉风格——比如拟物（skeuomorphism）、扁平（flat design）、玻璃拟态（glassmorphism）、复古 / Y2K（retro / Y2K）——能帮模型理解你的视觉意图。这时候，设计词汇和视觉设计基本功就不再是「写给同事看的修养」，而成了提示词里的压缩编码。</p>
+<p>假设目标风格是新粗野主义（neobrutalism），原文给了三档写法：</p>
+<table>
+<tr><th>档位</th><th>提示词</th><th>问题或收获</th></tr>
+<tr><td>差</td><td>Design a trendy conference landing page.</td><td>trendy 没有指向任何可共享的风格</td></tr>
+<tr><td>可接受</td><td>Design a conference landing page with high contrast, blocky layouts, and bold colors.</td><td>写出了对比、块面、大胆用色，但仍是描述而非点名</td></tr>
+<tr><td>更好</td><td>Design a conference landing page in a neobrutalist style.</td><td>直接点名风格，原文观察到这样产出最好</td></tr>
+</table>
+<p>同一原则也适用于代码生成：开发者常在提示词前段就写明 React、Next.js 或 Tailwind CSS，好塑造生成代码的结构与逻辑。设计师同样可以点名一个著名设计系统或品牌风格。不过原文立刻划了一条边界：不要让 AI 去模仿某个具体品牌。写「design like Apple」或「in Airbnb's style」很诱人，却不是可持续策略——名牌不保证好设计；对一家价值数十亿美元的公司成立的方案，放到你的目标、受众和约束里，完全可能失败。</p>
+<div class="note"><p>编者点评：「neobrutalist」之所以比「trendy / clean / modern」好用，不是因为它更时髦，而是因为它把一项视觉决策变成了可点名的对象。这和 <a href="ai-design-prompts-seven-decisions.html">No.50</a> 说的「形容词是方向，决策是目的地」、以及 <a href="prompting-frontend-aesthetics-claude.html">No.29</a> 用四维提示把前端拉出默认脸，是同一类动作。点名风格之后，仍要把字体、色值和禁令兑出来；否则模型只是换了一套更有名字的默认值。</p></div>
+
+<h3>策略二：附上轻量视觉参考</h3>
+<p>高保真稿最能向 AI 原型工具传达设计意图，但做出来往往比写一段详细提示更费时。设计还早、或暂时没有资源产出精致资产时，改用轻量视觉参考：情绪板（moodboards）、灵感图、设计系统截图。</p>
+<p>原文的例子：把一块 Pinterest 看板的截图和宽文本提示（Prompt 1）一起交给 Figma Make，生成结果在视觉风格上接近那块看板。期望值要管住——图像参考比纯文本进了一大步，但很难指望像素级精确。另一例是把 Material Design 3 系统的截图交给 Figma Make：色调相近，颜色却比参考更饱和。</p>
+<p>当视觉精度真的关键，应让 AI 工具直接连到设计源。有些工具能从 Figma 画框里读取视觉规格和设计令牌（design tokens）；开发者也可以用 Figma MCP，把画框、变量、组件和布局数据直接拉进 IDE。这类方法比上传一张图更准。</p>
+<p>最后是一句很容易被漂亮截图带跑的提醒：不要把视觉保真度（visual fidelity）和设计质量（design quality）搞混。一份看起来对齐了设计系统、打磨得很光的 AI 稿，如果伴随的提示仍然含糊或规格不足，依然可以是差设计。验收时看可用性与清晰度，不要只看视觉光洁。</p>
+<blockquote>don't confuse visual fidelity with design quality. — Huei-Hsin Wang / NN/G</blockquote>
+<p>他们用 Material 3 Design Kit 加同一条宽提示在 Figma Make 里做了演示：生成页在视觉上像 Material Design 3，却缺少空间上的连贯，以及层级、间距与易读性上的细微分寸。</p>
+<div class="note"><p>编者点评：这正好解释为什么「先连设计系统再生成」不是万能药。<a href="picture-is-worth-a-thousand-tokens.html">No.17</a> 已经说明参考图能把模型拉出默认审美；NN/G 补上另一半——图能校正色调和组件长相，校正不了「谁该被强调、空白该为谁服务」。一套 Material 3 皮肤裹在弗兰肯斯坦骨架上，只会让拼贴显得更专业，也就更不容易被拆穿。</p></div>
+
+<h3>策略三：先让 AI 做视觉分析，再写成提示</h3>
+<p>大多数 AI 原型工具支持在文本之外上传图片，但并非全部如此，有的还把上传限制在付费档。替代路径是：用通用聊天模型，用自然语言分析一页的视觉风格或布局，再把这段描述转化成设计提示。文本描述也可以和图片附件叠加，用来加固视觉方向。</p>
+<p>原文以 NN/G 自己的 Live Training 总览页作为视觉参考，去生成课程资料页（Course Profile page）。请 ChatGPT 做视觉分析后，得到一份设计特征与风格元素的详细清单；这些描述可以改写成提示，也可以从中抽出关键词和短语。把这份视觉说明当作宽文本提示（Prompt 1）的补充上下文之后，生成页复现了 Live Training 页的视觉风格——即使没有把原页当作图片附件上传。</p>
+<p>对不能上传参考图、或想先把「我看见的风格」翻译成可复用文本的人来说，这是一条很实用的迂回：先分析，再提示，而不是对着空白输入框从「现代、简洁」写起。</p>
+
+<h3>策略四：先生成模拟数据</h3>
+<p>给 AI 原型工具写提示，很像给开发做设计规格（design specs）交接：不但要定义视觉和布局，还要定义交互流、内容和无障碍（accessibility）。原文再次推荐以内容为中心的设计（content-focused design）——用接近真实的数据工作，让视觉设计去支撑关键内容，而不是反过来先画壳再往里填。</p>
+<p>设计时最好和开发、内容团队一起拿到界面里会真正显示的数据。流程早期拿不到真实数据，也可以先让 AI 生成模拟数据，再基于这些数据打磨内容、迭代设计。他们的做法是：用 ChatGPT 生成 JSON 格式的模拟数据，再把这份内容交给 Figma Make 做资料页。结果是信息被更好地分组、也更好地展示出来。</p>
+<div class="note"><p>编者点评：Lorem 会把层级问题藏起来，这句在 <a href="ai-design-prompts-seven-decisions.html">No.50</a> 里已经说过；NN/G 把它操作化了——先有一份 JSON，再让模型「按这份内容排版」，比先生成一堆空卡片再乞求它「看起来更真实」有效。资料页尤其如此：课程名、考试状态、证书进度如果都是假短词，模型就很容易用巨大的进度环和单数字容器把页顶填满，因为那些壳体在缺少真内容时显得最「像仪表盘」。</p></div>
+
+<h3>策略五：附上代码片段</h3>
+<p>当 AI 解释的是图像或文档、而不是直接输入时，一部分上下文会在转译中丢失。因此，你提供的上下文越直接，系统需要做的解释越少，输出也越准。能提供给 AI 原型工具的最直接上下文之一，就是代码片段。</p>
+<p>设计师可以从几处取代码：和开发协作，从自己的代码库拿相关组件或布局结构；从开源设计系统或代码仓库拿可复用组件——原文举例 Material Design、Carbon，以及 21st.dev、GitHub 这类平台；或从线上网站用浏览器检查工具、插件提取某个页面或组件的底层代码。</p>
+<p>使用外部来源时要记住：看得见的代码不一定能免费复用，务必核对许可或授权。应优先使用自己产品里的代码、共享的设计系统库，或开源组件。</p>
+<p>他们用 Shopify Polaris 设计系统的 Table 组件作参考，并附上相应代码片段，生成了课程列表表格（course-listing table）。这是五条策略里精度最高的一条，但也有代价：过长的代码会挤占模型的上下文窗口（context window），带来性能问题；而且这条路要求设计师能读懂基本代码结构，并在使用前判断片段质量。</p>
+<table>
+<tr><th>策略</th><th>你实际塞进去的</th><th>它最擅长补的缺口</th><th>限度</th></tr>
+<tr><td>精确视觉关键词</td><td>可点名的风格 / 框架 / 设计系统，而不是 clean / modern</td><td>视觉意图的编码</td><td>不要改成「仿某个品牌」；点名之后仍要兑成决策</td></tr>
+<tr><td>轻量视觉参考</td><td>情绪板、灵感图、设计系统截图；需要精度时连 Figma 源或 MCP</td><td>色调、组件长相、整体气氛</td><td>难像素级还原；像设计系统 ≠ 设计质量</td></tr>
+<tr><td>先做视觉分析</td><td>通用聊天模型写出的风格与布局说明，再提炼成提示</td><td>不能上传图、或想把风格翻译成可复用文本</td><td>分析本身仍要人来改、来抽关键词</td></tr>
+<tr><td>先生成模拟数据</td><td>JSON 或接近真实的字段、文案、数字</td><td>分组、信息密度、避免空壳体当英雄</td><td>假数据仍要像真的；有真数据就用真的</td></tr>
+<tr><td>附上代码片段</td><td>来自本产品、共享库或开源组件的直接代码</td><td>组件结构与交互细节的精度</td><td>许可、上下文窗口、以及你得能判断片段好坏</td></tr>
+</table>
+
+<h2>06 对照表：含糊、精确、五条策略各补什么</h2>
+<table>
+<tr><th></th><th>含糊宽提示</th><th>补过特异度的提示</th></tr>
+<tr><td>早期探索</td><td>适合看多种方向</td><td>不必过早锁死，可先用关键词或情绪板收一收范围</td></tr>
+<tr><td>需要精确产出时</td><td>结果不稳定，容易长出弗兰肯斯坦布局</td><td>更接近人类设计师会组织过的页面</td></tr>
+<tr><td>模型补全的东西</td><td>信息优先级、模式选择、布局逻辑、视觉权重</td><td>只在你已经收束的决策里做执行</td></tr>
+<tr><td>验收时容易被骗</td><td>单个组件都「认识」</td><td>要看整页层级、流向、重复和密度，而不是组件清单</td></tr>
+</table>
+
+<h2>07 把 AI 当成提示词搭档</h2>
+<p>除了让 AI 直接生成界面，你也可以把它当成创意搭档，用来改进提示词本身。原文建议用通用聊天模型做这些事：</p>
+<ul>
+<li>根据已有上下文，从零起草一段文本提示；</li>
+<li>把设计需求整理成清楚、有结构的提示；</li>
+<li>提出引导性问题，帮你想清楚需求、收束想法；</li>
+<li>批评现有提示，找出缺失的上下文，并建议改进；</li>
+<li>以文本形式头脑风暴设计变体；</li>
+<li>为设计组件生成代码片段。</li>
+</ul>
+<p>这和「把设计决策外包给模型」不是一回事。搭档的职责是逼你把没说清的东西说清，不是替你决定学员资料页上认证环该不该当英雄。</p>
+<div class="note"><p>编者点评：最值得养成的习惯，也许不是「请生成一页资料页」，而是「请指出我这段提示里还缺哪些上下文」。缺失项通常就是那四类病症的种子：你没说主任务，它就把最大的环留给认证；你没提供数据，它就用单数字容器填页顶；你没点名风格，它就滑向干净、现代、可互换的默认脸。让模型先审提示，再生成界面，等于把一次返工提前到文本阶段。</p></div>
+
+<h2>08 特异度提高质量，替代不了思考</h2>
+<p>原文把收束写得很硬：复杂的设计问题没有捷径。文中这些策略能帮你提高提示词的特异度、拿到更高质量的输出，却替代不了想清楚设计需求、权衡利弊、做出有依据的设计决策——那些仍然得由人完成。</p>
+<blockquote>there is no shortcut to solving complex design problems. — Huei-Hsin Wang / NN/G</blockquote>
+<p>换成本篇开头的说法：特异度能减少模型替你乱补的开放决策，但不能自动产生那些决策。资料页该强调课程还是认证、数字卡有没有存在的理由、用户资料小部件该不该打断中间的进度——这些不是把「neobrutalist」或一份 Polaris 表格代码贴进去就会自己出现的。</p>
+
+<h2>09 可粘贴：从含糊提示升级</h2>
+<p>下面是按原文五条策略收成的缩短模板，用来把一句宽提示升级成可执行输入。方括号是你必须填写的决策；填不出的空，就是模型将替你做的决定。</p>
+<pre><code>任务：[一屏。例如：NN/G 直播课学员的个人资料页]
+主任务 / 次要任务：[用户来这页先要完成什么 / 什么只是次要状态]
+不要做：不要无意义重复同一模块；不要用低密度大数字卡当英雄；
+不要模仿某个品牌（不要写 design like Apple / in Airbnb's style）。
+
+视觉关键词（点名，而不是 simple / clean / modern / trendy）：
+风格：[neobrutalism / editorial / flat / glassmorphism / …]
+如需框架：[React / Next.js / Tailwind]，或设计系统名：[Polaris / Material 3 / 自有 DS]
+（可选，可接受写法）再补一句特征：high contrast, blocky layouts, bold colors
+
+轻量视觉参考：
+[情绪板 / 灵感截图 / 设计系统截图，如工具支持则附上]
+若不能上传图：先请通用聊天模型分析参考页，抽出风格与布局说明，粘在下方：
+[视觉分析文本]
+
+内容（禁止 lorem；先给数据再设计）：
+{
+  "user": { "name": "…", "role": "…" },
+  "courses": [{ "title": "…", "progress": "…" }],
+  "exams": [{ "name": "…", "status": "…" }],
+  "certificates": [{ "name": "…", "date": "…" }]
+}
+
+如需更高精度：
+- 附上[本产品 / 共享库 / 已确认许可的开源组件]代码片段
+- 或通过设计源 / Figma MCP 读取画框、变量、组件与 token
+- 长片段先裁到当前组件，避免挤爆上下文窗口
+
+生成后先验收层级，再验收光洁：
+- 有没有可合并或删除的块？
+- 同一信息是否出现了两次？
+- 顺序是否从总体到具体，相关项是否成组？
+- 视觉权重是否落在主任务上，而不是次要进度环或单数字容器？
+</code></pre>
+
+<h2>10 自查清单</h2>
+<ul>
+<li>我现在是在探索方向，还是已经需要精确产出？若是后者，这句话够不够具体到模型不必替我决定优先级？</li>
+<li>提示里是否还在用 simple / clean / modern / trendy，而没有点名风格、框架或设计系统？</li>
+<li>我有没有在要求模型「仿 Apple / Airbnb」——还是在描述自己的目标、受众和约束？</li>
+<li>有没有轻量参考（情绪板、系统截图）？不能上传时，有没有先做视觉分析再提炼关键词？</li>
+<li>需要像素级对齐时，我是在上传一张图碰运气，还是已经连到设计源 / token / MCP？</li>
+<li>内容是 JSON 或真字段，还是 lorem？数字卡里的那个数字，用户看完能采取下一步吗？</li>
+<li>如果附了代码：许可核对过了吗？片段是否短到不至于挤占上下文？我能判断它质量如何吗？</li>
+<li>生成稿看起来很像设计系统——层级、间距、流向和易读性也站得住吗？</li>
+<li>页上有没有重复模块、绕远路的杂讯、插在中间的打断性部件、以及又大又空的英雄容器？</li>
+<li>我是把 AI 当成提示词搭档（整理、追问、批评缺失上下文），还是指望它自动做出那些设计决策？</li>
+</ul>
+
+<h2>11 和读本相关篇怎么排</h2>
+<table>
+<tr><th>读本篇目</th><th>它解决什么</th><th>和本篇差在哪</th></tr>
+<tr><td><a href="ai-design-prompts-seven-decisions.html">No.50 七项决策</a></td><td>把 AI 设计提示写成可复核的 brief：用户与任务、真内容、视觉主张、tokens、布局、状态、禁令与验收</td><td>七项是「提示里该钉死哪些决策」；本篇是「决策不足时，界面会病成什么样」，以及五条不必先画完整稿的补特异度方法</td></tr>
+<tr><td><a href="prompting-frontend-aesthetics-claude.html">No.29 四维提示词</a></td><td>Anthropic 前端审美 cookbook：用更结构化的提示把前端拉出 AI 默认脸</td><td>四维偏审美与前端生成；本篇偏 AI 原型工具，并提供了资料页对照实验和弗兰肯斯坦这一诊断名</td></tr>
+<tr><td><a href="avoid-the-ai-aesthetic.html">No.05 躲开 AI 审美默认值</a> / <a href="stop-shipping-the-average.html">No.24 别再交出平均水准</a></td><td>诊断为何会落到可互换的 AI 脸与平均水准</td><td>那两篇主要谈审美收敛；本篇补充：即便组件都「像那么回事」，整页仍可能是缝起来的拼盘</td></tr>
+<tr><td><a href="picture-is-worth-a-thousand-tokens.html">No.17 一张图胜过千个 token</a></td><td>用参考图把模型拉出默认审美</td><td>本篇同意图比纯文本强，同时警告保真度不等于质量，并补充「先分析再写成提示」这条不依赖上传的路径</td></tr>
+<tr><td><a href="cooking-with-constraints-ai-prompts.html">No.13 TC-EBC 备菜式提示</a></td><td>Figma 侧用约束把提示写成可执行步骤</td><td>TC-EBC 偏生成控制；本篇偏原型阶段如何给足视觉、数据与代码上下文</td></tr>
+</table>
+<p>若只记住一件事：含糊提示不是「省事的起点」，而是把信息优先级、模式选择和视觉权重都转包给了模型。模型会画出它认识的零件，再把它们缝成一页弗兰肯斯坦。五条策略能把特异度补回去；想清楚这页到底要先让人看见什么，仍然得你自己做。</p>
+<p><a class="readorig" href="https://www.nngroup.com/articles/vague-prototyping/" target="_blank" rel="noopener">阅读原文 →</a></p>
+</article>
+</body></html>

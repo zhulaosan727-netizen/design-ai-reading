@@ -1170,5 +1170,27 @@
     "cover": "covers/nng-vague-prompts-design-interfaces.svg",
     "accent": "#2E6A9C",
     "tint": "#E1E9F1"
+  },
+  {
+    "slug": "designing-when-everything-is-easy",
+    "title_zh": "当一切都变得很容易",
+    "title_en": "Designing When Everything Is Easy",
+    "author": "Brent LaRue",
+    "author_role": "产品设计师、YC 创始人（Circle Medical）；本文梳理 YC Design Review 五期对谈",
+    "source": "https://www.brentlarue.me/writing/designing-when-everything-is-easy/",
+    "date": "2026-11-02",
+    "added": "2026-11-11",
+    "tags": [
+      "审美",
+      "品味",
+      "删减",
+      "代价",
+      "Stripe"
+    ],
+    "dek": "成本不再替你筛掉廉价动效；品味是看见之后的反应",
+    "category": "独特审美",
+    "cover": "covers/designing-when-everything-is-easy.svg",
+    "accent": "#7A4E32",
+    "tint": "#EEE6E1"
   }
 ]

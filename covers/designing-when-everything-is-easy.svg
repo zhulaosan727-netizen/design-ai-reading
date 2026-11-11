@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#7A4E32">
+  <!-- 读本 cover system v1 · No.55 · cost was the filter; editing is cutting -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.55 · 独特审美</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">TASTE IS A REACTION</text>
+  <!-- motif: a page stuffed with free effects; an editorial cut leaves one fact only this product could show -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- page frame -->
+    <rect x="156" y="168" width="520" height="448" rx="2"/>
+    <!-- header bar + too many type sizes (8 horizontal rules) -->
+    <path d="M184 200 H620"/>
+    <path d="M184 236 H560" stroke-width="2.4"/>
+    <path d="M184 262 H520" stroke-width="2.1"/>
+    <path d="M184 286 H500" stroke-width="1.85"/>
+    <path d="M184 308 H470" stroke-width="1.6"/>
+    <path d="M184 328 H430" stroke-width="1.4"/>
+    <path d="M184 346 H400" stroke-width="1.2"/>
+    <path d="M184 362 H360" stroke-width="1.05"/>
+    <path d="M184 376 H320" stroke-width="0.9" stroke-opacity=".55"/>
+    <!-- corner baubles / labels in every corner -->
+    <rect x="184" y="396" width="22" height="22" rx="2"/>
+    <path d="M212 407 H268"/>
+    <rect x="184" y="430" width="22" height="22" rx="2"/>
+    <path d="M212 441 H252"/>
+    <rect x="184" y="464" width="22" height="22" rx="2"/>
+    <path d="M212 475 H276"/>
+    <rect x="184" y="498" width="22" height="22" rx="2"/>
+    <path d="M212 509 H244"/>
+    <!-- button that a cursor chases -->
+    <rect x="420" y="430" width="132" height="44" rx="4"/>
+    <path d="M448 452 H524"/>
+    <!-- chasing orbit around the button -->
+    <path d="M486 404 C560 404 590 430 590 452 C590 488 536 516 486 516 C424 516 396 484 396 452 C396 416 436 404 486 404" stroke-dasharray="5 6" stroke-opacity=".55"/>
+    <!-- abstract pointer on the orbit -->
+    <path d="M568 428 L584 422 L578 440 Z" stroke-linejoin="round"/>
+    <!-- menu that fades when pointed at: solid then dashed -->
+    <rect x="420" y="250" width="150" height="132" rx="2"/>
+    <path d="M436 272 H546"/>
+    <path d="M436 296 H530" stroke-opacity=".55"/>
+    <path d="M436 320 H510" stroke-dasharray="5 5" stroke-opacity=".45"/>
+    <path d="M436 344 H490" stroke-dasharray="3 6" stroke-opacity=".32"/>
+    <!-- scroll-following line down the page -->
+    <path d="M640 200 C700 240 620 280 680 330 C740 380 650 430 710 490 C760 536 700 580 640 600" stroke-opacity=".55"/>
+  </g>
+  <!-- accent: the editorial cut, and the one remaining unique counter -->
+  <g fill="none" stroke="#7A4E32" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- vertical cut / crop marks -->
+    <path d="M760 150 V186"/>
+    <path d="M742 168 H778"/>
+    <path d="M760 168 V598"/>
+    <path d="M742 616 H778"/>
+    <path d="M760 598 V634"/>
+    <!-- the leftover: a spare fact-block only this company could put on a page -->
+    <rect x="820" y="300" width="240" height="200" rx="2"/>
+    <path d="M848 348 H980" stroke-width="1.6"/>
+    <path d="M848 372 H940" stroke-width="1.4"/>
+    <!-- a single large numeral-like mark, not a decoration -->
+    <path d="M848 424 H1004" stroke-width="3.2"/>
+    <path d="M848 448 H912" stroke-width="1.6"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".45">
+    <text x="184" y="628">FREE EFFECTS</text>
+    <text x="820" y="628">WHAT ONLY YOU CAN SHOW</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="28" fill="#1B2B26">Designing When Everything Is Easy</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">BRENT LARUE</text>
+</svg>

@@ -1192,5 +1192,27 @@
     "cover": "covers/designing-when-everything-is-easy.svg",
     "accent": "#7A4E32",
     "tint": "#EEE6E1"
+  },
+  {
+    "slug": "stageshow-faux-ui-skill",
+    "title_zh": "先取景，再让动作有原因",
+    "title_en": "Stageshow",
+    "author": "Benji Taylor",
+    "author_role": "SpaceX 旗下 X 与 SpaceXSI 设计负责人；开源界面工具作者（cmdk、Stageshow 等）",
+    "source": "https://benji.org/stageshow",
+    "date": "2026-10-31",
+    "added": "2026-11-12",
+    "tags": [
+      "Skill",
+      "假界面",
+      "取景",
+      "动效",
+      "品味"
+    ],
+    "dek": "过满、过空、缩进卡片里，都是没先决定观众该看什么",
+    "category": "提示词与 Skill",
+    "cover": "covers/stageshow-faux-ui-skill.svg",
+    "accent": "#2E7A68",
+    "tint": "#E0EBE7"
   }
 ]

@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#2E7A68">
+  <!-- 读本 cover system v1 · No.56 · faux UI fails boxed; frame with intent; motion needs a cause -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.56 · 提示词与 Skill</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">FRAMED WITH INTENT</text>
+  <!-- motif: a boxed, overfilled window (the common failure) vs a cropped stage where one card and a causal cursor carry the story -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- LEFT: the whole app shrunk into a card, like a pasted screenshot -->
+    <rect x="118" y="168" width="420" height="444" rx="6"/>
+    <rect x="142" y="200" width="372" height="380" rx="4"/>
+    <!-- traffic lights + title bar: complete chrome, no crop -->
+    <circle cx="166" cy="222" r="5"/>
+    <circle cx="184" cy="222" r="5"/>
+    <circle cx="202" cy="222" r="5"/>
+    <path d="M224 222 H490"/>
+    <!-- a stuffed inbox: every row has real-looking text, equal weight -->
+    <path d="M166 248 H490"/>
+    <g stroke-width="1.5">
+      <circle cx="186" cy="276" r="8"/>
+      <path d="M204 272 H320"/><path d="M204 284 H280" stroke-width="1.2" stroke-opacity=".55"/>
+      <circle cx="186" cy="312" r="8"/>
+      <path d="M204 308 H340"/><path d="M204 320 H300" stroke-width="1.2" stroke-opacity=".55"/>
+      <circle cx="186" cy="348" r="8"/>
+      <path d="M204 344 H310"/><path d="M204 356 H290" stroke-width="1.2" stroke-opacity=".55"/>
+      <circle cx="186" cy="384" r="8"/>
+      <path d="M204 380 H350"/><path d="M204 392 H276" stroke-width="1.2" stroke-opacity=".55"/>
+      <circle cx="186" cy="420" r="8"/>
+      <path d="M204 416 H328"/><path d="M204 428 H304" stroke-width="1.2" stroke-opacity=".55"/>
+      <circle cx="186" cy="456" r="8"/>
+      <path d="M204 452 H336"/><path d="M204 464 H288" stroke-width="1.2" stroke-opacity=".55"/>
+      <circle cx="186" cy="492" r="8"/>
+      <path d="M204 488 H318"/><path d="M204 500 H270" stroke-width="1.2" stroke-opacity=".55"/>
+      <circle cx="186" cy="528" r="8"/>
+      <path d="M204 524 H344"/><path d="M204 536 H296" stroke-width="1.2" stroke-opacity=".55"/>
+    </g>
+    <!-- a self-running change with no cursor: a row highlight that just appears -->
+    <rect x="166" y="362" width="324" height="36" rx="2" stroke-opacity=".4" stroke-dasharray="5 5"/>
+  </g>
+  <!-- RIGHT: a stage with crop, window pinned and running off the edge -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- stage / design-size frame -->
+    <rect x="620" y="168" width="460" height="444" rx="2"/>
+    <!-- window pinned to top-left, chrome visible, body runs off right and bottom -->
+    <path d="M648 214 H1080"/>
+    <path d="M648 214 V612"/>
+    <path d="M648 214 H1080" />
+    <!-- top chrome only on the visible crop -->
+    <circle cx="672" cy="236" r="5"/>
+    <circle cx="690" cy="236" r="5"/>
+    <circle cx="708" cy="236" r="5"/>
+    <path d="M728 236 H860"/>
+    <path d="M648 258 H1080"/>
+    <!-- background list, only placeholders, fading as they leave the crop -->
+    <path d="M672 292 H820" stroke-opacity=".4"/>
+    <path d="M672 316 H790" stroke-opacity=".32"/>
+    <path d="M672 340 H800" stroke-opacity=".28"/>
+    <path d="M672 548 H760" stroke-opacity=".28"/>
+    <path d="M672 572 H790" stroke-opacity=".22"/>
+    <!-- the window edge disappearing off-stage -->
+    <path d="M1080 214 V612" stroke-opacity=".35" stroke-dasharray="6 7"/>
+    <path d="M648 612 H1080" stroke-opacity=".35" stroke-dasharray="6 7"/>
+  </g>
+  <!-- accent: the one card the story needs, and the cursor that gives the change a cause -->
+  <g fill="none" stroke="#2E7A68" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- story card sliding in over the cropped window -->
+    <rect x="700" y="368" width="300" height="132" rx="3"/>
+    <circle cx="732" cy="434" r="16"/>
+    <path d="M760 422 H920" stroke-width="1.8"/>
+    <path d="M760 446 H860" stroke-width="1.5"/>
+    <!-- cursor arc + pointer: motion has a cause -->
+    <path d="M980 300 C1008 330 1010 400 980 470 C960 500 930 512 900 500" stroke-width="1.8" stroke-opacity=".85"/>
+    <path d="M888 492 L912 486 L900 512 Z" stroke-width="2"/>
+    <!-- crop marks on the stage -->
+    <path d="M620 150 V168" stroke-width="1.8"/>
+    <path d="M602 168 H620"/>
+    <path d="M1080 150 V168" stroke-width="1.8"/>
+    <path d="M1080 168 H1098"/>
+    <path d="M620 612 V630" stroke-width="1.8"/>
+    <path d="M602 612 H620"/>
+    <path d="M1080 612 V630" stroke-width="1.8"/>
+    <path d="M1080 612 H1098"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".45">
+    <text x="142" y="628">BOXED / TOO MUCH</text>
+    <text x="620" y="628">CROPPED / CAUSED</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">Stageshow</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">BENJI TAYLOR</text>
+</svg>

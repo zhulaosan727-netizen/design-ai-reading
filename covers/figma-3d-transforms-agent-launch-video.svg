@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#5A38A0">
+  <!-- 读本 cover system v1 · No.57 · test a rough spatial composition in motion, then lock art direction; the agent does the math -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.57 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">TEST IN MOTION</text>
+  <!-- motif: a flat hand-laid card grid vs a Z-axis type stack and a spatial ring, one plane turning toward the viewer -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- LEFT: tedious 3×4 grid, every card face-on and equal -->
+    <rect x="118" y="168" width="420" height="444" rx="6"/>
+    <!-- 3×4 cards -->
+    <g id="flat-cards">
+      <rect x="148" y="200" width="100" height="80" rx="2"/>
+      <rect x="278" y="200" width="100" height="80" rx="2"/>
+      <rect x="408" y="200" width="100" height="80" rx="2"/>
+      <rect x="148" y="304" width="100" height="80" rx="2"/>
+      <rect x="278" y="304" width="100" height="80" rx="2"/>
+      <rect x="408" y="304" width="100" height="80" rx="2"/>
+      <rect x="148" y="408" width="100" height="80" rx="2"/>
+      <rect x="278" y="408" width="100" height="80" rx="2"/>
+      <rect x="408" y="408" width="100" height="80" rx="2"/>
+      <rect x="148" y="512" width="100" height="80" rx="2"/>
+      <rect x="278" y="512" width="100" height="80" rx="2"/>
+      <rect x="408" y="512" width="100" height="80" rx="2"/>
+    </g>
+    <!-- equal-weight placeholder bars on every card: no hierarchy, no depth -->
+    <g stroke-width="1.4" stroke-opacity=".55">
+      <path d="M166 228 H230M166 248 H210"/>
+      <path d="M296 228 H360M296 248 H340"/>
+      <path d="M426 228 H490M426 248 H470"/>
+      <path d="M166 332 H230M166 352 H210"/>
+      <path d="M296 332 H360M296 352 H340"/>
+      <path d="M426 332 H490M426 352 H470"/>
+      <path d="M166 436 H230M166 456 H210"/>
+      <path d="M296 436 H360M296 456 H340"/>
+      <path d="M426 436 H490M426 456 H470"/>
+      <path d="M166 540 H230M166 560 H210"/>
+      <path d="M296 540 H360M296 560 H340"/>
+      <path d="M426 540 H490M426 560 H470"/>
+    </g>
+  </g>
+  <!-- RIGHT: a stage, typography receding on Z, a ring of cards in perspective -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="620" y="168" width="460" height="444" rx="2"/>
+    <!-- faint perspective guides toward a vanishing point on the right -->
+    <path d="M648 214 L1080 300" stroke-opacity=".28" stroke-width="1.2"/>
+    <path d="M648 596 L1080 430" stroke-opacity=".28" stroke-width="1.2"/>
+    <path d="M648 214 V596" stroke-opacity=".35"/>
+    <!-- Z-axis interval ticks: the math the agent does -->
+    <g stroke-opacity=".45" stroke-width="1.4">
+      <path d="M700 132 V150"/><path d="M760 126 V150"/><path d="M820 120 V150"/><path d="M880 114 V150"/><path d="M940 108 V150"/>
+      <path d="M700 150 H940" stroke-opacity=".35"/>
+    </g>
+    <!-- typography planes receding along Z (four rear planes in ink; front plane is accent) -->
+    <!-- plane 5 (farthest) -->
+    <path d="M916 268 L1008 282 L1008 348 L916 334 Z" stroke-opacity=".32" stroke-width="1.4"/>
+    <path d="M932 300 H984" stroke-opacity=".32" stroke-width="1.2"/>
+    <!-- plane 4 -->
+    <path d="M874 278 L976 296 L976 372 L874 354 Z" stroke-opacity=".42" stroke-width="1.5"/>
+    <path d="M892 316 H948" stroke-opacity=".42" stroke-width="1.3"/>
+    <!-- plane 3 -->
+    <path d="M824 292 L938 316 L938 404 L824 380 Z" stroke-opacity=".55"/>
+    <path d="M844 338 H910" stroke-opacity=".5" stroke-width="1.4"/>
+    <!-- plane 2 -->
+    <path d="M762 310 L890 340 L890 444 L762 414 Z" stroke-opacity=".68"/>
+    <path d="M784 362 H856" stroke-opacity=".62" stroke-width="1.5"/>
+    <!-- a ring / helix of small cards in perspective, around the stack -->
+    <!-- ellipse of 8 diamond-ish cards -->
+    <rect x="700" y="214" width="54" height="40" rx="2" transform="rotate(-18 727 234)" stroke-opacity=".55"/>
+    <rect x="640" y="268" width="58" height="42" rx="2" transform="rotate(-28 669 289)" stroke-opacity=".6"/>
+    <rect x="628" y="360" width="60" height="44" rx="2" transform="rotate(-8 658 382)" stroke-opacity=".65"/>
+    <rect x="656" y="470" width="58" height="42" rx="2" transform="rotate(16 685 491)" stroke-opacity=".55"/>
+    <rect x="780" y="520" width="56" height="40" rx="2" transform="rotate(8 808 540)" stroke-opacity=".45"/>
+    <rect x="920" y="486" width="52" height="38" rx="2" transform="rotate(-12 946 505)" stroke-opacity=".4"/>
+    <rect x="990" y="400" width="48" height="36" rx="2" transform="rotate(-22 1014 418)" stroke-opacity=".32"/>
+    <rect x="980" y="230" width="46" height="34" rx="2" transform="rotate(14 1003 247)" stroke-opacity=".32"/>
+    <!-- rectangular tube suggestion: type sitting on geometry -->
+    <path d="M1008 214 L1080 230 L1080 300 L1008 282 Z" stroke-opacity=".35" stroke-width="1.4"/>
+    <path d="M1008 282 L1080 300 L1062 360 L990 338 Z" stroke-opacity=".28" stroke-width="1.3"/>
+  </g>
+  <!-- accent: the front typographic plane turning toward the viewer — the decision you lock after seeing it move -->
+  <g fill="none" stroke="#5A38A0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- front plane, slightly yawed, larger, facing us -->
+    <path d="M688 332 L848 368 L848 500 L688 464 Z"/>
+    <!-- typographic bars on the turning face -->
+    <path d="M716 392 H812" stroke-width="2"/>
+    <path d="M716 418 H780" stroke-width="1.7"/>
+    <!-- a short rotation arc: this plane is turning -->
+    <path d="M848 368 C880 376 896 410 888 448" stroke-width="1.7" stroke-opacity=".9"/>
+    <path d="M878 436 L888 448 L900 434" stroke-width="1.7"/>
+    <!-- crop marks on the stage -->
+    <path d="M620 150 V168"/><path d="M602 168 H620"/>
+    <path d="M1080 150 V168"/><path d="M1080 168 H1098"/>
+    <path d="M620 612 V630"/><path d="M602 612 H620"/>
+    <path d="M1080 612 V630"/><path d="M1080 612 H1098"/>
+    <!-- Z interval of the frontmost repeat, marked as the agent's spacing decision -->
+    <path d="M700 150 V168" stroke-width="1.8"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".45">
+    <text x="148" y="628">HAND GRID / EQUAL WEIGHT</text>
+    <text x="620" y="628">Z-STACK / TURNED TO VIEW</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="24" fill="#1B2B26">How 3D transforms and Figma’s agent brought a launch video to life</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">FIGMA</text>
+</svg>

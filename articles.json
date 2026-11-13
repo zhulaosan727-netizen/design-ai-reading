@@ -1214,5 +1214,27 @@
     "cover": "covers/stageshow-faux-ui-skill.svg",
     "accent": "#2E7A68",
     "tint": "#E0EBE7"
+  },
+  {
+    "slug": "figma-3d-transforms-agent-launch-video",
+    "title_zh": "先在空间里转起来，再决定美术方向",
+    "title_en": "How 3D transforms and Figma’s agent brought a launch video to life",
+    "author": "Chad Colby",
+    "author_role": "Figma 动效设计负责人（Director, Motion Design）；文中记录 Brand Studio 同事 Deanna Gueli、Ben Hill、Yeojin Shin、Gilles Desmadrille 的探索",
+    "source": "https://www.figma.com/blog/how-3d-transforms-and-figmas-agent-brought-a-launch-video-to-life/",
+    "date": "2026-11-12",
+    "added": "2026-11-13",
+    "tags": [
+      "Figma",
+      "3D",
+      "Agent",
+      "动效",
+      "着色器"
+    ],
+    "dek": "智能体算三维算术，人做创意；先运动，后定稿",
+    "category": "AI 设计工作流",
+    "cover": "covers/figma-3d-transforms-agent-launch-video.svg",
+    "accent": "#5A38A0",
+    "tint": "#E8E6F1"
   }
 ]

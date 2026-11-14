@@ -1236,5 +1236,27 @@
     "cover": "covers/figma-3d-transforms-agent-launch-video.svg",
     "accent": "#5A38A0",
     "tint": "#E8E6F1"
+  },
+  {
+    "slug": "organizations-ddosed-from-the-inside",
+    "title_zh": "已经做完，不再等于该做",
+    "title_en": "Our organizations are being DDoSed from the inside",
+    "author": "Karri Saarinen",
+    "author_role": "Linear 联合创始人兼首席执行官；曾在 Airbnb 从事设计，参与设计系统与 Cereal 字体",
+    "source": "https://karrisaarinen.com/posts/our-organizations-are-being-ddosed-from-the-inside/",
+    "date": "2026-11-02",
+    "added": "2026-11-14",
+    "tags": [
+      "Linear",
+      "意图",
+      "发布闸门",
+      "评审",
+      "注意力"
+    ],
+    "dek": "二十分钟能做完，只说明做得出来",
+    "category": "AI 设计工作流",
+    "cover": "covers/organizations-ddosed-from-the-inside.svg",
+    "accent": "#2E4A7A",
+    "tint": "#E3E8F1"
   }
 ]

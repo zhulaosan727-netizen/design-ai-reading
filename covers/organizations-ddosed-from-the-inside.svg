@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#2E4A7A">
+  <!-- 读本 cover system v1 · No.58 · a flood of already-finished work overwhelms the capacity to understand, review, and steer; intent sits ahead of the landing gate -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.58 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">INTENT BEFORE LANDING</text>
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- LEFT: a dense flood of already-finished work, no hierarchy, rushing toward a neck -->
+    <rect x="86" y="168" width="470" height="444" rx="6"/>
+    <!-- packet / PR tiles, tighter and more overlapped near the neck -->
+    <g id="flood">
+      <rect x="112" y="196" width="86" height="54" rx="2"/>
+      <rect x="214" y="188" width="78" height="50" rx="2"/>
+      <rect x="308" y="200" width="90" height="56" rx="2"/>
+      <rect x="414" y="192" width="72" height="48" rx="2"/>
+      <rect x="124" y="266" width="80" height="52" rx="2"/>
+      <rect x="220" y="254" width="92" height="58" rx="2"/>
+      <rect x="328" y="270" width="76" height="50" rx="2"/>
+      <rect x="420" y="258" width="88" height="54" rx="2"/>
+      <rect x="108" y="336" width="74" height="48" rx="2"/>
+      <rect x="198" y="328" width="86" height="54" rx="2"/>
+      <rect x="300" y="340" width="80" height="50" rx="2"/>
+      <rect x="396" y="324" width="96" height="58" rx="2"/>
+      <rect x="118" y="404" width="88" height="54" rx="2"/>
+      <rect x="224" y="396" width="78" height="50" rx="2"/>
+      <rect x="318" y="410" width="90" height="56" rx="2"/>
+      <rect x="424" y="398" width="74" height="48" rx="2"/>
+      <rect x="132" y="476" width="82" height="52" rx="2"/>
+      <rect x="230" y="468" width="94" height="58" rx="2"/>
+      <rect x="340" y="484" width="76" height="50" rx="2"/>
+      <rect x="430" y="472" width="84" height="54" rx="2"/>
+      <!-- extras overlapping near the neck, tilted slightly by placement tightness -->
+      <rect x="456" y="300" width="70" height="46" rx="2" transform="rotate(8 491 323)"/>
+      <rect x="448" y="360" width="68" height="44" rx="2" transform="rotate(-6 482 382)"/>
+      <rect x="452" y="422" width="66" height="42" rx="2" transform="rotate(5 485 443)"/>
+    </g>
+    <!-- equal-weight bars: every packet looks equally "done" -->
+    <g stroke-width="1.4" stroke-opacity=".5">
+      <path d="M126 216 H180M126 230 H164"/>
+      <path d="M228 208 H274M228 220 H258"/>
+      <path d="M322 220 H378M322 234 H360"/>
+      <path d="M428 210 H468M428 222 H454"/>
+      <path d="M138 286 H186M138 300 H170"/>
+      <path d="M234 274 H290M234 288 H272"/>
+      <path d="M342 290 H386M342 304 H372"/>
+      <path d="M434 278 H488M434 292 H470"/>
+      <path d="M122 354 H164M122 368 H152"/>
+      <path d="M212 348 H264M212 362 H248"/>
+      <path d="M314 360 H360M314 374 H346"/>
+      <path d="M410 344 H470M410 358 H452"/>
+      <path d="M132 424 H186M132 438 H170"/>
+      <path d="M238 416 H282M238 430 H268"/>
+      <path d="M332 430 H388M332 444 H370"/>
+      <path d="M438 416 H480M438 430 H466"/>
+      <path d="M146 496 H194M146 510 H180"/>
+      <path d="M244 488 H302M244 502 H286"/>
+      <path d="M354 504 H398M354 518 H384"/>
+      <path d="M444 492 H494M444 506 H478"/>
+    </g>
+    <!-- flow ticks toward the neck: speed without steering -->
+    <g stroke-opacity=".32" stroke-width="1.3">
+      <path d="M500 250 L536 250"/>
+      <path d="M508 290 L544 290"/>
+      <path d="M500 330 L536 330"/>
+      <path d="M508 410 L544 410"/>
+      <path d="M500 450 L536 450"/>
+      <path d="M508 490 L544 490"/>
+    </g>
+  </g>
+  <!-- RIGHT: a calm, spaced product after the gate -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="700" y="168" width="414" height="444" rx="2"/>
+    <!-- generous stack: only a few land -->
+    <rect x="748" y="214" width="318" height="72" rx="2"/>
+    <rect x="748" y="316" width="318" height="72" rx="2"/>
+    <rect x="748" y="418" width="318" height="72" rx="2"/>
+    <rect x="748" y="520" width="318" height="72" rx="2"/>
+    <g stroke-width="1.5" stroke-opacity=".55">
+      <path d="M772 242 H980M772 258 H900"/>
+      <path d="M772 344 H980M772 360 H900"/>
+      <path d="M772 446 H980M772 462 H900"/>
+      <path d="M772 548 H980M772 564 H900"/>
+    </g>
+  </g>
+  <!-- accent: the landing gate and the intent rail work must align to -->
+  <g fill="none" stroke="#2E4A7A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- gate posts -->
+    <path d="M620 200 V576"/>
+    <path d="M676 200 V576"/>
+    <!-- locked crossbar: the release-channel gate -->
+    <path d="M608 372 H688" stroke-width="3"/>
+    <path d="M608 390 H688" stroke-width="2"/>
+    <!-- a narrow slot through the gate, only at the intent height -->
+    <path d="M620 348 H676"/>
+    <path d="M620 414 H676"/>
+    <!-- intent rail: written ahead, running through the slot into the product -->
+    <path d="M86 381 H608" stroke-width="1.8" stroke-dasharray="7 6" stroke-opacity=".85"/>
+    <path d="M688 381 H1114" stroke-width="1.8"/>
+    <!-- alignment ticks on the product side -->
+    <path d="M748 381 H768" stroke-width="2"/>
+    <path d="M1046 381 H1066" stroke-width="2"/>
+    <!-- crop marks on the landing stage -->
+    <path d="M700 150 V168"/><path d="M682 168 H700"/>
+    <path d="M1114 150 V168"/><path d="M1114 168 H1132"/>
+    <path d="M700 612 V630"/><path d="M682 612 H700"/>
+    <path d="M1114 612 V630"/><path d="M1114 612 H1132"/>
+    <!-- a short steering arc at the neck: still possible only if you slow the flood at the gate -->
+    <path d="M596 330 C584 348 584 414 596 432" stroke-width="1.8"/>
+  </g>
+  <g font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".45">
+    <text x="112" y="628">FLOOD OF OUTPUT / ALREADY DONE</text>
+    <text x="700" y="628">INTENT RAIL / LANDING GATE</text>
+  </g>
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="24" fill="#1B2B26">Our organizations are being DDoSed from the inside</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">KARRI SAARINEN</text>
+</svg>

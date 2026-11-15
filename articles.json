@@ -1258,5 +1258,27 @@
     "cover": "covers/organizations-ddosed-from-the-inside.svg",
     "accent": "#2E4A7A",
     "tint": "#E3E8F1"
+  },
+  {
+    "slug": "ai-role-in-the-creative-process",
+    "title_zh": "生成不是创作",
+    "title_en": "AI's role in the creative process",
+    "author": "Itay Schiff",
+    "author_role": "Figma Weave 联合创始人兼首席创意官（Chief Creative Officer）；有 25 年后期制作与视觉特效（VFX）经验，负责 Weave 的 Artistic Intelligence 方向",
+    "source": "https://www.figma.com/blog/ai-role-in-the-creative-process/",
+    "date": "2026-11-13",
+    "added": "2026-11-15",
+    "tags": [
+      "Figma",
+      "创作过程",
+      "作者性",
+      "摩擦",
+      "工作流"
+    ],
+    "dek": "最想交给 AI 的那一步，往往正是思考",
+    "category": "独特审美",
+    "cover": "covers/ai-role-in-the-creative-process.svg",
+    "accent": "#B54A5C",
+    "tint": "#F1E4E5"
   }
 ]

@@ -1280,5 +1280,27 @@
     "cover": "covers/ai-role-in-the-creative-process.svg",
     "accent": "#B54A5C",
     "tint": "#F1E4E5"
+  },
+  {
+    "slug": "four-briefs-one-design-system",
+    "title_zh": "正确，不等于不同",
+    "title_en": "Four briefs went in, one design system came out",
+    "author": "Laith Aljunaidy",
+    "author_role": "驻约旦安曼（Amman）的 UX / 产品设计师，开源设计引擎 ux-skill 的作者",
+    "source": "https://laithjunaidy.com/writing/four-briefs-one-design-system",
+    "date": "2026-11-14",
+    "added": "2026-11-16",
+    "tags": [
+      "设计系统",
+      "差异性",
+      "提示词",
+      "ux-skill",
+      "测试"
+    ],
+    "dek": "检查只问对不对，不问是不是同一张脸",
+    "category": "提示词与 Skill",
+    "cover": "covers/four-briefs-one-design-system.svg",
+    "accent": "#A86B1C",
+    "tint": "#EEE6DE"
   }
 ]

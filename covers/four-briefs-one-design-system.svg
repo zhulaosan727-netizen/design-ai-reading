@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#A86B1C">
+  <!-- 读本 cover system v1 · No.60 · four divergent briefs produced one system; correctness checks miss sameness; difference needs a measurable floor -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.60 · 提示词与 Skill</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">DIFFERENCE HAS A FLOOR</text>
+
+  <!-- LEFT: one engine, four identical frames — the trial that failed -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="108" cy="375" r="10"/>
+    <path d="M118 375 H136" stroke-opacity=".5"/>
+    <g stroke-opacity=".45" stroke-width="1.4">
+      <path d="M136 375 C148 375 152 312 178 312"/>
+      <path d="M136 375 C148 375 152 438 178 438"/>
+      <path d="M334 312 H356"/>
+      <path d="M334 438 H356"/>
+    </g>
+    <!-- four same cards: rx 8, same two lines, same pill -->
+    <g>
+      <rect x="178" y="260" width="156" height="104" rx="8"/>
+      <path d="M196 292 H294" stroke-width="1.5"/>
+      <path d="M196 310 H268" stroke-width="1.5" stroke-opacity=".55"/>
+      <rect x="196" y="332" width="42" height="14" rx="7" stroke-width="1.4"/>
+    </g>
+    <g>
+      <rect x="356" y="260" width="156" height="104" rx="8"/>
+      <path d="M374 292 H472" stroke-width="1.5"/>
+      <path d="M374 310 H446" stroke-width="1.5" stroke-opacity=".55"/>
+      <rect x="374" y="332" width="42" height="14" rx="7" stroke-width="1.4"/>
+    </g>
+    <g>
+      <rect x="178" y="386" width="156" height="104" rx="8"/>
+      <path d="M196 418 H294" stroke-width="1.5"/>
+      <path d="M196 436 H268" stroke-width="1.5" stroke-opacity=".55"/>
+      <rect x="196" y="458" width="42" height="14" rx="7" stroke-width="1.4"/>
+    </g>
+    <g>
+      <rect x="356" y="386" width="156" height="104" rx="8"/>
+      <path d="M374 418 H472" stroke-width="1.5"/>
+      <path d="M374 436 H446" stroke-width="1.5" stroke-opacity=".55"/>
+      <rect x="374" y="458" width="42" height="14" rx="7" stroke-width="1.4"/>
+    </g>
+  </g>
+
+  <!-- CENTER: the one accent — a caliper set to the difference floor -->
+  <g fill="none" stroke="#A86B1C" stroke-width="1.85" stroke-opacity=".9" stroke-linecap="round" stroke-linejoin="round">
+    <!-- jaws -->
+    <path d="M558 250 V500"/>
+    <path d="M642 250 V500"/>
+    <!-- jaw lips, opening = the floor -->
+    <path d="M558 250 H578"/>
+    <path d="M642 250 H622"/>
+    <path d="M558 500 H578"/>
+    <path d="M642 500 H622"/>
+    <!-- beam -->
+    <path d="M558 375 H642"/>
+    <!-- adjustment screw (the critical floor marker) -->
+    <circle cx="600" cy="375" r="9" fill="#E6E6E6" stroke="#A86B1C"/>
+    <path d="M600 366 V384" stroke-width="1.5"/>
+    <path d="M591 375 H609" stroke-width="1.5"/>
+    <!-- faint floor ticks on the beam -->
+    <path d="M574 375 V387" stroke-width="1.4" stroke-opacity=".7"/>
+    <path d="M626 375 V387" stroke-width="1.4" stroke-opacity=".7"/>
+  </g>
+
+  <!-- RIGHT: four frames derived from different briefs -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- clinic: larger type, softer corner, more air -->
+    <g>
+      <rect x="686" y="260" width="156" height="104" rx="10"/>
+      <path d="M706 288 H820" stroke-width="2"/>
+      <path d="M706 312 H790" stroke-width="1.7"/>
+      <rect x="706" y="340" width="48" height="16" rx="8" stroke-width="1.4"/>
+    </g>
+    <!-- database tool: dark, sharp, dense -->
+    <g>
+      <rect x="864" y="260" width="156" height="104" rx="2" fill="#1B2B26" fill-opacity=".08"/>
+      <path d="M882 284 H992" stroke-width="1.4"/>
+      <path d="M882 300 H970" stroke-width="1.3" stroke-opacity=".6"/>
+      <path d="M882 316 H948" stroke-width="1.3" stroke-opacity=".45"/>
+      <rect x="882" y="338" width="36" height="12" rx="1" stroke-width="1.4"/>
+    </g>
+    <!-- restaurant: round, playful mark -->
+    <g>
+      <rect x="686" y="386" width="156" height="104" rx="18"/>
+      <circle cx="712" cy="418" r="9" stroke-width="1.5"/>
+      <path d="M728 418 H820" stroke-width="1.5"/>
+      <path d="M728 436 H792" stroke-width="1.4" stroke-opacity=".55"/>
+      <rect x="704" y="452" width="46" height="16" rx="8" stroke-width="1.4"/>
+    </g>
+    <!-- payments / Arabic-first: sharp, RTL-leaning lines, two faces -->
+    <g>
+      <rect x="864" y="386" width="156" height="104" rx="2"/>
+      <path d="M996 416 H900" stroke-width="1.6"/>
+      <path d="M996 434 H928" stroke-width="1.35" stroke-opacity=".55"/>
+      <rect x="946" y="456" width="36" height="12" rx="1" stroke-width="1.4"/>
+    </g>
+  </g>
+
+  <g font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".45">
+    <text x="178" y="628">IDENTICAL / CHECKS PASS</text>
+    <text x="560" y="628">FLOOR</text>
+    <text x="686" y="628">DERIVED FROM THE BRIEF</text>
+  </g>
+
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">Four briefs went in, one design system came out</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">LAITH ALJUNAIDY</text>
+</svg>

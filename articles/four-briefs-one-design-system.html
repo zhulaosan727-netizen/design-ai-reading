@@ -1,0 +1,162 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>正确，不等于不同 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#EEE6DE">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 60 · 提示词与 Skill / 设计系统 / 差异性 / 提示词 / ux-skill</div><h1>正确，不等于不同</h1><div class="en">Four briefs went in, one design system came out</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Laith Aljunaidy</dd><dt>身份</dt><dd>驻约旦安曼（Amman）的 UX / 产品设计师，开源设计引擎 ux-skill 的作者</dd><dt>日期</dt><dd>2026-11-14</dd><dt>原文</dt><dd><a href="https://laithjunaidy.com/writing/four-briefs-one-design-system">laithjunaidy.com ↗</a></dd></dl><a class="readorig" href="https://laithjunaidy.com/writing/four-briefs-one-design-system" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/four-briefs-one-design-system.svg" alt="Four briefs went in, one design system came out 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按「正确性检查拦不住雷同」这一视角重写的讲解。原文是驻安曼的 UX / 产品设计师 Laith Aljunaidy 于 2026 年 11 月 14 日发表的短文。他在开源设计引擎 ux-skill 4.0 发布前，用四个本不该有共同点的产品简报（brief）做试验，发现引擎交出了几乎同一套设计系统。文中有可复用的提示词、把「不同」写成可失败测试的方法，以及一次发布核验的疏漏。完整试验记录、对照图与项目链接见原文，请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>三句话结论</li>
+<li>为什么要拿四个不该相似的简报来试</li>
+<li>交出来的几乎是同一套系统</li>
+<li>错误修法：给每个行业做一张表</li>
+<li>聪明地修：每个值都从这份简报推出来</li>
+<li>把「不同」写成可以失败的测试</li>
+<li>修好之后，四套系统差在哪里</li>
+<li>同一类疏忽：发布了，用户却拿不到</li>
+<li>对照表：静态表，还是从简报推算</li>
+<li>可粘贴：四简报试验、差异地板、发布核验</li>
+<li>自查清单</li>
+<li>和读本相关篇怎么排</li>
+<li>边界：不同不是装饰，是从对象推出来的决定</li>
+</ol></nav>
+
+<h2>01 三句话结论</h2>
+<p><b>第一，正确性检查（correctness check）拦不住雷同。</b>对比度过了、字号看起来也合理，并不表示两套设计系统（design system）有各自的脸。Aljunaidy 在发布 ux-skill 4.0 之前，拿四个本不该相似的简报去跑引擎，得到的几乎是同一套排版、同一只信息蓝、同一个量级的圆角。四套系统通过了全部 324 项对比度检查。那些检查问的是「这一套对不对」，没有一套问「这两套是不是同一张脸」。</p>
+<p><b>第二，不要用「行业对照表」修雷同。</b>餐厅就圆角加亲切字体、诊所就放大字号、开发工具就深色加尖角——这只是一张行数更多的模板（template）。没被写进表里的第一份简报，表就会失效；写进表里的，又会让全世界的餐厅长成同一家餐厅。工具存在的理由，本来就是要打破这种千篇一律。</p>
+<p><b>第三，把「不同」测成一个可以失败的数字，并给它一块地板（floor）。</b>「再多样一点」不是测试，模型也无法对它通过或失败。Aljunaidy 的做法是：对每一对输出，测量人一眼能看到的差异（颜色、字体、字号、圆角、阴影、间距），得到 0 到 1 的距离（distance），再设一个下限。任何一对低于这块地板，测试套件就失败，改动不准合入。值必须从「这一份简报、这一个品牌」推出来，幅度要大到眼睛看得出来；读不懂的字段要明说，而不是报告「无需改动」。</p>
+
+<h2>02 为什么要拿四个不该相似的简报来试</h2>
+<p>ux-skill 是 Aljunaidy 做的开源设计引擎。你给它一个品牌色和一份简报，它就生成一套设计系统：色、字体、间距、圆角、动效。它存在的原因很明确：用 AI 工具做出来的页面长得都差不多，他希望这件事停下来。</p>
+<p>2026 年 9 月 25 日，4.0 已经接近发布。引擎能交出系统，每一套都能通过当时全部 324 项对比度检查。可那时的演示只跑在一张卡片上。一张卡片证明不了品牌——它太小，也太容易看起来「没问题」。于是他在继续往前走之前，先拿真实站点该有的尺度做了一次试验。下面是他写下、也建议你用在自己工具上的提示词：</p>
+<pre><code>Before we release, build four design systems from four briefs that should share nothing: an Arabic-first payments app for shop owners, a database tool for backend engineers that is dark by default, a warm and playful family restaurant, and a clinic where many patients are over 60. Put the four side by side and list everything that came out the same.</code></pre>
+<p>四个简报被故意选成「不该有共同点」：阿拉伯语优先的店主收款、默认深色的后端数据库工具、温暖俏皮的家庭餐厅、面向六十岁以上就诊者的诊所。测试输入不是挑好做的，而是挑最不该长得像的。这篇文章要讲的方法，并不只属于设计系统生成器。凡是会成批生成东西的工具——版式、文案、代码、组件——都可以沿用。</p>
+<div class="note"><p>很多人验收技能（Skill）或 <code>DESIGN.md</code> 时，只拿自己手头那一个产品跑一遍，通过了就发布。这一步的关键，是换成分歧极大的几份简报，并排放在一起看。一个人盯着自己的产品，很容易把「没出错」当成「有性格」。四份不该相似的输入并排，雷同会自己跳出来。</p></div>
+
+<h2>03 交出来的几乎是同一套系统</h2>
+<p>为了只比较系统、不比较页面结构，四份简报被放进同一张页面、用同一组文案。9 月 25 日那版引擎交出来的结果，几乎只在品牌色上有差别：</p>
+<table>
+<tr><th>简报</th><th>正文字号</th><th>标题字体</th><th>正文字体</th><th>按钮圆角</th></tr>
+<tr><td>诊所，就诊者多为 60 岁以上</td><td>16px</td><td>Source Sans 3</td><td>Source Sans 3</td><td>10px</td></tr>
+<tr><td>数据库工具，默认深色</td><td>16px</td><td>Manrope</td><td>Manrope</td><td>6px</td></tr>
+<tr><td>家庭餐厅，温暖俏皮</td><td>16px</td><td>IBM Plex Sans</td><td>IBM Plex Sans</td><td>8px</td></tr>
+<tr><td>收款应用，阿拉伯语优先</td><td>16px</td><td>IBM Plex Sans</td><td>IBM Plex Sans</td><td>6px</td></tr>
+</table>
+<p>给六十岁以上就诊者看的诊所，和给工程师用的工具，正文字号都是 16px。俏皮的餐厅，和收款应用用了同一套字体。四套系统都是标题、正文共用一个字体家族。信息提示用的蓝，四套也是同一只蓝。</p>
+<p>表里没写到的问题更要紧。简报被读过，随即被丢掉：引擎写明自己不认识「多为 60 岁以上」，把它忽略掉，然后报告「无需改动」。字体只留下了名字，没有给出加载方式，真实页面只能回退到计算机里已有的字体——并排的四张页因此看起来像同一张脸。品牌色也被改写：餐厅的橙色 <code>#E85D04</code> 被改成 <code>#BB4900</code>，理由是白字需要通过对比度；其实深色字叠在原来的橙色上，对比度同样能过。</p>
+<p>四套系统通过了全部对比度检查。用 Aljunaidy 的话说：这些检查问的是每一套是否正确，没有问两套之间是否不同。</p>
+
+<h2>04 错误修法：给每个行业做一张表</h2>
+<p>最快的修法是做一张分类表。餐厅等于圆角和友好字体，诊所等于大字，开发工具等于锋利和深色。Aljunaidy 把这条路直接判了死刑：一张表，只是行数更多的模板。它会在第一份没被列出的简报上失效，也会让所有餐厅都长成表里的那一家餐厅。而这正是工具想要打败的那种雷同。</p>
+<p>把这个判断放到日常工作里会更清楚。假设你让智能体同时给「夜班调度用的物流中台」和「六十岁以上家人用的照护预约」出设计系统。如果两套都是 16px Inter、8px 圆角、同一只信息蓝，对比度检查可能全过，两个产品却没有各自该有的阅读条件：中台该更密、更利落，状态色要在夜间也分得清；预约页该字号更大、间距更松、转角更软。这时如果修法是「医疗保健 = 大字，工具 = 紧凑」，下一份简报「医院放射科的内部工作站」就会把你卡住——它既是医疗场景，又是专家工具。表里没有这一行，不是因为例子不够多，而是因为这条路本身就走不通。</p>
+
+<h2>05 聪明地修：每个值都从这份简报推出来</h2>
+<p>他看完问题清单后，只下了一句裁定：</p>
+<blockquote><p>All correct. Fix it smartly, not statically.</p><cite>Laith Aljunaidy</cite></blockquote>
+<p>「静态」（statically）就是那张表。「聪明」（smartly）是：每一个值都从这一份简报、这一个品牌里算出来，幅度要大到人眼能看出差别。他把这条规则写成可以交给自己工具的提示词：</p>
+<pre><code>Do not add a lookup table per industry or per category. Work out every value from this brief and this brand: text size, typeface, corners, spacing, colour roles, motion. Use a range wide enough to see with the eye. Read who the product is for: age, languages, which script comes first, light or dark by default, read at a desk or on the go. Write the reason for each value into the report. If you could not read something in the brief, say what and how to give it to you. Never report that nothing needs doing.</code></pre>
+<p>这里有四条值得单独拆开。第一，禁止按行业或品类做查找表（lookup table），否则工具会重新学会一套「医疗脸」「工具脸」。第二，要读的是使用者是谁：年龄、语言、哪一种文字脚本优先、默认浅色还是深色、是坐在桌前看还是边走边看——这些不是装饰性标签，而是字号、字体、对比和间距的来源。第三，每个值都要在报告里写出理由；说不出理由的值，多半是默认值，不是决定。第四，读不懂不能装成没事。9 月那版正是在「不认识『多为 60 岁以上』」之后，报告无需改动，把最不该被忽略的阅读条件丢掉了。</p>
+<div class="note"><p>这条规则不只适用于生成完整设计系统的引擎。你在 <code>DESIGN.md</code>、前端 Skill 或一句话提示词里写「B 端要克制，C 端可以更活泼」，本质也是一张小表。更稳的写法是把对象写清楚，再让每一个 token 从对象推出来，并要求模型给出理由。品类标签可以当索引，不能当设计决定。</p></div>
+
+<h2>06 把「不同」写成可以失败的测试</h2>
+<p>「让它们更不同」不是工具能通过或失败的条件。数字才是。于是「不同」被写成一项测量：每一对系统，比较人一眼能看到的那些属性——颜色、字体、尺寸、圆角、阴影、间距——输出一个距离，0 表示完全相同，1 表示处处都不同。地板设在 0.20。试验简报里任何一对低于这个值，测试套件就失败；通不过套件的改动，不能合入。</p>
+<pre><code>For every pair of outputs, measure how far apart they are in what a person sees at a glance: colour, type, sizes, corners, shadows and spacing. Give me one number per pair, where 0 means identical and 1 means they differ in everything. Set a floor. Fail the tests if any pair is closer than the floor.</code></pre>
+<p>性格相关的修改在同一天进来：从 09:22 到 16:31，共 44 处改动。4.0 其余部分又花了五周。方法上的要点不是这个速度，而是：差异一旦变成测试，后续改动就不再靠作者「觉得这回好多了」。地板会替你盯着。</p>
+<p>0.20 这个数字本身不是真理，它是一个可调整的门槛。设得太低，几乎什么都能过；设得太高，两套只该在字体和色相上分道的系统也会被误杀。Aljunaidy 用四份「不该有共同点」的简报来标定：它们应当显著分开，但不必在每一个属性上都走到极端。两个系统仍可共享 16px 和 2px 圆角，只要字体、颜色和布局已经把距离拉开。</p>
+
+<h2>07 修好之后，四套系统差在哪里</h2>
+<p>同一组简报、同一张页面、同一组文案，到了 4.0.0，系统已经能分开：</p>
+<table>
+<tr><th>简报</th><th>正文字号</th><th>标题字体</th><th>正文字体</th><th>按钮圆角</th></tr>
+<tr><td>诊所，就诊者多为 60 岁以上</td><td>18px</td><td>Newsreader</td><td>Source Sans 3</td><td>9px</td></tr>
+<tr><td>数据库工具，默认深色</td><td>16px</td><td>Space Grotesk</td><td>Manrope</td><td>2px</td></tr>
+<tr><td>家庭餐厅，温暖俏皮</td><td>17px</td><td>Baloo 2</td><td>Nunito Sans</td><td>11px</td></tr>
+<tr><td>收款应用，阿拉伯语优先</td><td>16px</td><td>Sora，阿拉伯文用 Alexandria</td><td>IBM Plex Sans</td><td>2px</td></tr>
+</table>
+<p>诊所的正文变大，是因为简报写明了谁在读，报告里也写了这个理由。数据库工具默认进入深色，是因为简报要求如此。每一套都有独立的标题字体，并且带上了两种字体的加载方式。信息蓝也变成了四只不同的蓝，各自向品牌靠拢。</p>
+<p>数据库工具和收款应用仍然共享 16px 字号和 2px 圆角，但字体、颜色和布局已经分开，两者距离是 0.46，不是 0。六对距离都在 0.20 的地板之上，最低 0.41，最高 0.56：</p>
+<table>
+<tr><th>配对</th><th>距离</th></tr>
+<tr><td>诊所 × 数据库工具</td><td>0.41</td></tr>
+<tr><td>诊所 × 餐厅</td><td>0.53</td></tr>
+<tr><td>诊所 × 收款应用</td><td>0.46</td></tr>
+<tr><td>数据库工具 × 餐厅</td><td>0.56</td></tr>
+<tr><td>数据库工具 × 收款应用</td><td>0.46</td></tr>
+<tr><td>餐厅 × 收款应用</td><td>0.54</td></tr>
+</table>
+<p>仍有一处他并不满意：餐厅按钮在 4.0.0 里是 <code>#CA5000</code>，比 9 月的 <code>#BB4900</code> 更接近品牌色 <code>#E85D04</code>，但还不是那只橙。四张页面已经能成立，却还没有一张会让人停下来多看一眼。他接受了这一点：这一版叫 Foundations，做的是地基。试验当天早上引擎有 3,315 项测试，4.0.0 发布时是 13,059 项。</p>
+<div class="note"><p>地板保证的是「彼此能分开」，不保证「其中一套足够好」。0.46 的距离说明两套系统已经不像，并不说明任何一套已经有让人记住的细节。Aljunaidy 自己也把这层说清楚了。差异测试是防雷同的闸门，不是品味的上限。闸门之后，仍要有一处只有这个产品才会做的决定。</p></div>
+
+<h2>08 同一类疏忽：发布了，用户却拿不到</h2>
+<p>4.0 并没有在他说的那个时间点真正落到用户手里。他在 11 月 2 日打了 4.0.0 的标签；11 月 11 日再看陌生人安装时拿到的版本，公共注册源仍在提供 9 月 23 日发布的 3.2.0。发布说明写的是 4.0，安装命令拿到的是 3.2。这个状态持续了十天，直到 11 月 12 日 4.0.0 才被真正上传。</p>
+<p>这和 9 月的失败是同一种疏忽。他检查了自己这边：代码、标签、说明。他没有检查一个人实际拿到的是什么。于是他把下面这条写进了此后每一次发布：</p>
+<pre><code>After every release, install the package from the public registry on a clean machine, the way a new user would. Print the version. If it does not match the release, the release is not out. Tell me before anyone else finds it.</code></pre>
+<p>对设计技能和提示词库，这条同样有用。你更新了仓库里的 <code>SKILL.md</code>，并不等于同事或智能体已经在用新版本。以一个新用户的方式安装、调用一次，看它实际读到的是哪一版，才能说发布完成。</p>
+
+<h2>09 对照表：静态表，还是从简报推算</h2>
+<table>
+<tr><th></th><th>静态修法（对照表）</th><th>从简报推算（聪明地修）</th></tr>
+<tr><td>差异从哪来</td><td>按行业或品类查表：餐厅、诊所、工具各有一套预制脸</td><td>每一个值都从这一份简报、这一个品牌算出来</td></tr>
+<tr><td>遇到没见过的简报</td><td>表里没有这一行，就退回默认值，或硬套最近的一行</td><td>读取使用者是谁、在哪读、用哪种文字；读不懂就明说</td></tr>
+<tr><td>如何验收</td><td>单套输出是否「正确」（对比度、字号是否在常见范围）</td><td>多套本不该相似的输出并排，测量距离，低于地板则失败</td></tr>
+<tr><td>理由写在哪</td><td>通常不写。值来自表，没有针对这份简报的理由</td><td>每个值都要在报告里写出来源；说不出理由就当默认值追问</td></tr>
+<tr><td>典型后果</td><td>全世界的餐厅长成同一家；对照表以为自己在提供性格</td><td>两套系统仍可共享个别值，但整体距离必须被看见</td></tr>
+<tr><td>它不保证什么</td><td>既不保证不同，也不保证好</td><td>只保证彼此能分开，不保证其中一套已经值得停下来多看一眼</td></tr>
+</table>
+
+<h2>10 可粘贴：四简报试验、差异地板、发布核验</h2>
+<p>原文给出的是可直接复用的提示词。下面把它们收成三段，方便贴进你自己的技能、设计引擎或评测脚本。方括号需要你按自己的产品填写；第三段里的四份简报，请换成与你领域相关、且彼此不该相似的输入。</p>
+<pre><code>① 发布前的四简报试验
+
+在发布或更新技能 / 设计引擎之前，用四份「不该有共同点」的简报各生成一套设计系统。
+四份简报：[简报 A]；[简报 B]；[简报 C]；[简报 D]
+把四套结果并排放在同一版式、同一组文案里，只比较系统本身。
+列出所有相同的部分：字号、标题/正文字体、圆角、间距、信息色、动效，以及你看见但模型没汇报的雷同。
+如果某份简报里有读不懂的字段，必须写明读不懂的是什么、需要我怎样补给他，禁止报告「无需改动」。
+
+② 从简报推算，并测量差异
+
+不要按行业或品类添加查找表。
+每一个值都必须从这一份简报和这一个品牌推出来：字号、字体、圆角、间距、颜色角色、动效。
+幅度要大到眼睛能看出差别。
+先读使用者是谁：年龄、语言、哪一种文字脚本优先、默认浅色还是深色、在桌前读还是在移动中读。
+每个值都要在报告里写出理由。
+然后，对每一对输出，测量人一眼能看到的距离（颜色、字体、尺寸、圆角、阴影、间距），给出 0 到 1 的数字。
+地板：[例如 0.20]。任何一对低于地板，测试失败，改动不得合入。
+
+③ 按新用户的方式核验发布
+
+发布完成后，在干净环境里按新用户的方式安装或调用，打印实际拿到的版本。
+若与发布说明不一致，则发布尚未完成，先告诉我，再让别人去发现。</code></pre>
+
+<h2>11 自查清单</h2>
+<ul>
+<li>我验收技能或 <code>DESIGN.md</code> 时，是只拿自己那一个产品跑过，还是故意拿过几份不该相似的简报并排放在一起看？</li>
+<li>我的检查清单里，有没有一项是在问「这两套是不是同一张脸」，还是全部都在问「这一套对不对」？</li>
+<li>对比度、字号、圆角都通过之后，我有没有并排看过字体加载是否真的生效，还是只核对了字体名称？</li>
+<li>模型说「不认识」某个字段之后，它是明说了缺口，还是紧接着报告无需改动？</li>
+<li>为了让白字通过对比度，我有没有在不必改品牌色的情况下，把品牌色改深、改脏？</li>
+<li>我写给智能体的规则，是「B 端 / C 端 / 医疗 / 工具」这类对照表，还是要求每个 token 从这份简报里的对象推出来？</li>
+<li>每个值能否在报告里找到针对这份简报的理由？说不出理由的，是不是默认值？</li>
+<li>我有没有给「不同」设一块可以失败的地板，还是只在提示词里写了「避免千篇一律」？</li>
+<li>两套系统共享个别字号或圆角时，我是只盯着这一个值，还是看整体距离有没有拉开？</li>
+<li>差异测试通过之后，我有没有再问一句：有没有一处只有这个产品才会做的决定？还是只满足于「彼此已经不像」？</li>
+<li>我宣布技能或提示词库已更新时，有没有用新用户的方式安装、调用一次，核对实际读到的版本？</li>
+</ul>
+
+<h2>12 和读本相关篇怎么排</h2>
+<table>
+<tr><th>读本篇目</th><th>它解决什么</th><th>和本篇差在哪</th></tr>
+<tr><td><a href="avoid-the-ai-aesthetic.html">No.05 躲开 AI 审美默认值</a> / <a href="stop-shipping-the-average.html">No.24 别再交出平均水准</a></td><td>识别并抵制模型爱用的平均脸，先发散再按任务标准收敛</td><td>那两篇管的是「不要平均」；本篇补上一种可复验的方法：用分歧极大的简报并排，测量距离，给不同设地板</td></tr>
+<tr><td><a href="prompting-frontend-aesthetics-claude.html">No.29 四维提示词：把前端拉出 AI 默认脸</a> / <a href="ai-design-prompts-seven-decisions.html">No.50 别堆形容词：AI 设计提示的七项决策框架</a></td><td>用具体决策和约束写提示，而不是堆「现代、干净、高级」</td><td>本篇的对象不是单次提示的写法，而是生成器本身会不会把不同简报收成同一套系统</td></tr>
+<tr><td><a href="how-agents-build-on-brand-pages-with-design-md.html">No.03 用 design.md 让 Agent 做出品牌感页面</a> / <a href="design-md-what-fits.html">No.46 DESIGN.md 该写什么</a></td><td>把品牌与设计意图写成智能体可调用的文件</td><td>文件在，仍可能被读完再丢掉。本篇补的是验收：读不懂要明说，并检查真实页面是否真的加载了字体和品牌色</td></tr>
+<tr><td><a href="teaching-claude-frontend-design-skill.html">No.44 教 Claude 设计得更好</a> / <a href="improving-frontend-design-through-skills.html">No.01 用 Skills 改进前端设计</a></td><td>用 Skill 把品味和前端约束写进可复用的说明书</td><td>本篇提醒：Skill 的测试如果只检查单次输出是否正确，会把「四份简报同一张脸」放过去</td></tr>
+<tr><td><a href="designing-when-everything-is-easy.html">No.55 当一切都变得很容易</a></td><td>制作几乎免费之后，设计师要改做编辑，主要是删</td><td>那篇管的是页面上「只因为容易才留下」的效果；本篇管的是系统层「只因为正确就被放过」的雷同</td></tr>
+<tr><td><a href="nng-vague-prompts-design-interfaces.html">No.54 别用含糊提示：为什么模糊提示交不出界面</a></td><td>含糊提示得不到可执行的界面，要把对象、约束和成功标准写清楚</td><td>即使提示已经写清楚，生成器仍可能把清楚的差异抹平。本篇处理的是后一步：输出如何被测出「其实没有不同」</td></tr>
+</table>
+
+<h2>13 边界：不同不是装饰，是从对象推出来的决定</h2>
+<p>Aljunaidy 要解决的不是「再加一点装饰，让页面看起来不那么 AI」。他要解决的是生成器会把不同的对象收成同一套正确、合格、没有性格的系统。修法也不是给每个行业预备一张脸，而是让每个值从这一份简报里长出来，再用一块地板盯住彼此之间的距离。</p>
+<p>若只记住一件事：检查「对不对」，不会自动检查「是不是同一张脸」。发布前，拿几份不该相似的简报并排放在一起；不要用对照表冒充性格；每个值都要写得出理由；给不同设一块可以失败的地板；最后，像新用户一样安装一次，确认别人拿到的就是你以为发布的那一版。地板保证的是分开，不是出色。分开之后，仍要留下一处只有这个产品才会做的决定。</p>
+<p><a class="readorig" href="https://laithjunaidy.com/writing/four-briefs-one-design-system" target="_blank" rel="noopener">阅读原文 →</a></p>
+</article>
+</body></html>

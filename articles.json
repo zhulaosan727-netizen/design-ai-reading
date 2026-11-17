@@ -1302,5 +1302,27 @@
     "cover": "covers/four-briefs-one-design-system.svg",
     "accent": "#A86B1C",
     "tint": "#EEE6DE"
+  },
+  {
+    "slug": "1password-figma-make",
+    "title_zh": "像真的，才测得出信任",
+    "title_en": "How 1Password uses Figma Make to design for trust and certainty",
+    "author": "Matt Davey、Ryan Williamson-Cardneau",
+    "author_role": "Shortridge 为 Figma 客户市场经理（Customer Marketing Manager）；Davey 为 1Password 首席体验官（Chief Experience Officer），负责约 40 人的设计组织；Williamson-Cardneau 为 1Password 设计系统与设计语言（Design Systems & Design Language）高级经理",
+    "source": "https://www.figma.com/blog/1password-figma-make/",
+    "date": "2026-11-16",
+    "added": "2026-11-17",
+    "tags": [
+      "1Password",
+      "Figma Make",
+      "设计系统",
+      "原型",
+      "可用性测试"
+    ],
+    "dek": "空金库测不出信任；规范还要写成工具能用的上下文",
+    "category": "AI 设计工作流",
+    "cover": "covers/1password-figma-make.svg",
+    "accent": "#2A7A42",
+    "tint": "#E2EBE3"
   }
 ]

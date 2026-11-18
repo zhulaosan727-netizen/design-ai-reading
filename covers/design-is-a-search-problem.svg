@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#8A2A62">
+  <!-- 读本 cover system v1 · No.62 · AI widens the beam; the chosen path can go backward and still reach the goal because the heuristic, not the number of options, does the work -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.62 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">A WIDER BEAM</text>
+
+  <!-- faint search-space lattice: candidates, not yet chosen -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.2" stroke-opacity=".28" stroke-linecap="round">
+    <circle cx="180" cy="200" r="7"/>
+    <circle cx="340" cy="200" r="7"/>
+    <circle cx="500" cy="200" r="7"/>
+    <circle cx="660" cy="200" r="7"/>
+    <circle cx="820" cy="200" r="7"/>
+    <circle cx="180" cy="280" r="7"/>
+    <circle cx="500" cy="280" r="7"/>
+    <circle cx="660" cy="280" r="7"/>
+    <circle cx="820" cy="280" r="7"/>
+    <circle cx="980" cy="280" r="7"/>
+    <circle cx="500" cy="360" r="7"/>
+    <circle cx="660" cy="360" r="7"/>
+    <circle cx="820" cy="360" r="7"/>
+    <circle cx="980" cy="360" r="7"/>
+    <circle cx="180" cy="440" r="7"/>
+    <circle cx="340" cy="440" r="7"/>
+    <circle cx="500" cy="440" r="7"/>
+    <circle cx="660" cy="440" r="7"/>
+    <circle cx="820" cy="440" r="7"/>
+    <circle cx="980" cy="440" r="7"/>
+    <circle cx="180" cy="520" r="7"/>
+    <circle cx="340" cy="520" r="7"/>
+    <circle cx="500" cy="520" r="7"/>
+    <circle cx="660" cy="520" r="7"/>
+    <circle cx="820" cy="520" r="7"/>
+    <circle cx="980" cy="520" r="7"/>
+    <!-- faint unused edges, a dim graph -->
+    <path d="M180 200H340H500H660H820"/>
+    <path d="M180 280H340"/>
+    <path d="M500 280H660H820H980"/>
+    <path d="M180 440H340H500H660H820H980"/>
+    <path d="M180 520H340H500H660H820H980"/>
+    <path d="M180 200V280V440V520"/>
+    <path d="M340 200V440V520"/>
+    <path d="M500 200V280V360V440V520"/>
+    <path d="M660 200V280V360V440V520"/>
+    <path d="M820 200V280V360V440V520"/>
+    <path d="M980 280V360V440V520"/>
+  </g>
+
+  <!-- beam search: three forward-only paths that keep the mid band and miss the goal -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.75" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- beam path mid: looks strong, ends short of the goal -->
+    <path d="M180 360H340 500 660 820 980"/>
+    <circle cx="340" cy="360" r="8"/>
+    <circle cx="500" cy="360" r="8"/>
+    <circle cx="660" cy="360" r="8"/>
+    <circle cx="820" cy="360" r="8"/>
+    <circle cx="980" cy="360" r="8"/>
+    <!-- beam path high-mid, discarded early -->
+    <path d="M180 360L340 280H500 660"/>
+    <circle cx="500" cy="280" r="8"/>
+    <circle cx="660" cy="280" r="8"/>
+    <!-- beam path low, discarded -->
+    <path d="M180 360L340 440H500L660 520H820"/>
+    <circle cx="340" cy="440" r="8"/>
+    <circle cx="500" cy="440" r="8"/>
+    <circle cx="660" cy="520" r="8"/>
+    <circle cx="820" cy="520" r="8"/>
+    <!-- start node -->
+    <circle cx="180" cy="360" r="11"/>
+    <circle cx="180" cy="360" r="5"/>
+    <!-- dead-end ticks on discarded beam ends -->
+    <path d="M652 268L668 292M668 268L652 292" stroke-width="1.4" stroke-opacity=".55"/>
+    <path d="M808 508L832 532M832 508L808 532" stroke-width="1.4" stroke-opacity=".55"/>
+    <path d="M968 348L992 372M992 348L968 372" stroke-width="1.4" stroke-opacity=".55"/>
+  </g>
+
+  <!-- accent: A* path goes up, turns back, then reaches the goal -->
+  <g fill="none" stroke="#8A2A62" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- forward, then a visible backward hook, then on to the goal -->
+    <path d="M180 360L340 280L500 200"/>
+    <path d="M500 200C530 148 300 148 340 280"/>
+    <path d="M340 280L660 200H820L980 220"/>
+    <circle cx="340" cy="280" r="8"/>
+    <circle cx="500" cy="200" r="8"/>
+    <circle cx="660" cy="200" r="8"/>
+    <circle cx="820" cy="200" r="8"/>
+    <!-- goal -->
+    <circle cx="980" cy="220" r="12"/>
+    <!-- asterisk / A-star at the goal -->
+    <path d="M980 204V236M964 220H996M968.7 208.7L991.3 231.3M991.3 208.7L968.7 231.3" stroke-width="1.8"/>
+  </g>
+
+  <g font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".45">
+    <text x="180" y="396" text-anchor="middle">START</text>
+    <text x="980" y="258" text-anchor="middle">GOAL</text>
+    <text x="820" y="396">BEAM</text>
+    <text x="820" y="176" fill="#8A2A62" fill-opacity=".85">A*</text>
+  </g>
+
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">Design is a search problem</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">MATT STRÖM-AWN</text>
+</svg>

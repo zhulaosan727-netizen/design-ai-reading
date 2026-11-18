@@ -1324,5 +1324,29 @@
     "cover": "covers/1password-figma-make.svg",
     "accent": "#2A7A42",
     "tint": "#E2EBE3"
+  },
+  {
+    "slug": "design-is-a-search-problem",
+    "title_zh": "光束变宽了，启发式没有",
+    "title_en": "Design is a search problem",
+    "author": "Matt Ström-Awn",
+    "author_role": "设计领导者、设计师与工程师；2022–2024 年任 Stripe 设计总监（Design Director），带领增长、onboarding、开发者体验、移动端、Dashboard 与设计系统团队；2024–2025 年任 Copilot Money 设计负责人（Head of Design）。亦为 W3C Design Tokens Community Group 创始成员与编辑",
+    "source": "https://mattstromawn.com/writing/design-is-a-search-problem/",
+    "date": "2026-11-11",
+    "added": "2026-11-18",
+    "tags": [
+      "搜索",
+      "启发式",
+      "品味",
+      "探索",
+      "A*",
+      "Stripe",
+      "设计过程"
+    ],
+    "dek": "一次出十稿已经很便宜，估离目标还有多远，还得靠人",
+    "category": "AI 设计工作流",
+    "cover": "covers/design-is-a-search-problem.svg",
+    "accent": "#8A2A62",
+    "tint": "#F0E4E9"
   }
 ]

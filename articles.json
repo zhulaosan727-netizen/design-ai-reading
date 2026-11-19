@@ -1348,5 +1348,30 @@
     "cover": "covers/design-is-a-search-problem.svg",
     "accent": "#8A2A62",
     "tint": "#F0E4E9"
+  },
+  {
+    "slug": "zalando-zds-capsule-ai-prototyping",
+    "title_zh": "机器就绪了，协作还没有",
+    "title_en": "How Zalando built its own AI prototyping environment on top of its design system",
+    "author": "Sil Bormüller（撰文）／Dana Baddad、Gonzalo Vásquez Correa（Zalando）",
+    "author_role": "Sil Bormüller 为 Into Design Systems 创始人。文章根据 2026 年 10 月 22 日柏林 Meetup 上 Zalando 设计系统（ZDS）团队的分享写成，演讲题目为「Machine-Ready, but Human-First」。Dana Baddad 为 Zalando 高级产品设计师（Senior Product Designer）；Gonzalo Vásquez Correa 为 Zalando 设计系统团队高级产品设计师，负责 AI 启用与工具搭建",
+    "source": "https://www.intodesignsystems.com/blog/zalando-design-system-ai-prototyping-tool",
+    "date": "2026-10-31",
+    "added": "2026-11-19",
+    "tags": [
+      "Zalando",
+      "设计系统",
+      "原型",
+      "Claude Code",
+      "design.md",
+      "Skill",
+      "Code Connect",
+      "启用"
+    ],
+    "dek": "通用生成器做不出品牌；关键步骤写成脚本，交接另说",
+    "category": "AI 设计工作流",
+    "cover": "covers/zalando-zds-capsule-ai-prototyping.svg",
+    "accent": "#2E8A5A",
+    "tint": "#E1EBE4"
   }
 ]

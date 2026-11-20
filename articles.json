@@ -1373,5 +1373,28 @@
     "cover": "covers/zalando-zds-capsule-ai-prototyping.svg",
     "accent": "#2E8A5A",
     "tint": "#E1EBE4"
+  },
+  {
+    "slug": "design-by-playground",
+    "title_zh": "工具不必活过这个下午",
+    "title_en": "Design by Playground",
+    "author": "Luke Wroblewski",
+    "author_role": "国际知名数字产品领导者，现任 Sutter Hill Ventures 董事总经理（Managing Director）兼产品负责人（head of product）。此前在 Google 任产品总监（Product Director），负责 iOS 与 Android 跨产品体验等；曾创办 Polar（2014 年被 Google 收购）并任 CEO。著有《Mobile First》《Web Form Design》等",
+    "source": "https://www.lukew.com/ff/2172/design-by-playground",
+    "date": "2026-11-19",
+    "added": "2026-11-20",
+    "tags": [
+      "playground",
+      "原型",
+      "真实环境",
+      "一次性工具",
+      "AI 编程助手",
+      "变量"
+    ],
+    "dek": "为一个问题搭一场，看完就可以拆",
+    "category": "AI 设计工作流",
+    "cover": "covers/design-by-playground.svg",
+    "accent": "#3A3A9C",
+    "tint": "#E5E7F1"
   }
 ]

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#9A581C">
+  <!-- 读本 cover system v1 · No.65 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.65 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">ONE LINK, FULL CONTEXT</text>
+
+  <g fill="none" stroke="#1B2B26" stroke-width="1.7" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="100" y="170" width="168" height="126" rx="4"/>
+    <path d="M118 196H248M118 216H230M118 236H248M118 256H210"/>
+
+    <rect x="100" y="330" width="50" height="36" rx="3"/>
+    <rect x="168" y="330" width="50" height="36" rx="3"/>
+    <rect x="236" y="330" width="50" height="36" rx="3"/>
+    <path d="M150 348H168M218 348H236"/>
+    <path d="M125 366V390H255V366"/>
+
+    <rect x="100" y="430" width="168" height="196" rx="4"/>
+    <path d="M118 458H248"/>
+    <rect x="118" y="478" width="132" height="72" rx="3"/>
+    <path d="M130 500H232M130 520H210"/>
+    <rect x="118" y="564" width="54" height="22" rx="3"/>
+    <rect x="182" y="564" width="54" height="22" rx="3"/>
+    <circle cx="252" cy="452" r="8"/>
+    <path d="M252 460V476"/>
+
+    <rect x="300" y="200" width="176" height="160" rx="5"/>
+    <path d="M300 232H476"/>
+    <circle cx="320" cy="216" r="5"/>
+    <circle cx="338" cy="216" r="5"/>
+    <circle cx="356" cy="216" r="5"/>
+    <path d="M328 280C348 250 372 250 392 278C412 306 436 300 452 272"/>
+    <circle cx="360" cy="292" r="7"/>
+    <circle cx="404" cy="268" r="5"/>
+    <circle cx="336" cy="310" r="4"/>
+
+    <rect x="300" y="400" width="176" height="150" rx="5"/>
+    <rect x="324" y="428" width="128" height="44" rx="6"/>
+    <path d="M344 450H432"/>
+    <path d="M324 500H452M324 520H420"/>
+  </g>
+
+  <g fill="none" stroke="#1B2B26" stroke-width="1.35" stroke-opacity=".35" stroke-linecap="round">
+    <path d="M268 233H520"/>
+    <path d="M286 348C360 348 420 360 520 390"/>
+    <path d="M268 520C360 520 430 470 520 450"/>
+    <path d="M476 280C500 280 510 360 526 390"/>
+    <path d="M476 475C500 475 510 430 526 410"/>
+  </g>
+
+  <g fill="none" stroke="#9A581C" stroke-width="2.15" stroke-opacity=".9" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="526" y="210" width="248" height="340" rx="8"/>
+    <path d="M526 258H774"/>
+    <path d="M550 238H710" stroke-width="2"/>
+    <path d="M550 286H742M550 308H720M550 330H742"/>
+    <rect x="550" y="360" width="200" height="150" rx="3"/>
+    <path d="M550 392H750"/>
+    <path d="M616 360V510M690 360V510"/>
+    <path d="M564 414H600M564 438H600M564 462H600M564 486H600"/>
+    <path d="M630 414H676M630 438H676M630 462H676M630 486H668"/>
+    <path d="M704 414H736M704 438H736M704 462H728M704 486H736"/>
+    <path d="M774 380H834"/>
+    <path d="M822 368L834 380L822 392"/>
+  </g>
+
+  <g fill="none" stroke="#1B2B26" stroke-width="1.7" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="834" y="230" width="266" height="300" rx="8"/>
+    <path d="M834 272H1100"/>
+    <circle cx="856" cy="251" r="6"/>
+    <circle cx="878" cy="251" r="6"/>
+    <circle cx="900" cy="251" r="6"/>
+    <path d="M858 304H1040"/>
+    <path d="M858 332H1008M858 356H1060M858 380H980M858 404H1048M858 428H1000M858 452H1060M858 476H1016"/>
+  </g>
+
+  <g font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".45">
+    <text x="184" y="156" text-anchor="middle">SOURCES</text>
+    <text x="650" y="196" text-anchor="middle" fill="#9A581C" fill-opacity=".85">SPEC / PLAN</text>
+    <text x="967" y="216" text-anchor="middle">CODING AGENT</text>
+  </g>
+
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">Turning context into a plan</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">figma.com</text>
+</svg>

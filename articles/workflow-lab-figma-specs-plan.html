@@ -1,0 +1,131 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>先让上下文到场 · 读本</title><link rel="stylesheet" href="../assets/style.css"></head><body class="article" style="--tint:#EFE6DF">
+<section class="opening"><div class="t"><a class="mono" href="../index.html">← 读本 · 目录</a><div><div class="mono">No. 65 · AI 设计工作流 / Specs / Figma Agent / 上下文 / 实施计划 / MCP / Skill / 交接</div><h1>先让上下文到场</h1><div class="en">Workflow lab: Turning context into a plan with Specs and the Figma agent</div></div>
+<dl class="meta mono"><dt>作者</dt><dd>Johnny Dallas</dd><dt>身份</dt><dd>Figma 软件工程师（Software Engineer），Specs 技术负责人（tech lead）。常驻纽约（NYC）。2026 年初作为 Gather.town 团队的一员加入 Figma</dd><dt>日期</dt><dd>2026-11-20</dd><dt>原文</dt><dd><a href="https://www.figma.com/blog/workflow-lab-specs-and-the-figma-agent/">figma.com ↗</a></dd></dl><a class="readorig" href="https://www.figma.com/blog/workflow-lab-specs-and-the-figma-agent/" target="_blank" rel="noopener">阅读原文 →</a></div>
+<figure class="cover"><img src="../covers/workflow-lab-figma-specs-plan.svg" alt="Workflow lab: Turning context into a plan with Specs and the Figma agent 封面"></figure></section>
+<article class="body">
+<p class="notice">深度精讲：这不是译文，而是编者按「先让上下文到场」这一视角重写的讲解。原文是 Figma Specs 技术负责人 Johnny Dallas 在 2026 年 11 月 20 日发表的 Workflow lab，用虚构应用 Pickup 的配送功能，演示如何把散落的 PRD、数据、流程图、带批注的设计稿、代码图层（code layer）和设计系统说明收进画布上的 Spec，再用团队预设的 Skill 生成一份可评审的实施计划（implementation plan），最后把一条链接交给编码 Agent（文中是 Codex），经由 Figma 的 MCP（Model Context Protocol）读到计划背后的全部上下文。截图与逐步演示见原文，请点上方「阅读原文」。</p>
+<nav class="toc"><div class="mono">本篇目录</div><ol>
+<li>三句话结论</li>
+<li>原型变快之后，真正丢掉的是上下文</li>
+<li>Pickup：一个还没选定试点城市的配送功能</li>
+<li>先把数据请到画布上，再决定在哪座城市试点</li>
+<li>说明书、流程图、批注和可运行图层，要能被一起选中</li>
+<li>用 Skill 生成计划，但先人审、先补洞，再交接</li>
+<li>一条链接交给编码 Agent，要能打开整份上下文</li>
+<li>对照表：散落文档、单独的 Markdown、画布上的 Spec</li>
+<li>可粘贴：收拢上下文，并生成实施计划</li>
+<li>自查清单</li>
+<li>和读本相关篇怎么排</li>
+</ol></nav>
+
+<h2>01 三句话结论</h2>
+<p><b>第一，从原型到上线变快之后，团队最容易丢的不是稿，而是上下文（context）。</b>需求写在一份 PRD 里，流程画在 FigJam 里，界面在 Figma 文件里，用量数据在分析平台里，设计系统的使用说明又在别处。每一份材料单独看都「有记录」，可是要开工时，没人说得清还缺哪一条、该谁补。Johnny 要处理的，不是再发明一种文档格式，而是把这些材料收到它们所描述的工作旁边。</p>
+<p><b>第二，Specs 在这篇里被当成画布上的上下文容器（container），而不是又一份要人打开的说明书。</b>工程师可以让 Figma Agent 从外部工具把数据写成一份 Spec，把流程图嵌进技术说明，把带批注的设计稿、可运行的代码图层和新组件规则选在一起，再触发团队事先写好的 <code>build-implementation-plan</code> Skill，生成一份给编码 Agent 用的实施计划。计划里要有外观与行为，也要有测试、可观测性（observability）、灰度发布，以及回指到那些原始材料的引用。</p>
+<p><b>第三，交接的最小单位不再是「一份写完的 Markdown」，而是「一条能打开整份上下文的链接」。</b>工程师把 Spec 的链接贴进 Codex，只需提示 <code>Implement this feature</code>。经由 Figma 的 MCP，编码 Agent 读到的不只是那份计划正文，还包括它所依据的批注画框、代码图层、设计系统组件。生成可以很快；若上下文还散落在各处，快只会让错误的实现更快出现。</p>
+
+<h2>02 原型变快之后，真正丢掉的是上下文</h2>
+<p>这篇 Workflow lab 的起点，不是「Agent 会不会做界面」，而是一个已经很常见的场面：原型和代码来得很快，书面需求、设计细节和工程约束却仍散落在不同文档和链接里。团队以为自己在加速冲向正确的结果，其实是在分开的材料之间来回跳。跳得越勤，越难发现哪一条还没人确认。</p>
+<p>读本里其实已经收过 Specs 的产品说明：No.38 讲的是把 Markdown 做成画布上的协作容器，让意图、画框和 Agent 同屏。时隔一个多月，Johnny 作为 Specs 的技术负责人，补的是一条完整路径——上下文怎样被收拢，怎样变成一份可评审的计划，又怎样交到编码 Agent 手里。产品能力还是那些，这篇看的是顺序：先到场，再计划，再实现。</p>
+<p>这个顺序听起来像项目管理常识。它现在变得尖锐，是因为后面那一棒常常不再是「等工程师排期」，而是一个可以立刻开始写代码的 Agent。你交给它什么，它就按什么做。若你只丢过去一张终态画板，或一份删掉了例外条件的摘要，它会非常认真地把残缺的上下文做成能跑的功能。</p>
+<div class="note"><p>编者点评：许多交接事故并不是「没写下来」，而是「写在一个开工时不会被打开的地方」。PRD 里写过试点范围，设计批注里写过当地货币，法律意见写在会议纪要里——每条都有出处，只是出处不在实施现场。Agent 不会为你去翻那条被遗忘的链接，除非你先把这些材料放到它能看见的地方。</p></div>
+
+<h2>03 Pickup：一个还没选定试点城市的配送功能</h2>
+<p>Johnny 用一个虚构的市场购物应用 Pickup 来走完这条路径。团队要做一项新的配送功能。牵头的工程师盘点时，手里已经有不少东西：一份 PRD，一张 FigJam 里的流程图，以及一个 Figma 文件——里面有设计稿、代码图层和组件。材料并不少，麻烦在于：还看不清缺了什么，也不清楚谁还该补充意见。工程师的工作不是立刻写代码，而是先把点连起来。</p>
+<p>一个代码图层，在这篇里被明确成：画布上由正在运行的代码支撑的可交互原型。它不是一张看起来能点的热区，而是可以真正表现行为的东西。这一点后面会用到——当 Agent 需要理解「附近的商品如何成组、人移动时地图如何动」时，静态画框不够，得让它看见可运行的图层。</p>
+<p>编者补一个更接近 B 端后台的场景，方便对照。假设你在做企业管理后台的「导出数据」权限，而不是配送。Notion 里的 PRD 写着：欧盟区内的试用账号不能导出；FigJam 里画了管理员、成员、只读访客三条路径；Figma 画框上有一条批注：「额度应按工作空间的计费国家显示，不要跟浏览器语言走」；用量数据在分析表里，说明哪些套餐真的在用导出；设计系统刚刚加了 ExportAccess 组件，并写了何时不能继续用旧的 Download 按钮。若工程师或编码 Agent 只拿到终态画板，欧盟试用限制和计费国家这两条，就会变成「当初写过、后来没人再打开」的句子。Pickup 的配送功能，只是把同一种散落，放到一个更容易讲清楚的故事里。</p>
+
+<h2>04 先把数据请到画布上，再决定在哪座城市试点</h2>
+<p>工程师读 PRD 时发现：团队打算先在一座城市试点，但还没决定是哪一座。他不想在地图对象还没确定时就开始写实现，于是去查 Pickup 的用量——数据在团队的分析平台 Hex 里。下一步很关键：他不是自己做好一张图表再截图扔进聊天窗口，而是希望设计师和其他同事能在同一个共享空间里看见这些数据，并给出反应。</p>
+<p>他把 Hex 的连接器（connector）加进 Figma Agent 的对话，然后提示：</p>
+<pre><code>Go find where we have the most usage of Pickup and create a spec breaking that down. Also, update this map code layer to show usage data for the top cities.</code></pre>
+<p>Agent 交出来的是两样东西：一份带表格的 Spec，按城市列出应用用量和订单量；以及若干代码图层，为用量最高的四座城市分别画出地图。团队在画布上一起看这些数据和屏幕，随后把试点定在印度的班加罗尔（Bengaluru）——那里的客户密度和需求明显最高。城市不是在表格软件里拍板、再口头转告设计师的，而是在设计稿和可运行地图旁边被选定的。</p>
+<p>这里有一个容易被当成「演示技巧」忽略掉的设计判断：先回答会改变实现的问题，再开始实现。试点城市会决定地图数据、当地货币、运力假设，甚至第一期要不要做跨城。把「还没选定」留到编码阶段，后面所有界面都会带着一个假的默认值往前跑；而默认值一旦被做进原型，就很容易被误认为已经决定。</p>
+<div class="note"><p>编者点评：连接器的意义，不只是少做一次复制粘贴。它改变的是数据的位置。用量还留在分析平台里时，它是「工程师去查过的背景」；被写成画布上的 Spec，并更新到地图代码图层上之后，它才成为团队可以共同反应的材料。设计师不必会写 Hex 查询，也应当能在同一张画布上对「为什么是这座城市」表示同意或反对。</p></div>
+
+<h2>05 说明书、流程图、批注和可运行图层，要能被一起选中</h2>
+<p>城市一旦选定，工程师开始往同一张画布上收其余材料。他打开团队的技术说明，里面写了配送信息如何存储、功能如何向顾客开放、上线后如何监控问题；然后把已有的 FigJam 流程图拖进去——图上标着卖家、买家、司机各自做什么。文字说明和视觉流程不再是两个链接，而成了同一份 Spec 里可以并排看的东西。</p>
+<p>设计这边也不是「再等终稿」。画布上，设计师正在看最终屏幕，并在画框上加了批注：何时显示配送图标，以及价格必须按当地货币显示。设计和工程都已认可这些稿。工程师还放进一张班加罗尔地图的代码图层，好让 Agent 看见它应如何工作——例如附近的商品如何成组，人在地图上移动时如何产生动画。最后，他查看设计系统团队新做的组件：一层代码图层说明它如何运作，旁边一份书面 Spec 说明何时该用它、而不是沿用旧组件。</p>
+<p>把这些列出来，是为了看出「到场」的标准。不是把文件名堆进一份清单，而是让它们成为可被一起选中的对象：技术说明、带批注的设计画框、可交互的地图代码图层、新组件，以及设计系统的使用说明。选中之后，工程师才打开 Figma Agent，触发团队事先配置好的 <code>build-implementation-plan</code> Skill。这是一套可复用的指令，用来把刚才这些输入收成一份实施计划，写清功能应当长什么样、表现如何。</p>
+<p>Skill 在这里做的，不是「再写一段更完整的提示词」，而是把团队已经同意的收拢顺序固化下来。下次再做类似功能，不必重新解释「请把技术说明、批注、代码图层和组件规则一并考虑进去」——斜杠命令会带着这套要求出现。</p>
+<div class="note"><p>编者点评：批注里那句「按当地货币显示」，是整篇最好用的细节之一。它看起来像一句界面文案提醒，其实是一条会改接口、改格式化、改测试样本的实现约束。若它只留在设计稿的评论里，编码时极容易被收成「记得本地化」这种空话。让 Agent 在生成计划时就看见这条批注，计划里才有机会把它写成一项可执行、可回指的工作，而不是上线后才冒出来的缺陷。</p></div>
+
+<h2>06 用 Skill 生成计划，但先人审、先补洞，再交接</h2>
+<p>计划生成之后，Johnny 并没有立刻把它丢给编码 Agent。工程师先把 Spec 拉到全宽，检查它是否包含设计系统、测试与可观测性要求、发布细节，以及一张「要做哪些事才能做完并上线」的表；表还要回指到它所依据的 Spec、设计稿和代码图层。生成解决的是「把已在场的材料收成一份能审的计划」，不是「这份计划已经可以开工」。</p>
+<p>审的过程也被写进了工作流。工程师发现一处不对，在 Spec 上留下评论，并提示 Agent：<code>Read my comment and reply to it with a solution.</code> Agent 回一条评论，给出供他审阅的修改。读下去又发现另一处需要设计师判断，他便在评论里 @ 了对方。设计师收到通知，进入这份 Spec，当场改好。Agent 负责提出修正案，人负责决定哪一处可以接受、哪一处必须交给同事——两种评论在同一份计划上发生。</p>
+<p>这和「生成完就等于交接」是相反的姿势。计划是中间产物，评审才是交接的前门。若把 Skill 的输出直接贴进编码 Agent，前面那些批注、表格和回指都会变成未经确认的草稿，后面的实现会把草稿当成已决定的规格。</p>
+<div class="note"><p>编者点评：@ 同事这一步，标出了 Agent 不该被允许猜测的边界。当地货币怎么显示，也许可以从批注里推断；某条交互是否接受近似实现，往往只有当事设计师说了才算。生成计划的价值，是把这类必须由人拍板的点暴露出来，而不是把它们圆成一段听起来完整的说明。计划里出现「待确认」，不是失败，是它还活在协作里。</p></div>
+
+<h2>07 一条链接交给编码 Agent，要能打开整份上下文</h2>
+<p>审完之后，工程师复制这条 Spec 的链接，打开 Codex，贴上链接，只提示：<code>Implement this feature</code>。Johnny 写得很清楚：经由 Figma 的 MCP，Codex 读到的不只是这份 Spec，还包括进入计划的那些带批注的设计画框、代码图层、设计系统组件和其他上下文——全靠这一条链接。功能被实现之后，团队再审查、测试，然后才推向用户。</p>
+<p>「一条链接」容易被听成省事。真正省下的不是敲字，而是避免一次抽真空式的交接：过去常把设计稿「总结」成一段给工程看的说明，例外、动画、组件替换规则在摘要里被删掉，等实现出来再补。现在摘要不再是必经的损耗层。编码 Agent 可以直接回到计划所依据的那些对象上，而不是只看到计划自己的转述。</p>
+<p>回到前面「导出数据」的例子。如果交出去的只是一份「做导出权限」的文字说明，编码 Agent 多半会做出看起来正确的开关和按钮。如果这条链接还能打开「欧盟试用不可导出」的技术说明、计费国家的批注、ExportAccess 的使用规则，以及一份带真实套餐数据的表格或原型，它才有机会把例外做成逻辑，而不是做成默认开启的按钮。Pickup 故事里的班加罗尔地图，扮演的就是这个角色：让实现看见行为，而不是只看见一张地图样式。</p>
+
+<h2>08 对照表：散落文档、单独的 Markdown、画布上的 Spec</h2>
+<table>
+<tr><th></th><th>散落在各处的原始材料</th><th>单独一份 Markdown 说明书</th><th>画布上的 Spec + Agent + MCP</th></tr>
+<tr><td>上下文在哪</td><td>PRD、分析平台、FigJam、设计文件、组件文档各放各的</td><td>被人转写进一份文档；源材料仍在别处</td><td>说明、批注画框、代码图层、组件规则与计划同在画布上</td></tr>
+<tr><td>会改变实现的决定何时出现</td><td>常常在开工后才被重新发现，例如试点城市、当地货币、法律限制</td><td>取决于撰写人有没有把决定抄进来；抄漏了就消失</td><td>先把数据和约束请到画布上，再生成计划</td></tr>
+<tr><td>谁能一起改</td><td>各回各的工具，评论对不上同一处</td><td>多人可以改文档，但很难对着旁边的稿和可运行原型改</td><td>人和 Agent 都在同一份 Spec 上评论；需要判断时直接 @ 同事</td></tr>
+<tr><td>交给编码 Agent 的是什么</td><td>一串链接，或一张终态画板</td><td>一份文本，源画框和代码图层通常读不到</td><td>一条 Spec 链接，经 MCP 打开计划所依据的全部对象</td></tr>
+<tr><td>典型失败</td><td>每份材料都「有记录」，实施时却没人打开</td><td>摘要写得很完整，例外和交互细节在转写中被削掉</td><td>生成之后不审就交接，把未确认的草稿当成规格</td></tr>
+</table>
+
+<h2>09 可粘贴：收拢上下文，并生成实施计划</h2>
+<p>下面这组提示词按原文里的顺序排，可以直接改成自己的功能名。先准备好要选中的对象，再调用团队自己的 Skill；没有现成 Skill 时，把第三段当作一次性指令用也可以，但用过两次就应该写成可复用的 Skill。</p>
+<pre><code># 1. 把会改变实现的数据请到画布上
+# 先接好分析/表格类连接器，并选中要更新的代码图层
+Go find where we have the most usage of [功能名], and create a spec breaking that down.
+Also, update this [map / table] code layer to show usage data for the top [城市 / 套餐 / 区域].
+
+# 2. 生成实施计划（选中这些对象后再触发）
+# 技术 Spec、带批注的设计画框、相关代码图层、新组件、设计系统使用说明
+/build-implementation-plan
+
+# 若还没有这条 Skill，可用：
+Create a new spec that is an implementation plan for a coding agent.
+Use only the selected context. Include:
+- how the feature should look and behave
+- design system / component usage rules
+- testing and observability requirements
+- rollout details
+- a table of work items, each referencing the specs, frames, or code layers it comes from
+If a decision is still missing, list it as an open question; do not invent it.
+
+# 3. 审计划时，针对一条评论要修正案
+Read my comment and reply to it with a solution.
+
+# 4. 把 Spec 链接交给编码 Agent
+Implement this feature.
+Use the linked Figma spec as the source of truth, including its referenced frames, code layers, and design system components.
+Do not ignore open questions; stop and ask if they block implementation.</code></pre>
+<p>第四段里的后两句是编者加的。原文示范非常短：<code>Implement this feature</code>。短，是因为上下文已经在链接里。若你的 MCP 还读不到画框或代码图层，这条短提示就会退回「只按摘要实现」，需要先检查连接，而不是把提示词写得更长来弥补。</p>
+
+<h2>10 自查清单</h2>
+<ul>
+<li>会改变实现的决定（试点范围、法律限制、货币与地区、组件替换规则）是否已经出现在画布上，而不只是写在一份开工时不会被打开的文档里？</li>
+<li>数据是以可共同审看的方式到场的吗？表格、地图或代码图层能不能让设计师直接反应，而不是只存在工程师的查询结果里？</li>
+<li>选中并送去生成计划的对象，是否同时包括：技术说明、带批注的画框、表现关键行为的代码图层、新组件，以及「何时用它」的书面规则？</li>
+<li>团队是否已经把「如何收成实施计划」写成 Skill？若每次都重新口述一遍，计划的结构和回指会不稳定。</li>
+<li>生成之后，是否把 Spec 拉到全宽，检查过设计系统、测试、可观测性、发布步骤，以及工作项是否回指到源材料？</li>
+<li>计划里的错误，是在画布上用评论修的，还是直接丢给了编码 Agent？必须由设计师判断的点，有没有被人 @ 到？</li>
+<li>交给编码 Agent 的那条链接，经 MCP 是否真能打开画框、代码图层和组件？若实际上只读到 Markdown，这条工作流就还没有闭合。</li>
+<li>实现完成之后，是否还安排了人来审查和测试，而不是把「Agent 已经写出代码」当成可以发布？</li>
+</ul>
+
+<h2>11 和读本相关篇怎么排</h2>
+<table>
+<tr><th>读本篇目</th><th>它解决什么</th><th>和本篇差在哪</th></tr>
+<tr><td><a href="figma-specs-markdown-as-medium.html">No.38 Specs：把 Markdown 做成画布上的协作容器</a></td><td>Specs 是什么：让意图、画框和 Agent 在画布上同屏协作</td><td>那篇是产品说明；本篇补的是一条可重复的路径：收拢 → 生成计划 → 人审 → 一条链接交给编码 Agent</td></tr>
+<tr><td><a href="workflow-lab-figma-code-layers.html">No.51 画布上并排试代码原型</a></td><td>把代码图层放到画布上，并排比较可运行的原型</td><td>那篇把代码请回画布，是为了探索和合并方向；本篇把代码图层当成实施计划的输入，让编码 Agent 看见行为而不只看见样式</td></tr>
+<tr><td><a href="got-skills-figma-agent.html">No.18 把团队工作方式写成 Skill</a></td><td>把藏在脑子里的流程写成可触发的斜杠命令</td><td>本篇里的 <code>build-implementation-plan</code> 就是这种 Skill 的一次落地：收拢顺序被写成可复用指令，而不是每次重说一遍</td></tr>
+<tr><td><a href="building-frontend-uis-codex-figma.html">No.43 代码与画布来回走</a></td><td>用 Codex 与 Figma MCP 把代码和画布焊成可往返的工作面</td><td>那篇强调来回同步；本篇落在交接的那一下：链接必须能打开计划所依据的全部对象，而不是只交出一份摘要</td></tr>
+<tr><td><a href="design-by-playground.html">No.64 工具不必活过这个下午</a></td><td>为单个设计问题临时搭一个可调变量的专用场，看完就拆</td><td>那篇管探索时怎么得到更真的答案；本篇管答案既定之后，如何避免上下文在走向生产时再次散落</td></tr>
+<tr><td><a href="organizations-ddosed-from-the-inside.html">No.58 已经做完，不再等于该做</a></td><td>做完变得很容易之后，更要判断该不该做</td><td>两篇都在处理「快了以后的失败」。那篇管不该做的也被做出来；本篇管该做的被做快了，却做成了丢了约束的版本</td></tr>
+</table>
+
+<p>一句话收束：Agent 可以帮你把已经到场的上下文收成计划，也可以按计划去实现；它不能替你把还留在别处的限制请回来。先让该在场的材料到场，计划才值得交出去。</p>
+
+<div class="note"><p>编者点评：这篇是 Figma 自己的 Workflow lab，演示里用的是 Hex、Specs、Figma Agent、Codex 和 MCP。工具可以换，顺序不宜换。没有这些产品时，仍然可以问同一组问题：决定试点范围的数据在不在设计旁边？例外是写在批注里，还是只存在会议纪要里？你交给编码 Agent 的那一份，是转写后的摘要，还是它能回溯到的源材料？顺序对了，换一套工具也能做；顺序反了，再好的 Agent 也只是更快地实现一份不完整的说明。</p></div>
+</article>
+<footer class="mono">原文 © Johnny Dallas / Figma · 本页为编者原创的深度精讲，仅供学习参考</footer>
+</body></html>

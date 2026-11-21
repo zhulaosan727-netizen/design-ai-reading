@@ -1396,5 +1396,29 @@
     "cover": "covers/design-by-playground.svg",
     "accent": "#3A3A9C",
     "tint": "#E5E7F1"
+  },
+  {
+    "slug": "workflow-lab-figma-specs-plan",
+    "title_zh": "先让上下文到场",
+    "title_en": "Workflow lab: Turning context into a plan with Specs and the Figma agent",
+    "author": "Johnny Dallas",
+    "author_role": "Figma 软件工程师（Software Engineer），Specs 技术负责人（tech lead）。常驻纽约（NYC）。2026 年初作为 Gather.town 团队的一员加入 Figma",
+    "source": "https://www.figma.com/blog/workflow-lab-specs-and-the-figma-agent/",
+    "date": "2026-11-20",
+    "added": "2026-11-21",
+    "tags": [
+      "Specs",
+      "Figma Agent",
+      "上下文",
+      "实施计划",
+      "MCP",
+      "Skill",
+      "交接"
+    ],
+    "dek": "先把散落的上下文收进画布，再交出计划",
+    "category": "AI 设计工作流",
+    "cover": "covers/workflow-lab-figma-specs-plan.svg",
+    "accent": "#9A581C",
+    "tint": "#EFE6DF"
   }
 ]

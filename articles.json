@@ -1420,5 +1420,28 @@
     "cover": "covers/workflow-lab-figma-specs-plan.svg",
     "accent": "#9A581C",
     "tint": "#EFE6DF"
+  },
+  {
+    "slug": "nng-raw-vs-synthesized-research",
+    "title_zh": "先综合，再生成",
+    "title_en": "Can AI Generate Good Designs from Raw User Data?",
+    "author": "Megan Chan、Rachel Banawa",
+    "author_role": "Nielsen Norman Group（NN/G）体验专家（Experience Specialist）。Megan Chan 关注 AI 对设计工作、用户研究与交互设计的影响；Rachel Banawa 以定量方法与统计，把复杂数据转成可依据的洞察",
+    "source": "https://www.nngroup.com/articles/raw-data-vs-synthesized-data/",
+    "date": "2026-11-20",
+    "added": "2026-11-22",
+    "tags": [
+      "用户研究",
+      "综合发现",
+      "设计建议",
+      "上下文",
+      "AI 原型",
+      "评分卡"
+    ],
+    "dek": "原始评论只是观察；先综合成发现和建议，再生成界面",
+    "category": "AI 设计工作流",
+    "cover": "covers/nng-raw-vs-synthesized-research.svg",
+    "accent": "#A12E58",
+    "tint": "#F1E4E7"
   }
 ]

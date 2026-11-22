@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#A12E58">
+  <!-- 读本 cover system v1 · No.66 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.66 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">INTERPRET THEN GENERATE</text>
+
+  <!-- motif: scattered raw comments → interpretation layer → structured design -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.7" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- left: messy raw comment chips, overlapping, some contradictory -->
+    <rect x="96" y="186" width="168" height="54" rx="3"/>
+    <path d="M112 206H240M112 222H210"/>
+    <rect x="132" y="248" width="186" height="62" rx="3"/>
+    <path d="M148 268H292M148 286H250"/>
+    <rect x="88" y="328" width="152" height="50" rx="3"/>
+    <path d="M104 348H216M104 362H184"/>
+    <rect x="168" y="372" width="164" height="58" rx="3"/>
+    <path d="M184 392H308M184 410H260"/>
+    <rect x="100" y="448" width="140" height="48" rx="3"/>
+    <path d="M116 468H216M116 482H188"/>
+    <rect x="156" y="512" width="176" height="56" rx="3"/>
+    <path d="M172 532H308M172 548H250"/>
+    <!-- conflicting marks among comments -->
+    <path d="M250 206L268 248" stroke-opacity=".4"/>
+    <path d="M220 362L250 392" stroke-opacity=".4"/>
+    <path d="M148 398L132 448" stroke-opacity=".4"/>
+    <!-- a small 'x' suggesting a comment that does not help -->
+    <path d="M312 268L328 284M328 268L312 284" stroke-opacity=".45"/>
+  </g>
+
+  <!-- accent: the single interpretation layer that turns observations into decisions -->
+  <g fill="none" stroke="#A12E58" stroke-width="2.2" stroke-opacity=".9" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="400" y="210" width="248" height="340" rx="8"/>
+    <path d="M400 268H648"/>
+    <path d="M424 242H560" stroke-width="2"/>
+    <!-- findings block -->
+    <rect x="424" y="292" width="200" height="110" rx="3"/>
+    <path d="M440 316H600M440 336H572M440 356H588M440 376H548"/>
+    <!-- recommendations block -->
+    <rect x="424" y="422" width="200" height="100" rx="3"/>
+    <path d="M440 446H600M440 466H560M440 486H588"/>
+    <!-- arrow out -->
+    <path d="M648 380H710"/>
+    <path d="M694 364L710 380L694 396"/>
+  </g>
+
+  <g fill="none" stroke="#1B2B26" stroke-width="1.7" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- right: a clean structured form / flow -->
+    <rect x="710" y="200" width="390" height="360" rx="6"/>
+    <!-- header -->
+    <rect x="730" y="220" width="350" height="44" rx="2"/>
+    <path d="M746 244H980"/>
+    <!-- form fields stacked: general → specific, items remain visible -->
+    <rect x="730" y="280" width="350" height="64" rx="2"/>
+    <path d="M746 304H1000M746 322H920"/>
+    <rect x="730" y="356" width="350" height="64" rx="2"/>
+    <path d="M746 380H1000M746 398H900"/>
+    <!-- persistent summary rail (items / total stay in view) -->
+    <rect x="730" y="436" width="210" height="100" rx="2"/>
+    <path d="M746 460H900M746 480H860M746 500H888"/>
+    <rect x="954" y="436" width="126" height="100" rx="2"/>
+    <path d="M970 468H1060"/>
+    <rect x="970" y="488" width="94" height="28" rx="3"/>
+  </g>
+
+  <g font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".45">
+    <text x="196" y="168" text-anchor="middle">RAW COMMENTS</text>
+    <text x="524" y="196" text-anchor="middle" fill="#A12E58" fill-opacity=".85">FINDINGS / RECS</text>
+    <text x="905" y="184" text-anchor="middle">GENERATED UI</text>
+  </g>
+
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="#1B2B26">Can AI Generate Good Designs from Raw User Data?</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">NN/G</text>
+</svg>

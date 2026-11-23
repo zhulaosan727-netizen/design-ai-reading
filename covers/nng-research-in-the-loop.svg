@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#2B6380">
+  <!-- 读本 cover system v1 · No.67 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.67 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">RESEARCH IN THE LOOP</text>
+
+  <!-- return loop: from signals, under the stations, into the left edge of the spec — not through it -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.7" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M850 500C850 610 420 630 160 560C110 530 80 490 80 430H96"/>
+    <path d="M84 418L96 430L84 442"/>
+  </g>
+
+  <!-- left: product spec, ink -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.7" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="96" y="168" width="236" height="396" rx="6"/>
+    <path d="M116 196H250" stroke-width="2"/>
+    <path d="M116 228H300M116 248H276M116 268H288M116 288H252"/>
+  </g>
+
+  <!-- accent: the research section written into the same spec -->
+  <g fill="none" stroke="#2B6380" stroke-width="2.2" stroke-opacity=".9" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="116" y="322" width="196" height="216" rx="4"/>
+    <path d="M132 350H260"/>
+    <path d="M132 378H280M132 398H252M132 418H268"/>
+    <path d="M132 450H280M132 470H244"/>
+    <path d="M132 502H220"/>
+    <!-- handoff into the loop -->
+    <path d="M332 430H400"/>
+    <path d="M384 414L400 430L384 446"/>
+  </g>
+
+  <!-- center: feature and instrumentation ship as one unit -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.7" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="410" y="250" width="200" height="120" rx="4"/>
+    <path d="M428 278H580M428 298H548M428 318H564"/>
+    <rect x="410" y="386" width="200" height="88" rx="4"/>
+    <rect x="428" y="406" width="70" height="50" rx="2"/>
+    <rect x="510" y="406" width="80" height="50" rx="2"/>
+    <path d="M442 428H484M442 440H472M526 428H574M526 440H558"/>
+    <!-- track into release -->
+    <path d="M610 364H678"/>
+    <path d="M662 348L678 364L662 380"/>
+    <!-- release gate -->
+    <path d="M690 230V500"/>
+    <path d="M690 230H730M690 500H730"/>
+    <path d="M690 278H718M690 452H718"/>
+  </g>
+
+  <!-- right: release signals / dashboard, then talk-to-people -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.7" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="750" y="214" width="200" height="176" rx="4"/>
+    <path d="M768 240H918"/>
+    <path d="M780 360V300"/>
+    <path d="M814 360V288"/>
+    <path d="M848 360V248"/>
+    <path d="M882 360V312"/>
+    <!-- stall / anomaly tick, still ink: the dashboard finds who to talk to, it is not the accent -->
+    <path d="M848 248V228" stroke-opacity=".45"/>
+    <path d="M842 236L848 226L854 236" stroke-opacity=".45"/>
+    <!-- when to talk: two seats at a table -->
+    <path d="M790 430H910"/>
+    <circle cx="820" cy="458" r="16"/>
+    <circle cx="880" cy="458" r="16"/>
+    <path d="M850 430V500" stroke-opacity=".35"/>
+  </g>
+
+  <!-- far right, outside the instrumented loop: independent discovery -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.7" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1000 200V520H1140" stroke-opacity=".7"/>
+    <path d="M1024 260L1068 292L1048 340L1090 372L1060 424L1108 468" stroke-opacity=".7"/>
+    <circle cx="1024" cy="260" r="3.5" fill="#1B2B26" fill-opacity=".55" stroke="none"/>
+    <circle cx="1068" cy="292" r="3.5" fill="#1B2B26" fill-opacity=".55" stroke="none"/>
+    <circle cx="1048" cy="340" r="3.5" fill="#1B2B26" fill-opacity=".55" stroke="none"/>
+    <circle cx="1090" cy="372" r="3.5" fill="#1B2B26" fill-opacity=".55" stroke="none"/>
+    <circle cx="1060" cy="424" r="3.5" fill="#1B2B26" fill-opacity=".55" stroke="none"/>
+    <circle cx="1108" cy="468" r="3.5" fill="#1B2B26" fill-opacity=".55" stroke="none"/>
+  </g>
+
+  <g font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".45">
+    <text x="214" y="154" text-anchor="middle">SPEC</text>
+    <text x="214" y="348" text-anchor="middle" fill="#2B6380" fill-opacity=".85">RESEARCH REQ</text>
+    <text x="510" y="236" text-anchor="middle">FEATURE + INSTRUMENT</text>
+    <text x="850" y="200" text-anchor="middle">SIGNALS</text>
+    <text x="1070" y="184" text-anchor="middle">DISCOVERY</text>
+  </g>
+
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">Research-In-The-Loop</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">NN/G</text>
+</svg>

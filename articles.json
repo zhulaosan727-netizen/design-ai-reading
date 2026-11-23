@@ -1443,5 +1443,28 @@
     "cover": "covers/nng-raw-vs-synthesized-research.svg",
     "accent": "#A12E58",
     "tint": "#F1E4E7"
+  },
+  {
+    "slug": "nng-research-in-the-loop",
+    "title_zh": "把要证明的写进这一版",
+    "title_en": "Research-In-The-Loop: How UXR Adapts to Development at AI Speed",
+    "author": "Tony Alicea",
+    "author_role": "Nielsen Norman Group（NN/G）高级体验专家（Senior Experience Specialist）。技术教育者，拥有二十余年软件工程、UX 设计负责与用户研究负责经验，关注企业级软件中的可用性、无障碍与用户需求",
+    "source": "https://www.nngroup.com/articles/research-in-the-loop/",
+    "date": "2026-11-13",
+    "added": "2026-11-23",
+    "tags": [
+      "用户研究",
+      "研究进环",
+      "埋点",
+      "规格",
+      "评估",
+      "发现研究"
+    ],
+    "dek": "发布便宜了，不等于已经懂了；把要测的写进同一份规格",
+    "category": "AI 设计工作流",
+    "cover": "covers/nng-research-in-the-loop.svg",
+    "accent": "#2B6380",
+    "tint": "#E1E9EE"
   }
 ]

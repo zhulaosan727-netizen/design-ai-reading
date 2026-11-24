@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#8C3558">
+  <!-- 读本 cover system v1 · No.68 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.68 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">SET THE TABLE</text>
+
+  <!-- left: scattered pre-meeting context (stickies, notes, threads) -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.7" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(118,210) rotate(-14)">
+      <rect x="0" y="0" width="78" height="62" rx="3"/>
+      <path d="M12 20H58M12 34H46"/>
+    </g>
+    <g transform="translate(86,300) rotate(8)">
+      <rect x="0" y="0" width="86" height="68" rx="3"/>
+      <path d="M12 22H70M12 36H54M12 50H62"/>
+    </g>
+    <g transform="translate(168,392) rotate(-7)">
+      <rect x="0" y="0" width="74" height="58" rx="3"/>
+      <path d="M12 20H56M12 34H44"/>
+    </g>
+    <g transform="translate(78,470) rotate(11)">
+      <rect x="0" y="0" width="70" height="54" rx="3"/>
+      <path d="M12 20H52M12 34H40"/>
+    </g>
+    <!-- loose documents / slack-like thread -->
+    <rect x="220" y="168" width="92" height="118" rx="3"/>
+    <path d="M234 190H296M234 208H284M234 226H300M234 244H270"/>
+    <rect x="248" y="500" width="80" height="96" rx="3"/>
+    <path d="M260 522H312M260 538H300M260 554H316"/>
+    <circle cx="260" cy="580" r="7"/>
+    <circle cx="284" cy="580" r="7"/>
+    <circle cx="308" cy="580" r="7"/>
+  </g>
+
+  <!-- gathering paths into the table: still ink, they only lead -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.5" stroke-opacity=".55" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M310 230C360 230 380 280 410 300"/>
+    <path d="M200 360C300 360 360 340 410 340"/>
+    <path d="M240 430C320 430 370 400 410 390"/>
+    <path d="M328 548C360 520 380 470 410 450"/>
+  </g>
+
+  <!-- accent: the set table / shared board — the one act that matters -->
+  <g fill="none" stroke="#8C3558" stroke-width="2.2" stroke-opacity=".9" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="410" y="200" width="380" height="360" rx="8"/>
+    <!-- three tidy clusters on the board -->
+    <rect x="436" y="248" width="96" height="72" rx="3"/>
+    <rect x="548" y="248" width="96" height="72" rx="3"/>
+    <rect x="660" y="248" width="96" height="72" rx="3"/>
+    <path d="M452 272H516M452 288H498"/>
+    <path d="M564 272H628M564 288H610"/>
+    <path d="M676 272H740M676 288H722"/>
+    <!-- a second row, slightly tighter -->
+    <rect x="436" y="348" width="152" height="64" rx="3"/>
+    <rect x="608" y="348" width="152" height="64" rx="3"/>
+    <path d="M452 372H568M452 388H540"/>
+    <path d="M624 372H740M624 388H712"/>
+    <!-- the midline of a table, suggesting a shared surface -->
+    <path d="M436 448H754" stroke-opacity=".55" stroke-width="1.6"/>
+    <path d="M600 448V528" stroke-opacity=".4" stroke-width="1.6"/>
+    <!-- two seats: discussion stays human -->
+    <circle cx="548" cy="500" r="18"/>
+    <circle cx="652" cy="500" r="18"/>
+  </g>
+
+  <!-- right: two outputs after the meeting — spec, then a slide stack -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.7" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M790 300H848"/>
+    <path d="M832 284L848 300L832 316"/>
+    <rect x="860" y="168" width="200" height="250" rx="5"/>
+    <path d="M880 196H1040" stroke-width="2"/>
+    <path d="M880 228H1032M880 248H1008M880 268H1020M880 288H992"/>
+    <path d="M880 324H1032M880 344H1000M880 364H1016"/>
+    <path d="M880 396H960"/>
+
+    <path d="M790 470H848"/>
+    <path d="M832 454L848 470L832 486"/>
+    <!-- slide stack -->
+    <rect x="892" y="436" width="176" height="112" rx="4"/>
+    <rect x="876" y="452" width="176" height="112" rx="4"/>
+    <rect x="860" y="468" width="176" height="112" rx="4"/>
+    <path d="M880 500H1012M880 520H980M880 540H1000"/>
+  </g>
+
+  <g font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".45">
+    <text x="200" y="154" text-anchor="middle">CONTEXT</text>
+    <text x="600" y="184" text-anchor="middle" fill="#8C3558" fill-opacity=".85">BOARD</text>
+    <text x="960" y="154" text-anchor="middle">SPEC</text>
+    <text x="1048" y="426" text-anchor="end">DECK</text>
+  </g>
+
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">The Figma agent in FigJam and Slides</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">FIGMA</text>
+</svg>

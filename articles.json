@@ -1466,5 +1466,28 @@
     "cover": "covers/nng-research-in-the-loop.svg",
     "accent": "#2B6380",
     "tint": "#E1E9EE"
+  },
+  {
+    "slug": "figma-agent-figjam-slides",
+    "title_zh": "会前铺桌，会后成稿",
+    "title_en": "The Figma agent is now available in FigJam and Slides",
+    "author": "Jinen Kamdar",
+    "author_role": "Figma 产品总监（Director of Product）。加入 Figma 之前，担任 Gather Town 联合创始人兼首席产品官（CPO）。关注如何让人做出该做的事，而不只是把事情做对",
+    "source": "https://www.figma.com/blog/introducing-figma-agent-in-figjam-and-slides/",
+    "date": "2026-11-23",
+    "added": "2026-11-24",
+    "tags": [
+      "FigJam",
+      "Slides",
+      "设计评审",
+      "规格",
+      "协作",
+      "Agent"
+    ],
+    "dek": "Agent 走进 FigJam 和 Slides，把开会前后的杂活交出去",
+    "category": "AI 设计工作流",
+    "cover": "covers/figma-agent-figjam-slides.svg",
+    "accent": "#8C3558",
+    "tint": "#F0E4E8"
   }
 ]

@@ -1489,5 +1489,27 @@
     "cover": "covers/figma-agent-figjam-slides.svg",
     "accent": "#8C3558",
     "tint": "#F0E4E8"
+  },
+  {
+    "slug": "craft-first-ai-second",
+    "title_zh": "手艺在前，模型在后",
+    "title_en": "Craft first, AI second",
+    "author": "Romina Kavcic",
+    "author_role": "独立设计系统顾问，《The Design System Guide》作者。辅导团队落地设计系统、优化设计流程与策略；曾在多家公司担任创始设计师，客户包括 ARD.de、Domestic & General、Stellar.org 等",
+    "source": "https://learn.thedesignsystem.guide/p/craft-first-ai-second",
+    "date": "2026-11-23",
+    "added": "2026-11-25",
+    "tags": [
+      "手艺",
+      "品味",
+      "提示词",
+      "设计系统",
+      "知识图谱"
+    ],
+    "dek": "先把样子想清楚，再让 AI 去建",
+    "category": "独特审美",
+    "cover": "covers/craft-first-ai-second.svg",
+    "accent": "#A04828",
+    "tint": "#F1E5E1"
   }
 ]

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#A04828">
+  <!-- 读本 cover system v1 · No.69 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.69 · 独特审美</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">CRAFT FIRST</text>
+
+  <!-- ghost: the average three-card default you get if you start with the model -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.5" stroke-opacity=".42" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="168" y="430" width="132" height="160" rx="8"/>
+    <rect x="180" y="448" width="108" height="58" rx="3"/>
+    <path d="M184 524H292M184 540H268M184 556H280"/>
+    <rect x="324" y="430" width="132" height="160" rx="8"/>
+    <rect x="336" y="448" width="108" height="58" rx="3"/>
+    <path d="M340 524H448M340 540H424M340 556H436"/>
+    <rect x="480" y="430" width="132" height="160" rx="8"/>
+    <rect x="492" y="448" width="108" height="58" rx="3"/>
+    <path d="M496 524H604M496 540H580M496 556H592"/>
+  </g>
+
+  <!-- construction lines of a drafting table, ink -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.4" stroke-opacity=".35" stroke-linecap="round">
+    <path d="M140 200H620M140 200V400"/>
+    <path d="M140 200L128 188M140 200L152 188"/>
+    <path d="M200 168V400M280 176V400M400 168V400M520 180V400"/>
+    <path d="M128 260H620M128 320H620M128 380H400"/>
+  </g>
+
+  <!-- accent: the distinctive layout decided first — uneven, not a 3-card hero -->
+  <g fill="none" stroke="#A04828" stroke-width="2.2" stroke-opacity=".9" stroke-linecap="round" stroke-linejoin="round">
+    <!-- typographic block, tall and left-heavy -->
+    <path d="M168 214H430"/>
+    <path d="M168 214V248H390" stroke-width="3"/>
+    <path d="M168 262H340" stroke-width="1.8"/>
+    <path d="M168 280H300" stroke-width="1.8"/>
+    <!-- a dense, custom module instead of equal cards -->
+    <rect x="168" y="304" width="280" height="86" rx="3"/>
+    <path d="M184 328H320M184 346H280M184 364H300"/>
+    <rect x="360" y="322" width="70" height="52" rx="2"/>
+    <!-- an irregular side column: a deliberate, uneven proportion -->
+    <rect x="468" y="214" width="132" height="176" rx="3"/>
+    <path d="M486 240H582M486 258H560M486 276H574"/>
+    <path d="M486 310H582" stroke-opacity=".55" stroke-width="1.6"/>
+    <path d="M486 330H548M486 348H566"/>
+  </g>
+
+  <!-- path from craft decision into a built frame that keeps the same proportions -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".55" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M620 300H700"/>
+    <path d="M684 284L700 300L684 316"/>
+  </g>
+
+  <!-- the built result, ink: same unique proportions, now squared up — not the generic cards -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.7" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="716" y="200" width="364" height="360" rx="6"/>
+    <path d="M740 228H980"/>
+    <path d="M740 228V258H956" stroke-width="2.2"/>
+    <path d="M740 276H900M740 294H860"/>
+    <rect x="740" y="322" width="220" height="96" rx="3"/>
+    <path d="M756 348H920M756 366H880M756 384H900"/>
+    <rect x="976" y="322" width="80" height="96" rx="3"/>
+    <rect x="740" y="438" width="132" height="96" rx="3"/>
+    <rect x="888" y="438" width="168" height="96" rx="3"/>
+    <path d="M756 464H852M756 482H820"/>
+    <path d="M904 464H1036M904 482H1008"/>
+  </g>
+
+  <g font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".45">
+    <text x="384" y="176" text-anchor="middle" fill="#A04828" fill-opacity=".85">DECIDE</text>
+    <text x="898" y="176" text-anchor="middle">THEN BUILD</text>
+    <text x="384" y="616" text-anchor="middle">AVERAGE</text>
+  </g>
+
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">Craft first, AI second</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">THE DESIGN SYSTEM GUIDE</text>
+</svg>

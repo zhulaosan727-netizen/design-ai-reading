@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#1F6B4A">
+  <!-- 读本 cover system v1 · No.70 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.70 · 提示词与 Skill</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">SPLIT THEN LOOP</text>
+
+  <!-- left: a parts library tray — glass shell, pillar, ringed dots, field lines -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.5" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="96" y="150" width="300" height="460" rx="6"/>
+    <!-- glass shell -->
+    <circle cx="246" cy="290" r="72"/>
+    <circle cx="246" cy="290" r="54" stroke-opacity=".4"/>
+    <path d="M204 248C220 232 236 228 254 236" stroke-opacity=".55"/>
+    <!-- light pillar -->
+    <rect x="132" y="430" width="36" height="130" rx="18"/>
+    <path d="M150 430V400" stroke-opacity=".45"/>
+    <!-- ringed dots -->
+    <circle cx="214" cy="470" r="10"/>
+    <circle cx="214" cy="470" r="18" stroke-opacity=".45"/>
+    <circle cx="258" cy="508" r="8"/>
+    <circle cx="258" cy="508" r="15" stroke-opacity=".45"/>
+    <circle cx="300" cy="466" r="7"/>
+    <circle cx="300" cy="466" r="13" stroke-opacity=".45"/>
+    <!-- field lines spilling from the shell -->
+    <path d="M318 270C360 250 372 230 378 200" stroke-opacity=".55"/>
+    <path d="M322 290C370 280 386 270 396 246" stroke-opacity=".55"/>
+    <path d="M320 312C366 316 386 330 394 354" stroke-opacity=".55"/>
+  </g>
+
+  <!-- center: forgery test — originals above, recreations below -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- original cards -->
+    <rect x="448" y="168" width="100" height="124" rx="5"/>
+    <circle cx="498" cy="214" r="22"/>
+    <path d="M470 248H526M478 262H518"/>
+    <rect x="568" y="168" width="100" height="124" rx="5"/>
+    <rect x="600" y="196" width="16" height="52" rx="8"/>
+    <circle cx="608" cy="248" r="6"/>
+    <rect x="688" y="168" width="100" height="124" rx="5"/>
+    <circle cx="718" cy="206" r="7"/>
+    <circle cx="718" cy="206" r="14" stroke-opacity=".5"/>
+    <path d="M732 206C752 198 768 206 778 228" stroke-opacity=".7"/>
+    <path d="M730 216C748 214 762 224 776 246" stroke-opacity=".55"/>
+    <path d="M716 232H760M716 246H748" stroke-opacity=".7"/>
+
+    <!-- recreation cards: first two slightly off, third close -->
+    <rect x="448" y="396" width="100" height="124" rx="5"/>
+    <circle cx="498" cy="442" r="18"/>
+    <path d="M468 476H530M474 490H522"/>
+    <rect x="568" y="396" width="100" height="124" rx="5"/>
+    <rect x="592" y="424" width="22" height="64" rx="11"/>
+    <path d="M603 424V400" stroke-opacity=".45"/>
+    <rect x="688" y="396" width="100" height="124" rx="5"/>
+    <circle cx="722" cy="436" r="7"/>
+    <circle cx="722" cy="436" r="13" stroke-opacity=".5"/>
+    <path d="M736 434C754 422 770 430 778 454" stroke-opacity=".7"/>
+    <path d="M734 444C752 438 764 450 776 470" stroke-opacity=".45"/>
+    <path d="M714 460H754M714 474H740" stroke-opacity=".7"/>
+  </g>
+
+  <!-- faint comparison ticks in ink -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.3" stroke-opacity=".4" stroke-linecap="round">
+    <path d="M498 304V384"/>
+    <path d="M618 304V384"/>
+    <path d="M738 304V384"/>
+  </g>
+
+  <!-- accent: the self-improvement loop that compares output back to the originals -->
+  <g fill="none" stroke="#1F6B4A" stroke-width="2.2" stroke-opacity=".9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M430 330C410 330 396 348 396 372C396 430 430 470 498 470"/>
+    <path d="M778 470C846 470 880 430 880 372C880 348 866 330 846 330"/>
+    <path d="M846 330H430"/>
+    <path d="M418 318L430 330L418 342"/>
+  </g>
+
+  <!-- right: new work — tiny concept sketches, one human-chosen direction, a finished card -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.5" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="916" y="168" width="52" height="64" rx="3"/>
+    <circle cx="942" cy="194" r="10"/>
+    <rect x="980" y="168" width="52" height="64" rx="3"/>
+    <path d="M996 188H1016M996 200H1012"/>
+    <rect x="1044" y="168" width="52" height="64" rx="3"/>
+    <rect x="1060" y="186" width="20" height="28" rx="10"/>
+    <rect x="916" y="244" width="52" height="64" rx="3"/>
+    <circle cx="942" cy="270" r="8"/>
+    <circle cx="942" cy="270" r="14" stroke-opacity=".45"/>
+    <rect x="980" y="244" width="52" height="64" rx="3"/>
+    <path d="M994 268C1006 256 1018 256 1030 268"/>
+    <rect x="1044" y="244" width="52" height="64" rx="3"/>
+    <path d="M1058 268H1082M1062 280H1078"/>
+
+    <!-- chosen direction becomes a finished card -->
+    <rect x="916" y="360" width="180" height="220" rx="6"/>
+    <circle cx="1006" cy="436" r="28"/>
+    <circle cx="1006" cy="436" r="44" stroke-opacity=".45"/>
+    <path d="M952 510H1060M960 528H1044M968 546H1036"/>
+  </g>
+
+  <!-- a small human gate between sketches and the finished card -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".55" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1006 320V348"/>
+    <path d="M990 348H1022"/>
+    <path d="M996 360L1006 348L1016 360"/>
+  </g>
+
+  <g font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".45">
+    <text x="246" y="136" text-anchor="middle">PARTS</text>
+    <text x="618" y="148" text-anchor="middle">ORIGINALS</text>
+    <text x="618" y="568" text-anchor="middle">RECREATIONS</text>
+    <text x="1006" y="148" text-anchor="middle">CONCEPTS</text>
+    <text x="1006" y="616" text-anchor="middle">NEW WORK</text>
+    <text x="396" y="620" text-anchor="middle" fill="#1F6B4A" fill-opacity=".85">LOOP</text>
+  </g>
+
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="24" fill="#1B2B26">How I Turned Our Course Card Graphics into an AI Skill</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">MIKI BIN</text>
+</svg>

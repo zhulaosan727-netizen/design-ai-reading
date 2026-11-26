@@ -1511,5 +1511,27 @@
     "cover": "covers/craft-first-ai-second.svg",
     "accent": "#A04828",
     "tint": "#F1E5E1"
+  },
+  {
+    "slug": "course-card-graphics-ai-skill",
+    "title_zh": "先对临，再出题",
+    "title_en": "How I Turned Our Course Card Graphics into an AI Skill",
+    "author": "Miki Bin",
+    "author_role": "TAP（Training All People）创始设计师。曾在 Microsoft Research、Sonos 工作，2022 年于 Figma Config 分享无障碍实践",
+    "source": "https://mikibindesign.substack.com/p/how-i-turned-our-course-card-graphics",
+    "date": "2026-11-25",
+    "added": "2026-11-26",
+    "tags": [
+      "Skill",
+      "对临",
+      "自改进循环",
+      "抽象图形",
+      "提示词"
+    ],
+    "dek": "把样子和想法拆开，让模型自己对答案",
+    "category": "提示词与 Skill",
+    "cover": "covers/course-card-graphics-ai-skill.svg",
+    "accent": "#1F6B4A",
+    "tint": "#E0EBE5"
   }
 ]

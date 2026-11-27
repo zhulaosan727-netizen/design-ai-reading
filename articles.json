@@ -1533,5 +1533,27 @@
     "cover": "covers/course-card-graphics-ai-skill.svg",
     "accent": "#1F6B4A",
     "tint": "#E0EBE5"
+  },
+  {
+    "slug": "from-prototype-to-pull-request",
+    "title_zh": "能跑，还不等于能合",
+    "title_en": "From Prototype to Pull Request",
+    "author": "Jacquelyn Halpern",
+    "author_role": "Salesforce Trailhead，负责产品设计与 AI（Product Design and AI）",
+    "source": "https://uxmag.com/articles/from-prototype-to-pull-request",
+    "date": "2026-11-18",
+    "added": "2026-11-27",
+    "tags": [
+      "原型",
+      "拉取请求",
+      "设计系统",
+      "生产就绪",
+      "设计工程师"
+    ],
+    "dek": "零件对了，还不等于能合进产品",
+    "category": "AI 设计工作流",
+    "cover": "covers/from-prototype-to-pull-request.svg",
+    "accent": "#C4472A",
+    "tint": "#F1E5E2"
   }
 ]

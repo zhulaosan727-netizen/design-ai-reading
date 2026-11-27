@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#C4472A">
+  <!-- 读本 cover system v1 · No.71 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.71 · AI 设计工作流</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">SAME PARTS</text>
+
+  <!-- LEFT: disposable explorations built from the same parts, one will proceed -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.5" stroke-opacity=".42" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 5">
+    <!-- abandoned prototype, lower and faded -->
+    <rect x="156" y="400" width="168" height="200" rx="6"/>
+    <path d="M172 424H308"/>
+    <rect x="172" y="440" width="136" height="22" rx="3"/>
+    <rect x="172" y="472" width="136" height="22" rx="3"/>
+    <rect x="172" y="548" width="72" height="28" rx="14"/>
+    <!-- aborted branch, stops before the gate -->
+    <path d="M324 500H455" stroke-dasharray="4 6"/>
+    <path d="M455 492V508" stroke-dasharray="0"/>
+  </g>
+
+  <!-- the working prototype: same parts, solid ink, this one can go forward -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.7" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="128" y="168" width="220" height="280" rx="6"/>
+    <path d="M148 196H328" stroke-width="2.2"/>
+    <rect x="148" y="220" width="180" height="28" rx="3"/>
+    <rect x="148" y="260" width="180" height="28" rx="3"/>
+    <rect x="148" y="300" width="180" height="28" rx="3"/>
+    <rect x="148" y="388" width="88" height="32" rx="16"/>
+  </g>
+
+  <!-- CENTER: review gate — only a ready change may pass -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.8" stroke-opacity=".7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M520 180V560"/>
+    <path d="M620 180V560"/>
+    <path d="M520 180H548M592 180H620"/>
+    <path d="M520 560H548M592 560H620"/>
+    <!-- a narrow lintel, the checkpoint -->
+    <rect x="536" y="352" width="68" height="44" rx="3"/>
+    <path d="M548 374H592"/>
+  </g>
+
+  <!-- RIGHT: the product, assembled from the same parts -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.7" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="760" y="168" width="280" height="400" rx="6"/>
+    <path d="M780 200H1020" stroke-width="2.2"/>
+    <rect x="780" y="228" width="240" height="28" rx="3"/>
+    <rect x="780" y="268" width="240" height="28" rx="3"/>
+    <rect x="780" y="308" width="240" height="28" rx="3"/>
+    <rect x="780" y="348" width="240" height="28" rx="3"/>
+    <rect x="780" y="500" width="96" height="36" rx="18"/>
+    <!-- main trunk -->
+    <path d="M1088 150V580" stroke-width="2.4" stroke-opacity=".8"/>
+    <circle cx="1088" cy="150" r="5" fill="#1B2B26" fill-opacity=".75" stroke="none"/>
+    <circle cx="1088" cy="580" r="5" fill="#1B2B26" fill-opacity=".75" stroke="none"/>
+  </g>
+
+  <!-- accent: the one path that passes review and merges into main -->
+  <g fill="none" stroke="#C4472A" stroke-width="2.2" stroke-opacity=".9" stroke-linecap="round" stroke-linejoin="round">
+    <!-- through the review gate, then under the product, then merge into main -->
+    <path d="M348 374H700C730 374 748 400 748 430V608H1060C1076 608 1088 594 1088 578"/>
+    <path d="M1076 590L1088 578L1100 590"/>
+  </g>
+
+  <g font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".45">
+    <text x="238" y="148" text-anchor="middle">EXPLORE</text>
+    <text x="570" y="148" text-anchor="middle">REVIEW</text>
+    <text x="900" y="148" text-anchor="middle">MAIN</text>
+    <text x="570" y="616" text-anchor="middle" fill="#C4472A" fill-opacity=".85">MERGE</text>
+  </g>
+
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="30" fill="#1B2B26">From Prototype to Pull Request</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">UX MAGAZINE</text>
+</svg>

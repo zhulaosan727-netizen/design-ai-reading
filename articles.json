@@ -1555,5 +1555,27 @@
     "cover": "covers/from-prototype-to-pull-request.svg",
     "accent": "#C4472A",
     "tint": "#F1E5E2"
+  },
+  {
+    "slug": "most-ai-design-skills-do-nothing",
+    "title_zh": "技能不会看，你得自己尝",
+    "title_en": "Most AI design skills do nothing, but three are worth keeping",
+    "author": "Vadym Grin",
+    "author_role": "Eidos Design 创始人兼主编；本文为 Maria Sukhareva《AI Realist》特约稿",
+    "source": "https://msukhareva.substack.com/p/most-ai-design-skills-do-nothing",
+    "date": "2026-11-05",
+    "added": "2026-11-28",
+    "tags": [
+      "Skill",
+      "品味",
+      "反模式",
+      "品牌约束",
+      "评审"
+    ],
+    "dek": "再堆一本菜谱，也替不了最后一口",
+    "category": "提示词与 Skill",
+    "cover": "covers/most-ai-design-skills-do-nothing.svg",
+    "accent": "#8C6A1A",
+    "tint": "#ECE7DE"
   }
 ]

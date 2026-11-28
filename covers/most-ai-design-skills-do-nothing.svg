@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" data-accent="#8C6A1A">
+  <!-- 读本 cover system v1 · No.72 -->
+  <rect width="1200" height="750" fill="#E6E6E6"/>
+  <g stroke="#1B2B26" stroke-opacity=".12" stroke-width="1"><path d="M60 0V750M1140 0V750M0 90H1200M0 660H1200"/></g>
+  <text x="60" y="62" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26">读本 · NO.72 · 提示词与 Skill</text>
+  <text x="1140" y="62" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="15" letter-spacing="3" fill="#1B2B26" fill-opacity=".6">SKILLS HAVE NO EYES</text>
+
+  <!-- left: a messy stack of cookbooks / unused skills -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.5" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="rotate(-7 230 360)">
+      <rect x="110" y="168" width="200" height="28" rx="2"/>
+      <path d="M124 182H280" stroke-opacity=".35"/>
+    </g>
+    <g transform="rotate(4 240 330)">
+      <rect x="122" y="198" width="210" height="30" rx="2"/>
+      <path d="M138 213H308" stroke-opacity=".35"/>
+    </g>
+    <g transform="rotate(-3 236 300)">
+      <rect x="108" y="230" width="204" height="28" rx="2"/>
+      <path d="M122 244H286" stroke-opacity=".35"/>
+    </g>
+    <g transform="rotate(6 250 280)">
+      <rect x="130" y="260" width="216" height="30" rx="2"/>
+      <path d="M146 275H322" stroke-opacity=".35"/>
+    </g>
+    <g transform="rotate(-5 228 250)">
+      <rect x="106" y="294" width="208" height="28" rx="2"/>
+      <path d="M120 308H288" stroke-opacity=".35"/>
+    </g>
+    <g transform="rotate(2 240 230)">
+      <rect x="118" y="326" width="214" height="30" rx="2"/>
+      <path d="M134 341H308" stroke-opacity=".35"/>
+    </g>
+    <g transform="rotate(-4 232 210)">
+      <rect x="112" y="360" width="200" height="28" rx="2"/>
+      <path d="M126 374H286" stroke-opacity=".35"/>
+    </g>
+    <g transform="rotate(5 246 190)">
+      <rect x="126" y="392" width="212" height="30" rx="2"/>
+      <path d="M142 407H312" stroke-opacity=".35"/>
+    </g>
+    <!-- a closed, unused pile continues downward -->
+    <g transform="rotate(-2 230 170)">
+      <rect x="114" y="426" width="206" height="28" rx="2"/>
+    </g>
+    <g transform="rotate(3 238 150)">
+      <rect x="120" y="456" width="200" height="28" rx="2"/>
+    </g>
+    <g transform="rotate(-6 220 140)">
+      <rect x="108" y="488" width="196" height="26" rx="2"/>
+    </g>
+    <!-- no eyes on the pile: empty circles as unused "looking" marks, faint and cancelled -->
+    <circle cx="250" cy="560" r="16" stroke-opacity=".4"/>
+    <path d="M238 548L262 572" stroke-opacity=".4"/>
+  </g>
+
+  <!-- center: three skills, one job each — taste / checks / brand -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.6" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- taste: a short design plan card -->
+    <rect x="430" y="170" width="150" height="200" rx="5"/>
+    <path d="M452 206H558M452 226H530"/>
+    <rect x="452" y="250" width="22" height="22" rx="2"/>
+    <rect x="482" y="250" width="22" height="22" rx="2"/>
+    <rect x="512" y="250" width="22" height="22" rx="2"/>
+    <path d="M452 294H558M452 312H520"/>
+    <path d="M468 348C484 332 508 332 524 348" stroke-opacity=".7"/>
+
+    <!-- checks: a vertical audit list with ticks -->
+    <rect x="430" y="400" width="150" height="200" rx="5"/>
+    <path d="M456 436L468 448L492 424" stroke-width="1.8"/>
+    <path d="M508 436H558"/>
+    <path d="M456 476L468 488L492 464" stroke-width="1.8"/>
+    <path d="M508 476H548"/>
+    <circle cx="462" cy="524" r="8"/>
+    <path d="M508 524H558"/>
+    <path d="M456 560L468 572L492 548" stroke-width="1.8"/>
+    <path d="M508 560H540"/>
+
+    <!-- brand: a slim handwritten file, exact tokens -->
+    <rect x="620" y="256" width="150" height="248" rx="5"/>
+    <path d="M644 300H748"/>
+    <rect x="644" y="324" width="36" height="16" rx="1"/>
+    <rect x="688" y="324" width="36" height="16" rx="1"/>
+    <path d="M644 364H720M644 384H700"/>
+    <path d="M644 420H748" stroke-opacity=".45"/>
+    <path d="M644 444H748" stroke-dasharray="6 5" stroke-opacity=".7"/>
+    <path d="M644 464H720" stroke-dasharray="6 5" stroke-opacity=".7"/>
+    <path d="M644 484H700" stroke-dasharray="6 5" stroke-opacity=".7"/>
+  </g>
+
+  <!-- right: a served bowl / page, and the human tasting gesture -->
+  <g fill="none" stroke="#1B2B26" stroke-width="1.5" stroke-opacity=".75" stroke-linecap="round" stroke-linejoin="round">
+    <!-- the plate / page being judged -->
+    <rect x="860" y="200" width="230" height="300" rx="6"/>
+    <path d="M892 248H1058" stroke-opacity=".45"/>
+    <path d="M892 272H1010" stroke-opacity=".35"/>
+    <!-- a generic three-card tell, faint, to be tasted against -->
+    <rect x="892" y="304" width="50" height="70" rx="3" stroke-opacity=".45"/>
+    <rect x="950" y="304" width="50" height="70" rx="3" stroke-opacity=".45"/>
+    <rect x="1008" y="304" width="50" height="70" rx="3" stroke-opacity=".45"/>
+    <circle cx="917" cy="328" r="8" stroke-opacity=".4"/>
+    <circle cx="975" cy="328" r="8" stroke-opacity=".4"/>
+    <circle cx="1033" cy="328" r="8" stroke-opacity=".4"/>
+    <path d="M892 420H1058M892 444H1020M892 468H980" stroke-opacity=".4"/>
+  </g>
+
+  <!-- accent: the tasting spoon — the only "eyes" in the system -->
+  <g fill="none" stroke="#8C6A1A" stroke-width="2.2" stroke-opacity=".9" stroke-linecap="round" stroke-linejoin="round">
+    <!-- spoon bowl over the page -->
+    <ellipse cx="975" cy="560" rx="36" ry="16"/>
+    <path d="M1008 556C1080 540 1110 500 1110 430"/>
+    <path d="M1110 430C1110 412 1096 400 1078 400C1060 400 1048 412 1048 428C1048 444 1060 454 1076 454"/>
+    <!-- a small watching mark at the handle tip: the taster -->
+    <circle cx="1078" cy="427" r="7"/>
+  </g>
+
+  <g font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="1.5" fill="#1B2B26" fill-opacity=".45">
+    <text x="220" y="148" text-anchor="middle">COOKBOOKS</text>
+    <text x="505" y="156" text-anchor="middle">TASTE</text>
+    <text x="505" y="626" text-anchor="middle">CHECKS</text>
+    <text x="695" y="242" text-anchor="middle">BRAND</text>
+    <text x="975" y="186" text-anchor="middle">OUTPUT</text>
+    <text x="1078" y="390" text-anchor="middle" fill="#8C6A1A" fill-opacity=".85">TASTE</text>
+  </g>
+
+  <text x="60" y="708" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="24" fill="#1B2B26">Most AI design skills do nothing, but three are worth keeping</text>
+  <text x="1140" y="708" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="14" letter-spacing="2" fill="#1B2B26" fill-opacity=".6">AI REALIST</text>
+</svg>
